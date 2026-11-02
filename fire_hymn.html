@@ -1,0 +1,1199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fire-Hymn - Class 12 Bihar Board Quiz</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,800;1,400&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Canvas Confetti Library -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <!-- Chart.js for Analytics -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Outfit', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    },
+                    colors: {
+                        fireBrand: {
+                            50: '#fff1f2',
+                            100: '#ffe4e6',
+                            500: '#f43f5e',
+                            600: '#e11d48',
+                            700: '#be123c',
+                            800: '#9f1239',
+                            900: '#881337',
+                        },
+                        amberBrand: {
+                            500: '#f59e0b',
+                            600: '#d97706',
+                        }
+                    },
+                    animation: {
+                        'bounce-short': 'bounce 0.5s ease-in-out 1',
+                        'pop-in': 'popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards',
+                    },
+                    keyframes: {
+                        popIn: {
+                            '0%': { opacity: '0', transform: 'scale(0.8)' },
+                            '100%': { opacity: '1', transform: 'scale(1)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background: linear-gradient(135deg, #18080c 0%, #290e16 50%, #120508 100%);
+            min-height: 100vh;
+            color: #fce7f3;
+        }
+        .glass-card {
+            background: rgba(41, 14, 22, 0.75);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(244, 63, 94, 0.2);
+        }
+        .option-btn {
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .option-btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(244, 63, 94, 0.3);
+        }
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(20, 5, 9, 0.6);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(244, 63, 94, 0.5);
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(244, 63, 94, 0.8);
+        }
+    </style>
+</head>
+<body class="font-sans antialiased flex flex-col min-h-screen">
+
+    <!-- Top Header Navigation -->
+    <header class="w-full glass-card sticky top-0 z-40 border-b border-rose-900/50 px-4 py-3 sm:px-8">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-amber-500 to-rose-600 flex items-center justify-center shadow-lg shadow-rose-600/30">
+                    <i class="fa-solid fa-fire text-white text-lg"></i>
+                </div>
+                <div>
+                    <h1 class="font-serif text-lg sm:text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-amber-200 via-rose-300 to-red-300">
+                        Fire-Hymn
+                    </h1>
+                    <p class="text-xs text-rose-300/70">Class 12 Bihar Board (BSEB) English Rainbow Part-2</p>
+                </div>
+            </div>
+
+            <!-- Quiz Status Pill -->
+            <div id="topStatusPill" class="hidden sm:flex items-center gap-4 bg-black/40 px-4 py-1.5 rounded-full border border-rose-900/60">
+                <div class="flex items-center gap-2 text-xs font-semibold text-amber-400">
+                    <i class="fa-solid fa-clock"></i>
+                    <span id="topTotalTimer">00:00</span>
+                </div>
+                <div class="h-3 w-px bg-rose-900"></div>
+                <div class="flex items-center gap-2 text-xs font-semibold text-rose-300">
+                    <i class="fa-solid fa-bullseye"></i>
+                    <span id="topProgress">Q 1/50</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="flex-1 max-w-5xl w-full mx-auto p-4 sm:p-6 md:p-8 flex flex-col justify-center">
+
+        <!-- WELCOME SCREEN -->
+        <section id="welcomeScreen" class="glass-card rounded-3xl p-6 sm:p-10 text-center animate-pop-in shadow-2xl relative overflow-hidden my-auto">
+            <div class="absolute -top-24 -right-24 w-60 h-60 bg-rose-600/20 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="absolute -bottom-24 -left-24 w-60 h-60 bg-amber-600/20 rounded-full blur-3xl pointer-events-none"></div>
+
+            <span class="inline-block px-4 py-1.5 bg-rose-500/10 border border-rose-500/30 text-rose-300 rounded-full text-xs font-semibold tracking-wide uppercase mb-4">
+                BSEB Class 12 English Chapter Test
+            </span>
+
+            <h2 class="font-serif text-3xl sm:text-5xl font-extrabold text-white tracking-tight mb-4 leading-tight">
+                Master "Fire-Hymn"<br><span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-rose-400">by Keki N. Daruwalla</span>
+            </h2>
+
+            <p class="text-rose-200/80 max-w-2xl mx-auto text-sm sm:text-base leading-relaxed mb-8">
+                Test your comprehensive knowledge across <strong>50 distinct questions</strong> covering poet biography, Parsi Zoroastrian funeral rites, cremation symbolism, poem lines, metaphors, vocabulary, and Bihar Board exam patterns. Complete with live timers, celebration animations, and deep performance analytics!
+            </p>
+
+            <!-- Quiz Information Grid -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-3xl mx-auto mb-8">
+                <div class="bg-black/30 p-4 rounded-2xl border border-rose-900/50">
+                    <i class="fa-solid fa-list-check text-2xl text-rose-400 mb-2"></i>
+                    <div class="text-xl font-bold text-white">50</div>
+                    <div class="text-xs text-rose-300/70">Total Questions</div>
+                </div>
+                <div class="bg-black/30 p-4 rounded-2xl border border-rose-900/50">
+                    <i class="fa-solid fa-stopwatch text-2xl text-amber-400 mb-2"></i>
+                    <div class="text-xl font-bold text-white">Per Q.</div>
+                    <div class="text-xs text-rose-300/70">Timer Tracked</div>
+                </div>
+                <div class="bg-black/30 p-4 rounded-2xl border border-rose-900/50">
+                    <i class="fa-solid fa-award text-2xl text-emerald-400 mb-2"></i>
+                    <div class="text-xl font-bold text-white">+1 Marks</div>
+                    <div class="text-xs text-rose-300/70">No Negative</div>
+                </div>
+                <div class="bg-black/30 p-4 rounded-2xl border border-rose-900/50">
+                    <i class="fa-solid fa-chart-pie text-2xl text-amber-300 mb-2"></i>
+                    <div class="text-xl font-bold text-white">4 Topics</div>
+                    <div class="text-xs text-rose-300/70">Topic Analysis</div>
+                </div>
+            </div>
+
+            <button id="startBtn" onclick="startQuiz()" class="px-8 py-4 bg-gradient-to-r from-amber-500 via-rose-600 to-red-600 text-white font-bold text-lg rounded-2xl shadow-lg shadow-rose-600/30 hover:scale-105 active:scale-95 transition-all duration-300 flex items-center gap-3 mx-auto">
+                <span>Start 50-Question Quiz Now</span>
+                <i class="fa-solid fa-arrow-right"></i>
+            </button>
+        </section>
+
+
+        <!-- QUIZ INTERFACE SCREEN -->
+        <section id="quizScreen" class="hidden flex-col gap-6">
+
+            <!-- Progress & Stats Header -->
+            <div class="glass-card rounded-2xl p-4 sm:p-5 flex flex-col sm:flex-row justify-between items-center gap-4">
+                <!-- Left: Question Progress Bar -->
+                <div class="w-full sm:w-2/3">
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="text-xs font-semibold text-rose-300 uppercase tracking-wider" id="qCategoryBadge">
+                            Category: Poet Biography
+                        </span>
+                        <span class="text-xs font-bold text-rose-200" id="qNumberText">Question 1 of 50</span>
+                    </div>
+                    <div class="w-full bg-black/40 h-3 rounded-full overflow-hidden p-0.5 border border-rose-900/50">
+                        <div id="progressBar" class="h-full bg-gradient-to-r from-amber-500 via-rose-500 to-red-600 rounded-full transition-all duration-500 w-0"></div>
+                    </div>
+                </div>
+
+                <!-- Right: Question Timers -->
+                <div class="flex items-center gap-3 w-full sm:w-auto justify-end">
+                    <!-- Current Question Timer -->
+                    <div class="bg-black/50 border border-rose-900/60 rounded-xl px-3 py-1.5 flex items-center gap-2">
+                        <i class="fa-solid fa-hourglass-half text-amber-400 animate-spin" style="animation-duration: 4s;"></i>
+                        <div>
+                            <div class="text-[10px] text-rose-300/70 uppercase font-semibold leading-none">Question Time</div>
+                            <div class="text-sm font-bold text-amber-300 font-mono" id="qTimerText">00s</div>
+                        </div>
+                    </div>
+                    <!-- Total Time Elapsed -->
+                    <div class="bg-black/50 border border-rose-900/60 rounded-xl px-3 py-1.5 flex items-center gap-2">
+                        <i class="fa-solid fa-stopwatch text-rose-400"></i>
+                        <div>
+                            <div class="text-[10px] text-rose-300/70 uppercase font-semibold leading-none">Total Elapsed</div>
+                            <div class="text-sm font-bold text-rose-300 font-mono" id="totalTimerText">00:00</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question Card -->
+            <div class="glass-card rounded-3xl p-6 sm:p-8 relative shadow-2xl border border-rose-900/60">
+
+                <!-- Question Text -->
+                <div class="mb-6">
+                    <h3 id="questionText" class="text-lg sm:text-2xl font-semibold text-white leading-relaxed">
+                        Loading Question...
+                    </h3>
+                </div>
+
+                <!-- Options Grid -->
+                <div id="optionsContainer" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <!-- Option Buttons injected dynamically -->
+                </div>
+
+                <!-- Praise/Motivation Banner (Appears on Correct Response) -->
+                <div id="praiseBanner" class="hidden mt-6 p-4 rounded-2xl bg-gradient-to-r from-emerald-950/90 to-teal-950/90 border border-emerald-500/50 text-emerald-200 animate-pop-in flex items-center justify-between">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full bg-emerald-500/30 flex items-center justify-center text-emerald-300 text-xl font-bold">
+                            <i class="fa-solid fa-circle-check"></i>
+                        </div>
+                        <div>
+                            <p id="praiseText" class="font-bold text-emerald-300 text-base">Awesome Job! Brilliant Answer! 🔥</p>
+                            <p id="explanationText" class="text-xs text-emerald-100/80 mt-0.5">Keep up the great streak!</p>
+                        </div>
+                    </div>
+                    <span id="timeTakenBadge" class="text-xs bg-emerald-900/80 px-2.5 py-1 rounded-full text-emerald-300 font-mono border border-emerald-600">
+                        +1 Point
+                    </span>
+                </div>
+
+                <!-- Incorrect Banner -->
+                <div id="incorrectBanner" class="hidden mt-6 p-4 rounded-2xl bg-gradient-to-r from-rose-950/90 to-red-950/90 border border-rose-500/50 text-rose-200 animate-pop-in flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-full bg-rose-500/30 flex items-center justify-center text-rose-300 text-xl font-bold shrink-0">
+                        <i class="fa-solid fa-circle-xmark"></i>
+                    </div>
+                    <div>
+                        <p class="font-bold text-rose-300 text-base">Oops! That's not correct.</p>
+                        <p id="incorrectExpText" class="text-xs text-rose-100/90 mt-0.5"></p>
+                    </div>
+                </div>
+
+                <!-- Footer / Next Button -->
+                <div class="mt-8 flex justify-between items-center border-t border-rose-900/50 pt-5">
+                    <div class="text-xs text-rose-300/80">
+                        Score: <span id="liveScoreText" class="font-bold text-emerald-400">0</span> / 50
+                    </div>
+
+                    <button id="nextBtn" onclick="nextQuestion()" disabled class="px-6 py-3 bg-rose-700 opacity-50 cursor-not-allowed text-white font-bold rounded-xl transition-all flex items-center gap-2 hover:bg-rose-600">
+                        <span id="nextBtnText">Next Question</span>
+                        <i class="fa-solid fa-arrow-right text-sm"></i>
+                    </button>
+                </div>
+            </div>
+
+        </section>
+
+
+        <!-- DASHBOARD RESULT ANALYSIS SCREEN -->
+        <section id="resultScreen" class="hidden flex-col gap-6 my-auto animate-pop-in">
+            <!-- Result Top Card -->
+            <div class="glass-card rounded-3xl p-6 sm:p-8 text-center relative overflow-hidden">
+                <div class="absolute -top-16 -right-16 w-48 h-48 bg-amber-500/10 rounded-full blur-2xl"></div>
+
+                <div class="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-tr from-amber-500 to-rose-600 text-white text-3xl font-bold shadow-xl mb-4 border-4 border-black/40">
+                    <i id="badgeIcon" class="fa-solid fa-trophy text-amber-200"></i>
+                </div>
+
+                <h2 class="font-serif text-3xl sm:text-4xl font-extrabold text-white mb-2">Quiz Completed!</h2>
+                <p id="resultRemark" class="text-rose-200 text-sm sm:text-base max-w-xl mx-auto mb-6">
+                    Here is your detailed performance report for Class 12th Bihar Board English Chapter: "Fire-Hymn".
+                </p>
+
+                <!-- High Level Stats 4-Grid -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto mb-6">
+                    <div class="bg-black/40 p-4 rounded-2xl border border-rose-900/60 text-center">
+                        <span class="text-xs text-rose-300/70 font-semibold uppercase block mb-1">Score Obtained</span>
+                        <span id="finalScore" class="text-3xl font-extrabold text-emerald-400">0</span>
+                        <span class="text-xs text-rose-400/60"> / 50 Marks</span>
+                    </div>
+
+                    <div class="bg-black/40 p-4 rounded-2xl border border-rose-900/60 text-center">
+                        <span class="text-xs text-rose-300/70 font-semibold uppercase block mb-1">Accuracy</span>
+                        <span id="finalAccuracy" class="text-3xl font-extrabold text-amber-400">0%</span>
+                        <span id="accuracyLabel" class="text-xs text-rose-400/60 block">Overall Precision</span>
+                    </div>
+
+                    <div class="bg-black/40 p-4 rounded-2xl border border-rose-900/60 text-center">
+                        <span class="text-xs text-rose-300/70 font-semibold uppercase block mb-1">Total Time</span>
+                        <span id="finalTotalTime" class="text-3xl font-extrabold text-rose-300">00:00</span>
+                        <span id="avgTimePerQ" class="text-xs text-rose-400/60 block">Avg: 0s/Q</span>
+                    </div>
+
+                    <div class="bg-black/40 p-4 rounded-2xl border border-rose-900/60 text-center">
+                        <span class="text-xs text-rose-300/70 font-semibold uppercase block mb-1">Status</span>
+                        <span id="finalGrade" class="text-3xl font-extrabold text-amber-300">PASSED</span>
+                        <span class="text-xs text-rose-400/60 block">Bihar Board Std</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Topic-Wise Breakdown & Chart -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Topic Breakdown List -->
+                <div class="glass-card rounded-3xl p-6 flex flex-col justify-between">
+                    <h3 class="font-serif text-xl font-bold text-white mb-4 flex items-center gap-2">
+                        <i class="fa-solid fa-layer-group text-amber-400"></i> Topic-Wise Performance Breakdown
+                    </h3>
+                    <div id="topicBreakdownContainer" class="space-y-4">
+                        <!-- Dynamic topic bars injected here -->
+                    </div>
+                </div>
+
+                <!-- Topic Accuracy Chart -->
+                <div class="glass-card rounded-3xl p-6 flex flex-col justify-between">
+                    <h3 class="font-serif text-xl font-bold text-white mb-4 flex items-center gap-2">
+                        <i class="fa-solid fa-chart-bar text-rose-400"></i> Topic Mastery Chart
+                    </h3>
+                    <div class="relative h-64 w-full flex items-center justify-center">
+                        <canvas id="topicChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Detailed Question-by-Question Time & Accuracy Breakdown -->
+            <div class="glass-card rounded-3xl p-6">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6">
+                    <div>
+                        <h3 class="font-serif text-xl font-bold text-white flex items-center gap-2">
+                            <i class="fa-solid fa-clock-rotate-left text-amber-400"></i> Question-by-Question Detailed Analysis
+                        </h3>
+                        <p class="text-xs text-rose-300/70 mt-1">Review time spent and outcome for every single question</p>
+                    </div>
+                    <div class="flex gap-2">
+                        <span class="inline-flex items-center gap-1 text-xs px-2.5 py-1 bg-emerald-950 border border-emerald-700 text-emerald-300 rounded-lg">
+                            <span class="w-2 h-2 rounded-full bg-emerald-400"></span> Correct
+                        </span>
+                        <span class="inline-flex items-center gap-1 text-xs px-2.5 py-1 bg-rose-950 border border-rose-700 text-rose-300 rounded-lg">
+                            <span class="w-2 h-2 rounded-full bg-rose-400"></span> Incorrect
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Scrollable Table -->
+                <div class="overflow-x-auto max-h-96 pr-2">
+                    <table class="w-full text-left text-xs sm:text-sm text-rose-100">
+                        <thead class="bg-black/60 text-rose-300 uppercase text-[11px] sticky top-0 z-10">
+                            <tr>
+                                <th class="py-3 px-3 rounded-l-lg">Q#</th>
+                                <th class="py-3 px-3">Topic</th>
+                                <th class="py-3 px-3">Question Excerpt</th>
+                                <th class="py-3 px-3 text-center">Result</th>
+                                <th class="py-3 px-3 text-right rounded-r-lg">Time Spent</th>
+                            </tr>
+                        </thead>
+                        <tbody id="detailedTableBody" class="divide-y divide-rose-950">
+                            <!-- Rows injected dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center mt-2 mb-8">
+                <button onclick="restartQuiz()" class="w-full sm:w-auto px-8 py-3.5 bg-gradient-to-r from-amber-500 to-rose-600 text-white font-bold rounded-xl shadow-lg hover:scale-105 active:scale-95 transition flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-rotate-right"></i> Retake Quiz
+                </button>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="mt-auto py-4 text-center text-xs text-rose-400/60 border-t border-rose-900/40 glass-card">
+        <p>Class 12 Bihar State Education Board (BSEB) English Rainbow Part II • Chapter: Fire-Hymn by Keki N. Daruwalla</p>
+    </footer>
+
+    <!-- QUIZ LOGIC & QUESTIONS DATA -->
+    <script>
+        // 50 UNIQUE & DETAILED QUESTIONS ON "FIRE-HYMN" BY KEKI N. DARUWALLA
+        const questionsData = [
+            {
+                id: 1,
+                topic: "Poet Biography & Awards",
+                question: "Who is the poet of the poem 'Fire-Hymn'?",
+                options: ["W. H. Auden", "Keki N. Daruwalla", "Rupert Brooke", "T. S. Eliot"],
+                correct: 1,
+                explanation: "Keki N. Daruwalla is the author and poet of 'Fire-Hymn'."
+            },
+            {
+                id: 2,
+                topic: "Poet Biography & Awards",
+                question: "Keki N. Daruwalla is primarily known as an eminent ________ poet and writer.",
+                options: ["Indian-English", "British", "American", "Irish"],
+                correct: 0,
+                explanation: "Daruwalla is a celebrated Indian poet and short story writer writing in English."
+            },
+            {
+                id: 3,
+                topic: "Poet Biography & Awards",
+                question: "To which religious community does Keki N. Daruwalla belong?",
+                options: ["Parsi Zoroastrian", "Sikh", "Jain", "Christian"],
+                correct: 0,
+                explanation: "Daruwalla belongs to the Parsi community, which follows Zoroastrianism."
+            },
+            {
+                id: 4,
+                topic: "Poet Biography & Awards",
+                question: "In which year was Keki N. Daruwalla born?",
+                options: ["1935", "1937", "1942", "1947"],
+                correct: 1,
+                explanation: "Keki N. Daruwalla was born in Lahore (now Pakistan) in 1937."
+            },
+            {
+                id: 5,
+                topic: "Poet Biography & Awards",
+                question: "Which prestigious literary award was conferred upon Keki N. Daruwalla in 1984?",
+                options: ["Sahitya Akademi Award", "Jnanpith Award", "Padma Shri", "Booker Prize"],
+                correct: 0,
+                explanation: "Daruwalla received the Sahitya Akademi Award in 1984 for his poetry collection 'The Keeper of the Dead'."
+            },
+            {
+                id: 6,
+                topic: "Poet Biography & Awards",
+                question: "Which civilian honor was awarded to Keki N. Daruwalla by the Government of India in 2014?",
+                options: ["Padma Bhushan", "Padma Shri", "Padma Vibhushan", "Bharat Ratna"],
+                correct: 1,
+                explanation: "He was awarded the Padma Shri, India's fourth-highest civilian award, in 2014."
+            },
+            {
+                id: 7,
+                topic: "Poet Biography & Awards",
+                question: "Apart from writing poetry and stories, what was Keki N. Daruwalla's primary profession?",
+                options: ["Indian Police Service (IPS) officer", "Indian Foreign Service diplomat", "University professor", "Journalist"],
+                correct: 0,
+                explanation: "Daruwalla was a distinguished Indian Police Service (IPS) officer who served in high-ranking governmental posts."
+            },
+            {
+                id: 8,
+                topic: "Poet Biography & Awards",
+                question: "Which of the following poetry collections was written by Keki N. Daruwalla?",
+                options: ["Under Orion", "Leaves of Grass", "The Waste Land", "A Golden Treasury"],
+                correct: 0,
+                explanation: "'Under Orion' (1970) is one of Daruwalla's celebrated early poetry collections."
+            },
+            {
+                id: 9,
+                topic: "Poet Biography & Awards",
+                question: "What is the title of Daruwalla's poetry collection that won the Sahitya Akademi Award?",
+                options: ["Crossing of Rivers", "The Keeper of the Dead", "Apparition in April", "Winter Poems"],
+                correct: 1,
+                explanation: "'The Keeper of the Dead' (1982) earned him the Sahitya Akademi Award in 1984."
+            },
+            {
+                id: 10,
+                topic: "Poet Biography & Awards",
+                question: "Where did Keki N. Daruwalla spend his early life before partition and settling in India?",
+                options: ["Lahore", "Bombay", "Delhi", "Calcutta"],
+                correct: 0,
+                explanation: "Daruwalla was born and spent his early years in Lahore."
+            },
+            {
+                id: 11,
+                topic: "Parsi Culture & Themes",
+                question: "In Zoroastrianism, what element is held sacred and worshipped with utmost reverence?",
+                options: ["Fire", "Water", "Earth", "Air"],
+                correct: 0,
+                explanation: "Fire is considered sacred in Parsi Zoroastrianism and is worshipped in fire temples."
+            },
+            {
+                id: 12,
+                topic: "Parsi Culture & Themes",
+                question: "According to the poem, what incident does the poet witness with his father?",
+                options: ["A burning ghat where a dead body was being cremated", "A forest wildfire", "An oil refinery accident", "A volcanic eruption"],
+                correct: 0,
+                explanation: "The poem describes passing by cremation ghats with his father at dawn."
+            },
+            {
+                id: 13,
+                topic: "Parsi Culture & Themes",
+                question: "Why does cremation seem 'inhuman' or shocking to the Parsi poet in the poem?",
+                options: ["Because fire is considered sacred and holy to be polluted by dead bodies", "Because wood is too expensive", "Because burial is legally required in India", "Because ghosts appear near ghats"],
+                correct: 0,
+                explanation: "To a Parsi who reveres fire as a holy life-giver, burning human flesh in fire feels sacrilegious."
+            },
+            {
+                id: 14,
+                topic: "Parsi Culture & Themes",
+                question: "What does the fire sometimes fail to do completely, according to the poem's description of the ghat?",
+                options: ["Burn bones completely ('grey ash')", "Emit smoke", "Warm the surroundings", "Illuminate the dark"],
+                correct: 0,
+                explanation: "The fire occasionally leaves half-burnt limbs and bones ('debauched fire')."
+            },
+            {
+                id: 15,
+                topic: "Parsi Culture & Themes",
+                question: "The phrase 'debauched fire' in the poem implies that fire:",
+                options: ["Fails to perform its duty properly by leaving half-burnt bodies", "Is extremely bright", "Is holy and pure", "Burns very quickly"],
+                correct: 0,
+                explanation: "Fire is termed 'debauched' because it corrupts its sacred nature by letting half-burnt human flesh escape."
+            },
+            {
+                id: 16,
+                topic: "Parsi Culture & Themes",
+                question: "How far away was the burning ghat when the poet and his father walked past it?",
+                options: ["Twenty miles", "Two miles", "Five miles", "Ten miles"],
+                correct: 0,
+                explanation: "The poem opens: 'The burning ghat flared out of the dark / and ember-glowing chunks of bone / peered through it. Twenty miles out on the road…'"
+            },
+            {
+                id: 17,
+                topic: "Parsi Culture & Themes",
+                question: "At what time of day did the poet and his father witness the embers glowing?",
+                options: ["At midnight", "At dawn / early morning", "At noon", "At sunset"],
+                correct: 1,
+                explanation: "The encounter happens at dawn: 'passing by the ghats / as the morning twilight flickered…'"
+            },
+            {
+                id: 18,
+                topic: "Parsi Culture & Themes",
+                question: "What did the poet's father point out to him near the ghat?",
+                options: ["The gray ash flickering in the dark", "A migrating bird", "A flowing river", "An old temple"],
+                correct: 0,
+                explanation: "His father pointed out the gray embers and half-burnt bones."
+            },
+            {
+                id: 19,
+                topic: "Parsi Culture & Themes",
+                question: "In traditional Parsi customs, what is the traditional method of disposing of the dead?",
+                options: ["Leaving bodies in the Tower of Silence (Dakhma) to be consumed by vultures", "Burial in deep graves", "Cremation in electric crematoriums", "Burial at sea"],
+                correct: 0,
+                explanation: "Tradionally, Parsis expose bodies in Towers of Silence because earth, fire, and water are considered sacred elements."
+            },
+            {
+                id: 20,
+                topic: "Parsi Culture & Themes",
+                question: "Why did the poet consign his firstborn child to the fire twenty years ago?",
+                options: ["Because the nearest tower of silence was a thousand miles away", "Because he wanted a modern funeral", "Because of government rules", "Because of a famine"],
+                correct: 0,
+                explanation: "The poem states: 'twenty years since as I consigned my firstborn to the fire… the nearest tower was thousand miles away'."
+            },
+            {
+                id: 21,
+                topic: "Parsi Culture & Themes",
+                question: "What penalty or sin does the poet feel he committed by cremating his child?",
+                options: ["Sin of forgetting / betraying his religious faith", "Crime of murder", "Violation of municipal law", "Disrespect to his wife"],
+                correct: 0,
+                explanation: "He calls cremation a violation of his religious tradition, prompting him to seek forgiveness from fire."
+            },
+            {
+                id: 22,
+                topic: "Poem Lines & Imagery",
+                question: "Complete the opening line: 'The burning ghat flared out of the ________,'",
+                options: ["dark", "night", "sky", "smoke"],
+                correct: 0,
+                explanation: "The poem begins: 'The burning ghat flared out of the dark'."
+            },
+            {
+                id: 23,
+                topic: "Poem Lines & Imagery",
+                question: "What peered through the burning ghat in the darkness?",
+                options: ["Ember-glowing chunks of bone", "Shadowy ghosts", "Wild animals", "Grieving relatives"],
+                correct: 0,
+                explanation: "'and ember-glowing chunks of bone / peered through it'."
+            },
+            {
+                id: 24,
+                topic: "Poem Lines & Imagery",
+                question: "The fire is described as forgetting its ________.",
+                options: ["dead", "power", "heat", "duty"],
+                correct: 0,
+                explanation: "The poem states: 'The fire sometimes forgets its dead'."
+            },
+            {
+                id: 25,
+                topic: "Poem Lines & Imagery",
+                question: "What does the phrase 'red-hot phosphorescence' refer to in the poem?",
+                options: ["Glow of burning embers and bones", "Lightning in the sky", "Stars at night", "Molten lava"],
+                correct: 0,
+                explanation: "It refers to the glowing embers of bones left behind by the fire."
+            },
+            {
+                id: 26,
+                topic: "Poem Lines & Imagery",
+                question: "What did the fire do to the dead bodies that made the poet call it 'debauched'?",
+                options: ["Left bodies half-burnt", "Made too much smoke", "Spread to nearby trees", "Burned too slowly"],
+                correct: 0,
+                explanation: "It left bodies half-burnt, failing to consume them fully ('debauched fire')."
+            },
+            {
+                id: 27,
+                topic: "Poem Lines & Imagery",
+                question: "How many years ago had the poet consigned his firstborn child to the fire?",
+                options: ["Ten years", "Fifteen years", "Twenty years", "Twenty-five years"],
+                correct: 2,
+                explanation: "'The fire-hymn said me, / twenty years since as I consigned my firstborn to the fire…'"
+            },
+            {
+                id: 28,
+                topic: "Poem Lines & Imagery",
+                question: "Why was the firstborn child cremated instead of undergoing traditional Parsi funeral rites?",
+                options: ["The nearest Tower of Silence was a thousand miles away", "The child was born abroad", "There was no tower left", "His father ordered it"],
+                correct: 0,
+                explanation: "Because 'the nearest tower was thousand miles away'."
+            },
+            {
+                id: 29,
+                topic: "Poem Lines & Imagery",
+                question: "What oath or promise did the poet make to fire after consigning his child?",
+                options: ["To save fire from the sin of forgetfulness", "Never to use fire again", "To worship fire daily", "To build a fire temple"],
+                correct: 0,
+                explanation: "He swore to save fire from the sin of forgetting."
+            },
+            {
+                id: 30,
+                topic: "Poem Lines & Imagery",
+                question: "What does the poet mean by 'I swore to save it from the sin of forgetfulness'?",
+                options: ["To remind fire of its duty to burn completely and not leave bodies half-burned", "To put out forest fires", "To keep matches dry", "To save firewood"],
+                correct: 0,
+                explanation: "He vowed to make sure fire completes its cremation task."
+            },
+            {
+                id: 31,
+                topic: "Literary Devices & Vocabulary",
+                question: "What does the word 'Ghat' mean in the context of the poem?",
+                options: ["A cremation ground on the river bank", "A mountain pass", "A village well", "A boat landing"],
+                correct: 0,
+                explanation: "A ghat is a flight of steps leading down to a river, commonly used as a Hindu cremation site in India."
+            },
+            {
+                id: 32,
+                topic: "Literary Devices & Vocabulary",
+                question: "What is the meaning of the word 'Consigned' in 'as I consigned my firstborn to the fire'?",
+                options: ["Handed over / delivered to", "Sold", "Hidden", "Saved"],
+                correct: 0,
+                explanation: "'Consigned' means delivered or committed to a destination (in this case, the funeral pyre)."
+            },
+            {
+                id: 33,
+                topic: "Literary Devices & Vocabulary",
+                question: "What does 'Debauched' mean in the phrase 'debauched fire'?",
+                options: ["Corrupted, spoiled, or failing in moral/proper function", "Pure and holy", "Very bright", "Extremely hot"],
+                correct: 0,
+                explanation: "Here 'debauched' means corrupted or failing to execute its proper purpose fully."
+            },
+            {
+                id: 34,
+                topic: "Literary Devices & Vocabulary",
+                question: "What does 'Phosphorescence' mean?",
+                options: ["Light emitted by a substance without combustion or by glowing embers", "Sudden explosion", "Thick black smoke", "Cold mist"],
+                correct: 0,
+                explanation: "Phosphorescence refers to light given off without heat or as a lingering glow."
+            },
+            {
+                id: 35,
+                topic: "Literary Devices & Vocabulary",
+                question: "Which figure of speech is used when fire is described as 'forgetting its dead'?",
+                options: ["Personification", "Simile", "Metaphor", "Oxymoron"],
+                correct: 0,
+                explanation: "Personification is used by attributing human memory and forgetfulness to fire."
+            },
+            {
+                id: 36,
+                topic: "Literary Devices & Vocabulary",
+                question: "What is the overall tone of 'Fire-Hymn'?",
+                options: ["Somber, reflective, guilt-ridden, and haunting", "Joyful and celebratory", "Sarcastic and comedic", "Angry and political"],
+                correct: 0,
+                explanation: "The tone is deeply reflective, somber, and haunted by the memory of cremation."
+            },
+            {
+                id: 37,
+                topic: "Literary Devices & Vocabulary",
+                question: "What is the poetic structure of 'Fire-Hymn'?",
+                options: ["Free verse with lyrical rhythm", "A strict 14-line sonnet", "Heroic couplets", "Blank verse epic"],
+                correct: 0,
+                explanation: "It is written in modern free verse with strong lyrical and emotional cadence."
+            },
+            {
+                id: 38,
+                topic: "Parsi Culture & Themes",
+                question: "Why is fire considered impure when it comes into contact with dead human flesh in Zoroastrianism?",
+                options: ["Because death is considered a work of evil (Angra Mainyu), and holy fire should not touch corpse matter", "Because fire gets put out easily", "Because wood is scarce", "Because smoke causes pollution"],
+                correct: 0,
+                explanation: "In Zoroastrian theology, corpses are impure; polluting sacred fire or earth with dead matter is forbidden."
+            },
+            {
+                id: 39,
+                topic: "Poem Lines & Imagery",
+                question: "Complete the line: 'The incandescent limbs ________…'",
+                options: ["burned at midnight", "ran about", "drifted on the stream", "turned to ash"],
+                correct: 0,
+                explanation: "The poem describes glowing limbs during cremation."
+            },
+            {
+                id: 40,
+                topic: "Poet Biography & Awards",
+                question: "In what year was 'The Keeper of the Dead' published?",
+                options: ["1975", "1982", "1990", "1965"],
+                correct: 1,
+                explanation: "'The Keeper of the Dead' was published in 1982."
+            },
+            {
+                id: 41,
+                topic: "Parsi Culture & Themes",
+                question: "What emotional conflict does the poet experience in 'Fire-Hymn'?",
+                options: ["Conflict between his Parsi heritage/customs and the grim reality of necessity", "Conflict between his career and family", "Conflict between poetry and science", "Conflict between urban and rural life"],
+                correct: 0,
+                explanation: "He is torn between his religious taboo against cremation and the necessity that forced him to cremate his child."
+            },
+            {
+                id: 42,
+                topic: "Poet Biography & Awards",
+                question: "Keki N. Daruwalla's poetry is well-known for depicting which of the following themes?",
+                options: ["Violence, social landscape, Parsi identity, and human mortality", "Only romantic love", "Children's fairy tales", "Sci-fi space travel"],
+                correct: 0,
+                explanation: "Daruwalla's poetry frequently explores social reality, violence, landscape, and his Parsi heritage."
+            },
+            {
+                id: 43,
+                topic: "Poem Lines & Imagery",
+                question: "What does the speaker mean when he says 'Fire-hymn said me'?",
+                options: ["The hymn or ritual of fire spoke to his conscience", "He was singing a song", "He heard music from a temple", "The fire made crackling noises"],
+                correct: 0,
+                explanation: "It reflects how the sacred encounter with fire delivered a profound message to his conscience."
+            },
+            {
+                id: 44,
+                topic: "Literary Devices & Vocabulary",
+                question: "What does 'Ember-glowing' mean in 'ember-glowing chunks of bone'?",
+                options: ["Glowing weakly with residual heat like live coals", "Cold and frozen", "Painted red", "Covered in mud"],
+                correct: 0,
+                explanation: "It describes bones glowing red from the heat of the funeral pyre."
+            },
+            {
+                id: 45,
+                topic: "Parsi Culture & Themes",
+                question: "How does the poem highlight the concept of mortality?",
+                options: ["Through vivid, stark imagery of burning corpses and glowing bones", "By discussing medical science", "By talking about old age", "Through philosophical lectures"],
+                correct: 0,
+                explanation: "Mortality is portrayed through the stark reality of cremation and ash."
+            },
+            {
+                id: 46,
+                topic: "Poet Biography & Awards",
+                question: "Which of the following is NOT written by Keki N. Daruwalla?",
+                options: ["Leaves of Grass", "The Keeper of the Dead", "Under Orion", "Crossing of Rivers"],
+                correct: 0,
+                explanation: "'Leaves of Grass' was written by Walt Whitman, not Keki N. Daruwalla."
+            },
+            {
+                id: 47,
+                topic: "Poem Lines & Imagery",
+                question: "The phrase 'grey ash that pale-drooled' suggests:",
+                options: ["The incomplete burning and scattering of human remains into ash", "Rain falling on fire", "Morning dew on grass", "Smoke rising to clouds"],
+                correct: 0,
+                explanation: "It describes the chilling remains left behind by the pyre."
+            },
+            {
+                id: 48,
+                topic: "Parsi Culture & Themes",
+                question: "What lesson does 'Fire-Hymn' ultimately leave with Bihar Board students?",
+                options: ["Understanding cultural traditions, human grief, and the stark reality of death", "Learning how to build a bonfire", "Memorizing religious dogmas", "Becoming a police officer"],
+                correct: 0,
+                explanation: "It imparts deep reflections on mortality, cultural heritage, and personal grief."
+            },
+            {
+                id: 49,
+                topic: "Literary Devices & Vocabulary",
+                question: "Why is the poem titled 'Fire-Hymn'?",
+                options: ["Because it is a song or chant addressing the sacred fire and its dual nature", "Because fire destroyed a building", "Because it is about Diwali", "Because fire was worshipped in a temple"],
+                correct: 0,
+                explanation: "It acts as a hymn or reflection directed at fire, acknowledging its holiness and its terrifying power."
+            },
+            {
+                id: 50,
+                topic: "Poet Biography & Awards",
+                question: "In the Bihar Board Class 12 syllabus, 'Fire-Hymn' is featured in which section?",
+                options: ["Poetry Section", "Prose Section", "Grammar Section", "Supplementary Reader"],
+                correct: 0,
+                explanation: "'Fire-Hymn' is a prominent chapter in the Poetry section of Bihar Board's Rainbow Part II."
+            }
+        ];
+
+        // Motivational Praise Phrases
+        const praisePhrases = [
+            "Brilliant! You nailed it! 🔥",
+            "Outstanding work! Keep going! 🚀",
+            "Superb execution! You're a star! ⭐",
+            "Fantastic! Bihar Board topper energy! 🏆",
+            "Spot on! Master of English Literature! 📚",
+            "Incredible precision! Well done! 🎉",
+            "Magnificent! Your preparation is top-notch! 💪"
+        ];
+
+        // STATE VARIABLES
+        let currentQIndex = 0;
+        let score = 0;
+        let questionTimerInterval = null;
+        let totalTimerInterval = null;
+        let questionTimeSeconds = 0;
+        let totalTimeSeconds = 0;
+        let userAnswers = [];
+        let chartInstance = null;
+
+        // Sound Synthesis (Web Audio API)
+        function playSound(type) {
+            try {
+                const ctx = new (window.AudioContext || window.webkitAudioContext)();
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+
+                if (type === 'correct') {
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(523.25, ctx.currentTime);
+                    osc.frequency.exponentialRampToValueAtTime(659.25, ctx.currentTime + 0.15);
+                    gain.gain.setValueAtTime(0.2, ctx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.3);
+                    osc.start();
+                    osc.stop(ctx.currentTime + 0.3);
+                } else if (type === 'wrong') {
+                    osc.type = 'triangle';
+                    osc.frequency.setValueAtTime(220, ctx.currentTime);
+                    osc.frequency.exponentialRampToValueAtTime(146.83, ctx.currentTime + 0.2);
+                    gain.gain.setValueAtTime(0.3, ctx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.35);
+                    osc.start();
+                    osc.stop(ctx.currentTime + 0.35);
+                }
+            } catch(e) {}
+        }
+
+        // CONFETTI ANIMATION
+        function triggerConfetti() {
+            if (typeof confetti === 'function') {
+                confetti({
+                    particleCount: 75,
+                    spread: 70,
+                    origin: { y: 0.7 },
+                    colors: ['#f59e0b', '#f43f5e', '#e11d48', '#22c55e']
+                });
+            }
+        }
+
+        // START QUIZ
+        function startQuiz() {
+            document.getElementById('welcomeScreen').classList.add('hidden');
+            document.getElementById('quizScreen').classList.remove('hidden');
+            document.getElementById('quizScreen').classList.add('flex');
+            document.getElementById('topStatusPill').classList.remove('hidden');
+            document.getElementById('topStatusPill').classList.add('flex');
+
+            currentQIndex = 0;
+            score = 0;
+            userAnswers = [];
+            totalTimeSeconds = 0;
+
+            startTotalTimer();
+            loadQuestion();
+        }
+
+        // TIMERS
+        function startTotalTimer() {
+            clearInterval(totalTimerInterval);
+            totalTimerInterval = setInterval(() => {
+                totalTimeSeconds++;
+                const mins = String(Math.floor(totalTimeSeconds / 60)).padStart(2, '0');
+                const secs = String(totalTimeSeconds % 60).padStart(2, '0');
+                const formatted = `${mins}:${secs}`;
+                document.getElementById('totalTimerText').textContent = formatted;
+                document.getElementById('topTotalTimer').textContent = formatted;
+            }, 1000);
+        }
+
+        function resetQuestionTimer() {
+            clearInterval(questionTimerInterval);
+            questionTimeSeconds = 0;
+            document.getElementById('qTimerText').textContent = '00s';
+
+            questionTimerInterval = setInterval(() => {
+                questionTimeSeconds++;
+                document.getElementById('qTimerText').textContent = String(questionTimeSeconds).padStart(2, '0') + 's';
+            }, 1000);
+        }
+
+        // LOAD QUESTION
+        function loadQuestion() {
+            resetQuestionTimer();
+
+            const qData = questionsData[currentQIndex];
+
+            document.getElementById('qNumberText').textContent = `Question ${currentQIndex + 1} of 50`;
+            document.getElementById('topProgress').textContent = `Q ${currentQIndex + 1}/50`;
+            document.getElementById('qCategoryBadge').textContent = `Category: ${qData.topic}`;
+            
+            const progressPercent = ((currentQIndex + 1) / 50) * 100;
+            document.getElementById('progressBar').style.width = `${progressPercent}%`;
+
+            document.getElementById('questionText').textContent = `${currentQIndex + 1}. ${qData.question}`;
+
+            document.getElementById('praiseBanner').classList.add('hidden');
+            document.getElementById('incorrectBanner').classList.add('hidden');
+            
+            const nextBtn = document.getElementById('nextBtn');
+            nextBtn.disabled = true;
+            nextBtn.classList.add('opacity-50', 'cursor-not-allowed');
+            
+            if (currentQIndex === 49) {
+                document.getElementById('nextBtnText').textContent = 'Finish & See Analysis';
+            } else {
+                document.getElementById('nextBtnText').textContent = 'Next Question';
+            }
+
+            const container = document.getElementById('optionsContainer');
+            container.innerHTML = '';
+
+            const optionLabels = ['A', 'B', 'C', 'D'];
+
+            qData.options.forEach((optText, idx) => {
+                const btn = document.createElement('button');
+                btn.className = `option-btn w-full p-4 rounded-2xl bg-black/40 hover:bg-rose-950/40 border border-rose-900/40 text-left text-rose-100 flex items-center gap-3 group text-sm sm:text-base font-medium`;
+                btn.onclick = () => selectOption(idx);
+                btn.id = `opt-${idx}`;
+
+                btn.innerHTML = `
+                    <span class="w-8 h-8 rounded-xl bg-black/60 border border-rose-900 text-rose-300 group-hover:border-rose-500 group-hover:text-rose-200 flex items-center justify-center font-bold text-xs shrink-0 transition-colors">
+                        ${optionLabels[idx]}
+                    </span>
+                    <span class="flex-1">${optText}</span>
+                    <i class="fa-regular fa-circle text-rose-800 text-lg group-hover:text-rose-400 transition-colors status-icon"></i>
+                `;
+
+                container.appendChild(btn);
+            });
+        }
+
+        // OPTION SELECTION
+        function selectOption(selectedIndex) {
+            clearInterval(questionTimerInterval);
+
+            const qData = questionsData[currentQIndex];
+            const isCorrect = selectedIndex === qData.correct;
+            const container = document.getElementById('optionsContainer');
+            const allBtns = container.querySelectorAll('button');
+
+            allBtns.forEach(btn => btn.disabled = true);
+
+            userAnswers.push({
+                questionId: qData.id,
+                topic: qData.topic,
+                questionText: qData.question,
+                selectedOption: selectedIndex,
+                correctOption: qData.correct,
+                isCorrect: isCorrect,
+                timeSpent: questionTimeSeconds
+            });
+
+            if (isCorrect) {
+                score++;
+                document.getElementById('liveScoreText').textContent = score;
+                playSound('correct');
+                triggerConfetti();
+
+                const selectedBtn = document.getElementById(`opt-${selectedIndex}`);
+                selectedBtn.className = "option-btn w-full p-4 rounded-2xl bg-emerald-950/90 border-2 border-emerald-500 text-emerald-100 flex items-center gap-3 text-sm sm:text-base font-medium shadow-lg shadow-emerald-900/40 animate-bounce-short";
+                selectedBtn.querySelector('.status-icon').className = "fa-solid fa-circle-check text-emerald-400 text-xl";
+
+                const randomPraise = praisePhrases[Math.floor(Math.random() * praisePhrases.length)];
+                document.getElementById('praiseText').textContent = randomPraise;
+                document.getElementById('explanationText').textContent = qData.explanation;
+                document.getElementById('timeTakenBadge').textContent = `Answered in ${questionTimeSeconds}s! (+1 Pt)`;
+                document.getElementById('praiseBanner').classList.remove('hidden');
+
+            } else {
+                playSound('wrong');
+
+                const selectedBtn = document.getElementById(`opt-${selectedIndex}`);
+                selectedBtn.className = "option-btn w-full p-4 rounded-2xl bg-rose-950/90 border-2 border-rose-500 text-rose-100 flex items-center gap-3 text-sm sm:text-base font-medium shadow-lg shadow-rose-900/40";
+                selectedBtn.querySelector('.status-icon').className = "fa-solid fa-circle-xmark text-rose-400 text-xl";
+
+                const correctBtn = document.getElementById(`opt-${qData.correct}`);
+                correctBtn.className = "option-btn w-full p-4 rounded-2xl bg-emerald-950/70 border-2 border-emerald-500/80 text-emerald-200 flex items-center gap-3 text-sm sm:text-base font-medium";
+                correctBtn.querySelector('.status-icon').className = "fa-solid fa-circle-check text-emerald-400 text-xl";
+
+                document.getElementById('incorrectExpText').textContent = `Correct Answer: ${qData.options[qData.correct]}. Explanation: ${qData.explanation}`;
+                document.getElementById('incorrectBanner').classList.remove('hidden');
+            }
+
+            const nextBtn = document.getElementById('nextBtn');
+            nextBtn.disabled = false;
+            nextBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+            nextBtn.classList.add('bg-gradient-to-r', 'from-amber-500', 'to-rose-600', 'shadow-lg', 'scale-105');
+        }
+
+        // NEXT
+        function nextQuestion() {
+            currentQIndex++;
+            if (currentQIndex < 50) {
+                loadQuestion();
+            } else {
+                finishQuiz();
+            }
+        }
+
+        // FINISH QUIZ & ANALYSIS
+        function finishQuiz() {
+            clearInterval(questionTimerInterval);
+            clearInterval(totalTimerInterval);
+
+            document.getElementById('quizScreen').classList.add('hidden');
+            document.getElementById('topStatusPill').classList.add('hidden');
+            document.getElementById('resultScreen').classList.remove('hidden');
+            document.getElementById('resultScreen').classList.add('flex');
+
+            const accuracy = Math.round((score / 50) * 100);
+            const totalMins = String(Math.floor(totalTimeSeconds / 60)).padStart(2, '0');
+            const totalSecs = String(totalTimeSeconds % 60).padStart(2, '0');
+            const formattedTotalTime = `${totalMins}:${totalSecs}`;
+            const avgSecsPerQ = (totalTimeSeconds / 50).toFixed(1);
+
+            document.getElementById('finalScore').textContent = score;
+            document.getElementById('finalAccuracy').textContent = `${accuracy}%`;
+            document.getElementById('finalTotalTime').textContent = formattedTotalTime;
+            document.getElementById('avgTimePerQ').textContent = `Avg: ${avgSecsPerQ}s / Q`;
+
+            const badgeIcon = document.getElementById('badgeIcon');
+            const resultRemark = document.getElementById('resultRemark');
+            const finalGrade = document.getElementById('finalGrade');
+
+            if (accuracy >= 85) {
+                badgeIcon.className = "fa-solid fa-trophy text-amber-300";
+                finalGrade.textContent = "EXCELLENT";
+                finalGrade.className = "text-3xl font-extrabold text-emerald-400";
+                resultRemark.textContent = "Outstanding Performance! You have exceptional command over Keki N. Daruwalla's 'Fire-Hymn' and Bihar Board questions!";
+                triggerConfetti();
+            } else if (accuracy >= 60) {
+                badgeIcon.className = "fa-solid fa-medal text-amber-300";
+                finalGrade.textContent = "GOOD PASS";
+                finalGrade.className = "text-3xl font-extrabold text-amber-400";
+                resultRemark.textContent = "Great job! You have a solid grasp of 'Fire-Hymn'. Review a few missed topics for 100% perfection.";
+            } else {
+                badgeIcon.className = "fa-solid fa-book-open-reader text-rose-300";
+                finalGrade.textContent = "NEEDS REVISION";
+                finalGrade.className = "text-3xl font-extrabold text-rose-400";
+                resultRemark.textContent = "Keep practicing! Review Daruwalla's background and Parsi Zoroastrian themes to boost your score further.";
+            }
+
+            const topics = {};
+            userAnswers.forEach(ans => {
+                if (!topics[ans.topic]) {
+                    topics[ans.topic] = { total: 0, correct: 0, timeSpent: 0 };
+                }
+                topics[ans.topic].total++;
+                if (ans.isCorrect) topics[ans.topic].correct++;
+                topics[ans.topic].timeSpent += ans.timeSpent;
+            });
+
+            const topicContainer = document.getElementById('topicBreakdownContainer');
+            topicContainer.innerHTML = '';
+
+            const topicLabels = [];
+            const topicAccuracies = [];
+
+            Object.keys(topics).forEach(topicName => {
+                const tData = topics[topicName];
+                const tAcc = Math.round((tData.correct / tData.total) * 100);
+                const avgT = (tData.timeSpent / tData.total).toFixed(1);
+
+                topicLabels.push(topicName);
+                topicAccuracies.push(tAcc);
+
+                const itemHtml = `
+                    <div class="bg-black/40 p-4 rounded-2xl border border-rose-900/60">
+                        <div class="flex justify-between items-center mb-1.5">
+                            <span class="font-semibold text-rose-100 text-xs sm:text-sm">${topicName}</span>
+                            <span class="text-xs font-bold ${tAcc >= 70 ? 'text-emerald-400' : 'text-amber-400'}">${tData.correct}/${tData.total} (${tAcc}%)</span>
+                        </div>
+                        <div class="w-full bg-black/60 h-2.5 rounded-full overflow-hidden p-0.5 mb-2">
+                            <div class="h-full ${tAcc >= 70 ? 'bg-emerald-500' : 'bg-amber-500'} rounded-full" style="width: ${tAcc}%"></div>
+                        </div>
+                        <div class="flex justify-between text-[11px] text-rose-300/70">
+                            <span>Total Time: ${tData.timeSpent}s</span>
+                            <span>Avg Pace: ${avgT}s / Q</span>
+                        </div>
+                    </div>
+                `;
+                topicContainer.innerHTML += itemHtml;
+            });
+
+            renderChart(topicLabels, topicAccuracies);
+
+            const tableBody = document.getElementById('detailedTableBody');
+            tableBody.innerHTML = '';
+
+            userAnswers.forEach((ans, index) => {
+                const tr = document.createElement('tr');
+                tr.className = index % 2 === 0 ? 'bg-black/20' : 'bg-black/50';
+
+                const statusBadge = ans.isCorrect
+                    ? `<span class="px-2 py-0.5 rounded-full text-[11px] font-bold bg-emerald-950 text-emerald-300 border border-emerald-700">Correct</span>`
+                    : `<span class="px-2 py-0.5 rounded-full text-[11px] font-bold bg-rose-950 text-rose-300 border border-rose-700">Incorrect</span>`;
+
+                tr.innerHTML = `
+                    <td class="py-3 px-3 font-mono font-bold text-rose-200">#${ans.questionId}</td>
+                    <td class="py-3 px-3 text-rose-300/80 text-xs">${ans.topic}</td>
+                    <td class="py-3 px-3 text-rose-100 max-w-xs truncate">${ans.questionText}</td>
+                    <td class="py-3 px-3 text-center">${statusBadge}</td>
+                    <td class="py-3 px-3 text-right font-mono text-amber-300 font-semibold">${ans.timeSpent}s</td>
+                `;
+                tableBody.appendChild(tr);
+            });
+        }
+
+        // CHART RENDER
+        function renderChart(labels, dataPoints) {
+            const ctx = document.getElementById('topicChart').getContext('2d');
+
+            if (chartInstance) {
+                chartInstance.destroy();
+            }
+
+            chartInstance = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Accuracy %',
+                        data: dataPoints,
+                        backgroundColor: [
+                            'rgba(245, 158, 11, 0.7)',
+                            'rgba(244, 63, 94, 0.7)',
+                            'rgba(34, 197, 94, 0.7)',
+                            'rgba(236, 72, 153, 0.7)'
+                        ],
+                        borderColor: [
+                            '#f59e0b',
+                            '#f43f5e',
+                            '#22c55e',
+                            '#ec4899'
+                        ],
+                        borderWidth: 1.5,
+                        borderRadius: 8
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 100,
+                            ticks: { color: '#fca5a5', callback: v => v + '%' },
+                            grid: { color: 'rgba(255, 255, 255, 0.05)' }
+                        },
+                        x: {
+                            ticks: { 
+                                color: '#fca5a5',
+                                font: { size: 10 },
+                                callback: function(val, index) {
+                                    let label = this.getLabelForValue(val);
+                                    return label.length > 15 ? label.substring(0, 15) + '...' : label;
+                                }
+                            },
+                            grid: { display: false }
+                        }
+                    },
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                label: ctx => `Accuracy: ${ctx.raw}%`
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // RESTART
+        function restartQuiz() {
+            document.getElementById('resultScreen').classList.add('hidden');
+            document.getElementById('resultScreen').classList.remove('flex');
+            startQuiz();
+        }
+    </script>
+</body>
+</html>

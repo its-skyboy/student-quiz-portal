@@ -1,0 +1,946 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Now the Leaves Are Falling Fast - Class 12 Bihar Board Quiz</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Canvas Confetti Library -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            500: '#22c55e',
+                            600: '#16a34a',
+                            700: '#15803d',
+                            800: '#166534',
+                        }
+                    },
+                    keyframes: {
+                        pulseSlow: {
+                            '0%, 100%': { transform: 'scale(1)' },
+                            '50%': { transform: 'scale(1.05)' }
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-8px)' }
+                        },
+                        popIn: {
+                            '0%': { opacity: '0', transform: 'scale(0.8)' },
+                            '100%': { opacity: '1', transform: 'scale(1)' }
+                        }
+                    },
+                    animation: {
+                        'pulse-slow': 'pulseSlow 3s infinite ease-in-out',
+                        'float': 'float 3s infinite ease-in-out',
+                        'pop-in': 'popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f2027 100%);
+            min-height: 100vh;
+            color: #f8fafc;
+        }
+
+        .glass-card {
+            background: rgba(30, 41, 59, 0.75);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .glass-card-light {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .option-btn {
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .option-btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px -5px rgba(59, 130, 246, 0.25);
+            border-color: #60a5fa;
+        }
+
+        .option-correct {
+            background: linear-gradient(135deg, #059669 0%, #10b981 100%) !important;
+            color: #ffffff !important;
+            border-color: #34d399 !important;
+            box-shadow: 0 0 20px rgba(16, 185, 129, 0.5) !important;
+        }
+
+        .option-incorrect {
+            background: linear-gradient(135deg, #dc2626 0%, #ef4444 100%) !important;
+            color: #ffffff !important;
+            border-color: #f87171 !important;
+            box-shadow: 0 0 20px rgba(239, 68, 68, 0.4) !important;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0f172a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #475569;
+        }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen justify-between items-center p-3 md:p-6 text-slate-100">
+
+    <!-- Header Section -->
+    <header class="w-full max-w-4xl glass-card rounded-2xl p-4 md:p-6 mb-6 shadow-2xl relative overflow-hidden">
+        <div class="absolute -top-10 -right-10 w-32 h-32 bg-amber-500/10 rounded-full blur-2xl"></div>
+        <div class="flex flex-col md:flex-row justify-between items-center gap-4 relative z-10">
+            <div class="flex items-center gap-3 text-center md:text-left">
+                <div class="w-12 h-12 rounded-xl bg-gradient-to-tr from-amber-500 to-red-500 flex items-center justify-center text-white text-2xl shadow-lg">
+                    <i class="fa-solid fa-leaf"></i>
+                </div>
+                <div>
+                    <span class="text-xs font-semibold tracking-wider text-amber-400 uppercase">Class 12 Bihar Board • English</span>
+                    <h1 class="text-xl md:text-2xl font-extrabold text-white">Now the Leaves Are Falling Fast</h1>
+                </div>
+            </div>
+            
+            <div id="quiz-badge" class="hidden md:flex items-center gap-2 bg-slate-800/80 px-4 py-2 rounded-xl border border-slate-700/50">
+                <i class="fa-solid fa-feather-pointed text-amber-400"></i>
+                <span class="text-xs font-medium text-slate-300">W. H. Auden</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- START SCREEN -->
+    <main id="start-screen" class="w-full max-w-4xl glass-card rounded-3xl p-6 md:p-10 shadow-2xl my-auto text-center relative overflow-hidden">
+        <div class="max-w-2xl mx-auto space-y-6">
+            <div class="inline-flex items-center justify-center w-20 h-20 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-3xl mb-2 animate-float">
+                <i class="fa-solid fa-[#10b981] fa-book-open"></i>
+            </div>
+            
+            <h2 class="text-3xl md:text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-emerald-300 to-teal-200">
+                Mastery Test: 50 Questions
+            </h2>
+            
+            <p class="text-slate-300 text-sm md:text-base leading-relaxed">
+                Test your knowledge of W. H. Auden's iconic poem. Analyze line-by-line meanings, poetic devices, themes, symbols, and biographical details tailored for the Bihar State Board Examinations.
+            </p>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-3 py-4">
+                <div class="glass-card-light p-3 rounded-xl">
+                    <div class="text-amber-400 font-bold text-lg">50</div>
+                    <div class="text-xs text-slate-400">Total MCQs</div>
+                </div>
+                <div class="glass-card-light p-3 rounded-xl">
+                    <div class="text-emerald-400 font-bold text-lg">Instant</div>
+                    <div class="text-xs text-slate-400">Feedback & FX</div>
+                </div>
+                <div class="glass-card-light p-3 rounded-xl">
+                    <div class="text-cyan-400 font-bold text-lg">Live</div>
+                    <div class="text-xs text-slate-400">Time Tracking</div>
+                </div>
+                <div class="glass-card-light p-3 rounded-xl">
+                    <div class="text-purple-400 font-bold text-lg">Detailed</div>
+                    <div class="text-xs text-slate-400">Analytics</div>
+                </div>
+            </div>
+
+            <button id="start-btn" onclick="startQuiz()" class="w-full md:w-auto px-10 py-4 bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white font-bold rounded-2xl shadow-xl hover:shadow-emerald-500/25 transition-all duration-300 transform hover:-translate-y-1 text-lg flex items-center justify-center gap-3 mx-auto cursor-pointer">
+                <span>Start Quiz Challenge</span>
+                <i class="fa-solid fa-arrow-right"></i>
+            </button>
+        </div>
+    </main>
+
+    <!-- QUIZ CONTAINER -->
+    <main id="quiz-screen" class="w-full max-w-4xl glass-card rounded-3xl p-5 md:p-8 shadow-2xl my-auto hidden relative">
+        
+        <!-- Live Progress & Timing Bar -->
+        <div class="mb-6 space-y-3">
+            <div class="flex justify-between items-center text-xs md:text-sm font-semibold text-slate-300">
+                <span id="question-count-text">Question 1 of 50</span>
+                <div class="flex items-center gap-4">
+                    <span class="flex items-center gap-1.5 bg-slate-800/80 px-3 py-1 rounded-lg border border-slate-700/60">
+                        <i class="fa-regular fa-clock text-amber-400"></i>
+                        <span id="current-q-timer" class="font-mono text-amber-300">00:00</span> (Q)
+                    </span>
+                    <span class="flex items-center gap-1.5 bg-slate-800/80 px-3 py-1 rounded-lg border border-slate-700/60">
+                        <i class="fa-solid fa-stopwatch text-emerald-400"></i>
+                        <span id="overall-timer" class="font-mono text-emerald-300">00:00</span> (Total)
+                    </span>
+                </div>
+            </div>
+
+            <!-- Progress Bar -->
+            <div class="w-full bg-slate-800 rounded-full h-2.5 overflow-hidden border border-slate-700/50">
+                <div id="progress-bar" class="bg-gradient-to-r from-emerald-400 to-teal-500 h-2.5 rounded-full transition-all duration-300" style="width: 2%"></div>
+            </div>
+        </div>
+
+        <!-- Question Category Badge -->
+        <div class="mb-3 flex items-center justify-between">
+            <span id="question-category" class="inline-block text-xs font-semibold px-3 py-1 rounded-md bg-amber-500/10 text-amber-300 border border-amber-500/20">
+                Category
+            </span>
+            <span id="difficulty-badge" class="text-xs px-2.5 py-0.5 rounded bg-slate-700 text-slate-300">Standard</span>
+        </div>
+
+        <!-- Question Text -->
+        <h3 id="question-text" class="text-lg md:text-xl font-bold text-white mb-6 leading-relaxed">
+            Question loading...
+        </h3>
+
+        <!-- Motivational Praise Banner (Hidden by default) -->
+        <div id="praise-banner" class="hidden mb-4 p-3 rounded-xl bg-emerald-500/20 border border-emerald-500/40 text-emerald-200 text-center text-sm font-bold animate-pop-in flex items-center justify-center gap-2">
+            <i class="fa-solid fa-circle-check text-emerald-400 text-lg"></i>
+            <span id="praise-text">Brilliant! Excellent Knowledge!</span>
+        </div>
+
+        <!-- Options Grid -->
+        <div id="options-container" class="grid grid-cols-1 md:grid-cols-2 gap-3.5 mb-6">
+            <!-- Dynamically Rendered -->
+        </div>
+
+        <!-- Footer Control Buttons -->
+        <div class="flex justify-between items-center pt-4 border-t border-slate-700/50">
+            <div class="text-xs text-slate-400 flex items-center gap-1">
+                <i class="fa-solid fa-lightbulb text-amber-400"></i> Select one option to proceed.
+            </div>
+            <button id="next-btn" onclick="nextQuestion()" disabled class="px-6 py-2.5 bg-slate-700 text-slate-400 cursor-not-allowed font-semibold text-sm rounded-xl transition-all duration-200 flex items-center gap-2">
+                <span>Next Question</span>
+                <i class="fa-solid fa-chevron-right text-xs"></i>
+            </button>
+        </div>
+    </main>
+
+    <!-- RESULT ANALYSIS DASHBOARD -->
+    <main id="result-screen" class="w-full max-w-4xl glass-card rounded-3xl p-6 md:p-8 shadow-2xl my-auto hidden space-y-8 my-6">
+        
+        <!-- Top Summary Banner -->
+        <div class="text-center space-y-2">
+            <div class="inline-flex items-center justify-center p-3 bg-emerald-500/10 rounded-2xl border border-emerald-500/20 text-emerald-400 mb-2">
+                <i class="fa-solid fa-trophy text-3xl"></i>
+            </div>
+            <h2 class="text-2xl md:text-3xl font-extrabold text-white">Quiz Analysis & Performance</h2>
+            <p id="score-summary-subtitle" class="text-slate-300 text-sm">Here is how you performed on 'Now the Leaves Are Falling Fast'</p>
+        </div>
+
+        <!-- Key Score Cards -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <!-- Score Card -->
+            <div class="glass-card-light p-4 rounded-2xl text-center space-y-1 relative overflow-hidden">
+                <div class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Score Obtained</div>
+                <div class="text-2xl md:text-3xl font-black text-emerald-400" id="res-score">0 / 50</div>
+                <div class="text-xs text-slate-400" id="res-marks-percent">0% Marks</div>
+            </div>
+
+            <!-- Accuracy Card -->
+            <div class="glass-card-light p-4 rounded-2xl text-center space-y-1">
+                <div class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Accuracy Rate</div>
+                <div class="text-2xl md:text-3xl font-black text-cyan-400" id="res-accuracy">0%</div>
+                <div class="text-xs text-slate-400" id="res-accuracy-label">Correct Answers</div>
+            </div>
+
+            <!-- Total Time Card -->
+            <div class="glass-card-light p-4 rounded-2xl text-center space-y-1">
+                <div class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Total Time</div>
+                <div class="text-2xl md:text-3xl font-black text-amber-400" id="res-total-time">00:00</div>
+                <div class="text-xs text-slate-400">Completed Duration</div>
+            </div>
+
+            <!-- Avg Time Card -->
+            <div class="glass-card-light p-4 rounded-2xl text-center space-y-1">
+                <div class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Avg Time / Question</div>
+                <div class="text-2xl md:text-3xl font-black text-purple-400" id="res-avg-time">0s</div>
+                <div class="text-xs text-slate-400">Pacing Speed</div>
+            </div>
+        </div>
+
+        <!-- Visual Ring & Topic Analysis Section -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            
+            <!-- Donut Visual Ring -->
+            <div class="glass-card-light p-5 rounded-2xl flex flex-col items-center justify-center text-center">
+                <h4 class="text-sm font-bold text-slate-200 mb-4">Overall Score Breakdown</h4>
+                <div class="relative w-36 h-36 flex items-center justify-center">
+                    <svg class="w-full h-full transform -rotate-90" viewBox="0 0 36 36">
+                        <path class="text-slate-800" stroke-width="3.5" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                        <path id="donut-segment" class="text-emerald-500 transition-all duration-1000 ease-out" stroke-dasharray="0, 100" stroke-width="3.5" stroke-linecap="round" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                    </svg>
+                    <div class="absolute flex flex-col items-center justify-center">
+                        <span id="donut-percent" class="text-2xl font-black text-white">0%</span>
+                        <span class="text-[10px] text-slate-400 uppercase font-bold">Accuracy</span>
+                    </div>
+                </div>
+                <div class="flex justify-center gap-4 text-xs font-medium mt-4">
+                    <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span> Correct</span>
+                    <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-red-500"></span> Wrong</span>
+                </div>
+            </div>
+
+            <!-- Topic Wise Performance -->
+            <div class="glass-card-light p-5 rounded-2xl md:col-span-2 space-y-3">
+                <h4 class="text-sm font-bold text-slate-200 mb-2">Topic & Sub-theme Accuracy Breakdown</h4>
+                <div id="topic-breakdown-container" class="space-y-3 text-xs">
+                    <!-- Populated via Javascript -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Detailed Question Review List -->
+        <div class="space-y-4">
+            <div class="flex items-center justify-between">
+                <h4 class="text-base font-bold text-white flex items-center gap-2">
+                    <i class="fa-solid fa-list-check text-amber-400"></i> Detailed Question-by-Question Review
+                </h4>
+                <span class="text-xs text-slate-400">Scroll down to inspect choices</span>
+            </div>
+
+            <div id="questions-review-list" class="space-y-3 max-h-96 overflow-y-auto pr-2">
+                <!-- Dynamically populated -->
+            </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="flex flex-col sm:flex-row gap-4 justify-center pt-4 border-t border-slate-700/50">
+            <button onclick="restartQuiz()" class="px-8 py-3.5 bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white font-bold rounded-xl shadow-lg transition-all flex items-center justify-center gap-2 cursor-pointer">
+                <i class="fa-solid fa-rotate-right"></i>
+                <span>Retake Quiz</span>
+            </button>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="w-full max-w-4xl text-center text-xs text-slate-500 py-4 mt-auto">
+        Class 12 Bihar Board (Rainbow Part 2) • English Literature Master Quiz Series
+    </footer>
+
+    <!-- QUIZ LOGIC JAVASCRIPT -->
+    <script>
+        // 50 Detailed, Accurate Questions for "Now the Leaves Are Falling Fast" by W. H. Auden
+        const quizData = [
+            {
+                q: "Who is the poet of the poem 'Now the Leaves Are Falling Fast'?",
+                options: ["John Keats", "W. H. Auden", "Rupert Brooke", "Walt Whitman"],
+                correct: 1,
+                category: "Author & Background"
+            },
+            {
+                q: "In which year was W. H. Auden awarded the prestigious Pulitzer Prize?",
+                options: ["1947", "1948", "1950", "1938"],
+                correct: 1,
+                category: "Author & Background"
+            },
+            {
+                q: "For which collection of poetry did W. H. Auden win the Pulitzer Prize?",
+                options: ["The Orators", "The Age of Anxiety", "Another Time", "Look, Stranger!"],
+                correct: 1,
+                category: "Author & Background"
+            },
+            {
+                q: "W. H. Auden divided his poetic career into two major phases. Which are they?",
+                options: ["British and American", "English and French", "Romantic and Modern", "Victorian and Modern"],
+                correct: 0,
+                category: "Author & Background"
+            },
+            {
+                q: "To Auden, poetry was conceived as a serious game or an instrument for:",
+                options: ["Earning easy money", "Expressing personal romantic love", "Deepening human self-inquiry", "Political propaganda"],
+                correct: 2,
+                category: "Core Themes & Message"
+            },
+            {
+                q: "What does the title line 'Now the leaves are falling fast' symbolize in human life?",
+                options: ["Arrival of spring", "Fast process of aging and approaching death", "Growing young and healthy", "Falling of autumn leaves only"],
+                correct: 1,
+                category: "Imagery & Symbols"
+            },
+            {
+                q: "In the poem, what does 'nurses' standing near the trees refer to?",
+                options: ["Medical nurses in hospitals", "Plants and flowers supporting older trees", "Small fruits", "Gardener tools"],
+                correct: 1,
+                category: "Stanza Line Meanings"
+            },
+            {
+                q: "Complete the line: 'Nurses to the graves are gone, And the _______ go rolling on.'",
+                options: ["Prams", "Cars", "Children", "Leaves"],
+                correct: 0,
+                category: "Textual Lines"
+            },
+            {
+                q: "What does the word 'Prams' mean in the context of the poem?",
+                options: ["Train coaches", "Four-wheeled baby carriages", "Wheelchairs", "Bicycles"],
+                correct: 1,
+                category: "Poetic Vocabulary"
+            },
+            {
+                q: "What does the phrase 'Whispering neighbours' refer to?",
+                options: ["Friendly neighbors next door", "Agents or messengers of death", "Gossiping villagers", "Singing birds"],
+                correct: 1,
+                category: "Imagery & Symbols"
+            },
+            {
+                q: "According to the poet, what do 'whispering neighbours' do to human beings?",
+                options: ["Bring happy gifts", "Pluck us from the real delight", "Sing sweet songs", "Help in old age"],
+                correct: 1,
+                category: "Stanza Line Meanings"
+            },
+            {
+                q: "What happens to the 'active hands' when death approaches?",
+                options: ["They work faster", "They must freeze and grow stiff", "They dance happily", "They applaud"],
+                correct: 1,
+                category: "Stanza Line Meanings"
+            },
+            {
+                q: "Which bodily condition is highlighted in the line 'Lonely on the separate knees'?",
+                options: ["Youthful agility", "Isolation and physical numbness in old age", "Childhood games", "Marital bliss"],
+                correct: 1,
+                category: "Stanza Line Meanings"
+            },
+            {
+                q: "How many 'dead' are described as lying behind in wooden tracks/coffins?",
+                options: ["Hundreds", "Tens", "Thousands", "Millions"],
+                correct: 0,
+                category: "Textual Lines"
+            },
+            {
+                q: "Complete the line: 'Dead in _________ at the back, Follow wooden in our track.'",
+                options: ["Thousands", "Hundreds", "Millions", "Scores"],
+                correct: 1,
+                category: "Textual Lines"
+            },
+            {
+                q: "How do human beings react with their hands raised in wooden attitude towards death?",
+                options: ["Reprove and raise arms in helpless frustration", "Welcome death with flowers", "Fight with swords", "Pray loudly"],
+                correct: 0,
+                category: "Stanza Line Meanings"
+            },
+            {
+                q: "What does the poet mean by 'false attitude of love' in human life?",
+                options: ["Pure unselfish love", "Superficial and insincere relationships", "Love for nature", "Love for knowledge"],
+                correct: 1,
+                category: "Core Themes & Message"
+            },
+            {
+                q: "Which creature is described as 'troll' running hungry through the lea in search of food?",
+                options: ["Fairies", "Trolls", "Giants", "Demons"],
+                correct: 1,
+                category: "Imagery & Symbols"
+            },
+            {
+                q: "In Scandinavian mythology, what kind of creature is a 'Troll'?",
+                options: ["A good angel", "A ugly, mischievous or wicked creature", "A singing bird", "A brave prince"],
+                correct: 1,
+                category: "Poetic Background"
+            },
+            {
+                q: "What happens to the nightingale when the trees become leafless in winter?",
+                options: ["It sings sweeter songs", "It flies to America", "It becomes dumb and silent", "It dies immediately"],
+                correct: 2,
+                category: "Stanza Line Meanings"
+            },
+            {
+                q: "Complete the line: 'And the nightingale is dumb, And the ________ will not come.'",
+                options: ["Angel", "Troll", "Spring", "Nurses"],
+                correct: 0,
+                category: "Textual Lines"
+            },
+            {
+                q: "In the poem, what color is associated with the cold mountain waterfall/peak in the final line?",
+                options: ["Green", "White", "Blue", "Golden"],
+                correct: 1,
+                category: "Imagery & Symbols"
+            },
+            {
+                q: "Whose waterfall could bless travelers in their last distress?",
+                options: ["Cold white mountain's waterfall", "River Nile", "Ocean waves", "Raindrops"],
+                correct: 0,
+                category: "Stanza Line Meanings"
+            },
+            {
+                q: "The poem 'Now the Leaves Are Falling Fast' is primarily a:",
+                options: ["Pure optimistic song", "Lyric showing inherent frustration in human life", "Satire on politics", "Comedy story"],
+                correct: 1,
+                category: "Core Themes & Message"
+            },
+            {
+                q: "What underlies Auden's lyric pessimistic tone in the poem?",
+                options: ["Absolute hopelessness", "Deep sense of latent optimism and spiritual hope", "Hatred for mankind", "Desire for wealth"],
+                correct: 1,
+                category: "Core Themes & Message"
+            },
+            {
+                q: "Which season's arrival is symbolized by falling leaves and freezing cold?",
+                options: ["Summer", "Autumn transitioning into Winter", "Spring", "Monsoon"],
+                correct: 1,
+                category: "Imagery & Symbols"
+            },
+            {
+                q: "What does 'starving through the lea' mean in the poem?",
+                options: ["Animals eating grass", "Barren, leafless land during winter where trolls roam hungry", "Farmers sowing seeds", "Children playing in fields"],
+                correct: 1,
+                category: "Stanza Line Meanings"
+            },
+            {
+                q: "Who are the 'travelers' mentioned in the last stanza of the poem?",
+                options: ["Tourists visiting mountains", "Dying human beings moving towards the end of life", "Birds migrating", "Pilgrims going to temple"],
+                correct: 1,
+                category: "Imagery & Symbols"
+            },
+            {
+                q: "What brings solace or blessing to the travelers in their last distress?",
+                options: ["Rich gold and gems", "Cold white waterfall from mountain peaks", "False praise of friends", "Hot tea"],
+                correct: 1,
+                category: "Stanza Line Meanings"
+            },
+            {
+                q: "W. H. Auden left England and settled in the United States in which year?",
+                options: ["1935", "1939", "1945", "1952"],
+                correct: 1,
+                category: "Author & Background"
+            },
+            {
+                q: "In which country was W. H. Auden born?",
+                options: ["America", "England", "Ireland", "Scotland"],
+                correct: 1,
+                category: "Author & Background"
+            },
+            {
+                q: "Which of the following books was written by W. H. Auden during his British period?",
+                options: ["The Age of Anxiety", "The Shield of Achilles", "The Orators", "Homage to Cliche"],
+                correct: 2,
+                category: "Author & Background"
+            },
+            {
+                q: "Which of the following works belongs to Auden's American phase?",
+                options: ["The Dance of Death", "Look, Stranger!", "The Age of Anxiety", "Spain"],
+                correct: 2,
+                category: "Author & Background"
+            },
+            {
+                q: "What is the rhyme scheme of the stanzas in 'Now the Leaves Are Falling Fast'?",
+                options: ["ABAB", "AABB", "ABBA", "AABC"],
+                correct: 1,
+                category: "Poetic Devices & Structure"
+            },
+            {
+                q: "In the line 'Whispering neighbours, left and right', which figure of speech or imagery is used?",
+                options: ["Personification / Metaphor for death", "Simile", "Hyperbole", "Oxymoron"],
+                correct: 0,
+                category: "Poetic Devices & Structure"
+            },
+            {
+                q: "What does the word 'Reprove' mean in the stanza 'Arms raised stiffly to reprove'?",
+                options: ["To praise highly", "To criticize or express disapproval/frustration", "To prove again", "To sing loudly"],
+                correct: 1,
+                category: "Poetic Vocabulary"
+            },
+            {
+                q: "Why does the poet call the attitude of human love 'false'?",
+                options: ["Because people are always honest", "Because human commitments fade and fail in the face of crisis and death", "Because love is illegal", "Because love lasts forever"],
+                correct: 1,
+                category: "Core Themes & Message"
+            },
+            {
+                q: "What does the line 'Nurse's flowers will not last' suggest?",
+                options: ["Flowers wither quickly just as human life is mortal and brief", "Flowers are synthetic", "Gardens are poorly maintained", "Nurses dislike flowers"],
+                correct: 0,
+                category: "Stanza Line Meanings"
+            },
+            {
+                q: "What moves on despite the death and aging of human beings?",
+                options: ["The Prams (prambulators) symbolizing new births/generations", "Heavy trucks", "Time stops completely", "No new life comes"],
+                correct: 0,
+                category: "Core Themes & Message"
+            },
+            {
+                q: "The line 'Freeze active hands lonely on the separate knees' conveys a feeling of:",
+                options: ["Joy and celebration", "Isolation, paralysis, and physical decay", "Athletic power", "Spiritual excitement"],
+                correct: 1,
+                category: "Stanza Line Meanings"
+            },
+            {
+                q: "What is the central emotion expressed regarding human aspirations in this poem?",
+                options: ["Complete satisfaction", "Frustration caused by unfulfilled desires and mortality", "Greed for land", "Patriotic fervor"],
+                correct: 1,
+                category: "Core Themes & Message"
+            },
+            {
+                q: "What does 'lea' mean in the line 'Trolls run scolding through the lea'?",
+                options: ["A river bed", "A meadow or grassy field", "A high mountain peak", "A dark cave"],
+                correct: 1,
+                category: "Poetic Vocabulary"
+            },
+            {
+                q: "Which word in the poem describes the attitude of hands raised in death/decay?",
+                options: ["Wooden", "Golden", "Flexible", "Joyful"],
+                correct: 0,
+                category: "Textual Lines"
+            },
+            {
+                q: "What will NOT come to rescue human beings according to line 16?",
+                options: ["An Angel", "A Doctor", "A Friend", "A Troll"],
+                correct: 0,
+                category: "Stanza Line Meanings"
+            },
+            {
+                q: "Which quality makes Auden's poetry intellectual and modern?",
+                options: ["Clear thinking, technical skill, and awareness of modern human condition", "Use of archaic ancient English only", "Simple nursery rhymes", "Lack of meter and rhythm"],
+                correct: 0,
+                category: "Author & Background"
+            },
+            {
+                q: "In the poem, falling leaves symbolize the decline of:",
+                options: ["Human life and vitality", "Only forest beauty", "Government economy", "Paper industry"],
+                correct: 0,
+                category: "Imagery & Symbols"
+            },
+            {
+                q: "What is the mood of the poet in the beginning of the poem?",
+                options: ["Exuberant and joyful", "Melancholy and reflective on human mortality", "Angry and violent", "Sarcastic and humorous"],
+                correct: 1,
+                category: "Core Themes & Message"
+            },
+            {
+                q: "The term 'wooden track' in the third stanza symbolizes:",
+                options: ["Railway tracks", "Coffins or the path to the grave", "Wooden furniture", "Forest pathways"],
+                correct: 1,
+                category: "Imagery & Symbols"
+            },
+            {
+                q: "What ultimate consolation does the poet offer at the end of the poem?",
+                options: ["Eternal physical youth", "The serene, supreme beauty of nature (white waterfall) offering peace in last moments", "Immense riches", "Revenge on trolls"],
+                correct: 1,
+                category: "Core Themes & Message"
+            },
+            {
+                q: "Which literary award did Auden win in 1948 in the United States?",
+                options: ["Nobel Prize in Literature", "Pulitzer Prize", "Booker Prize", "Sahitya Akademi Award"],
+                correct: 1,
+                category: "Author & Background"
+            }
+        ];
+
+        // Motivational Praise Array
+        const praiseList = [
+            "Outstanding! Brilliant knowledge of Auden's work! 🌟",
+            "Superb! You nailed this Bihar Board MCQ! 🎯",
+            "Excellent job! Perfect literary understanding! 📚",
+            "Fantastic! Keep up this top-tier performance! 🚀",
+            "Genius move! Spot on answer! 👏",
+            "Bravo! Excellent grasp on the poem lines! 💎"
+        ];
+
+        // State Variables
+        let currentQIndex = 0;
+        let score = 0;
+        let userAnswers = []; // Store: { questionIndex, selectedOption, isCorrect, timeSpent }
+        
+        let qTimerInterval = null;
+        let qSeconds = 0;
+        
+        let totalTimerInterval = null;
+        let totalSeconds = 0;
+
+        // Start Quiz Function
+        function startQuiz() {
+            document.getElementById('start-screen').classList.add('hidden');
+            document.getElementById('quiz-screen').classList.remove('hidden');
+            
+            currentQIndex = 0;
+            score = 0;
+            userAnswers = [];
+            totalSeconds = 0;
+
+            // Start Overall Timer
+            clearInterval(totalTimerInterval);
+            totalTimerInterval = setInterval(() => {
+                totalSeconds++;
+                document.getElementById('overall-timer').innerText = formatTime(totalSeconds);
+            }, 1000);
+
+            loadQuestion();
+        }
+
+        // Load Question Function
+        function loadQuestion() {
+            const data = quizData[currentQIndex];
+            
+            // Reset state
+            document.getElementById('praise-banner').classList.add('hidden');
+            const nextBtn = document.getElementById('next-btn');
+            nextBtn.disabled = true;
+            nextBtn.className = "px-6 py-2.5 bg-slate-700 text-slate-400 cursor-not-allowed font-semibold text-sm rounded-xl transition-all duration-200 flex items-center gap-2";
+
+            // Update Progress Header
+            document.getElementById('question-count-text').innerText = `Question ${currentQIndex + 1} of ${quizData.length}`;
+            const progressPct = ((currentQIndex + 1) / quizData.length) * 100;
+            document.getElementById('progress-bar').style.width = `${progressPct}%`;
+            
+            // Question Meta
+            document.getElementById('question-category').innerText = data.category;
+            document.getElementById('question-text').innerText = `${currentQIndex + 1}. ${data.q}`;
+
+            // Reset & Start Per-Question Timer
+            clearInterval(qTimerInterval);
+            qSeconds = 0;
+            document.getElementById('current-q-timer').innerText = "00:00";
+            qTimerInterval = setInterval(() => {
+                qSeconds++;
+                document.getElementById('current-q-timer').innerText = formatTime(qSeconds);
+            }, 1000);
+
+            // Render Options
+            const container = document.getElementById('options-container');
+            container.innerHTML = '';
+
+            const optionPrefixes = ['A', 'B', 'C', 'D'];
+
+            data.options.forEach((opt, idx) => {
+                const btn = document.createElement('button');
+                btn.className = `option-btn w-full p-4 rounded-xl text-left border border-slate-700/80 bg-slate-800/60 hover:bg-slate-700/80 text-slate-200 text-sm md:text-base font-medium flex items-center gap-3 group`;
+                btn.onclick = () => selectOption(idx);
+                btn.id = `opt-${idx}`;
+
+                btn.innerHTML = `
+                    <span class="w-7 h-7 rounded-lg bg-slate-700 group-hover:bg-amber-500/20 group-hover:text-amber-300 text-slate-300 flex items-center justify-center text-xs font-bold shrink-0 transition-colors">
+                        ${optionPrefixes[idx]}
+                    </span>
+                    <span class="flex-grow">${opt}</span>
+                    <i class="fa-regular fa-circle text-slate-500 group-hover:text-slate-300 text-base status-icon"></i>
+                `;
+                container.appendChild(btn);
+            });
+        }
+
+        // Handle Option Selection
+        function selectOption(selectedIndex) {
+            // Stop per question timer
+            clearInterval(qTimerInterval);
+
+            const qData = quizData[currentQIndex];
+            const isCorrect = (selectedIndex === qData.correct);
+
+            // Save user answer
+            userAnswers.push({
+                questionIndex: currentQIndex,
+                selectedOption: selectedIndex,
+                isCorrect: isCorrect,
+                timeSpent: qSeconds
+            });
+
+            if (isCorrect) score++;
+
+            // Disable all options
+            const allOptions = document.querySelectorAll('.option-btn');
+            allOptions.forEach(btn => btn.disabled = true);
+
+            // Apply styling
+            const selectedBtn = document.getElementById(`opt-${selectedIndex}`);
+            if (isCorrect) {
+                selectedBtn.classList.add('option-correct');
+                selectedBtn.querySelector('.status-icon').className = 'fa-solid fa-circle-check text-white text-lg';
+                
+                // Show praise banner
+                const randomPraise = praiseList[Math.floor(Math.random() * praiseList.length)];
+                document.getElementById('praise-text').innerText = randomPraise;
+                document.getElementById('praise-banner').classList.remove('hidden');
+
+                // Trigger Confetti Burst
+                triggerConfetti();
+
+            } else {
+                selectedBtn.classList.add('option-incorrect');
+                selectedBtn.querySelector('.status-icon').className = 'fa-solid fa-circle-xmark text-white text-lg';
+
+                // Highlight Correct Answer
+                const correctBtn = document.getElementById(`opt-${qData.correct}`);
+                correctBtn.classList.add('option-correct');
+                correctBtn.querySelector('.status-icon').className = 'fa-solid fa-circle-check text-white text-lg';
+            }
+
+            // Enable Next Button
+            const nextBtn = document.getElementById('next-btn');
+            nextBtn.disabled = false;
+            nextBtn.className = "px-6 py-2.5 bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white cursor-pointer font-bold text-sm rounded-xl transition-all duration-200 flex items-center gap-2 shadow-lg shadow-emerald-500/20";
+        }
+
+        // Move to Next Question
+        function nextQuestion() {
+            currentQIndex++;
+            if (currentQIndex < quizData.length) {
+                loadQuestion();
+            } else {
+                finishQuiz();
+            }
+        }
+
+        // Finish Quiz and Render Dashboard
+        function finishQuiz() {
+            clearInterval(totalTimerInterval);
+            clearInterval(qTimerInterval);
+
+            document.getElementById('quiz-screen').classList.add('hidden');
+            document.getElementById('result-screen').classList.remove('hidden');
+
+            const totalQuestions = quizData.length;
+            const accuracyPct = Math.round((score / totalQuestions) * 100);
+            const avgTime = Math.round(totalSeconds / totalQuestions);
+
+            // Populate Cards
+            document.getElementById('res-score').innerText = `${score} / ${totalQuestions}`;
+            document.getElementById('res-marks-percent').innerText = `${accuracyPct}% Marks Obtained`;
+
+            document.getElementById('res-accuracy').innerText = `${accuracyPct}%`;
+            document.getElementById('res-total-time').innerText = formatTime(totalSeconds);
+            document.getElementById('res-avg-time').innerText = `${avgTime}s`;
+
+            // Dynamic Subtitle
+            const subTitle = document.getElementById('score-summary-subtitle');
+            if (accuracyPct >= 85) {
+                subTitle.innerText = "🌟 Excellent Masterclass Performance! You have deeply understood W. H. Auden's poem!";
+            } else if (accuracyPct >= 60) {
+                subTitle.innerText = "👍 Good Job! Solid knowledge, but review a few stanza details for 100% precision.";
+            } else {
+                subTitle.innerText = "📖 Keep Learning! Review the poem line-by-line and try again.";
+            }
+
+            // Donut Chart Update
+            document.getElementById('donut-percent').innerText = `${accuracyPct}%`;
+            const donutSeg = document.getElementById('donut-segment');
+            donutSeg.setAttribute('stroke-dasharray', `${accuracyPct}, 100`);
+
+            // Category/Topic Wise Accuracy Analysis
+            const topicStats = {};
+            userAnswers.forEach(ans => {
+                const category = quizData[ans.questionIndex].category;
+                if (!topicStats[category]) {
+                    topicStats[category] = { total: 0, correct: 0 };
+                }
+                topicStats[category].total++;
+                if (ans.isCorrect) topicStats[category].correct++;
+            });
+
+            const topicContainer = document.getElementById('topic-breakdown-container');
+            topicContainer.innerHTML = '';
+
+            for (const [topic, stats] of Object.entries(topicStats)) {
+                const pct = Math.round((stats.correct / stats.total) * 100);
+                let barColor = "bg-emerald-500";
+                if (pct < 50) barColor = "bg-red-500";
+                else if (pct < 75) barColor = "bg-amber-500";
+
+                const topicRow = document.createElement('div');
+                topicRow.className = "space-y-1";
+                topicRow.innerHTML = `
+                    <div class="flex justify-between font-medium text-slate-300">
+                        <span>${topic}</span>
+                        <span class="font-mono">${stats.correct}/${stats.total} (${pct}%)</span>
+                    </div>
+                    <div class="w-full bg-slate-800 rounded-full h-2 border border-slate-700/50 overflow-hidden">
+                        <div class="${barColor} h-2 rounded-full transition-all duration-500" style="width: ${pct}%"></div>
+                    </div>
+                `;
+                topicContainer.appendChild(topicRow);
+            }
+
+            // Question Review List
+            const reviewContainer = document.getElementById('questions-review-list');
+            reviewContainer.innerHTML = '';
+
+            userAnswers.forEach((ans, i) => {
+                const q = quizData[ans.questionIndex];
+                const card = document.createElement('div');
+                card.className = `p-4 rounded-2xl glass-card-light border-l-4 ${ans.isCorrect ? 'border-l-emerald-500' : 'border-l-red-500'} space-y-2 text-xs md:text-sm`;
+
+                const selectedText = q.options[ans.selectedOption];
+                const correctText = q.options[q.correct];
+
+                card.innerHTML = `
+                    <div class="flex justify-between items-start gap-2">
+                        <span class="font-bold text-slate-200">Q${i + 1}: ${q.q}</span>
+                        <span class="px-2 py-0.5 rounded text-[11px] font-mono shrink-0 ${ans.isCorrect ? 'bg-emerald-500/20 text-emerald-300' : 'bg-red-500/20 text-red-300'}">
+                            ${ans.isCorrect ? 'Correct' : 'Incorrect'} • ${ans.timeSpent}s
+                        </span>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-2 text-xs pt-1">
+                        <div class="p-2 rounded-lg ${ans.isCorrect ? 'bg-emerald-950/40 text-emerald-200' : 'bg-red-950/40 text-red-200'}">
+                            <span class="font-bold opacity-75">Your Choice:</span> ${selectedText}
+                        </div>
+                        ${!ans.isCorrect ? `
+                            <div class="p-2 rounded-lg bg-emerald-950/40 text-emerald-200">
+                                <span class="font-bold opacity-75">Correct Answer:</span> ${correctText}
+                            </div>
+                        ` : ''}
+                    </div>
+                `;
+                reviewContainer.appendChild(card);
+            });
+
+            // Big Celebration Confetti if Score is high
+            if (accuracyPct >= 70) {
+                confetti({
+                    particleCount: 120,
+                    spread: 80,
+                    origin: { y: 0.6 }
+                });
+            }
+        }
+
+        // Restart Quiz
+        function restartQuiz() {
+            document.getElementById('result-screen').classList.add('hidden');
+            startQuiz();
+        }
+
+        // Helper: Time Formatter (mm:ss)
+        function formatTime(seconds) {
+            const mins = Math.floor(seconds / 60);
+            const secs = seconds % 60;
+            return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+        }
+
+        // Particle Confetti Helper
+        function triggerConfetti() {
+            confetti({
+                particleCount: 40,
+                angle: 60,
+                spread: 55,
+                origin: { x: 0 }
+            });
+            confetti({
+                particleCount: 40,
+                angle: 120,
+                spread: 55,
+                origin: { x: 1 }
+            });
+        }
+    </script>
+</body>
+</html>

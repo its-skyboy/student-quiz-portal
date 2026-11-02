@@ -1,0 +1,946 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snake - Class 12 Bihar Board English Quiz</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Canvas Confetti Library -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            500: '#22c55e',
+                            600: '#16a34a',
+                            700: '#15803d',
+                            800: '#166534',
+                        }
+                    },
+                    keyframes: {
+                        pulseSlow: {
+                            '0%, 100%': { transform: 'scale(1)' },
+                            '50%': { transform: 'scale(1.05)' }
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-8px)' }
+                        },
+                        popIn: {
+                            '0%': { opacity: '0', transform: 'scale(0.8)' },
+                            '100%': { opacity: '1', transform: 'scale(1)' }
+                        }
+                    },
+                    animation: {
+                        'pulse-slow': 'pulseSlow 3s infinite ease-in-out',
+                        'float': 'float 3s infinite ease-in-out',
+                        'pop-in': 'popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: linear-gradient(135deg, #064e3b 0%, #022c22 50%, #021a14 100%);
+            min-height: 100vh;
+            color: #f0fdf4;
+        }
+
+        .glass-card {
+            background: rgba(6, 78, 59, 0.65);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+        }
+
+        .glass-card-light {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .option-btn {
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .option-btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px -5px rgba(34, 197, 94, 0.25);
+            border-color: #4ade80;
+        }
+
+        .option-correct {
+            background: linear-gradient(135deg, #059669 0%, #10b981 100%) !important;
+            color: #ffffff !important;
+            border-color: #34d399 !important;
+            box-shadow: 0 0 20px rgba(16, 185, 129, 0.5) !important;
+        }
+
+        .option-incorrect {
+            background: linear-gradient(135deg, #dc2626 0%, #ef4444 100%) !important;
+            color: #ffffff !important;
+            border-color: #f87171 !important;
+            box-shadow: 0 0 20px rgba(239, 68, 68, 0.4) !important;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #022c22;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #065f46;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #047857;
+        }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen justify-between items-center p-3 md:p-6 text-emerald-50">
+
+    <!-- Header Section -->
+    <header class="w-full max-w-4xl glass-card rounded-2xl p-4 md:p-6 mb-6 shadow-2xl relative overflow-hidden">
+        <div class="absolute -top-10 -right-10 w-32 h-32 bg-emerald-400/10 rounded-full blur-2xl"></div>
+        <div class="flex flex-col md:flex-row justify-between items-center gap-4 relative z-10">
+            <div class="flex items-center gap-3 text-center md:text-left">
+                <div class="w-12 h-12 rounded-xl bg-gradient-to-tr from-emerald-500 to-teal-400 flex items-center justify-center text-slate-950 text-2xl shadow-lg">
+                    <i class="fa-solid fa-staff-snake"></i>
+                </div>
+                <div>
+                    <span class="text-xs font-semibold tracking-wider text-emerald-300 uppercase">Class 12 Bihar Board • English</span>
+                    <h1 class="text-xl md:text-2xl font-extrabold text-white">Snake - D.H. Lawrence Quiz</h1>
+                </div>
+            </div>
+            
+            <div id="quiz-badge" class="hidden md:flex items-center gap-2 bg-emerald-950/60 px-4 py-2 rounded-xl border border-emerald-700/50">
+                <i class="fa-solid fa-feather-pointed text-emerald-400"></i>
+                <span class="text-xs font-medium text-emerald-200">Rainbow Part 2</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- START SCREEN -->
+    <main id="start-screen" class="w-full max-w-4xl glass-card rounded-3xl p-6 md:p-10 shadow-2xl my-auto text-center relative overflow-hidden">
+        <div class="max-w-2xl mx-auto space-y-6">
+            <div class="inline-flex items-center justify-center w-20 h-20 rounded-full bg-emerald-400/10 text-emerald-300 border border-emerald-400/20 text-3xl mb-2 animate-float">
+                <i class="fa-solid fa-shield-cat"></i>
+            </div>
+            
+            <h2 class="text-3xl md:text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-emerald-200 via-teal-100 to-green-300">
+                Mastery Test: 50 Questions
+            </h2>
+            
+            <p class="text-emerald-100/90 text-sm md:text-base leading-relaxed">
+                Test your knowledge of D.H. Lawrence's masterpiece poem 'Snake'. Explore stanza meanings, poetic devices, themes of nature vs. human education, symbols, and author background tailored for Bihar State Board exams.
+            </p>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-3 py-4">
+                <div class="glass-card-light p-3 rounded-xl">
+                    <div class="text-emerald-300 font-bold text-lg">50</div>
+                    <div class="text-xs text-emerald-200/70">Total MCQs</div>
+                </div>
+                <div class="glass-card-light p-3 rounded-xl">
+                    <div class="text-teal-300 font-bold text-lg">Instant</div>
+                    <div class="text-xs text-emerald-200/70">Feedback & FX</div>
+                </div>
+                <div class="glass-card-light p-3 rounded-xl">
+                    <div class="text-green-300 font-bold text-lg">Live</div>
+                    <div class="text-xs text-emerald-200/70">Time Tracking</div>
+                </div>
+                <div class="glass-card-light p-3 rounded-xl">
+                    <div class="text-emerald-200 font-bold text-lg">Detailed</div>
+                    <div class="text-xs text-emerald-200/70">Analytics</div>
+                </div>
+            </div>
+
+            <button id="start-btn" onclick="startQuiz()" class="w-full md:w-auto px-10 py-4 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-slate-950 font-extrabold rounded-2xl shadow-xl hover:shadow-emerald-500/25 transition-all duration-300 transform hover:-translate-y-1 text-lg flex items-center justify-center gap-3 mx-auto cursor-pointer">
+                <span>Start Quiz Challenge</span>
+                <i class="fa-solid fa-arrow-right"></i>
+            </button>
+        </div>
+    </main>
+
+    <!-- QUIZ CONTAINER -->
+    <main id="quiz-screen" class="w-full max-w-4xl glass-card rounded-3xl p-5 md:p-8 shadow-2xl my-auto hidden relative">
+        
+        <!-- Live Progress & Timing Bar -->
+        <div class="mb-6 space-y-3">
+            <div class="flex justify-between items-center text-xs md:text-sm font-semibold text-emerald-200">
+                <span id="question-count-text">Question 1 of 50</span>
+                <div class="flex items-center gap-4">
+                    <span class="flex items-center gap-1.5 bg-emerald-950/80 px-3 py-1 rounded-lg border border-emerald-700/50">
+                        <i class="fa-regular fa-clock text-amber-300"></i>
+                        <span id="current-q-timer" class="font-mono text-amber-200">00:00</span> (Q)
+                    </span>
+                    <span class="flex items-center gap-1.5 bg-emerald-950/80 px-3 py-1 rounded-lg border border-emerald-700/50">
+                        <i class="fa-solid fa-stopwatch text-emerald-400"></i>
+                        <span id="overall-timer" class="font-mono text-emerald-300">00:00</span> (Total)
+                    </span>
+                </div>
+            </div>
+
+            <!-- Progress Bar -->
+            <div class="w-full bg-emerald-950/80 rounded-full h-2.5 overflow-hidden border border-emerald-700/50">
+                <div id="progress-bar" class="bg-gradient-to-r from-emerald-400 to-teal-400 h-2.5 rounded-full transition-all duration-300" style="width: 2%"></div>
+            </div>
+        </div>
+
+        <!-- Question Category Badge -->
+        <div class="mb-3 flex items-center justify-between">
+            <span id="question-category" class="inline-block text-xs font-semibold px-3 py-1 rounded-md bg-emerald-500/10 text-emerald-300 border border-emerald-500/20">
+                Category
+            </span>
+            <span id="difficulty-badge" class="text-xs px-2.5 py-0.5 rounded bg-emerald-900/60 text-emerald-200">Standard</span>
+        </div>
+
+        <!-- Question Text -->
+        <h3 id="question-text" class="text-lg md:text-xl font-bold text-white mb-6 leading-relaxed">
+            Question loading...
+        </h3>
+
+        <!-- Motivational Praise Banner (Hidden by default) -->
+        <div id="praise-banner" class="hidden mb-4 p-3 rounded-xl bg-emerald-500/20 border border-emerald-500/40 text-emerald-100 text-center text-sm font-bold animate-pop-in flex items-center justify-center gap-2">
+            <i class="fa-solid fa-circle-check text-emerald-300 text-lg"></i>
+            <span id="praise-text">Brilliant! Excellent Knowledge!</span>
+        </div>
+
+        <!-- Options Grid -->
+        <div id="options-container" class="grid grid-cols-1 md:grid-cols-2 gap-3.5 mb-6">
+            <!-- Dynamically Rendered -->
+        </div>
+
+        <!-- Footer Control Buttons -->
+        <div class="flex justify-between items-center pt-4 border-t border-emerald-700/40">
+            <div class="text-xs text-emerald-300/80 flex items-center gap-1">
+                <i class="fa-solid fa-lightbulb text-amber-300"></i> Select one option to proceed.
+            </div>
+            <button id="next-btn" onclick="nextQuestion()" disabled class="px-6 py-2.5 bg-emerald-950/60 text-emerald-400/60 cursor-not-allowed font-semibold text-sm rounded-xl transition-all duration-200 flex items-center gap-2 border border-emerald-800/40">
+                <span>Next Question</span>
+                <i class="fa-solid fa-chevron-right text-xs"></i>
+            </button>
+        </div>
+    </main>
+
+    <!-- RESULT ANALYSIS DASHBOARD -->
+    <main id="result-screen" class="w-full max-w-4xl glass-card rounded-3xl p-6 md:p-8 shadow-2xl my-auto hidden space-y-8 my-6">
+        
+        <!-- Top Summary Banner -->
+        <div class="text-center space-y-2">
+            <div class="inline-flex items-center justify-center p-3 bg-emerald-400/10 rounded-2xl border border-emerald-400/20 text-emerald-300 mb-2">
+                <i class="fa-solid fa-trophy text-3xl"></i>
+            </div>
+            <h2 class="text-2xl md:text-3xl font-extrabold text-white">Quiz Analysis & Performance</h2>
+            <p id="score-summary-subtitle" class="text-emerald-100/90 text-sm">Here is how you performed on D.H. Lawrence's poem 'Snake'</p>
+        </div>
+
+        <!-- Key Score Cards -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <!-- Score Card -->
+            <div class="glass-card-light p-4 rounded-2xl text-center space-y-1 relative overflow-hidden">
+                <div class="text-xs font-semibold text-emerald-300 uppercase tracking-wider">Score Obtained</div>
+                <div class="text-2xl md:text-3xl font-black text-emerald-400" id="res-score">0 / 50</div>
+                <div class="text-xs text-emerald-200/70" id="res-marks-percent">0% Marks</div>
+            </div>
+
+            <!-- Accuracy Card -->
+            <div class="glass-card-light p-4 rounded-2xl text-center space-y-1">
+                <div class="text-xs font-semibold text-emerald-300 uppercase tracking-wider">Accuracy Rate</div>
+                <div class="text-2xl md:text-3xl font-black text-teal-300" id="res-accuracy">0%</div>
+                <div class="text-xs text-emerald-200/70" id="res-accuracy-label">Correct Answers</div>
+            </div>
+
+            <!-- Total Time Card -->
+            <div class="glass-card-light p-4 rounded-2xl text-center space-y-1">
+                <div class="text-xs font-semibold text-emerald-300 uppercase tracking-wider">Total Time</div>
+                <div class="text-2xl md:text-3xl font-black text-amber-300" id="res-total-time">00:00</div>
+                <div class="text-xs text-emerald-200/70">Completed Duration</div>
+            </div>
+
+            <!-- Avg Time Card -->
+            <div class="glass-card-light p-4 rounded-2xl text-center space-y-1">
+                <div class="text-xs font-semibold text-emerald-300 uppercase tracking-wider">Avg Time / Question</div>
+                <div class="text-2xl md:text-3xl font-black text-green-300" id="res-avg-time">0s</div>
+                <div class="text-xs text-emerald-200/70">Pacing Speed</div>
+            </div>
+        </div>
+
+        <!-- Visual Ring & Topic Analysis Section -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            
+            <!-- Donut Visual Ring -->
+            <div class="glass-card-light p-5 rounded-2xl flex flex-col items-center justify-center text-center">
+                <h4 class="text-sm font-bold text-emerald-100 mb-4">Overall Score Breakdown</h4>
+                <div class="relative w-36 h-36 flex items-center justify-center">
+                    <svg class="w-full h-full transform -rotate-90" viewBox="0 0 36 36">
+                        <path class="text-emerald-950" stroke-width="3.5" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                        <path id="donut-segment" class="text-emerald-400 transition-all duration-1000 ease-out" stroke-dasharray="0, 100" stroke-width="3.5" stroke-linecap="round" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                    </svg>
+                    <div class="absolute flex flex-col items-center justify-center">
+                        <span id="donut-percent" class="text-2xl font-black text-white">0%</span>
+                        <span class="text-[10px] text-emerald-300 uppercase font-bold">Accuracy</span>
+                    </div>
+                </div>
+                <div class="flex justify-center gap-4 text-xs font-medium mt-4 text-emerald-200">
+                    <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span> Correct</span>
+                    <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-red-500"></span> Wrong</span>
+                </div>
+            </div>
+
+            <!-- Topic Wise Performance -->
+            <div class="glass-card-light p-5 rounded-2xl md:col-span-2 space-y-3">
+                <h4 class="text-sm font-bold text-emerald-100 mb-2">Topic & Sub-theme Accuracy Breakdown</h4>
+                <div id="topic-breakdown-container" class="space-y-3 text-xs">
+                    <!-- Populated via Javascript -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Detailed Question Review List -->
+        <div class="space-y-4">
+            <div class="flex items-center justify-between">
+                <h4 class="text-base font-bold text-white flex items-center gap-2">
+                    <i class="fa-solid fa-list-check text-emerald-300"></i> Detailed Question-by-Question Review
+                </h4>
+                <span class="text-xs text-emerald-300/80">Scroll down to inspect choices</span>
+            </div>
+
+            <div id="questions-review-list" class="space-y-3 max-h-96 overflow-y-auto pr-2">
+                <!-- Dynamically populated -->
+            </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="flex flex-col sm:flex-row gap-4 justify-center pt-4 border-t border-emerald-700/40">
+            <button onclick="restartQuiz()" class="px-8 py-3.5 bg-gradient-to-r from-emerald-500 to-teal-400 hover:from-emerald-600 hover:to-teal-500 text-slate-950 font-extrabold rounded-xl shadow-lg transition-all flex items-center justify-center gap-2 cursor-pointer">
+                <i class="fa-solid fa-rotate-right"></i>
+                <span>Retake Quiz</span>
+            </button>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="w-full max-w-4xl text-center text-xs text-emerald-300/70 py-4 mt-auto">
+        Class 12 Bihar Board (Rainbow Part 2) • English Literature Master Quiz Series
+    </footer>
+
+    <!-- QUIZ LOGIC JAVASCRIPT -->
+    <script>
+        // 50 Detailed, Accurate Questions for "Snake" by D.H. Lawrence
+        const quizData = [
+            {
+                q: "Who is the author of the poem 'Snake'?",
+                options: ["John Keats", "D.H. Lawrence", "W.H. Auden", "Rupert Brooke"],
+                correct: 1,
+                category: "Author & Background"
+            },
+            {
+                q: "In which year was D.H. Lawrence born?",
+                options: ["1880", "1885", "1895", "1905"],
+                correct: 1,
+                category: "Author & Background"
+            },
+            {
+                q: "Where was D.H. Lawrence born?",
+                options: ["London, England", " Eastwood, Nottinghamshire, England", "Dublin, Ireland", "Edinburgh, Scotland"],
+                correct: 1,
+                category: "Author & Background"
+            },
+            {
+                q: "Which famous novel written by D.H. Lawrence was controversial for its frank treatment of sexuality and human relationships?",
+                options: ["Sons and Lovers", "Lady Chatterley's Lover", "The Rainbow", "Women in Love"],
+                correct: 1,
+                category: "Author & Background"
+            },
+            {
+                q: "What is the central theme of the poem 'Snake'?",
+                options: ["The fear of poisonous insects", "Conflict between modern human education and instinctive love for nature", "A hunter's adventure", "The glory of modern industrialization"],
+                correct: 1,
+                category: "Core Themes & Message"
+            },
+            {
+                q: "At what time of day did the poet come to his water-trough in the poem?",
+                options: ["In the bright morning", "In the dead of night", "On a hot, sultry afternoon", "During twilight"],
+                correct: 2,
+                category: "Stanza Line Meanings"
+            },
+            {
+                q: "Why did the poet go to the water-trough with a pitcher?",
+                options: ["To wash his clothes", "To fetch water for himself on a hot day", "To water his garden plants", "To wash his dog"],
+                correct: 1,
+                category: "Stanza Line Meanings"
+            },
+            {
+                q: "What was the snake doing when the poet arrived at the trough?",
+                options: ["Attacking a rabbit", "Resting in the grass", "Drinking water from the stone trough", "Hiding in a hole"],
+                correct: 2,
+                category: "Stanza Line Meanings"
+            },
+            {
+                q: "What color of snake came to the water-trough in Sicily?",
+                options: ["Golden-brown / Yellow-brown", "Bright red", "Jet black", "Spotless white"],
+                correct: 0,
+                category: "Imagery & Symbols"
+            },
+            {
+                q: "In which country was D.H. Lawrence staying when this encounter with the snake occurred?",
+                options: ["Italy (Sicily)", "Australia", "Mexico", "France"],
+                correct: 0,
+                category: "Author & Background"
+            },
+            {
+                q: "Complete the line: 'A snake came to my water-trough / On a hot, hot day, and I in _________ for water.'",
+                options: ["Pyjamas", "Socks", "Coat", "Shirt"],
+                correct: 0,
+                category: "Textual Lines"
+            },
+            {
+                q: "How did the snake drink water from the trough?",
+                options: ["Lapping with a tongue", "Sipping with straight mouth", "Straight from the faucet", "Dripping over stone"],
+                correct: 1,
+                category: "Stanza Line Meanings"
+            },
+            {
+                q: "What poetic device is prominently used throughout 'Snake'?",
+                options: ["Strict rhyming sonnet form", "Free verse", "Heroic couplet", "Ballad meter"],
+                correct: 1,
+                category: "Poetic Devices & Structure"
+            },
+            {
+                q: "How did the poet initially view the snake before his education interfered?",
+                options: ["As a dangerous enemy to kill instantly", "As a guest, a king in exile", "As a pest", "As a toy"],
+                correct: 1,
+                category: "Core Themes & Message"
+            },
+            {
+                q: "What does the snake symbolize in classical mythology and the poem?",
+                options: ["Royalty, divinity, and the lords of life", "Poison and betrayal only", "Courage and bravery", "Stupidity"],
+                correct: 0,
+                category: "Imagery & Symbols"
+            },
+            {
+                q: "According to Sicilian education/beliefs taught to the poet, what should be done to golden venomous snakes?",
+                options: ["They should be worshipped", "They should be killed", "They should be fed milk", "They should be captured"],
+                correct: 1,
+                category: "Stanza Line Meanings"
+            },
+            {
+                q: "What color were the venomous snakes in Sicily according to the educational lore?",
+                options: ["Yellow, brown", "Black and white", "Green", "Spotted"],
+                correct: 0,
+                category: "Textual Lines"
+            },
+            {
+                q: "What color were the non-venomous snakes in Sicily according to local tradition?",
+                options: ["White", "Green", "Red", "Grey"],
+                correct: 0,
+                category: "Textual Lines"
+            },
+            {
+                q: "What object did the poet pick up after being urged by his voice of education?",
+                options: ["A heavy wooden log / clumsy log", "A sharp iron rod", "A stone", "A gun"],
+                correct: 0,
+                category: "Stanza Line Meanings"
+            },
+            {
+                q: "Did the poet actually strike the snake with the log?",
+                options: ["Yes, he killed it", "No, he missed and threw it weakly", "He threw it but it hit the water", "He never threw anything"],
+                correct: 2,
+                category: "Stanza Line Meanings"
+            },
+            {
+                q: "How did the snake react after the log was thrown near it?",
+                options: ["It hissed and attacked the poet's leg", "It turned back and fled quickly into the hole", "It stayed drinking water calmly", "It coiled up to fight"],
+                correct: 1,
+                category: "Stanza Line Meanings"
+            },
+            {
+                q: "Into what geological feature did the snake disappear?",
+                options: ["A deep dark fissure / hole in the wall", "A hollow tree", "Under the kitchen floor", "A deep well"],
+                correct: 0,
+                category: "Imagery & Symbols"
+            },
+            {
+                q: "What emotion did the poet feel immediately after the snake retreated?",
+                options: ["Proud of his bravery", "Regret, remorse, and pettiness", "Extreme fear", "Joy of victory"],
+                correct: 1,
+                category: "Core Themes & Message"
+            },
+            {
+                q: "What did the poet compare his act of throwing a log at the snake to?",
+                options: ["Killing a giant", "The petty act of the Ancient Mariner shooting the albatross", "Defending a kingdom", "A heroic battle"],
+                correct: 1,
+                category: "Poetic Devices & Allusion"
+            },
+            {
+                q: "In which classic literary work does the shooting of an albatross occur?",
+                options: ["The Rime of the Ancient Mariner by S.T. Coleridge", "Paradise Lost by John Milton", "Hamlet by Shakespeare", "The Odyssey by Homer"],
+                correct: 0,
+                category: "Poetic Devices & Allusion"
+            },
+            {
+                q: "What did the poet wish for after the snake was gone?",
+                options: ["That the snake would come back", "That he had a gun", "That he had taken a photo", "That someone else saw it"],
+                correct: 0,
+                category: "Stanza Line Meanings"
+            },
+            {
+                q: "What did the poet call his petty act of trying to kill the snake?",
+                options: ["A great mistake / pettiness", "A noble duty", "An accident", "A brave deed"],
+                correct: 0,
+                category: "Core Themes & Message"
+            },
+            {
+                q: "What voice told the poet that the snake must be killed?",
+                options: ["The voice of his education / civilized consciousness", "His mother's voice", "The village priest", "His own inner instinct"],
+                correct: 0,
+                category: "Core Themes & Message"
+            },
+            {
+                q: "How does the poet describe the movement of the snake as it drank water?",
+                options: ["Scary and aggressive", "Peaceful, elegant, and kingly", "Clumsy and slow", "Erratic and frantic"],
+                correct: 1,
+                category: "Imagery & Symbols"
+            },
+            {
+                q: "What burning interior of the earth did the fissure lead into?",
+                options: ["The earth's dark bowels / underworld", "A hidden gold mine", "A subterranean river", "A volcano"],
+                correct: 0,
+                category: "Imagery & Symbols"
+            },
+            {
+                q: "What did the snake do after drinking enough water?",
+                options: ["Lifted its head dreamily and flicked its tongue", "Fell asleep", "Made a loud noise", "Bit the trough"],
+                correct: 0,
+                category: "Stanza Line Meanings"
+            },
+            {
+                q: "Complete the line: 'He reached down from a fissure in the earth-wall in the _______'",
+                options: ["Gloom", "Sunlight", "Shadow", "Cave"],
+                correct: 0,
+                category: "Textual Lines"
+            },
+            {
+                q: "What attitude did the poet display towards the snake when they first met?",
+                options: ["Hospitality and deep reverence", "Hatred", "Indifference", "Panic"],
+                correct: 0,
+                category: "Core Themes & Message"
+            },
+            {
+                q: "According to the poet, why did he feel honoured by the snake?",
+                options: ["Because a king in exile had condescended to visit his water-trough", "Because the snake brought gifts", "Because the snake was famous", "Because it was rare"],
+                correct: 0,
+                category: "Stanza Line Meanings"
+            },
+            {
+                q: "What mental conflict is portrayed in the poem 'Snake'?",
+                options: ["Between human instinct/nature and societal education", "Between science and religion", "Between rich and poor", "Between east and west"],
+                correct: 0,
+                category: "Core Themes & Message"
+            },
+            {
+                q: "Which of the following novels was NOT written by D.H. Lawrence?",
+                options: ["A Passage to India", "The Rainbow", "Sons and Lovers", "Women in Love"],
+                correct: 0,
+                category: "Author & Background"
+            },
+            {
+                q: "What does the snake's unhurried, majestic departure signify?",
+                options: ["Its quiet dignity and superiority over petty human thoughts", "Fear of the log", "Weakness", "Confusion"],
+                correct: 0,
+                category: "Imagery & Symbols"
+            },
+            {
+                q: "How does D.H. Lawrence view modern civilization in his poems?",
+                options: ["As something that alienates human beings from natural instincts and innocence", "As a golden age", "As unimportant", "As completely evil"],
+                correct: 0,
+                category: "Core Themes & Message"
+            },
+            {
+                q: "What poetic technique gives 'Snake' its natural, conversational rhythm?",
+                options: ["Free verse without rigid rhyme or meter", "Rhyming couplets", "Blank verse", "Haiku structure"],
+                correct: 0,
+                category: "Poetic Devices & Structure"
+            },
+            {
+                q: "Complete the line: 'Was it _______, was it perverse, that I should thrash him?'",
+                options: ["Cowardly", "Brave", "Foolish", "Wise"],
+                correct: 0,
+                category: "Textual Lines"
+            },
+            {
+                q: "What did the poet long to reclaim after the snake had gone?",
+                options: ["His lost kingly guest / honour", "His lost money", "His pet dog", "His lost book"],
+                correct: 0,
+                category: "Stanza Line Meanings"
+            },
+            {
+                q: "How does the poet describe the snake's drinking manner?",
+                options: ["Like cattle drinking", "Peaceful and unhurried, sipping with slackness", "Fast and furious", "Aggressive"],
+                correct: 1,
+                category: "Stanza Line Meanings"
+            },
+            {
+                q: "What did the poet feel he had missed out on?",
+                options: ["A rare chance of communion with the natural world/divinity", "A chance to hunt", "An opportunity to take photos", "A prize"],
+                correct: 0,
+                category: "Core Themes & Message"
+            },
+            {
+                q: "What sound did the poet make when he threw the log?",
+                options: ["A clatter / thud", "A loud shout", "A whistle", "No sound"],
+                correct: 0,
+                category: "Stanza Line Meanings"
+            },
+            {
+                q: "What did the snake's tongue resemble according to the poet?",
+                options: ["Two-forked tongue like flame", "A flower petal", "A sharp needle", "A ribbon"],
+                correct: 0,
+                category: "Imagery & Symbols"
+            },
+            {
+                q: "What type of tone dominates the conclusion of the poem 'Snake'?",
+                options: ["Deep remorse, regret, and repentance", "Joyful celebration", "Indifference", "Anger"],
+                correct: 0,
+                category: "Core Themes & Message"
+            },
+            {
+                q: "Which of Lawrence's collections contains the poem 'Snake'?",
+                options: ["Birds, Beasts and Flowers", "Look, Stranger!", "The Shield of Achilles", "Another Time"],
+                correct: 0,
+                category: "Author & Background"
+            },
+            {
+                q: "In what year was D.H. Lawrence's poetry collection 'Birds, Beasts and Flowers' published?",
+                options: ["1923", "1915", "1930", "1908"],
+                correct: 0,
+                category: "Author & Background"
+            },
+            {
+                q: "What does the poet's act of throwing the log signify in psychological terms?",
+                options: ["The intrusion of societal conditioning over natural instinct", "Pure physical self-defense", "Childish playfulness", "Accidental slip"],
+                correct: 0,
+                category: "Core Themes & Message"
+            },
+            {
+                q: "What final status does the poet accord to the snake in his mind?",
+                options: ["One of the lords of life", "A dangerous vermin", "An ordinary reptile", "An enemy"],
+                correct: 0,
+                category: "Imagery & Symbols"
+            }
+        ];
+
+        // Motivational Praise Array
+        const praiseList = [
+            "Outstanding! Brilliant knowledge of D.H. Lawrence's masterpiece! 🌟",
+            "Superb! You nailed this Bihar Board MCQ! 🎯",
+            "Excellent job! Perfect literary understanding! 📚",
+            "Fantastic! Keep up this top-tier performance! 🚀",
+            "Genius move! Spot on answer! 👏",
+            "Bravo! Excellent grasp on the poem lines! 💎"
+        ];
+
+        // State Variables
+        let currentQIndex = 0;
+        let score = 0;
+        let userAnswers = []; // Store: { questionIndex, selectedOption, isCorrect, timeSpent }
+        
+        let qTimerInterval = null;
+        let qSeconds = 0;
+        
+        let totalTimerInterval = null;
+        let totalSeconds = 0;
+
+        // Start Quiz Function
+        function startQuiz() {
+            document.getElementById('start-screen').classList.add('hidden');
+            document.getElementById('quiz-screen').classList.remove('hidden');
+            
+            currentQIndex = 0;
+            score = 0;
+            userAnswers = [];
+            totalSeconds = 0;
+
+            // Start Overall Timer
+            clearInterval(totalTimerInterval);
+            totalTimerInterval = setInterval(() => {
+                totalSeconds++;
+                document.getElementById('overall-timer').innerText = formatTime(totalSeconds);
+            }, 1000);
+
+            loadQuestion();
+        }
+
+        // Load Question Function
+        function loadQuestion() {
+            const data = quizData[currentQIndex];
+            
+            // Reset state
+            document.getElementById('praise-banner').classList.add('hidden');
+            const nextBtn = document.getElementById('next-btn');
+            nextBtn.disabled = true;
+            nextBtn.className = "px-6 py-2.5 bg-emerald-950/60 text-emerald-400/60 cursor-not-allowed font-semibold text-sm rounded-xl transition-all duration-200 flex items-center gap-2 border border-emerald-800/40";
+
+            // Update Progress Header
+            document.getElementById('question-count-text').innerText = `Question ${currentQIndex + 1} of ${quizData.length}`;
+            const progressPct = ((currentQIndex + 1) / quizData.length) * 100;
+            document.getElementById('progress-bar').style.width = `${progressPct}%`;
+            
+            // Question Meta
+            document.getElementById('question-category').innerText = data.category;
+            document.getElementById('question-text').innerText = `${currentQIndex + 1}. ${data.q}`;
+
+            // Reset & Start Per-Question Timer
+            clearInterval(qTimerInterval);
+            qSeconds = 0;
+            document.getElementById('current-q-timer').innerText = "00:00";
+            qTimerInterval = setInterval(() => {
+                qSeconds++;
+                document.getElementById('current-q-timer').innerText = formatTime(qSeconds);
+            }, 1000);
+
+            // Render Options
+            const container = document.getElementById('options-container');
+            container.innerHTML = '';
+
+            const optionPrefixes = ['A', 'B', 'C', 'D'];
+
+            data.options.forEach((opt, idx) => {
+                const btn = document.createElement('button');
+                btn.className = `option-btn w-full p-4 rounded-xl text-left border border-emerald-700/60 bg-emerald-950/50 hover:bg-emerald-900/60 text-emerald-100 text-sm md:text-base font-medium flex items-center gap-3 group`;
+                btn.onclick = () => selectOption(idx);
+                btn.id = `opt-${idx}`;
+
+                btn.innerHTML = `
+                    <span class="w-7 h-7 rounded-lg bg-emerald-900/80 group-hover:bg-emerald-400/20 group-hover:text-emerald-300 text-emerald-200 flex items-center justify-center text-xs font-bold shrink-0 transition-colors">
+                        ${optionPrefixes[idx]}
+                    </span>
+                    <span class="flex-grow">${opt}</span>
+                    <i class="fa-regular fa-circle text-emerald-600 group-hover:text-emerald-300 text-base status-icon"></i>
+                `;
+                container.appendChild(btn);
+            });
+        }
+
+        // Handle Option Selection
+        function selectOption(selectedIndex) {
+            // Stop per question timer
+            clearInterval(qTimerInterval);
+
+            const qData = quizData[currentQIndex];
+            const isCorrect = (selectedIndex === qData.correct);
+
+            // Save user answer
+            userAnswers.push({
+                questionIndex: currentQIndex,
+                selectedOption: selectedIndex,
+                isCorrect: isCorrect,
+                timeSpent: qSeconds
+            });
+
+            if (isCorrect) score++;
+
+            // Disable all options
+            const allOptions = document.querySelectorAll('.option-btn');
+            allOptions.forEach(btn => btn.disabled = true);
+
+            // Apply styling
+            const selectedBtn = document.getElementById(`opt-${selectedIndex}`);
+            if (isCorrect) {
+                selectedBtn.classList.add('option-correct');
+                selectedBtn.querySelector('.status-icon').className = 'fa-solid fa-circle-check text-white text-lg';
+                
+                // Show praise banner
+                const randomPraise = praiseList[Math.floor(Math.random() * praiseList.length)];
+                document.getElementById('praise-text').innerText = randomPraise;
+                document.getElementById('praise-banner').classList.remove('hidden');
+
+                // Trigger Confetti Burst
+                triggerConfetti();
+
+            } else {
+                selectedBtn.classList.add('option-incorrect');
+                selectedBtn.querySelector('.status-icon').className = 'fa-solid fa-circle-xmark text-white text-lg';
+
+                // Highlight Correct Answer
+                const correctBtn = document.getElementById(`opt-${qData.correct}`);
+                correctBtn.classList.add('option-correct');
+                correctBtn.querySelector('.status-icon').className = 'fa-solid fa-circle-check text-white text-lg';
+            }
+
+            // Enable Next Button
+            const nextBtn = document.getElementById('next-btn');
+            nextBtn.disabled = false;
+            nextBtn.className = "px-6 py-2.5 bg-gradient-to-r from-emerald-500 to-teal-400 hover:from-emerald-600 hover:to-teal-500 text-slate-950 cursor-pointer font-extrabold text-sm rounded-xl transition-all duration-200 flex items-center gap-2 shadow-lg shadow-emerald-500/20";
+        }
+
+        // Move to Next Question
+        function nextQuestion() {
+            currentQIndex++;
+            if (currentQIndex < quizData.length) {
+                loadQuestion();
+            } else {
+                finishQuiz();
+            }
+        }
+
+        // Finish Quiz and Render Dashboard
+        function finishQuiz() {
+            clearInterval(totalTimerInterval);
+            clearInterval(qTimerInterval);
+
+            document.getElementById('quiz-screen').classList.add('hidden');
+            document.getElementById('result-screen').classList.remove('hidden');
+
+            const totalQuestions = quizData.length;
+            const accuracyPct = Math.round((score / totalQuestions) * 100);
+            const avgTime = Math.round(totalSeconds / totalQuestions);
+
+            // Populate Cards
+            document.getElementById('res-score').innerText = `${score} / ${totalQuestions}`;
+            document.getElementById('res-marks-percent').innerText = `${accuracyPct}% Marks Obtained`;
+
+            document.getElementById('res-accuracy').innerText = `${accuracyPct}%`;
+            document.getElementById('res-total-time').innerText = formatTime(totalSeconds);
+            document.getElementById('res-avg-time').innerText = `${avgTime}s`;
+
+            // Dynamic Subtitle
+            const subTitle = document.getElementById('score-summary-subtitle');
+            if (accuracyPct >= 85) {
+                subTitle.innerText = "🌟 Excellent Masterclass Performance! You have deeply understood D.H. Lawrence's poem!";
+            } else if (accuracyPct >= 60) {
+                subTitle.innerText = "👍 Good Job! Solid knowledge, but review a few stanza details for 100% precision.";
+            } else {
+                subTitle.innerText = "📖 Keep Learning! Review the poem line-by-line and try again.";
+            }
+
+            // Donut Chart Update
+            document.getElementById('donut-percent').innerText = `${accuracyPct}%`;
+            const donutSeg = document.getElementById('donut-segment');
+            donutSeg.setAttribute('stroke-dasharray', `${accuracyPct}, 100`);
+
+            // Category/Topic Wise Accuracy Analysis
+            const topicStats = {};
+            userAnswers.forEach(ans => {
+                const category = quizData[ans.questionIndex].category;
+                if (!topicStats[category]) {
+                    topicStats[category] = { total: 0, correct: 0 };
+                }
+                topicStats[category].total++;
+                if (ans.isCorrect) topicStats[category].correct++;
+            });
+
+            const topicContainer = document.getElementById('topic-breakdown-container');
+            topicContainer.innerHTML = '';
+
+            for (const [topic, stats] of Object.entries(topicStats)) {
+                const pct = Math.round((stats.correct / stats.total) * 100);
+                let barColor = "bg-emerald-400";
+                if (pct < 50) barColor = "bg-red-500";
+                else if (pct < 75) barColor = "bg-amber-400";
+
+                const topicRow = document.createElement('div');
+                topicRow.className = "space-y-1";
+                topicRow.innerHTML = `
+                    <div class="flex justify-between font-medium text-emerald-100">
+                        <span>${topic}</span>
+                        <span class="font-mono">${stats.correct}/${stats.total} (${pct}%)</span>
+                    </div>
+                    <div class="w-full bg-emerald-950 rounded-full h-2 border border-emerald-800/50 overflow-hidden">
+                        <div class="${barColor} h-2 rounded-full transition-all duration-500" style="width: ${pct}%"></div>
+                    </div>
+                `;
+                topicContainer.appendChild(topicRow);
+            }
+
+            // Question Review List
+            const reviewContainer = document.getElementById('questions-review-list');
+            reviewContainer.innerHTML = '';
+
+            userAnswers.forEach((ans, i) => {
+                const q = quizData[ans.questionIndex];
+                const card = document.createElement('div');
+                card.className = `p-4 rounded-2xl glass-card-light border-l-4 ${ans.isCorrect ? 'border-l-emerald-400' : 'border-l-red-500'} space-y-2 text-xs md:text-sm`;
+
+                const selectedText = q.options[ans.selectedOption];
+                const correctText = q.options[q.correct];
+
+                card.innerHTML = `
+                    <div class="flex justify-between items-start gap-2">
+                        <span class="font-bold text-emerald-50">Q${i + 1}: ${q.q}</span>
+                        <span class="px-2 py-0.5 rounded text-[11px] font-mono shrink-0 ${ans.isCorrect ? 'bg-emerald-500/20 text-emerald-300' : 'bg-red-500/20 text-red-300'}">
+                            ${ans.isCorrect ? 'Correct' : 'Incorrect'} • ${ans.timeSpent}s
+                        </span>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-2 text-xs pt-1">
+                        <div class="p-2 rounded-lg ${ans.isCorrect ? 'bg-emerald-950/60 text-emerald-200' : 'bg-red-950/60 text-red-200'}">
+                            <span class="font-bold opacity-75">Your Choice:</span> ${selectedText}
+                        </div>
+                        ${!ans.isCorrect ? `
+                            <div class="p-2 rounded-lg bg-emerald-950/60 text-emerald-200">
+                                <span class="font-bold opacity-75">Correct Answer:</span> ${correctText}
+                            </div>
+                        ` : ''}
+                    </div>
+                `;
+                reviewContainer.appendChild(card);
+            });
+
+            // Big Celebration Confetti if Score is high
+            if (accuracyPct >= 70) {
+                confetti({
+                    particleCount: 120,
+                    spread: 80,
+                    origin: { y: 0.6 }
+                });
+            }
+        }
+
+        // Restart Quiz
+        function restartQuiz() {
+            document.getElementById('result-screen').classList.add('hidden');
+            startQuiz();
+        }
+
+        // Helper: Time Formatter (mm:ss)
+        function formatTime(seconds) {
+            const mins = Math.floor(seconds / 60);
+            const secs = seconds % 60;
+            return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+        }
+
+        // Particle Confetti Helper
+        function triggerConfetti() {
+            confetti({
+                particleCount: 40,
+                angle: 60,
+                spread: 55,
+                origin: { x: 0 }
+            });
+            confetti({
+                particleCount: 40,
+                angle: 120,
+                spread: 55,
+                origin: { x: 1 }
+            });
+        }
+    </script>
+</body>
+</html>

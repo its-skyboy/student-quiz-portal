@@ -1,0 +1,1200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Macavity: The Mystery Cat - Class 12 Bihar Board Quiz</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,800;1,400&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Canvas Confetti Library -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <!-- Chart.js for Analytics -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Outfit', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    },
+                    colors: {
+                        mysteryBrand: {
+                            50: '#f8fafc',
+                            100: '#f1f5f9',
+                            500: '#64748b',
+                            600: '#475569',
+                            700: '#334155',
+                            800: '#1e293b',
+                            900: '#0f172a',
+                        },
+                        amberBrand: {
+                            400: '#fbbf24',
+                            500: '#f59e0b',
+                            600: '#d97706',
+                        }
+                    },
+                    animation: {
+                        'bounce-short': 'bounce 0.5s ease-in-out 1',
+                        'pop-in': 'popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards',
+                    },
+                    keyframes: {
+                        popIn: {
+                            '0%': { opacity: '0', transform: 'scale(0.8)' },
+                            '100%': { opacity: '1', transform: 'scale(1)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background: linear-gradient(135deg, #090d16 0%, #151c2f 50%, #0a0e1a 100%);
+            min-height: 100vh;
+            color: #f1f5f9;
+        }
+        .glass-card {
+            background: rgba(21, 28, 47, 0.75);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(245, 158, 11, 0.2);
+        }
+        .option-btn {
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .option-btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(245, 158, 11, 0.25);
+        }
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(10, 14, 26, 0.6);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(245, 158, 11, 0.4);
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(245, 158, 11, 0.7);
+        }
+    </style>
+</head>
+<body class="font-sans antialiased flex flex-col min-h-screen">
+
+    <!-- Top Header Navigation -->
+    <header class="w-full glass-card sticky top-0 z-40 border-b border-amber-500/30 px-4 py-3 sm:px-8">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-amber-500 to-indigo-600 flex items-center justify-center shadow-lg shadow-amber-500/20">
+                    <i class="fa-solid fa-cat text-white text-lg"></i>
+                </div>
+                <div>
+                    <h1 class="font-serif text-lg sm:text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-amber-300 via-indigo-200 to-slate-200">
+                        Macavity: The Mystery Cat
+                    </h1>
+                    <p class="text-xs text-amber-300/70">Class 12 Bihar Board (BSEB) English Rainbow Part-2</p>
+                </div>
+            </div>
+
+            <!-- Quiz Status Pill -->
+            <div id="topStatusPill" class="hidden sm:flex items-center gap-4 bg-black/40 px-4 py-1.5 rounded-full border border-amber-500/30">
+                <div class="flex items-center gap-2 text-xs font-semibold text-amber-400">
+                    <i class="fa-solid fa-clock"></i>
+                    <span id="topTotalTimer">00:00</span>
+                </div>
+                <div class="h-3 w-px bg-amber-500/30"></div>
+                <div class="flex items-center gap-2 text-xs font-semibold text-indigo-300">
+                    <i class="fa-solid fa-bullseye"></i>
+                    <span id="topProgress">Q 1/50</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="flex-1 max-w-5xl w-full mx-auto p-4 sm:p-6 md:p-8 flex flex-col justify-center">
+
+        <!-- WELCOME SCREEN -->
+        <section id="welcomeScreen" class="glass-card rounded-3xl p-6 sm:p-10 text-center animate-pop-in shadow-2xl relative overflow-hidden my-auto">
+            <div class="absolute -top-24 -right-24 w-60 h-60 bg-amber-500/15 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="absolute -bottom-24 -left-24 w-60 h-60 bg-indigo-600/15 rounded-full blur-3xl pointer-events-none"></div>
+
+            <span class="inline-block px-4 py-1.5 bg-amber-500/10 border border-amber-500/30 text-amber-300 rounded-full text-xs font-semibold tracking-wide uppercase mb-4">
+                BSEB Class 12 English Chapter Test
+            </span>
+
+            <h2 class="font-serif text-3xl sm:text-5xl font-extrabold text-white tracking-tight mb-4 leading-tight">
+                Master "Macavity: The Mystery Cat"<br><span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-indigo-400">by T. S. Eliot</span>
+            </h2>
+
+            <p class="text-slate-300 max-w-2xl mx-auto text-sm sm:text-base leading-relaxed mb-8">
+                Test your mastery across <strong>50 distinct questions</strong> covering poet biography, T.S. Eliot's Nobel prize, Scotland Yard baffling cases, feline trickery, poem lines, vocabulary, and exam patterns. Complete with live timers, celebration animations, and deep performance analytics!
+            </p>
+
+            <!-- Quiz Information Grid -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-3xl mx-auto mb-8">
+                <div class="bg-black/30 p-4 rounded-2xl border border-amber-500/20">
+                    <i class="fa-solid fa-list-check text-2xl text-amber-400 mb-2"></i>
+                    <div class="text-xl font-bold text-white">50</div>
+                    <div class="text-xs text-slate-400">Total Questions</div>
+                </div>
+                <div class="bg-black/30 p-4 rounded-2xl border border-amber-500/20">
+                    <i class="fa-solid fa-stopwatch text-2xl text-indigo-400 mb-2"></i>
+                    <div class="text-xl font-bold text-white">Per Q.</div>
+                    <div class="text-xs text-slate-400">Timer Tracked</div>
+                </div>
+                <div class="bg-black/30 p-4 rounded-2xl border border-amber-500/20">
+                    <i class="fa-solid fa-award text-2xl text-emerald-400 mb-2"></i>
+                    <div class="text-xl font-bold text-white">+1 Marks</div>
+                    <div class="text-xs text-slate-400">No Negative</div>
+                </div>
+                <div class="bg-black/30 p-4 rounded-2xl border border-amber-500/20">
+                    <i class="fa-solid fa-chart-pie text-2xl text-amber-300 mb-2"></i>
+                    <div class="text-xl font-bold text-white">4 Topics</div>
+                    <div class="text-xs text-slate-400">Topic Analysis</div>
+                </div>
+            </div>
+
+            <button id="startBtn" onclick="startQuiz()" class="px-8 py-4 bg-gradient-to-r from-amber-500 via-indigo-600 to-blue-600 text-white font-bold text-lg rounded-2xl shadow-lg shadow-indigo-600/30 hover:scale-105 active:scale-95 transition-all duration-300 flex items-center gap-3 mx-auto">
+                <span>Start 50-Question Quiz Now</span>
+                <i class="fa-solid fa-arrow-right"></i>
+            </button>
+        </section>
+
+
+        <!-- QUIZ INTERFACE SCREEN -->
+        <section id="quizScreen" class="hidden flex-col gap-6">
+
+            <!-- Progress & Stats Header -->
+            <div class="glass-card rounded-2xl p-4 sm:p-5 flex flex-col sm:flex-row justify-between items-center gap-4">
+                <!-- Left: Question Progress Bar -->
+                <div class="w-full sm:w-2/3">
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="text-xs font-semibold text-amber-300 uppercase tracking-wider" id="qCategoryBadge">
+                            Category: Poet Biography & Style
+                        </span>
+                        <span class="text-xs font-bold text-slate-200" id="qNumberText">Question 1 of 50</span>
+                    </div>
+                    <div class="w-full bg-black/40 h-3 rounded-full overflow-hidden p-0.5 border border-amber-500/20">
+                        <div id="progressBar" class="h-full bg-gradient-to-r from-amber-400 via-indigo-500 to-blue-500 rounded-full transition-all duration-500 w-0"></div>
+                    </div>
+                </div>
+
+                <!-- Right: Question Timers -->
+                <div class="flex items-center gap-3 w-full sm:w-auto justify-end">
+                    <!-- Current Question Timer -->
+                    <div class="bg-black/50 border border-amber-500/30 rounded-xl px-3 py-1.5 flex items-center gap-2">
+                        <i class="fa-solid fa-hourglass-half text-amber-400 animate-spin" style="animation-duration: 4s;"></i>
+                        <div>
+                            <div class="text-[10px] text-slate-400 uppercase font-semibold leading-none">Question Time</div>
+                            <div class="text-sm font-bold text-amber-300 font-mono" id="qTimerText">00s</div>
+                        </div>
+                    </div>
+                    <!-- Total Time Elapsed -->
+                    <div class="bg-black/50 border border-amber-500/30 rounded-xl px-3 py-1.5 flex items-center gap-2">
+                        <i class="fa-solid fa-stopwatch text-indigo-400"></i>
+                        <div>
+                            <div class="text-[10px] text-slate-400 uppercase font-semibold leading-none">Total Elapsed</div>
+                            <div class="text-sm font-bold text-indigo-300 font-mono" id="totalTimerText">00:00</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question Card -->
+            <div class="glass-card rounded-3xl p-6 sm:p-8 relative shadow-2xl border border-amber-500/20">
+
+                <!-- Question Text -->
+                <div class="mb-6">
+                    <h3 id="questionText" class="text-lg sm:text-2xl font-semibold text-white leading-relaxed">
+                        Loading Question...
+                    </h3>
+                </div>
+
+                <!-- Options Grid -->
+                <div id="optionsContainer" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <!-- Option Buttons injected dynamically -->
+                </div>
+
+                <!-- Praise/Motivation Banner (Appears on Correct Response) -->
+                <div id="praiseBanner" class="hidden mt-6 p-4 rounded-2xl bg-gradient-to-r from-emerald-950/90 to-teal-950/90 border border-emerald-500/50 text-emerald-200 animate-pop-in flex items-center justify-between">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full bg-emerald-500/30 flex items-center justify-center text-emerald-300 text-xl font-bold">
+                            <i class="fa-solid fa-circle-check"></i>
+                        </div>
+                        <div>
+                            <p id="praiseText" class="font-bold text-emerald-300 text-base">Macavity's Mastermind! Spot On! 🐾</p>
+                            <p id="explanationText" class="text-xs text-emerald-100/80 mt-0.5">Keep up the brilliant streak!</p>
+                        </div>
+                    </div>
+                    <span id="timeTakenBadge" class="text-xs bg-emerald-900/80 px-2.5 py-1 rounded-full text-emerald-300 font-mono border border-emerald-600">
+                        +1 Point
+                    </span>
+                </div>
+
+                <!-- Incorrect Banner -->
+                <div id="incorrectBanner" class="hidden mt-6 p-4 rounded-2xl bg-gradient-to-r from-rose-950/90 to-red-950/90 border border-rose-500/50 text-rose-200 animate-pop-in flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-full bg-rose-500/30 flex items-center justify-center text-rose-300 text-xl font-bold shrink-0">
+                        <i class="fa-solid fa-circle-xmark"></i>
+                    </div>
+                    <div>
+                        <p class="font-bold text-rose-300 text-base">Macavity has slipped away! Not quite right.</p>
+                        <p id="incorrectExpText" class="text-xs text-rose-100/90 mt-0.5"></p>
+                    </div>
+                </div>
+
+                <!-- Footer / Next Button -->
+                <div class="mt-8 flex justify-between items-center border-t border-amber-500/20 pt-5">
+                    <div class="text-xs text-slate-300">
+                        Score: <span id="liveScoreText" class="font-bold text-emerald-400">0</span> / 50
+                    </div>
+
+                    <button id="nextBtn" onclick="nextQuestion()" disabled class="px-6 py-3 bg-slate-700 opacity-50 cursor-not-allowed text-white font-bold rounded-xl transition-all flex items-center gap-2 hover:bg-slate-600">
+                        <span id="nextBtnText">Next Question</span>
+                        <i class="fa-solid fa-arrow-right text-sm"></i>
+                    </button>
+                </div>
+            </div>
+
+        </section>
+
+
+        <!-- DASHBOARD RESULT ANALYSIS SCREEN -->
+        <section id="resultScreen" class="hidden flex-col gap-6 my-auto animate-pop-in">
+            <!-- Result Top Card -->
+            <div class="glass-card rounded-3xl p-6 sm:p-8 text-center relative overflow-hidden">
+                <div class="absolute -top-16 -right-16 w-48 h-48 bg-amber-500/10 rounded-full blur-2xl"></div>
+
+                <div class="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-tr from-amber-500 to-indigo-600 text-white text-3xl font-bold shadow-xl mb-4 border-4 border-black/40">
+                    <i id="badgeIcon" class="fa-solid fa-trophy text-amber-200"></i>
+                </div>
+
+                <h2 class="font-serif text-3xl sm:text-4xl font-extrabold text-white mb-2">Quiz Completed!</h2>
+                <p id="resultRemark" class="text-slate-300 text-sm sm:text-base max-w-xl mx-auto mb-6">
+                    Here is your detailed performance report for Class 12th Bihar Board English Chapter: "Macavity: The Mystery Cat".
+                </p>
+
+                <!-- High Level Stats 4-Grid -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto mb-6">
+                    <div class="bg-black/40 p-4 rounded-2xl border border-amber-500/20 text-center">
+                        <span class="text-xs text-slate-400 font-semibold uppercase block mb-1">Score Obtained</span>
+                        <span id="finalScore" class="text-3xl font-extrabold text-emerald-400">0</span>
+                        <span class="text-xs text-slate-500"> / 50 Marks</span>
+                    </div>
+
+                    <div class="bg-black/40 p-4 rounded-2xl border border-amber-500/20 text-center">
+                        <span class="text-xs text-slate-400 font-semibold uppercase block mb-1">Accuracy</span>
+                        <span id="finalAccuracy" class="text-3xl font-extrabold text-amber-400">0%</span>
+                        <span id="accuracyLabel" class="text-xs text-slate-500 block">Overall Precision</span>
+                    </div>
+
+                    <div class="bg-black/40 p-4 rounded-2xl border border-amber-500/20 text-center">
+                        <span class="text-xs text-slate-400 font-semibold uppercase block mb-1">Total Time</span>
+                        <span id="finalTotalTime" class="text-3xl font-extrabold text-indigo-300">00:00</span>
+                        <span id="avgTimePerQ" class="text-xs text-slate-500 block">Avg: 0s/Q</span>
+                    </div>
+
+                    <div class="bg-black/40 p-4 rounded-2xl border border-amber-500/20 text-center">
+                        <span class="text-xs text-slate-400 font-semibold uppercase block mb-1">Status</span>
+                        <span id="finalGrade" class="text-3xl font-extrabold text-amber-300">PASSED</span>
+                        <span class="text-xs text-slate-500 block">Bihar Board Std</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Topic-Wise Breakdown & Chart -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Topic Breakdown List -->
+                <div class="glass-card rounded-3xl p-6 flex flex-col justify-between">
+                    <h3 class="font-serif text-xl font-bold text-white mb-4 flex items-center gap-2">
+                        <i class="fa-solid fa-layer-group text-amber-400"></i> Topic-Wise Performance Breakdown
+                    </h3>
+                    <div id="topicBreakdownContainer" class="space-y-4">
+                        <!-- Dynamic topic bars injected here -->
+                    </div>
+                </div>
+
+                <!-- Topic Accuracy Chart -->
+                <div class="glass-card rounded-3xl p-6 flex flex-col justify-between">
+                    <h3 class="font-serif text-xl font-bold text-white mb-4 flex items-center gap-2">
+                        <i class="fa-solid fa-chart-bar text-indigo-400"></i> Topic Mastery Chart
+                    </h3>
+                    <div class="relative h-64 w-full flex items-center justify-center">
+                        <canvas id="topicChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Detailed Question-by-Question Time & Accuracy Breakdown -->
+            <div class="glass-card rounded-3xl p-6">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6">
+                    <div>
+                        <h3 class="font-serif text-xl font-bold text-white flex items-center gap-2">
+                            <i class="fa-solid fa-clock-rotate-left text-amber-400"></i> Question-by-Question Detailed Analysis
+                        </h3>
+                        <p class="text-xs text-slate-400 mt-1">Review time spent and outcome for every single question</p>
+                    </div>
+                    <div class="flex gap-2">
+                        <span class="inline-flex items-center gap-1 text-xs px-2.5 py-1 bg-emerald-950 border border-emerald-700 text-emerald-300 rounded-lg">
+                            <span class="w-2 h-2 rounded-full bg-emerald-400"></span> Correct
+                        </span>
+                        <span class="inline-flex items-center gap-1 text-xs px-2.5 py-1 bg-rose-950 border border-rose-700 text-rose-300 rounded-lg">
+                            <span class="w-2 h-2 rounded-full bg-rose-400"></span> Incorrect
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Scrollable Table -->
+                <div class="overflow-x-auto max-h-96 pr-2">
+                    <table class="w-full text-left text-xs sm:text-sm text-slate-200">
+                        <thead class="bg-black/60 text-amber-300 uppercase text-[11px] sticky top-0 z-10">
+                            <tr>
+                                <th class="py-3 px-3 rounded-l-lg">Q#</th>
+                                <th class="py-3 px-3">Topic</th>
+                                <th class="py-3 px-3">Question Excerpt</th>
+                                <th class="py-3 px-3 text-center">Result</th>
+                                <th class="py-3 px-3 text-right rounded-r-lg">Time Spent</th>
+                            </tr>
+                        </thead>
+                        <tbody id="detailedTableBody" class="divide-y divide-slate-800">
+                            <!-- Rows injected dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center mt-2 mb-8">
+                <button onclick="restartQuiz()" class="w-full sm:w-auto px-8 py-3.5 bg-gradient-to-r from-amber-500 to-indigo-600 text-white font-bold rounded-xl shadow-lg hover:scale-105 active:scale-95 transition flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-rotate-right"></i> Retake Quiz
+                </button>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="mt-auto py-4 text-center text-xs text-slate-400 border-t border-amber-500/20 glass-card">
+        <p>Class 12 Bihar State Education Board (BSEB) English Rainbow Part II • Chapter: Macavity: The Mystery Cat by T. S. Eliot</p>
+    </footer>
+
+    <!-- QUIZ LOGIC & QUESTIONS DATA -->
+    <script>
+        // 50 UNIQUE & DETAILED QUESTIONS ON "MACAVITY: THE MYSTERY CAT" BY T. S. ELIOT
+        const questionsData = [
+            {
+                id: 1,
+                topic: "Poet Biography & Style",
+                question: "Who is the poet of the famous poem 'Macavity: The Mystery Cat'?",
+                options: ["W. H. Auden", "T. S. Eliot", "Rupert Brooke", "Walter de la Mare"],
+                correct: 1,
+                explanation: "Thomas Stearns Eliot (T. S. Eliot) is the author of 'Macavity: The Mystery Cat'."
+            },
+            {
+                id: 2,
+                topic: "Poet Biography & Style",
+                question: "In which year was T. S. Eliot born?",
+                options: ["1888", "1895", "1905", "1910"],
+                correct: 0,
+                explanation: "T. S. Eliot was born in St. Louis, Missouri, USA, on September 26, 1888."
+            },
+            {
+                id: 3,
+                topic: "Poet Biography & Style",
+                question: "Which prestigious international award was conferred upon T. S. Eliot in 1948?",
+                options: ["Nobel Prize in Literature", "Pulitzer Prize", "Booker Prize", "Sahitya Akademi Award"],
+                correct: 0,
+                explanation: "T. S. Eliot was awarded the Nobel Prize in Literature in 1948 for his outstanding, pioneering contribution to modern poetry."
+            },
+            {
+                id: 4,
+                topic: "Poet Biography & Style",
+                question: "From which famous poetry book of T. S. Eliot is 'Macavity: The Mystery Cat' taken?",
+                options: ["Old Possum's Book of Practical Cats", "The Waste Land", "Four Quartets", "Ash Wednesday"],
+                correct: 0,
+                explanation: "'Macavity: The Mystery Cat' is part of Eliot's light verse collection 'Old Possum's Book of Practical Cats' (1939)."
+            },
+            {
+                id: 5,
+                topic: "Poet Biography & Style",
+                question: "What nickname did T. S. Eliot use among his friends and in the title of his cat poems book?",
+                options: ["Old Possum", "Old Tom", "Macavity", "Deuteronomy"],
+                correct: 0,
+                explanation: "Eliot was affectionately known among his friends and correspondents as 'Old Possum'."
+            },
+            {
+                id: 6,
+                topic: "Poet Biography & Style",
+                question: "T. S. Eliot later in life became a citizen of which country?",
+                options: ["United Kingdom (British citizen)", "France", "Switzerland", "Canada"],
+                correct: 0,
+                explanation: "Eliot moved to England in 1914 and became a British subject in 1927."
+            },
+            {
+                id: 7,
+                topic: "Poet Biography & Style",
+                question: "Which of the following landmark modernist poems was authored by T. S. Eliot?",
+                options: ["The Waste Land", "Leaves of Grass", "The Prelude", "Ode to a Nightingale"],
+                correct: 0,
+                explanation: "'The Waste Land' (1922) is one of the most celebrated modernist poems in English literature, written by Eliot."
+            },
+            {
+                id: 8,
+                topic: "Poet Biography & Style",
+                question: "What is the primary genre of 'Macavity: The Mystery Cat'?",
+                options: ["Light humorous verse / animal poetry", "Epic tragedy", "Romantic sonnet", "Political manifesto"],
+                correct: 0,
+                explanation: "It is a piece of whimsical light verse written with playful humor and rhythm."
+            },
+            {
+                id: 9,
+                topic: "Poet Biography & Style",
+                question: "In what year did T. S. Eliot pass away?",
+                options: ["1955", "1965", "1972", "1980"],
+                correct: 1,
+                explanation: "T. S. Eliot died in London on January 4, 1965."
+            },
+            {
+                id: 10,
+                topic: "Poet Biography & Style",
+                question: "The musical theatre production 'Cats' by Andrew Lloyd Webber is based on which work?",
+                options: ["Old Possum's Book of Practical Cats", "Macavity's Mystery", "The Waste Land", "Selected Essays"],
+                correct: 0,
+                explanation: "The world-famous Broadway musical 'Cats' is adapted directly from T. S. Eliot's 'Old Possum's Book of Practical Cats'."
+            },
+            {
+                id: 11,
+                topic: "Poem Text & Lines",
+                question: "What title is Macavity given in the poem for his mysterious criminal feats?",
+                options: ["The Hidden Paw", "The Master Thief", "The Ghost Cat", "The Shadow Paws"],
+                correct: 0,
+                explanation: "Macavity is famously known as 'The Hidden Paw'."
+            },
+            {
+                id: 12,
+                topic: "Poem Text & Lines",
+                question: "Complete the famous opening line: 'Macavity's a Mystery Cat: he's called the ________'",
+                options: ["Hidden Paw", "Secret Agent", "Magic Paws", "Master Criminal"],
+                correct: 0,
+                explanation: "The opening lines state: 'Macavity's a Mystery Cat: he's called the Hidden Paw'."
+            },
+            {
+                id: 13,
+                topic: "Poem Text & Lines",
+                question: "Why is Macavity considered a master criminal by Scotland Yard?",
+                options: ["Because he is the master criminal who can defy the Law", "Because he steals fish from markets", "Because he scratches furniture", "Because he runs away from dogs"],
+                correct: 0,
+                explanation: "He is 'the Master Criminal who can defy the Law', baffling every investigating agency."
+            },
+            {
+                id: 14,
+                topic: "Poem Text & Lines",
+                question: "What happens to Scotland Yard and the Flying Squad whenever they reach the scene of crime?",
+                options: ["Macavity is not there!", "They arrest him immediately", "They find him sleeping", "They receive a reward"],
+                correct: 0,
+                explanation: "The recurring refrain is: 'And when they reach the scene of crime—Macavity's not there!'"
+            },
+            {
+                id: 15,
+                topic: "Poem Text & Lines",
+                question: "What physical description does the poet give of Macavity's height and build?",
+                options: ["He is very tall and thin", "He is short and stout", "He is muscular and heavy", "He has no tail"],
+                correct: 0,
+                explanation: "The poem describes: 'Macavity's a ginger cat, he's very tall and thin'."
+            },
+            {
+                id: 16,
+                topic: "Poem Text & Lines",
+                question: "What color is Macavity described as?",
+                options: ["Ginger", "Black", "White", "Grey tabby"],
+                correct: 0,
+                explanation: "Macavity is explicitly described as a 'ginger cat'."
+            },
+            {
+                id: 17,
+                topic: "Poem Text & Lines",
+                question: "Describe Macavity's eyes according to the poem.",
+                options: ["His eyes are sunken in", "His eyes are bright blue", "He has glowing green eyes", "His eyes are tightly closed"],
+                correct: 0,
+                explanation: "The text notes: 'His eyes are sunken in'."
+            },
+            {
+                id: 18,
+                topic: "Poem Text & Lines",
+                question: "What is said about Macavity's brow?",
+                options: ["His brow is deeply lined with thought", "His brow is smooth and clean", "He has white spots on his brow", "His brow is scarred"],
+                correct: 0,
+                explanation: "'His brow is deeply lined with thought, his head is highly domed'."
+            },
+            {
+                id: 19,
+                topic: "Poem Text & Lines",
+                question: "What does the poet say about the cleanliness of Macavity's coat?",
+                options: ["His coat is dusty from neglect, his whiskers are uncombed", "His coat is shiny and polished", "He washes himself all day", "His coat is pure white"],
+                correct: 0,
+                explanation: "'His coat is dusty from neglect, his whiskers are uncombed.'"
+            },
+            {
+                id: 20,
+                topic: "Poem Text & Lines",
+                question: "How does Macavity move his head whenever you meet him?",
+                options: ["He sways his head from side to side", "He nods politely", "He turns his back", "He hides his face"],
+                correct: 0,
+                explanation: "'He sways his head from side to side, with movements like a snake.'"
+            },
+            {
+                id: 21,
+                topic: "Poem Text & Lines",
+                question: "With which reptile is Macavity's movement compared in the poem?",
+                options: ["A snake", "A crocodile", "A lizard", "A python"],
+                correct: 0,
+                explanation: "His movements are compared to a snake ('with movements like a snake')."
+            },
+            {
+                id: 22,
+                topic: "Poem Text & Lines",
+                question: "What does Macavity do when you think he's half asleep?",
+                options: ["He's always wide awake", "He falls into deep slumber", "He runs away", "He purrs loudly"],
+                correct: 0,
+                explanation: "'And you may think he's half asleep, but he's always wide awake.'"
+            },
+            {
+                id: 23,
+                topic: "Context & Characters",
+                question: "What is 'Scotland Yard' mentioned in the poem?",
+                options: ["The headquarters of the London Metropolitan Police", "A London botanical garden", "A famous railway station", "A royal palace"],
+                correct: 0,
+                explanation: "Scotland Yard is the famous headquarters of the London police force."
+            },
+            {
+                id: 24,
+                topic: "Context & Characters",
+                question: "What is the 'Flying Squad' referred to in the text?",
+                options: ["A specialized rapid-response mobile division of the police", "A fleet of police helicopters", "A troop of trained guard dogs", "A group of detective pigeons"],
+                correct: 0,
+                explanation: "The Flying Squad is a mobile division of the Metropolitan Police in London."
+            },
+            {
+                id: 25,
+                topic: "Context & Characters",
+                question: "Which other infamous feline characters are mentioned in the poem alongside Macavity?",
+                options: ["Mungojerrie and Griddlebone", "Tom and Jerry", "Simba and Scar", "Garfield and Sylvester"],
+                correct: 0,
+                explanation: "The poem mentions: 'Mungojerrie and Griddlebone are nothing more than agents / For he's the Napoleon of Crime'."
+            },
+            {
+                id: 26,
+                topic: "Context & Characters",
+                question: "What title does T. S. Eliot bestow upon Macavity regarding his criminal mastermind?",
+                options: ["The Napoleon of Crime", "The King of Beasts", "The Emperor of Thieves", "The Godfather"],
+                correct: 0,
+                explanation: "Macavity is called 'the Napoleon of Crime'."
+            },
+            {
+                id: 27,
+                topic: "Context & Characters",
+                question: "Why is Macavity called 'the Napoleon of Crime'?",
+                options: ["Because he can defy the Law and is a master planner of every single villainy", "Because he was born in France", "Because he wears a military hat", "Because he commands an army of dogs"],
+                correct: 0,
+                explanation: "He is dubbed the Napoleon of Crime because he plans every villainy and leaves no trace."
+            },
+            {
+                id: 28,
+                topic: "Context & Characters",
+                question: "What happens to the agency's cash box or treaty papers when Macavity commits a crime?",
+                options: ["They are missing / gone", "They are torn to pieces", "They are doubled in value", "They are locked in a safe"],
+                correct: 0,
+                explanation: "When the loss is discovered, the cash-box is empty or the treaty is missing."
+            },
+            {
+                id: 29,
+                topic: "Context & Characters",
+                question: "What happens to the Secret Treaty at the Foreign Office after Macavity's visit?",
+                options: ["It is lost / cannot find it", "It is framed on the wall", "It is published in newspapers", "It is signed by the Prime Minister"],
+                correct: 0,
+                explanation: "'The Foreign Office finds a Treaty's gone astray, / Or the Admiralty lose some plans and drawings…'"
+            },
+            {
+                id: 30,
+                topic: "Context & Characters",
+                question: "What happens to the Admiralty's plans and drawings when Macavity is around?",
+                options: ["They are lost", "They are sold to foreign powers", "They are burned", "They are copied"],
+                correct: 0,
+                explanation: "'Or the Admiralty lose some plans and drawings: / There may be a scrap of paper on the stair—but it's useless!' "
+            },
+            {
+                id: 31,
+                topic: "Literary Devices & Vocabulary",
+                question: "Which literary device is prominently used when Macavity is given human qualities like criminal planning and escaping?",
+                options: ["Personification", "Onomatopoeia", "Hyperbole", "Alliteration"],
+                correct: 0,
+                explanation: "Personification is used by portraying a cat as an intellectual human criminal mastermind."
+            },
+            {
+                id: 32,
+                topic: "Literary Devices & Vocabulary",
+                question: "What is the rhyme scheme of the poem 'Macavity: The Mystery Cat'?",
+                options: ["AABB (Couplets)", "ABAB", "ABBA", "Free verse without rhyme"],
+                correct: 0,
+                explanation: "The poem is written in energetic rhyming couplets (AABB)."
+            },
+            {
+                id: 33,
+                topic: "Literary Devices & Vocabulary",
+                question: "What does the word 'Defy' mean in 'can defy the Law'?",
+                options: ["Openly resist or refuse to obey", "Respect and follow", "Fear and run from", "Study carefully"],
+                correct: 0,
+                explanation: "'Defy' means to challenge, resist, or refuse to obey authority."
+            },
+            {
+                id: 34,
+                topic: "Literary Devices & Vocabulary",
+                question: "What does 'Admiralty' refer to in the poem?",
+                options: ["The government department responsible for the British Navy", "A court of law", "A secret society", "An art gallery"],
+                correct: 0,
+                explanation: "The Admiralty was the high government department that commanded the Royal Navy of the UK."
+            },
+            {
+                id: 35,
+                topic: "Literary Devices & Vocabulary",
+                question: "What does the phrase 'Puzzlement' mean in relation to Scotland Yard's investigation of Macavity?",
+                options: ["A state of confusion and inability to solve the mystery", "A joyful celebration", "A promotion in rank", "A solved case"],
+                correct: 0,
+                explanation: "Puzzlement refers to being completely baffled and confused."
+            },
+            {
+                id: 36,
+                topic: "Poem Text & Lines",
+                question: "Even the _________ are in despair when they search for Macavity.",
+                options: ["Flying Squad", "King's guards", "detective dogs", "firefighters"],
+                correct: 0,
+                explanation: "'And when the search party reach the scene—Macavity's not there! / And the Flying Squad's despair…'"
+            },
+            {
+                id: 37,
+                topic: "Poem Text & Lines",
+                question: "What happens to the greenhouse glass and trellis when something breaks?",
+                options: ["Macavity isn't there!", "He pays for the damage", "He leaves his paw prints", "He is caught red-handed"],
+                correct: 0,
+                explanation: "The poem playfully notes that whenever glass breaks in the greenhouse, Macavity is nowhere to be found."
+            },
+            {
+                id: 38,
+                topic: "Poem Text & Lines",
+                question: "What do the Paws of the cat do to the milk or pantry items in popular lore, which Macavity surpasses?",
+                options: ["He breaks the larder pane and steals the milk", "He drinks tea", "He bakes bread", "He cleans the kitchen"],
+                correct: 0,
+                explanation: "Macavity commits far greater crimes than merely looting a larder."
+            },
+            {
+                id: 39,
+                topic: "Poem Text & Lines",
+                question: "According to the poem, can Macavity break the law of gravity?",
+                options: ["Yes, he breaks the law of gravity!", "No, he obeys all physics laws", "Only when he flies", "Never"],
+                correct: 0,
+                explanation: "The poem humorously states: 'He breaks the law of gravity. His powers of levitation would make a fakir stare.'"
+            },
+            {
+                id: 40,
+                topic: "Poem Text & Lines",
+                question: "Whose powers of levitation would make a fakir stare in wonder?",
+                options: ["Macavity's", "Mungojerrie's", "Griddlebone's", "The Scotland Yard chief's"],
+                correct: 0,
+                explanation: "Macavity's levitation powers astonish even holy fakirs."
+            },
+            {
+                id: 41,
+                topic: "Context & Characters",
+                question: "Why are Mungojerrie and Griddlebone described as 'nothing more than agents'?",
+                options: ["Because they only carry out smaller crimes while Macavity is the grand mastermind", "Because they work for the police", "Because they are actors", "Because they are fictional characters within fiction"],
+                correct: 0,
+                explanation: "They are mere helper cats executing orders for the supreme mastermind Macavity."
+            },
+            {
+                id: 42,
+                topic: "Literary Devices & Vocabulary",
+                question: "What does 'Levitation' mean?",
+                options: ["The ability to rise and float in the air without physical support", "Running very fast", "Climbing tall trees", "Digging underground tunnels"],
+                correct: 0,
+                explanation: "Levitation refers to hovering or floating in the air defying gravity."
+            },
+            {
+                id: 43,
+                topic: "Poet Biography & Style",
+                question: "What is the overarching tone of 'Macavity: The Mystery Cat'?",
+                options: ["Satirical, playful, humorous, and light-hearted", "Dark and gloomy", "Tragic and mournful", "Religious and didactic"],
+                correct: 0,
+                explanation: "The tone is deliciously playful, satirical, and whimsical."
+            },
+            {
+                id: 44,
+                topic: "Poem Text & Lines",
+                question: "What does the poet repeat at the end of almost every stanza?",
+                options: ["'Macavity's not there!'", "'He is a ginger cat!'", "'The Hidden Paw!'", "'The Napoleon of Crime!'"],
+                correct: 0,
+                explanation: "The refrain 'Macavity's not there!' echoes throughout the poem to highlight his elusiveness."
+            },
+            {
+                id: 45,
+                topic: "Context & Characters",
+                question: "What happens when people search every room and cupboard for Macavity?",
+                options: ["He is nowhere to be found", "He is hiding under the bed", "He surrenders", "He is having tea"],
+                correct: 0,
+                explanation: "He always manages to vanish completely before authorities arrive."
+            },
+            {
+                id: 46,
+                topic: "Poet Biography & Style",
+                question: "Which movement in literature is T. S. Eliot most famously associated with?",
+                options: ["Modernism", "Romanticism", "Victorianism", "Realism"],
+                correct: 0,
+                explanation: "T. S. Eliot was a central pioneer of 20th-century Literary Modernism."
+            },
+            {
+                id: 47,
+                topic: "Poem Text & Lines",
+                question: "Describe Macavity's feline character as depicted by Eliot.",
+                options: ["A fiend in feline shape, a monster of depravity", "A gentle, loving pet", "A stray street cat", "A royal palace cat"],
+                correct: 0,
+                explanation: "'He's a fiend in feline shape, a monster of depravity.' This is one of his most famous descriptions."
+            },
+            {
+                id: 48,
+                topic: "Literary Devices & Vocabulary",
+                question: "What does the word 'Depravity' mean?",
+                options: ["Moral corruption or wickedness", "Physical weakness", "High intelligence", "Extreme speed"],
+                correct: 0,
+                explanation: "Depravity means moral corruption, wickedness, or evil."
+            },
+            {
+                id: 49,
+                topic: "Context & Characters",
+                question: "Can anyone ever catch Macavity according to the conclusion of the poem?",
+                options: ["No, he always gives them the slip and is nowhere to be found", "Yes, Scotland Yard arrests him in the end", "Yes, the Flying Squad traps him", "Yes, a dog catches him"],
+                correct: 0,
+                explanation: "He perpetually evades capture, remaining the ultimate mystery cat."
+            },
+            {
+                id: 50,
+                topic: "Poem Text & Lines",
+                question: "In the Bihar Board Class 12 syllabus, 'Macavity: The Mystery Cat' is included in which section?",
+                options: ["Poetry Section (Rainbow Part II)", "Prose Section", "Grammar Section", "Non-detailed Story Reader"],
+                correct: 0,
+                explanation: "It is featured prominently in the Poetry section of Bihar Board Class 12 English textbook."
+            }
+        ];
+
+        // Motivational Praise Phrases
+        const praisePhrases = [
+            "Macavity's Mastermind! Spot on! 🐾",
+            "Brilliant! You caught the cat! 🐱",
+            "Outstanding work! Bihar Board topper style! 🚀",
+            "Superb execution! You're unstoppable! ⭐",
+            "Fantastic! Master of English Literature! 📚",
+            "Incredible precision! Well done! 🎉",
+            "Magnificent! Your preparation is top-notch! 🏆"
+        ];
+
+        // STATE VARIABLES
+        let currentQIndex = 0;
+        let score = 0;
+        let questionTimerInterval = null;
+        let totalTimerInterval = null;
+        let questionTimeSeconds = 0;
+        let totalTimeSeconds = 0;
+        let userAnswers = [];
+        let chartInstance = null;
+
+        // Sound Synthesis (Web Audio API)
+        function playSound(type) {
+            try {
+                const ctx = new (window.AudioContext || window.webkitAudioContext)();
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+
+                if (type === 'correct') {
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(523.25, ctx.currentTime);
+                    osc.frequency.exponentialRampToValueAtTime(659.25, ctx.currentTime + 0.15);
+                    gain.gain.setValueAtTime(0.2, ctx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.3);
+                    osc.start();
+                    osc.stop(ctx.currentTime + 0.3);
+                } else if (type === 'wrong') {
+                    osc.type = 'triangle';
+                    osc.frequency.setValueAtTime(220, ctx.currentTime);
+                    osc.frequency.exponentialRampToValueAtTime(146.83, ctx.currentTime + 0.2);
+                    gain.gain.setValueAtTime(0.3, ctx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.35);
+                    osc.start();
+                    osc.stop(ctx.currentTime + 0.35);
+                }
+            } catch(e) {}
+        }
+
+        // CONFETTI ANIMATION
+        function triggerConfetti() {
+            if (typeof confetti === 'function') {
+                confetti({
+                    particleCount: 75,
+                    spread: 70,
+                    origin: { y: 0.7 },
+                    colors: ['#fbbf24', '#6366f1', '#3b82f6', '#10b981']
+                });
+            }
+        }
+
+        // START QUIZ
+        function startQuiz() {
+            document.getElementById('welcomeScreen').classList.add('hidden');
+            document.getElementById('quizScreen').classList.remove('hidden');
+            document.getElementById('quizScreen').classList.add('flex');
+            document.getElementById('topStatusPill').classList.remove('hidden');
+            document.getElementById('topStatusPill').classList.add('flex');
+
+            currentQIndex = 0;
+            score = 0;
+            userAnswers = [];
+            totalTimeSeconds = 0;
+
+            startTotalTimer();
+            loadQuestion();
+        }
+
+        // TIMERS
+        function startTotalTimer() {
+            clearInterval(totalTimerInterval);
+            totalTimerInterval = setInterval(() => {
+                totalTimeSeconds++;
+                const mins = String(Math.floor(totalTimeSeconds / 60)).padStart(2, '0');
+                const secs = String(totalTimeSeconds % 60).padStart(2, '0');
+                const formatted = `${mins}:${secs}`;
+                document.getElementById('totalTimerText').textContent = formatted;
+                document.getElementById('topTotalTimer').textContent = formatted;
+            }, 1000);
+        }
+
+        function resetQuestionTimer() {
+            clearInterval(questionTimerInterval);
+            questionTimeSeconds = 0;
+            document.getElementById('qTimerText').textContent = '00s';
+
+            questionTimerInterval = setInterval(() => {
+                questionTimeSeconds++;
+                document.getElementById('qTimerText').textContent = String(questionTimeSeconds).padStart(2, '0') + 's';
+            }, 1000);
+        }
+
+        // LOAD QUESTION
+        function loadQuestion() {
+            resetQuestionTimer();
+
+            const qData = questionsData[currentQIndex];
+
+            document.getElementById('qNumberText').textContent = `Question ${currentQIndex + 1} of 50`;
+            document.getElementById('topProgress').textContent = `Q ${currentQIndex + 1}/50`;
+            document.getElementById('qCategoryBadge').textContent = `Category: ${qData.topic}`;
+            
+            const progressPercent = ((currentQIndex + 1) / 50) * 100;
+            document.getElementById('progressBar').style.width = `${progressPercent}%`;
+
+            document.getElementById('questionText').textContent = `${currentQIndex + 1}. ${qData.question}`;
+
+            document.getElementById('praiseBanner').classList.add('hidden');
+            document.getElementById('incorrectBanner').classList.add('hidden');
+            
+            const nextBtn = document.getElementById('nextBtn');
+            nextBtn.disabled = true;
+            nextBtn.classList.add('opacity-50', 'cursor-not-allowed');
+            
+            if (currentQIndex === 49) {
+                document.getElementById('nextBtnText').textContent = 'Finish & See Analysis';
+            } else {
+                document.getElementById('nextBtnText').textContent = 'Next Question';
+            }
+
+            const container = document.getElementById('optionsContainer');
+            container.innerHTML = '';
+
+            const optionLabels = ['A', 'B', 'C', 'D'];
+
+            qData.options.forEach((optText, idx) => {
+                const btn = document.createElement('button');
+                btn.className = `option-btn w-full p-4 rounded-2xl bg-black/40 hover:bg-slate-800/60 border border-amber-500/20 text-left text-slate-200 flex items-center gap-3 group text-sm sm:text-base font-medium`;
+                btn.onclick = () => selectOption(idx);
+                btn.id = `opt-${idx}`;
+
+                btn.innerHTML = `
+                    <span class="w-8 h-8 rounded-xl bg-black/60 border border-amber-500/30 text-amber-300 group-hover:border-amber-400 group-hover:text-amber-200 flex items-center justify-center font-bold text-xs shrink-0 transition-colors">
+                        ${optionLabels[idx]}
+                    </span>
+                    <span class="flex-1">${optText}</span>
+                    <i class="fa-regular fa-circle text-slate-600 text-lg group-hover:text-amber-400 transition-colors status-icon"></i>
+                `;
+
+                container.appendChild(btn);
+            });
+        }
+
+        // OPTION SELECTION
+        function selectOption(selectedIndex) {
+            clearInterval(questionTimerInterval);
+
+            const qData = questionsData[currentQIndex];
+            const isCorrect = selectedIndex === qData.correct;
+            const container = document.getElementById('optionsContainer');
+            const allBtns = container.querySelectorAll('button');
+
+            allBtns.forEach(btn => btn.disabled = true);
+
+            userAnswers.push({
+                questionId: qData.id,
+                topic: qData.topic,
+                questionText: qData.question,
+                selectedOption: selectedIndex,
+                correctOption: qData.correct,
+                isCorrect: isCorrect,
+                timeSpent: questionTimeSeconds
+            });
+
+            if (isCorrect) {
+                score++;
+                document.getElementById('liveScoreText').textContent = score;
+                playSound('correct');
+                triggerConfetti();
+
+                const selectedBtn = document.getElementById(`opt-${selectedIndex}`);
+                selectedBtn.className = "option-btn w-full p-4 rounded-2xl bg-emerald-950/90 border-2 border-emerald-500 text-emerald-100 flex items-center gap-3 text-sm sm:text-base font-medium shadow-lg shadow-emerald-900/40 animate-bounce-short";
+                selectedBtn.querySelector('.status-icon').className = "fa-solid fa-circle-check text-emerald-400 text-xl";
+
+                const randomPraise = praisePhrases[Math.floor(Math.random() * praisePhrases.length)];
+                document.getElementById('praiseText').textContent = randomPraise;
+                document.getElementById('explanationText').textContent = qData.explanation;
+                document.getElementById('timeTakenBadge').textContent = `Answered in ${questionTimeSeconds}s! (+1 Pt)`;
+                document.getElementById('praiseBanner').classList.remove('hidden');
+
+            } else {
+                playSound('wrong');
+
+                const selectedBtn = document.getElementById(`opt-${selectedIndex}`);
+                selectedBtn.className = "option-btn w-full p-4 rounded-2xl bg-rose-950/90 border-2 border-rose-500 text-rose-100 flex items-center gap-3 text-sm sm:text-base font-medium shadow-lg shadow-rose-900/40";
+                selectedBtn.querySelector('.status-icon').className = "fa-solid fa-circle-xmark text-rose-400 text-xl";
+
+                const correctBtn = document.getElementById(`opt-${qData.correct}`);
+                correctBtn.className = "option-btn w-full p-4 rounded-2xl bg-emerald-950/70 border-2 border-emerald-500/80 text-emerald-200 flex items-center gap-3 text-sm sm:text-base font-medium";
+                correctBtn.querySelector('.status-icon').className = "fa-solid fa-circle-check text-emerald-400 text-xl";
+
+                document.getElementById('incorrectExpText').textContent = `Correct Answer: ${qData.options[qData.correct]}. Explanation: ${qData.explanation}`;
+                document.getElementById('incorrectBanner').classList.remove('hidden');
+            }
+
+            const nextBtn = document.getElementById('nextBtn');
+            nextBtn.disabled = false;
+            nextBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+            nextBtn.classList.add('bg-gradient-to-r', 'from-amber-500', 'to-indigo-600', 'shadow-lg', 'scale-105');
+        }
+
+        // NEXT
+        function nextQuestion() {
+            currentQIndex++;
+            if (currentQIndex < 50) {
+                loadQuestion();
+            } else {
+                finishQuiz();
+            }
+        }
+
+        // FINISH QUIZ & ANALYSIS
+        function finishQuiz() {
+            clearInterval(questionTimerInterval);
+            clearInterval(totalTimerInterval);
+
+            document.getElementById('quizScreen').classList.add('hidden');
+            document.getElementById('topStatusPill').classList.add('hidden');
+            document.getElementById('resultScreen').classList.remove('hidden');
+            document.getElementById('resultScreen').classList.add('flex');
+
+            const accuracy = Math.round((score / 50) * 100);
+            const totalMins = String(Math.floor(totalTimeSeconds / 60)).padStart(2, '0');
+            const totalSecs = String(totalTimeSeconds % 60).padStart(2, '0');
+            const formattedTotalTime = `${totalMins}:${totalSecs}`;
+            const avgSecsPerQ = (totalTimeSeconds / 50).toFixed(1);
+
+            document.getElementById('finalScore').textContent = score;
+            document.getElementById('finalAccuracy').textContent = `${accuracy}%`;
+            document.getElementById('finalTotalTime').textContent = formattedTotalTime;
+            document.getElementById('avgTimePerQ').textContent = `Avg: ${avgSecsPerQ}s / Q`;
+
+            const badgeIcon = document.getElementById('badgeIcon');
+            const resultRemark = document.getElementById('resultRemark');
+            const finalGrade = document.getElementById('finalGrade');
+
+            if (accuracy >= 85) {
+                badgeIcon.className = "fa-solid fa-trophy text-amber-300";
+                finalGrade.textContent = "EXCELLENT";
+                finalGrade.className = "text-3xl font-extrabold text-emerald-400";
+                resultRemark.textContent = "Outstanding Performance! You have exceptional mastery over T. S. Eliot's 'Macavity: The Mystery Cat' and Bihar Board questions!";
+                triggerConfetti();
+            } else if (accuracy >= 60) {
+                badgeIcon.className = "fa-solid fa-medal text-amber-300";
+                finalGrade.textContent = "GOOD PASS";
+                finalGrade.className = "text-3xl font-extrabold text-amber-400";
+                resultRemark.textContent = "Great job! You have a solid grasp of 'Macavity'. Review a few missed topics for 100% perfection.";
+            } else {
+                badgeIcon.className = "fa-solid fa-book-open-reader text-indigo-300";
+                finalGrade.textContent = "NEEDS REVISION";
+                finalGrade.className = "text-3xl font-extrabold text-rose-400";
+                resultRemark.textContent = "Keep practicing! Review Eliot's biography and poem text details to boost your score further.";
+            }
+
+            const topics = {};
+            userAnswers.forEach(ans => {
+                if (!topics[ans.topic]) {
+                    topics[ans.topic] = { total: 0, correct: 0, timeSpent: 0 };
+                }
+                topics[ans.topic].total++;
+                if (ans.isCorrect) topics[ans.topic].correct++;
+                topics[ans.topic].timeSpent += ans.timeSpent;
+            });
+
+            const topicContainer = document.getElementById('topicBreakdownContainer');
+            topicContainer.innerHTML = '';
+
+            const topicLabels = [];
+            const topicAccuracies = [];
+
+            Object.keys(topics).forEach(topicName => {
+                const tData = topics[topicName];
+                const tAcc = Math.round((tData.correct / tData.total) * 100);
+                const avgT = (tData.timeSpent / tData.total).toFixed(1);
+
+                topicLabels.push(topicName);
+                topicAccuracies.push(tAcc);
+
+                const itemHtml = `
+                    <div class="bg-black/40 p-4 rounded-2xl border border-amber-500/20">
+                        <div class="flex justify-between items-center mb-1.5">
+                            <span class="font-semibold text-slate-200 text-xs sm:text-sm">${topicName}</span>
+                            <span class="text-xs font-bold ${tAcc >= 70 ? 'text-emerald-400' : 'text-amber-400'}">${tData.correct}/${tData.total} (${tAcc}%)</span>
+                        </div>
+                        <div class="w-full bg-black/60 h-2.5 rounded-full overflow-hidden p-0.5 mb-2">
+                            <div class="h-full ${tAcc >= 70 ? 'bg-emerald-500' : 'bg-amber-500'} rounded-full" style="width: ${tAcc}%"></div>
+                        </div>
+                        <div class="flex justify-between text-[11px] text-slate-400">
+                            <span>Total Time: ${tData.timeSpent}s</span>
+                            <span>Avg Pace: ${avgT}s / Q</span>
+                        </div>
+                    </div>
+                `;
+                topicContainer.innerHTML += itemHtml;
+            });
+
+            renderChart(topicLabels, topicAccuracies);
+
+            const tableBody = document.getElementById('detailedTableBody');
+            tableBody.innerHTML = '';
+
+            userAnswers.forEach((ans, index) => {
+                const tr = document.createElement('tr');
+                tr.className = index % 2 === 0 ? 'bg-black/20' : 'bg-black/50';
+
+                const statusBadge = ans.isCorrect
+                    ? `<span class="px-2 py-0.5 rounded-full text-[11px] font-bold bg-emerald-950 text-emerald-300 border border-emerald-700">Correct</span>`
+                    : `<span class="px-2 py-0.5 rounded-full text-[11px] font-bold bg-rose-950 text-rose-300 border border-rose-700">Incorrect</span>`;
+
+                tr.innerHTML = `
+                    <td class="py-3 px-3 font-mono font-bold text-slate-300">#${ans.questionId}</td>
+                    <td class="py-3 px-3 text-slate-400 text-xs">${ans.topic}</td>
+                    <td class="py-3 px-3 text-slate-200 max-w-xs truncate">${ans.questionText}</td>
+                    <td class="py-3 px-3 text-center">${statusBadge}</td>
+                    <td class="py-3 px-3 text-right font-mono text-amber-300 font-semibold">${ans.timeSpent}s</td>
+                `;
+                tableBody.appendChild(tr);
+            });
+        }
+
+        // CHART RENDER
+        function renderChart(labels, dataPoints) {
+            const ctx = document.getElementById('topicChart').getContext('2d');
+
+            if (chartInstance) {
+                chartInstance.destroy();
+            }
+
+            chartInstance = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Accuracy %',
+                        data: dataPoints,
+                        backgroundColor: [
+                            'rgba(245, 158, 11, 0.7)',
+                            'rgba(99, 102, 241, 0.7)',
+                            'rgba(59, 130, 246, 0.7)',
+                            'rgba(16, 185, 129, 0.7)'
+                        ],
+                        borderColor: [
+                            '#f59e0b',
+                            '#6366f1',
+                            '#3b82f6',
+                            '#10b981'
+                        ],
+                        borderWidth: 1.5,
+                        borderRadius: 8
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 100,
+                            ticks: { color: '#94a3b8', callback: v => v + '%' },
+                            grid: { color: 'rgba(255, 255, 255, 0.05)' }
+                        },
+                        x: {
+                            ticks: { 
+                                color: '#94a3b8',
+                                font: { size: 10 },
+                                callback: function(val, index) {
+                                    let label = this.getLabelForValue(val);
+                                    return label.length > 15 ? label.substring(0, 15) + '...' : label;
+                                }
+                            },
+                            grid: { display: false }
+                        }
+                    },
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                label: ctx => `Accuracy: ${ctx.raw}%`
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // RESTART
+        function restartQuiz() {
+            document.getElementById('resultScreen').classList.add('hidden');
+            document.getElementById('resultScreen').classList.remove('flex');
+            startQuiz();
+        }
+    </script>
+</body>
+</html>

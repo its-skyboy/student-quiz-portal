@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Class 12 Bihar Board English - My Grandmother's House (50 MCQs)</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Canvas Confetti CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: linear-gradient(135deg, #2e0817 0%, #4a1525 50%, #1f1224 100%);
+            min-height: 100vh;
+        }
+        .font-heading {
+            font-family: 'Playfair Display', serif;
+        }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #2e0817;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #d97706;
+            border-radius: 4px;
+        }
+        @keyframes popIn {
+            0% { transform: scale(0.5); opacity: 0; }
+            70% { transform: scale(1.1); opacity: 1; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        .animate-pop-in {
+            animation: popIn 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+        .correct-glow {
+            box-shadow: 0 0 20px rgba(34, 197, 94, 0.4);
+        }
+        .wrong-glow {
+            box-shadow: 0 0 20px rgba(239, 68, 68, 0.4);
+        }
+    </style>
+</head>
+<body class="text-rose-50 flex flex-col min-h-screen justify-between">
+
+    <!-- Navbar / Header -->
+    <header class="bg-slate-950/80 backdrop-blur-md border-b border-rose-900/40 sticky top-0 z-40">
+        <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-amber-500 to-rose-600 flex items-center justify-center font-bold text-white text-xl shadow-lg">
+                    <i class="fa-solid font-bold fa-house-chimney-window"></i>
+                </div>
+                <div>
+                    <h1 class="font-bold text-lg md:text-xl text-amber-300 leading-tight font-heading">Bihar Board Class 12th</h1>
+                    <p class="text-xs text-rose-300">Rainbow Part 2 &bull; Poetry: <span class="text-white font-semibold">My Grandmother's House</span></p>
+                </div>
+            </div>
+
+            <div id="header-stats" class="hidden sm:flex items-center space-x-6 text-sm font-medium">
+                <div class="flex items-center space-x-2 bg-rose-950/60 px-3 py-1.5 rounded-lg border border-rose-800/60">
+                    <i class="fa-solid fa-clock text-amber-400"></i>
+                    <span id="total-timer-text" class="font-mono text-rose-100">00:00</span>
+                </div>
+                <div class="flex items-center space-x-2 bg-rose-950/60 px-3 py-1.5 rounded-lg border border-rose-800/60">
+                    <i class="fa-solid fa-trophy text-emerald-400"></i>
+                    <span id="score-counter-text" class="font-mono text-rose-100">0 / 50</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="max-w-4xl w-full mx-auto p-4 sm:p-6 flex-grow flex flex-col justify-center">
+
+        <!-- START SCREEN -->
+        <section id="start-screen" class="bg-slate-950/90 border border-rose-900/60 rounded-3xl p-6 sm:p-10 shadow-2xl backdrop-blur-md text-center my-auto">
+            <div class="w-20 h-20 mx-auto mb-6 bg-gradient-to-br from-amber-500 to-rose-600 rounded-full flex items-center justify-center shadow-lg shadow-rose-600/30">
+                <i class="fa-solid fa-feather-pointed text-4xl text-white"></i>
+            </div>
+            <h2 class="text-3xl sm:text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-rose-300 to-pink-200 mb-3 font-heading">
+                'My Grandmother's House' Mastery Quiz
+            </h2>
+            <p class="text-rose-200 text-sm sm:text-base max-w-2xl mx-auto mb-6 leading-relaxed">
+                Test your thorough knowledge of Kamala Das's poignant confessional poem. This high-yield practice set features 
+                <span class="text-amber-400 font-bold">50 comprehensive questions</span> designed precisely as per the Bihar Board Class 12 English syllabus.
+            </p>
+
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-2xl mx-auto mb-8 text-left">
+                <div class="bg-rose-950/40 p-3.5 rounded-xl border border-rose-900/50">
+                    <i class="fa-solid fa-list-check text-rose-400 mb-1"></i>
+                    <div class="text-xs text-rose-300">Total MCQs</div>
+                    <div class="text-lg font-bold text-white">50 Questions</div>
+                </div>
+                <div class="bg-rose-950/40 p-3.5 rounded-xl border border-rose-900/50">
+                    <i class="fa-solid fa-stopwatch text-emerald-400 mb-1"></i>
+                    <div class="text-xs text-rose-300">Question Timer</div>
+                    <div class="text-lg font-bold text-white">Real-time</div>
+                </div>
+                <div class="bg-rose-950/40 p-3.5 rounded-xl border border-rose-900/50">
+                    <i class="fa-solid fa-layer-group text-amber-400 mb-1"></i>
+                    <div class="text-xs text-rose-300">Categories</div>
+                    <div class="text-lg font-bold text-white">4 Sub-topics</div>
+                </div>
+                <div class="bg-rose-950/40 p-3.5 rounded-xl border border-rose-900/50">
+                    <i class="fa-solid fa-chart-line text-purple-400 mb-1"></i>
+                    <div class="text-xs text-rose-300">Analytics</div>
+                    <div class="text-lg font-bold text-white">Detailed Report</div>
+                </div>
+            </div>
+
+            <button id="start-btn" class="w-full sm:w-auto px-10 py-4 bg-gradient-to-r from-amber-500 to-rose-600 hover:from-amber-600 hover:to-rose-700 text-white font-bold text-lg rounded-xl shadow-lg transition duration-200 transform hover:scale-105 active:scale-95 flex items-center justify-center space-x-3 mx-auto cursor-pointer">
+                <span>Start 50-Question Quiz Now</span>
+                <i class="fa-solid fa-arrow-right"></i>
+            </button>
+        </section>
+
+        <!-- QUIZ SCREEN -->
+        <section id="quiz-screen" class="hidden flex flex-col space-y-4 my-auto">
+            
+            <!-- Progress Bar & Details Header -->
+            <div class="bg-slate-950/90 border border-rose-900/50 rounded-2xl p-4 shadow-xl backdrop-blur-md">
+                <div class="flex justify-between items-center text-sm font-medium mb-2">
+                    <div class="flex items-center space-x-2">
+                        <span id="question-category" class="px-3 py-1 rounded-full text-xs font-semibold bg-rose-900/60 text-rose-200 border border-rose-700">
+                            Poet Biography
+                        </span>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <span class="text-rose-300 text-xs sm:text-sm">
+                            Question <span id="current-q-num" class="text-amber-400 font-bold">1</span> / 50
+                        </span>
+                        <div class="flex items-center space-x-1.5 bg-rose-950 text-amber-300 px-3 py-1 rounded-md text-xs font-mono border border-rose-800">
+                            <i class="fa-regular fa-clock text-amber-400"></i>
+                            <span id="q-timer">00s</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Progress Bar Container -->
+                <div class="w-full bg-slate-900 rounded-full h-2.5 overflow-hidden border border-rose-950">
+                    <div id="progress-bar" class="bg-gradient-to-r from-amber-400 via-rose-500 to-emerald-400 h-2.5 rounded-full transition-all duration-300" style="width: 2%;"></div>
+                </div>
+            </div>
+
+            <!-- Question Card -->
+            <div class="bg-slate-950/90 border border-rose-900/60 rounded-3xl p-6 sm:p-8 shadow-2xl backdrop-blur-md relative overflow-hidden">
+                <div class="mb-6">
+                    <h3 id="question-text" class="text-lg sm:text-xl md:text-2xl font-bold text-white leading-snug font-heading">
+                        Loading question...
+                    </h3>
+                </div>
+
+                <!-- Options Grid -->
+                <div id="options-container" class="grid grid-cols-1 gap-3.5">
+                    <!-- Dynamic Options Inserted Here -->
+                </div>
+
+                <!-- Next Button Container -->
+                <div id="action-container" class="mt-6 flex flex-col sm:flex-row justify-between items-center pt-4 border-t border-rose-950 gap-4">
+                    <div id="feedback-hint" class="text-xs sm:text-sm text-rose-300 italic">
+                        Select one option to reveal the answer.
+                    </div>
+                    <button id="next-btn" disabled class="w-full sm:w-auto px-6 py-2.5 bg-rose-600 hover:bg-rose-500 disabled:opacity-40 disabled:hover:bg-rose-600 text-white font-semibold rounded-xl shadow-md transition flex items-center justify-center space-x-2 cursor-pointer">
+                        <span>Next Question</span>
+                        <i class="fa-solid fa-chevron-right text-xs"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- RESULT ANALYSIS SCREEN -->
+        <section id="result-screen" class="hidden bg-slate-950/95 border border-rose-900/60 rounded-3xl p-6 sm:p-8 shadow-2xl backdrop-blur-md my-6">
+            
+            <div class="text-center mb-8 border-b border-rose-950 pb-6">
+                <div id="result-badge-icon" class="w-20 h-20 mx-auto mb-3 rounded-full bg-amber-500/20 border-2 border-amber-400 flex items-center justify-center text-amber-400 text-4xl shadow-lg">
+                    <i class="fa-solid fa-award"></i>
+                </div>
+                <h2 id="performance-rank" class="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-amber-300 to-rose-300 font-heading">
+                    Literary Scholar!
+                </h2>
+                <p id="performance-msg" class="text-rose-200 text-sm mt-1 max-w-lg mx-auto">
+                    Outstanding performance! You have displayed brilliant command over Kamala Das's confessional poetry.
+                </p>
+            </div>
+
+            <!-- Key Summary Stats -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+                <div class="bg-rose-950/50 p-4 rounded-xl border border-rose-900/60 text-center">
+                    <span class="text-xs text-rose-300 font-medium uppercase tracking-wider">Total Score</span>
+                    <div id="res-score" class="text-2xl sm:text-3xl font-extrabold text-emerald-400 mt-1">45 / 50</div>
+                </div>
+                <div class="bg-rose-950/50 p-4 rounded-xl border border-rose-900/60 text-center">
+                    <span class="text-xs text-rose-300 font-medium uppercase tracking-wider">Accuracy Rate</span>
+                    <div id="res-accuracy" class="text-2xl sm:text-3xl font-extrabold text-rose-300 mt-1">90%</div>
+                </div>
+                <div class="bg-rose-950/50 p-4 rounded-xl border border-rose-900/60 text-center">
+                    <span class="text-xs text-rose-300 font-medium uppercase tracking-wider">Total Time</span>
+                    <div id="res-total-time" class="text-2xl sm:text-3xl font-extrabold text-amber-400 mt-1 font-mono">08:45</div>
+                </div>
+                <div class="bg-rose-950/50 p-4 rounded-xl border border-rose-900/60 text-center">
+                    <span class="text-xs text-rose-300 font-medium uppercase tracking-wider">Avg Time / Q</span>
+                    <div id="res-avg-time" class="text-2xl sm:text-3xl font-extrabold text-purple-400 mt-1 font-mono">10.5s</div>
+                </div>
+            </div>
+
+            <!-- Topic-Wise Performance Breakdown -->
+            <div class="mb-8 bg-rose-950/30 p-5 rounded-2xl border border-rose-900/50">
+                <h3 class="text-lg font-bold text-white mb-4 flex items-center space-x-2 font-heading">
+                    <i class="fa-solid fa-chart-pie text-amber-400"></i>
+                    <span>Sub-Domain Performance Breakdown</span>
+                </h3>
+                <div id="topic-analysis-container" class="space-y-4">
+                    <!-- Dynamic Topic Bars Inserted Here -->
+                </div>
+            </div>
+
+            <!-- Detailed Question Review Accordion / List -->
+            <div class="mb-8">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-lg font-bold text-white flex items-center space-x-2 font-heading">
+                        <i class="fa-solid fa-list-ol text-rose-400"></i>
+                        <span>Question-by-Question Detailed Review</span>
+                    </h3>
+                    <span class="text-xs text-rose-400">Review all 50 answers</span>
+                </div>
+                <div id="review-list" class="space-y-3 max-h-96 overflow-y-auto pr-2 rounded-2xl bg-slate-950/60 p-3 border border-rose-950">
+                    <!-- Dynamic Question Review Rows Inserted Here -->
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="flex flex-col sm:flex-row justify-center items-center gap-4 pt-4 border-t border-rose-950">
+                <button id="restart-btn" class="w-full sm:w-auto px-8 py-3.5 bg-gradient-to-r from-amber-500 to-rose-600 hover:from-amber-600 hover:to-rose-700 text-white font-bold rounded-xl shadow-lg transition transform hover:scale-105 active:scale-95 flex items-center justify-center space-x-2 cursor-pointer">
+                    <i class="fa-solid fa-rotate-right"></i>
+                    <span>Retake 50-Question Quiz</span>
+                </button>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- MOTIVATIONAL CELEBRATION POPUP OVERLAY -->
+    <div id="motivate-modal" class="fixed inset-0 z-50 flex items-center justify-center pointer-events-none opacity-0 transition-opacity duration-300">
+        <div class="bg-gradient-to-tr from-rose-600 to-amber-600 border border-amber-300/40 rounded-2xl p-6 shadow-2xl text-center text-white max-w-sm mx-4 transform animate-pop-in">
+            <div id="motivate-icon" class="text-5xl mb-2">🎉</div>
+            <h4 id="motivate-title" class="text-2xl font-black tracking-wide uppercase font-heading">Wonderful!</h4>
+            <p id="motivate-sub" class="text-rose-100 text-sm font-medium mt-1">Spot on! You got it completely right!</p>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-slate-950/90 border-t border-rose-900/40 py-4 text-center text-xs text-rose-400">
+        <p>Bihar Board Class 12th Rainbow Part 2 English &bull; 'My Grandmother's House' Interactive Module</p>
+    </footer>
+
+    <!-- JavaScript Application Logic -->
+    <script>
+        // 50 MCQs Dataset for 'My Grandmother's House' by Kamala Das
+        const quizData = [
+            // Category 1: Poet Biography & Background (1-12)
+            {
+                q: "Who is the author of the poem 'My Grandmother's House'?",
+                options: ["Kamala Das", "Toru Dutt", "Sarojini Naidu", "Arundhati Roy"],
+                answer: 0,
+                category: "Poet Biography"
+            },
+            {
+                q: "In which year was Kamala Das born?",
+                options: ["1934", "1921", "1940", "1950"],
+                answer: 0,
+                category: "Poet Biography"
+            },
+            {
+                q: "When did Kamala Das pass away?",
+                options: ["2009", "2012", "1999", "2005"],
+                answer: 0,
+                category: "Poet Biography"
+            },
+            {
+                q: "Kamala Das was famously known by which pen name/pseudonym in Malayalam literature?",
+                options: ["Madhavikutty", "Meera", "Asha", "Kavithanjali"],
+                answer: 0,
+                category: "Poet Biography"
+            },
+            {
+                q: "In which Indian state was Kamala Das born?",
+                options: ["Kerala", "Tamil Nadu", "Maharashtra", "West Bengal"],
+                answer: 0,
+                category: "Poet Biography"
+            },
+            {
+                q: "Kamala Das is a pioneer of Indian ______ poetry in English.",
+                options: ["Confessional", "Epic", "Victorian", "Metaphysical"],
+                answer: 0,
+                category: "Poet Biography"
+            },
+            {
+                q: "What is the primary characteristic of Kamala Das's poetic style?",
+                options: ["Honest self-revelation and intense emotion", "Rigid classical meter", "Political satire", "Mythological epics"],
+                answer: 0,
+                category: "Poet Biography"
+            },
+            {
+                q: "In which year was Kamala Das's celebrated autobiography titled 'My Story' published?",
+                options: ["1976", "1965", "1982", "1990"],
+                answer: 0,
+                category: "Poet Biography"
+            },
+            {
+                q: "Kamala Das was shortlisted for which prestigious global literary award in 1984?",
+                options: ["Nobel Prize in Literature", "Booker Prize", "Pulitzer Prize", "Commonwealth Prize"],
+                answer: 0,
+                category: "Poet Biography"
+            },
+            {
+                q: "Which religion did Kamala Das convert to later in her life in 1999?",
+                options: ["Islam", "Christianity", "Buddhism", "Jainism"],
+                answer: 0,
+                category: "Poet Biography"
+            },
+            {
+                q: "What was the name of Kamala Das's debut English poetry collection published in 1965?",
+                options: ["Summer in Calcutta", "The Descendants", "Only the Soul Knows How to Sing", "Alphabet of Lust"],
+                answer: 0,
+                category: "Poet Biography"
+            },
+            {
+                q: "Kamala Das received the Sahitya Akademi Award in which year?",
+                options: ["1985", "1970", "1992", "2001"],
+                answer: 0,
+                category: "Poet Biography"
+            },
+
+            // Category 2: Line-by-Line Comprehension & Vocabulary (13-26)
+            {
+                q: "Complete the opening phrase: 'There is a house now far away where I ______'",
+                options: ["once received love", "used to play", "spent my childhood", "lived alone"],
+                answer: 0,
+                category: "Line Comprehension & Vocab"
+            },
+            {
+                q: "What happened to the house after the grandmother died?",
+                options: ["It went blind with grief and snakes moved among books", "It was sold to a stranger", "It was destroyed in a fire", "It was turned into a museum"],
+                answer: 0,
+                category: "Line Comprehension & Vocab"
+            },
+            {
+                q: "According to the poem, what creatures moved among the books in the abandoned house?",
+                options: ["Snakes", "Lizards", "Rats", "Spiders"],
+                answer: 0,
+                category: "Line Comprehension & Vocab"
+            },
+            {
+                q: "What color are the snakes described as moving among the books?",
+                options: ["Cold", "Green", "Black", "Brown"],
+                answer: 0,
+                category: "Line Comprehension & Vocab"
+            },
+            {
+                q: "How does the poet describe her blood during her present state of loneliness?",
+                options: ["Cold like the moon", "Boiling hot", "Thick and sluggish", "Frozen in fear"],
+                answer: 0,
+                category: "Line Comprehension & Vocab"
+            },
+            {
+                q: "The poet says she was then too young to read what?",
+                options: ["The books", "The letters", "Her grandmother's diary", "The newspaper"],
+                answer: 0,
+                category: "Line Comprehension & Vocab"
+            },
+            {
+                q: "What does the poet want to do now that she is an adult living away?",
+                options: ["Peer through blind eyes of windows and pick an handful of darkness", "Return and live in the house permanently", "Sell the old property", "Write a book about the house"],
+                answer: 0,
+                category: "Line Comprehension & Vocab"
+            },
+            {
+                q: "What does 'handful of darkness' symbolize in the poem?",
+                options: ["Cherished memories of her grandmother's house to bring to her present cold life", "Grief and depression", "Evil spirits", "Secrets of her past"],
+                answer: 0,
+                category: "Line Comprehension & Vocab"
+            },
+            {
+                q: "In her present life, what is the poet forced to do at stranger's doors?",
+                options: ["Knock and beg for love", "Sell goods", "Ask for shelter", "Deliver letters"],
+                answer: 0,
+                category: "Line Comprehension & Vocab"
+            },
+            {
+                q: "The windows of the house are described as having ______ eyes.",
+                options: ["Blind", "Glass", "Wooden", "Open"],
+                answer: 0,
+                category: "Line Comprehension & Vocab"
+            },
+            {
+                q: "What emotional state does the phrase 'loss of love' evoke in the poet?",
+                options: ["Deep alienation and emotional bankruptcy", "Anger and revenge", "Indifference", "Peace and maturity"],
+                answer: 0,
+                category: "Line Comprehension & Vocab"
+            },
+            {
+                q: "Why couldn't the poet read the books when she was young?",
+                options: ["Because she was too young and innocent", "Because the books were in English", "Because there was no light", "Because the books were torn"],
+                answer: 0,
+                category: "Line Comprehension & Vocab"
+            },
+            {
+                q: "The house is now described as being ______ away.",
+                options: ["Far", "Close", "Minutes", "Miles"],
+                answer: 0,
+                category: "Line Comprehension & Vocab"
+            },
+            {
+                q: "What substance in her veins turned cold like the moon?",
+                options: ["Blood", "Tears", "Heartbeat", "Breath"],
+                answer: 0,
+                category: "Line Comprehension & Vocab"
+            },
+
+            // Category 3: Literary Devices & Tone (27-38)
+            {
+                q: "What poetic form is 'My Grandmother's House' written in?",
+                options: ["Free verse", "Traditional Sonnet", "Heroic Couplet", "Ballad stanza"],
+                answer: 0,
+                category: "Literary Devices & Tone"
+            },
+            {
+                q: "Which figure of speech is used in 'blind eyes of windows'?",
+                options: ["Personification", "Simile", "Oxymoron", "Onomatopoeia"],
+                answer: 0,
+                category: "Literary Devices & Tone"
+            },
+            {
+                q: "In 'blood ran cold like the moon', which figure of speech is employed?",
+                options: ["Simile", "Metaphor", "Hyperbole", "Alliteration"],
+                answer: 0,
+                category: "Literary Devices & Tone"
+            },
+            {
+                q: "What is the dominant tone of 'My Grandmother's House'?",
+                options: ["Nostalgic, melancholic, and regretful", "Joyful and celebratory", "Sarcastic and biting", "Optimistic and cheerful"],
+                answer: 0,
+                category: "Literary Devices & Tone"
+            },
+            {
+                q: "The snakes moving among books is an example of powerful visual ______.",
+                options: ["Imagery", "Irony", "Satire", "Symbolism"],
+                answer: 0,
+                category: "Literary Devices & Tone"
+            },
+            {
+                q: "What does the 'moon' symbolize in the context of 'blood ran cold like the moon'?",
+                options: ["Lifelessness, coldness, and emotional numbness", "Beauty and light", "Romantic love", "Motherly warmth"],
+                answer: 0,
+                category: "Literary Devices & Tone"
+            },
+            {
+                q: "The transition from the warmth of grandmother's love to the cold present represents a contrast between ______.",
+                options: ["Past innocence and present alienation", "Richness and poverty", "Youth and old age only", "Village and city life"],
+                answer: 0,
+                category: "Literary Devices & Tone"
+            },
+            {
+                q: "Why is Kamala Das's poetry often categorized as 'confessional'?",
+                options: ["Because she openly discusses her personal life, inner traumas, and vulnerabilities", "Because she writes about church confessions", "Because she confesses crimes", "Because she writes political manifestos"],
+                answer: 0,
+                category: "Literary Devices & Tone"
+            },
+            {
+                q: "What feeling does the word 'brood' convey in the context of her memories?",
+                options: ["Deep, sorrowful reflection", "Aggression", "Happiness", "Excitement"],
+                answer: 0,
+                category: "Literary Devices & Tone"
+            },
+            {
+                q: "What does the act of 'knocking at strangers' doors' metaphorically represent?",
+                options: ["Seeking unconditional love and acceptance in adult relationships in vain", "Visiting neighbors", "Looking for employment", "Searching for her old house"],
+                answer: 0,
+                category: "Literary Devices & Tone"
+            },
+            {
+                q: "The imagery of darkness in 'pick an handful of darkness' is ironic because darkness usually represents fear, but here it represents ______.",
+                options: ["Precious comfort and connection to her past", "Blindness", "Evil", "Ignorance"],
+                answer: 0,
+                category: "Literary Devices & Tone"
+            },
+            {
+                q: "How does the poet portray the passage of time in the poem?",
+                options: ["As a destructive force that ruins houses and chills human warmth", "As a healing process", "As something meaningless", "As a rapid journey"],
+                answer: 0,
+                category: "Literary Devices & Tone"
+            },
+
+            // Category 4: Themes & Philosophical Message (39-50)
+            {
+                q: "What is the central theme of 'My Grandmother's House'?",
+                options: ["Nostalgia for lost childhood love and unconditional affection", "The horrors of old age", "Urban architecture", "Supernatural experiences in old houses"],
+                answer: 0,
+                category: "Themes & Message"
+            },
+            {
+                q: "How does the poet contrast her past with her present life?",
+                options: ["Past was filled with unconditional love and warmth; present is loveless, lonely, and cold", "Past was miserable; present is luxurious", "Past was lonely; present is crowded", "There is no contrast"],
+                answer: 0,
+                category: "Themes & Message"
+            },
+            {
+                q: "What does the grandmother's house represent in Indian cultural context?",
+                options: ["A sanctuary of unconditional love, security, and ancestral roots", "A haunted place", "A symbol of backwardness", "A temporary shelter"],
+                answer: 0,
+                category: "Themes & Message"
+            },
+            {
+                q: "Why does the poet feel like a beggar in her adult life?",
+                options: ["Because she begs strangers for small amounts of genuine love and affection", "Because she lost her wealth", "Because she is homeless", "Because she gave up her career"],
+                answer: 0,
+                category: "Themes & Message"
+            },
+            {
+                q: "In the Bihar Board syllabus, Kamala Das is celebrated as one of the foremost voices in ______.",
+                options: ["Indian English Poetry", "Hindi Folk Literature", "Urdu Ghazals", "Bengali Drama"],
+                answer: 0,
+                category: "Themes & Message"
+            },
+            {
+                q: "What psychological state does the poem highlight in modern human beings?",
+                options: ["Alienation, emotional isolation, and longing for home", "Arrogance and pride", "Material greed", "Complete satisfaction"],
+                answer: 0,
+                category: "Themes & Message"
+            },
+            {
+                q: "Why is the poet unable to revisit her grandmother's house physically in person?",
+                options: ["Because it is too far away and her grandmother is dead", "Because she forgot the address", "Because the government banned entry", "Because she is afraid of snakes"],
+                answer: 0,
+                category: "Themes & Message"
+            },
+            {
+                q: "What role do memories play in the poet's life according to the poem?",
+                options: ["They are her only refuge against present emotional coldness", "They cause mental illness", "They are easily forgotten", "They bring anger"],
+                answer: 0,
+                category: "Themes & Message"
+            },
+            {
+                q: "The poem reflects the universal human experience of ______.",
+                options: ["Growing up and losing the innocence and warmth of early childhood", "Traveling across continents", "Building houses", "Overcoming poverty"],
+                answer: 0,
+                category: "Themes & Message"
+            },
+            {
+                q: "What does the loss of the grandmother signify in the poet's life?",
+                options: ["The collapse of her protective emotional shield", "An inheritance dispute", "A change in weather", "Nothing significant"],
+                answer: 0,
+                category: "Themes & Message"
+            },
+            {
+                q: "How does Kamala Das view modern relationships compared to her grandmother's love?",
+                options: ["Modern relationships lack true, unconditional affection and feel transactional", "Modern relationships are superior", "Both are identical", "Modern relationships are permanent"],
+                answer: 0,
+                category: "Themes & Message"
+            },
+            {
+                q: "What lesson does the reader take away from 'My Grandmother's House'?",
+                options: ["The profound value of childhood love and the deep grief of losing one's roots", "The danger of poisonous snakes in old libraries", "The importance of buying large houses", "The benefits of urban migration"],
+                answer: 0,
+                category: "Themes & Message"
+            }
+        ];
+
+        // App State Variables
+        let currentQIndex = 0;
+        let score = 0;
+        let userAnswers = []; // Store: { question, userAns, correctAns, isCorrect, timeSpent, category }
+        
+        let questionStartTime = 0;
+        let qTimerInterval = null;
+        let totalTimerInterval = null;
+        let totalElapsedSeconds = 0;
+
+        // Motivational Praise Lists
+        const praiseMessages = [
+            { title: "Wonderful!", sub: "You really know Kamala Das's poetry!", icon: "🌟" },
+            { title: "Spot On!", sub: "Perfect answer! Keep up the momentum!", icon: "🎉" },
+            { title: "Brilliant Memory!", sub: "Bihar Board topper material!", icon: "⚡" },
+            { title: "Literary Expert!", sub: "Flawless choice! You're crushing this!", icon: "🏆" },
+            { title: "Outstanding!", sub: "Your literary concepts are rock solid!", icon: "🔥" }
+        ];
+
+        // DOM Elements
+        const startScreen = document.getElementById('start-screen');
+        const quizScreen = document.getElementById('quiz-screen');
+        const resultScreen = document.getElementById('result-screen');
+
+        const startBtn = document.getElementById('start-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const restartBtn = document.getElementById('restart-btn');
+
+        const questionText = document.getElementById('question-text');
+        const optionsContainer = document.getElementById('options-container');
+        const questionCategory = document.getElementById('question-category');
+        const currentQNum = document.getElementById('current-q-num');
+        const progressBar = document.getElementById('progress-bar');
+        const qTimerText = document.getElementById('q-timer');
+        const totalTimerText = document.getElementById('total-timer-text');
+        const scoreCounterText = document.getElementById('score-counter-text');
+        const headerStats = document.getElementById('header-stats');
+        const feedbackHint = document.getElementById('feedback-hint');
+
+        const motivateModal = document.getElementById('motivate-modal');
+        const motivateTitle = document.getElementById('motivate-title');
+        const motivateSub = document.getElementById('motivate-sub');
+        const motivateIcon = document.getElementById('motivate-icon');
+
+        // Event Listeners
+        startBtn.addEventListener('click', startQuiz);
+        nextBtn.addEventListener('click', loadNextQuestion);
+        restartBtn.addEventListener('click', startQuiz);
+
+        // Start Quiz Function
+        function startQuiz() {
+            currentQIndex = 0;
+            score = 0;
+            userAnswers = [];
+            totalElapsedSeconds = 0;
+
+            startScreen.classList.add('hidden');
+            resultScreen.classList.add('hidden');
+            quizScreen.classList.remove('hidden');
+            headerStats.classList.remove('hidden');
+
+            scoreCounterText.textContent = `0 / ${quizData.length}`;
+            
+            // Start Total Timer
+            clearInterval(totalTimerInterval);
+            totalTimerInterval = setInterval(() => {
+                totalElapsedSeconds++;
+                totalTimerText.textContent = formatTime(totalElapsedSeconds);
+            }, 1000);
+
+            renderQuestion();
+        }
+
+        // Render Current Question
+        function renderQuestion() {
+            const qData = quizData[currentQIndex];
+
+            // Reset Question Timer
+            clearInterval(qTimerInterval);
+            let qSeconds = 0;
+            qTimerText.textContent = "00s";
+            questionStartTime = Date.now();
+
+            qTimerInterval = setInterval(() => {
+                qSeconds++;
+                qTimerText.textContent = `${qSeconds < 10 ? '0' : ''}${qSeconds}s`;
+            }, 1000);
+
+            // Update UI elements
+            currentQNum.textContent = currentQIndex + 1;
+            questionCategory.textContent = qData.category;
+            questionText.textContent = `${currentQIndex + 1}. ${qData.q}`;
+            progressBar.style.width = `${((currentQIndex + 1) / quizData.length) * 100}%`;
+            
+            feedbackHint.textContent = "Select one option to reveal the answer.";
+            feedbackHint.className = "text-xs sm:text-sm text-rose-300 italic";
+
+            nextBtn.disabled = true;
+
+            // Render Options
+            optionsContainer.innerHTML = '';
+            
+            // Shuffle display options while keeping track of true original index
+            const optionsWithOriginal = qData.options.map((opt, idx) => ({ text: opt, originalIndex: idx }));
+            
+            optionsWithOriginal.forEach((optObj, idx) => {
+                const letter = String.fromCharCode(65 + idx); // A, B, C, D
+                const btn = document.createElement('button');
+                btn.className = "option-btn w-full p-4 rounded-2xl border border-rose-900/50 bg-rose-950/40 hover:bg-rose-900/40 text-rose-50 flex items-center justify-between text-left transition duration-200 transform hover:-translate-y-0.5 active:translate-y-0 group cursor-pointer";
+                btn.dataset.originalIndex = optObj.originalIndex;
+
+                btn.innerHTML = `
+                    <div class="flex items-center space-x-3.5">
+                        <span class="w-8 h-8 rounded-xl bg-rose-900/80 group-hover:bg-amber-600 text-rose-200 group-hover:text-white font-bold flex items-center justify-center text-sm transition">
+                            ${letter}
+                        </span>
+                        <span class="font-medium text-sm sm:text-base">${optObj.text}</span>
+                    </div>
+                    <div class="icon-indicator hidden text-lg"></div>
+                `;
+
+                btn.addEventListener('click', () => selectAnswer(btn, optObj.originalIndex, qData.answer));
+                optionsContainer.appendChild(btn);
+            });
+        }
+
+        // Handle Option Selection
+        function selectAnswer(selectedBtn, chosenIdx, correctIdx) {
+            // Stop Question Timer
+            clearInterval(qTimerInterval);
+            const timeSpentSec = Math.round((Date.now() - questionStartTime) / 1000);
+
+            // Disable all option buttons
+            const allBtns = optionsContainer.querySelectorAll('.option-btn');
+            allBtns.forEach(btn => {
+                btn.disabled = true;
+                btn.classList.remove('hover:bg-rose-900/40', 'hover:-translate-y-0.5');
+                btn.classList.add('cursor-default');
+            });
+
+            const isCorrect = (chosenIdx === correctIdx);
+
+            if (isCorrect) {
+                score++;
+                scoreCounterText.textContent = `${score} / ${quizData.length}`;
+
+                // Style chosen button as correct
+                selectedBtn.classList.remove('bg-rose-950/40', 'border-rose-900/50');
+                selectedBtn.classList.add('bg-emerald-950/90', 'border-emerald-500', 'text-emerald-200', 'correct-glow');
+                
+                const iconDiv = selectedBtn.querySelector('.icon-indicator');
+                iconDiv.classList.remove('hidden');
+                iconDiv.innerHTML = `<i class="fa-solid fa-circle-check text-emerald-400"></i>`;
+
+                feedbackHint.textContent = "✓ Excellent! Correct Answer.";
+                feedbackHint.className = "text-xs sm:text-sm text-emerald-400 font-semibold";
+
+                // Trigger Motivational Effects
+                triggerCelebration();
+
+            } else {
+                // Style chosen button as incorrect
+                selectedBtn.classList.remove('bg-rose-950/40', 'border-rose-900/50');
+                selectedBtn.classList.add('bg-rose-950/90', 'border-rose-500', 'text-rose-200', 'wrong-glow');
+                
+                const iconDiv = selectedBtn.querySelector('.icon-indicator');
+                iconDiv.classList.remove('hidden');
+                iconDiv.innerHTML = `<i class="fa-solid fa-circle-xmark text-rose-400"></i>`;
+
+                // Highlight correct answer
+                allBtns.forEach(btn => {
+                    if (parseInt(btn.dataset.originalIndex) === correctIdx) {
+                        btn.classList.remove('bg-rose-950/40', 'border-rose-900/50');
+                        btn.classList.add('bg-emerald-950/80', 'border-emerald-500/80', 'text-emerald-200');
+                        const correctIcon = btn.querySelector('.icon-indicator');
+                        correctIcon.classList.remove('hidden');
+                        correctIcon.innerHTML = `<i class="fa-solid fa-check text-emerald-400"></i>`;
+                    }
+                });
+
+                feedbackHint.textContent = "✗ Incorrect! The correct answer is highlighted in green.";
+                feedbackHint.className = "text-xs sm:text-sm text-rose-400 font-semibold";
+            }
+
+            // Record User Response for Result Analysis
+            userAnswers.push({
+                question: quizData[currentQIndex].q,
+                category: quizData[currentQIndex].category,
+                options: quizData[currentQIndex].options,
+                chosenIdx: chosenIdx,
+                correctIdx: correctIdx,
+                isCorrect: isCorrect,
+                timeSpent: timeSpentSec
+            });
+
+            nextBtn.disabled = false;
+        }
+
+        // Trigger Confetti & Motivational Popup
+        function triggerCelebration() {
+            try {
+                confetti({
+                    particleCount: 50,
+                    spread: 70,
+                    origin: { y: 0.6 }
+                });
+            } catch(e) {}
+
+            const randomPraise = praiseMessages[Math.floor(Math.random() * praiseMessages.length)];
+            motivateTitle.textContent = randomPraise.title;
+            motivateSub.textContent = randomPraise.sub;
+            motivateIcon.textContent = randomPraise.icon;
+
+            motivateModal.classList.remove('opacity-0', 'pointer-events-none');
+            
+            setTimeout(() => {
+                motivateModal.classList.add('opacity-0', 'pointer-events-none');
+            }, 1200);
+        }
+
+        // Next Question Handler
+        function loadNextQuestion() {
+            currentQIndex++;
+
+            if (currentQIndex < quizData.length) {
+                renderQuestion();
+            } else {
+                finishQuiz();
+            }
+        }
+
+        // Finish Quiz & Show Analysis
+        function finishQuiz() {
+            clearInterval(totalTimerInterval);
+            clearInterval(qTimerInterval);
+
+            quizScreen.classList.add('hidden');
+            resultScreen.classList.remove('hidden');
+
+            const totalQuestions = quizData.length;
+            const accuracy = Math.round((score / totalQuestions) * 100);
+            const avgTime = (totalElapsedSeconds / totalQuestions).toFixed(1);
+
+            document.getElementById('res-score').textContent = `${score} / ${totalQuestions}`;
+            document.getElementById('res-accuracy').textContent = `${accuracy}%`;
+            document.getElementById('res-total-time').textContent = formatTime(totalElapsedSeconds);
+            document.getElementById('res-avg-time').textContent = `${avgTime}s`;
+
+            const rankTitle = document.getElementById('performance-rank');
+            const rankMsg = document.getElementById('performance-msg');
+            const badgeIcon = document.getElementById('result-badge-icon');
+
+            if (accuracy >= 90) {
+                rankTitle.textContent = "Gold Scholar & Poetry Master!";
+                rankMsg.textContent = "Incredible effort! You scored 90%+ and completely mastered Kamala Das's poem for your Class 12 exams!";
+                badgeIcon.className = "w-20 h-20 mx-auto mb-3 rounded-full bg-amber-500/20 border-2 border-amber-400 flex items-center justify-center text-amber-400 text-4xl shadow-lg";
+                badgeIcon.innerHTML = `<i class="fa-solid fa-crown"></i>`;
+            } else if (accuracy >= 75) {
+                rankTitle.textContent = "Silver Scholar!";
+                rankMsg.textContent = "Great performance! You have a solid grasp of the poem lines, devices, and poet background.";
+                badgeIcon.className = "w-20 h-20 mx-auto mb-3 rounded-full bg-rose-500/20 border-2 border-rose-400 flex items-center justify-center text-rose-300 text-4xl shadow-lg";
+                badgeIcon.innerHTML = `<i class="fa-solid fa-award"></i>`;
+            } else if (accuracy >= 50) {
+                rankTitle.textContent = "Bronze Scholar!";
+                rankMsg.textContent = "Good attempt! Revise the poem stanza-by-stanza to boost your score above 90%.";
+                badgeIcon.className = "w-20 h-20 mx-auto mb-3 rounded-full bg-purple-500/20 border-2 border-purple-400 flex items-center justify-center text-purple-300 text-4xl shadow-lg";
+                badgeIcon.innerHTML = `<i class="fa-solid fa-medal"></i>`;
+            } else {
+                rankTitle.textContent = "Needs Revision";
+                rankMsg.textContent = "Don't worry! Read 'My Grandmother's House' text carefully and retake the quiz to improve your accuracy.";
+                badgeIcon.className = "w-20 h-20 mx-auto mb-3 rounded-full bg-rose-900/30 border-2 border-rose-700 flex items-center justify-center text-rose-400 text-4xl shadow-lg";
+                badgeIcon.innerHTML = `<i class="fa-solid fa-book-open"></i>`;
+            }
+
+            renderTopicAnalysis();
+            renderQuestionReview();
+        }
+
+        // Render Topic Wise Analysis
+        function renderTopicAnalysis() {
+            const container = document.getElementById('topic-analysis-container');
+            container.innerHTML = '';
+
+            const categories = {};
+
+            userAnswers.forEach(ans => {
+                if (!categories[ans.category]) {
+                    categories[ans.category] = { correct: 0, total: 0 };
+                }
+                categories[ans.category].total++;
+                if (ans.isCorrect) {
+                    categories[ans.category].correct++;
+                }
+            });
+
+            for (const [cat, data] of Object.entries(categories)) {
+                const catAcc = Math.round((data.correct / data.total) * 100);
+                
+                const item = document.createElement('div');
+                item.className = "space-y-1.5";
+                item.innerHTML = `
+                    <div class="flex justify-between items-center text-xs sm:text-sm font-medium">
+                        <span class="text-rose-200">${cat}</span>
+                        <span class="text-rose-300">${data.correct} / ${data.total} (<span class="${catAcc >= 75 ? 'text-emerald-400' : catAcc >= 50 ? 'text-amber-400' : 'text-rose-400'}">${catAcc}%</span>)</span>
+                    </div>
+                    <div class="w-full bg-slate-900 rounded-full h-2 overflow-hidden border border-rose-950">
+                        <div class="h-2 rounded-full transition-all duration-500 ${catAcc >= 75 ? 'bg-emerald-500' : catAcc >= 50 ? 'bg-amber-500' : 'bg-rose-500'}" style="width: ${catAcc}%"></div>
+                    </div>
+                `;
+                container.appendChild(item);
+            }
+        }
+
+        // Render Question-by-Question Review List
+        function renderQuestionReview() {
+            const container = document.getElementById('review-list');
+            container.innerHTML = '';
+
+            userAnswers.forEach((ans, idx) => {
+                const userChoiceText = ans.options[ans.chosenIdx];
+                const correctChoiceText = ans.options[ans.correctIdx];
+
+                const row = document.createElement('div');
+                row.className = `p-3 rounded-xl border text-xs sm:text-sm ${
+                    ans.isCorrect ? 'bg-emerald-950/30 border-emerald-800/40' : 'bg-rose-950/40 border-rose-800/40'
+                }`;
+
+                row.innerHTML = `
+                    <div class="flex items-start justify-between gap-2">
+                        <div class="font-semibold text-rose-100">
+                            Q${idx + 1}. ${ans.question}
+                        </div>
+                        <span class="shrink-0 px-2 py-0.5 rounded text-[10px] font-bold ${
+                            ans.isCorrect ? 'bg-emerald-900 text-emerald-300' : 'bg-rose-900 text-rose-300'
+                        }">
+                            ${ans.isCorrect ? 'Correct' : 'Incorrect'}
+                        </span>
+                    </div>
+                    <div class="mt-2 grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+                        <div class="${ans.isCorrect ? 'text-emerald-400' : 'text-rose-400'}">
+                            <span class="text-rose-300">Your Answer:</span> ${userChoiceText}
+                        </div>
+                        ${!ans.isCorrect ? `
+                            <div class="text-emerald-400">
+                                <span class="text-rose-300">Correct Answer:</span> ${correctChoiceText}
+                            </div>
+                        ` : ''}
+                    </div>
+                    <div class="mt-1 text-[10px] text-rose-400/80 flex justify-between">
+                        <span>Category: ${ans.category}</span>
+                        <span>Time taken: ${ans.timeSpent}s</span>
+                    </div>
+                `;
+                container.appendChild(row);
+            });
+        }
+
+        // Helper: Format Seconds into MM:SS
+        function formatTime(totalSeconds) {
+            const minutes = Math.floor(totalSeconds / 60);
+            const seconds = totalSeconds % 60;
+            return `${minutes < 10 ? '0' : ''}${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+        }
+    </script>
+</body>
+</html>

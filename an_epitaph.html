@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>An Epitaph - 50 MCQ Interactive Quiz | Class 12 Bihar Board</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Canvas Confetti CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f0f5ff',
+                            100: '#e0ebff',
+                            500: '#4f46e5',
+                            600: '#4338ca',
+                            700: '#3730a3',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #311042 100%);
+            min-height: 100vh;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+        }
+
+        .dark-glass {
+            background: rgba(15, 23, 42, 0.75);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .option-btn {
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .option-btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(79, 70, 229, 0.15);
+        }
+
+        .correct-anim {
+            animation: pulse-green 0.5s ease-in-out;
+            background-color: #10b981 !important;
+            color: white !important;
+            border-color: #059669 !important;
+        }
+
+        .incorrect-anim {
+            animation: shake 0.4s cubic-bezier(.36,.07,.19,.97) both;
+            background-color: #ef4444 !important;
+            color: white !important;
+            border-color: #dc2626 !important;
+        }
+
+        @keyframes shake {
+            10%, 90% { transform: translate3d(-1px, 0, 0); }
+            20%, 80% { transform: translate3d(2px, 0, 0); }
+            30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
+            40%, 60% { transform: translate3d(4px, 0, 0); }
+        }
+
+        @keyframes pulse-green {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+            100% { transform: scale(1); }
+        }
+
+        .toast-slide-in {
+            animation: slideDown 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+
+        @keyframes slideDown {
+            from { transform: translate(-50%, -100%); opacity: 0; }
+            to { transform: translate(-50%, 0); opacity: 1; }
+        }
+    </style>
+</head>
+<body class="text-slate-800 antialiased p-3 md:p-6 flex flex-col justify-between">
+
+    <!-- Floating Motivational Toast Notification -->
+    <div id="praiseToast" class="fixed top-5 left-1/2 -translate-x-1/2 z-50 hidden toast-slide-in">
+        <div id="praiseContent" class="bg-gradient-to-r from-amber-400 via-orange-500 to-pink-500 text-white font-extrabold text-lg md:text-xl px-6 py-3 rounded-full shadow-2xl flex items-center gap-3 border-2 border-white/40">
+            <span id="praiseEmoji" class="text-2xl">🎉</span>
+            <span id="praiseText">Superb! Correct Answer!</span>
+        </div>
+    </div>
+
+    <!-- Header Navigation -->
+    <header class="max-w-4xl mx-auto w-full mb-4">
+        <div class="dark-glass rounded-2xl p-4 flex flex-wrap justify-between items-center text-white gap-3">
+            <div class="flex items-center gap-3">
+                <div class="bg-indigo-600/30 p-2.5 rounded-xl border border-indigo-400/30">
+                    <i class="fa-solid me-1 fa-book-bookmark text-indigo-400 text-xl"></i>
+                </div>
+                <div>
+                    <h1 class="font-bold text-lg leading-tight">An Epitaph</h1>
+                    <p class="text-xs text-indigo-200">Walter de la Mare • Class 12 Bihar Board</p>
+                </div>
+            </div>
+            
+            <div class="flex items-center gap-4 text-xs md:text-sm font-semibold">
+                <div class="flex items-center gap-1.5 bg-slate-800/80 px-3 py-1.5 rounded-lg border border-slate-700">
+                    <i class="fa-solid fa-stopwatch text-amber-400"></i>
+                    <span id="qTimerText">0s</span>
+                </div>
+                <div class="flex items-center gap-1.5 bg-slate-800/80 px-3 py-1.5 rounded-lg border border-slate-700">
+                    <i class="fa-solid fa-clock text-indigo-400"></i>
+                    <span id="totalTimerText">00:00</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN QUIZ CONTAINER -->
+    <main class="max-w-4xl mx-auto w-full flex-grow flex items-center justify-center">
+
+        <!-- WELCOME / START SCREEN -->
+        <div id="startScreen" class="glass-card rounded-3xl p-6 md:p-10 w-full text-center">
+            <div class="inline-flex items-center justify-center w-20 h-20 bg-indigo-100 text-indigo-600 rounded-full mb-4 text-3xl shadow-inner">
+                <i class="fa-solid fa-feather-pointed"></i>
+            </div>
+            <h2 class="text-2xl md:text-4xl font-extrabold text-slate-900 mb-2">Master 'An Epitaph' Quiz</h2>
+            <p class="text-slate-600 max-w-lg mx-auto text-sm md:text-base mb-6">
+                Test your mastery of Walter de la Mare's classic poem with 50 tailored MCQs matching the Bihar Board Class 12th examination pattern.
+            </p>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-3 max-w-xl mx-auto mb-8 text-left">
+                <div class="bg-indigo-50/80 p-3 rounded-xl border border-indigo-100">
+                    <p class="text-xs text-slate-500 font-medium">Questions</p>
+                    <p class="text-lg font-bold text-indigo-700">50 MCQs</p>
+                </div>
+                <div class="bg-amber-50/80 p-3 rounded-xl border border-amber-100">
+                    <p class="text-xs text-slate-500 font-medium">Total Marks</p>
+                    <p class="text-lg font-bold text-amber-700">50 Points</p>
+                </div>
+                <div class="bg-emerald-50/80 p-3 rounded-xl border border-emerald-100">
+                    <p class="text-xs text-slate-500 font-medium">Feedback</p>
+                    <p class="text-lg font-bold text-emerald-700">Instant</p>
+                </div>
+                <div class="bg-purple-50/80 p-3 rounded-xl border border-purple-100">
+                    <p class="text-xs text-slate-500 font-medium">Analysis</p>
+                    <p class="text-lg font-bold text-purple-700">Detailed</p>
+                </div>
+            </div>
+
+            <button id="startBtn" onclick="startQuiz()" class="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-indigo-600 via-indigo-700 to-purple-700 text-white font-bold text-lg rounded-2xl shadow-xl hover:shadow-indigo-500/30 hover:scale-[1.02] active:scale-95 transition-all flex items-center justify-center gap-3 mx-auto">
+                <span>Start 50-Question Quiz Now</span>
+                <i class="fa-solid fa-arrow-right"></i>
+            </button>
+        </div>
+
+        <!-- ACTIVE QUIZ SCREEN -->
+        <div id="quizScreen" class="glass-card rounded-3xl p-6 md:p-8 w-full hidden flex-col justify-between min-h-[520px]">
+            <!-- Top Status Bar -->
+            <div>
+                <div class="flex justify-between items-center mb-2">
+                    <span id="questionNumBadge" class="px-3 py-1 bg-indigo-100 text-indigo-700 text-xs font-bold rounded-full">
+                        Question 1 of 50
+                    </span>
+                    <span id="topicBadge" class="text-xs font-semibold text-slate-500 bg-slate-100 px-2.5 py-1 rounded-md">
+                        Poet's Biography
+                    </span>
+                </div>
+
+                <!-- Progress Bar -->
+                <div class="w-full bg-slate-200 h-2.5 rounded-full overflow-hidden mb-6">
+                    <div id="progressBar" class="bg-gradient-to-r from-indigo-500 to-purple-600 h-full w-[2%] transition-all duration-300"></div>
+                </div>
+
+                <!-- Question Text -->
+                <h2 id="questionText" class="text-lg md:text-xl font-bold text-slate-900 mb-6 leading-relaxed">
+                    Loading Question...
+                </h2>
+
+                <!-- Options Grid -->
+                <div id="optionsContainer" class="grid grid-cols-1 md:grid-cols-2 gap-3.5 mb-6">
+                    <!-- Options injected by JS -->
+                </div>
+            </div>
+
+            <!-- Quiz Footer Controls -->
+            <div class="pt-4 border-t border-slate-200 flex justify-between items-center">
+                <div class="text-xs text-slate-500">
+                    <span id="scoreTracker" class="font-bold text-slate-700">Score: 0/0</span>
+                </div>
+                <button id="nextBtn" onclick="nextQuestion()" disabled class="px-6 py-2.5 bg-slate-300 text-slate-500 font-bold rounded-xl cursor-not-allowed transition-all flex items-center gap-2">
+                    <span>Next Question</span>
+                    <i class="fa-solid fa-chevron-right text-xs"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- COMPREHENSIVE RESULT ANALYSIS SCREEN -->
+        <div id="resultScreen" class="glass-card rounded-3xl p-6 md:p-8 w-full hidden">
+            <div class="text-center mb-8">
+                <div id="scoreBadgeIcon" class="inline-flex items-center justify-center w-16 h-16 bg-amber-100 text-amber-500 rounded-full mb-3 text-2xl">
+                    <i class="fa-solid fa-trophy"></i>
+                </div>
+                <h2 class="text-2xl md:text-3xl font-extrabold text-slate-900">Quiz Completed! 🎉</h2>
+                <p id="resultTagline" class="text-slate-600 text-sm mt-1">Here is your complete performance report for 'An Epitaph'</p>
+            </div>
+
+            <!-- Key Metrics Summary Grid -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+                <div class="bg-indigo-50/70 p-4 rounded-2xl border border-indigo-100 text-center">
+                    <i class="fa-solid fa-bullseye text-indigo-600 mb-1"></i>
+                    <p class="text-xs text-slate-500 font-medium">Marks Obtained</p>
+                    <p id="resScore" class="text-2xl font-black text-indigo-700">0 / 50</p>
+                </div>
+                <div class="bg-emerald-50/70 p-4 rounded-2xl border border-emerald-100 text-center">
+                    <i class="fa-solid fa-chart-line text-emerald-600 mb-1"></i>
+                    <p class="text-xs text-slate-500 font-medium">Accuracy</p>
+                    <p id="resAccuracy" class="text-2xl font-black text-emerald-700">0%</p>
+                </div>
+                <div class="bg-purple-50/70 p-4 rounded-2xl border border-purple-100 text-center">
+                    <i class="fa-solid fa-clock text-purple-600 mb-1"></i>
+                    <p class="text-xs text-slate-500 font-medium">Total Time</p>
+                    <p id="resTime" class="text-2xl font-black text-purple-700">0m 0s</p>
+                </div>
+                <div class="bg-amber-50/70 p-4 rounded-2xl border border-amber-100 text-center">
+                    <i class="fa-solid fa-bolt text-amber-600 mb-1"></i>
+                    <p class="text-xs text-slate-500 font-medium">Avg Time / Q</p>
+                    <p id="resAvgTime" class="text-2xl font-black text-amber-700">0s</p>
+                </div>
+            </div>
+
+            <!-- Topic Wise Analysis -->
+            <div class="bg-white/80 rounded-2xl p-5 border border-slate-200 mb-8">
+                <h3 class="font-bold text-slate-900 mb-4 flex items-center gap-2">
+                    <i class="fa-solid fa-chart-pie text-indigo-600"></i>
+                    <span>Topic-Wise Performance Breakdown</span>
+                </h3>
+                <div id="topicBreakdown" class="space-y-4">
+                    <!-- Progress bars injected by JS -->
+                </div>
+            </div>
+
+            <!-- Detailed Question Review Section -->
+            <div class="bg-white/80 rounded-2xl p-5 border border-slate-200 mb-8">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="font-bold text-slate-900 flex items-center gap-2">
+                        <i class="fa-solid fa-list-check text-indigo-600"></i>
+                        <span>Detailed Question Review</span>
+                    </h3>
+                    <div class="flex gap-2">
+                        <button onclick="filterReview('all')" class="text-xs px-2.5 py-1 rounded bg-slate-200 font-semibold text-slate-700">All</button>
+                        <button onclick="filterReview('incorrect')" class="text-xs px-2.5 py-1 rounded bg-red-100 font-semibold text-red-700">Incorrect</button>
+                    </div>
+                </div>
+                <div id="reviewList" class="space-y-3 max-h-96 overflow-y-auto pr-2">
+                    <!-- Reviews injected by JS -->
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <button onclick="restartQuiz()" class="px-8 py-3.5 bg-indigo-600 text-white font-bold rounded-xl shadow-lg hover:bg-indigo-700 transition-all flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-rotate-right"></i>
+                    <span>Retake Quiz</span>
+                </button>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="text-center text-xs text-slate-400 mt-6">
+        Designed for Bihar Board Class 12th English Exam Prep • Chapter: An Epitaph
+    </footer>
+
+    <!-- QUIZ ENGINE SCRIPT -->
+    <script>
+        // 50 UNIQUE & COMPREHENSIVE QUESTIONS ON "AN EPITAPH" BY WALTER DE LA MARE
+        const quizData = [
+            {
+                q: "Who is the poet of the poem 'An Epitaph'?",
+                options: ["Rupert Brooke", "Walter de la Mare", "John Donne", "W. H. Auden"],
+                answer: 1,
+                topic: "Poet's Biography"
+            },
+            {
+                q: "Walter de la Mare was born in which year?",
+                options: ["1873", "1885", "1865", "1892"],
+                answer: 0,
+                topic: "Poet's Biography"
+            },
+            {
+                q: "In which year did Walter de la Mare pass away?",
+                options: ["1950", "1956", "1960", "1948"],
+                answer: 1,
+                topic: "Poet's Biography"
+            },
+            {
+                q: "Where was Walter de la Mare born?",
+                options: ["Village of Charlton in Kent, England", "London, England", "Dublin, Ireland", "Stratford, England"],
+                answer: 0,
+                topic: "Poet's Biography"
+            },
+            {
+                q: "Walter de la Mare lost his father at the age of ____.",
+                options: ["Two", "Four", "Six", "Ten"],
+                answer: 1,
+                topic: "Poet's Biography"
+            },
+            {
+                q: "Queen Elizabeth II honored Walter de la Mare with the 'Order of Merit' in which year?",
+                options: ["1947", "1953", "1956", "1962"],
+                answer: 1,
+                topic: "Poet's Biography"
+            },
+            {
+                q: "Walter de la Mare is best known as a poet for ____.",
+                options: ["War", "Children", "Nature", "Love"],
+                answer: 1,
+                topic: "Poet's Biography"
+            },
+            {
+                q: "Which famous collection of songs/poems for children was written by Walter de la Mare?",
+                options: ["Songs of Innocence", "Peacock Pie", "Leaves of Grass", "Lyrical Ballads"],
+                answer: 1,
+                topic: "Poet's Biography"
+            },
+            {
+                q: "The poems of Walter de la Mare often depict a note of ____.",
+                options: ["Melancholy & Mystery", "Aggression & Anger", "Pure Satire", "War Propaganda"],
+                answer: 0,
+                topic: "Poet's Biography"
+            },
+            {
+                q: "What is an 'Epitaph'?",
+                options: ["An inscription on a tomb in memory of the dead", "A praise song sung in a church", "A drama written in 5 acts", "A tragic novel"],
+                answer: 0,
+                topic: "Poem Concepts & Themes"
+            },
+            {
+                q: "In the poem 'An Epitaph', the poet deals with a beautiful lady who belonged to ____.",
+                options: ["The North Country", "The Western Country", "The Eastern Country", "The Southern Country"],
+                answer: 1,
+                topic: "Poem Concepts & Themes"
+            },
+            {
+                q: "How does the poet describe the lady's habit of movement?",
+                options: ["Heavy of foot", "Light of step and heart", "Fast and careless", "Slow and steady"],
+                answer: 1,
+                topic: "Poem Concepts & Themes"
+            },
+            {
+                q: "What does the phrase 'light of step and heart' signify?",
+                options: ["She was very athletic", "She had no commitment and roamed free without care", "She was sick and weak", "She liked dancing"],
+                answer: 1,
+                topic: "Poem Concepts & Themes"
+            },
+            {
+                q: "According to the poet, beauty is ____.",
+                options: ["Permanent", "Transient and short-lived", "Eternal", "Immovable"],
+                answer: 1,
+                topic: "Poem Concepts & Themes"
+            },
+            {
+                q: "Complete the line: 'Here lies a most beautiful lady, Light of ____ and heart;'",
+                options: ["mind", "step", "face", "eye"],
+                answer: 1,
+                topic: "Line Completions & Quotes"
+            },
+            {
+                q: "Complete the line: 'I think she was the most beautiful lady That ever was in the ____ country.'",
+                options: ["Eastern", "Western", "Northern", "Southern"],
+                answer: 1,
+                topic: "Line Completions & Quotes"
+            },
+            {
+                q: "Complete the line: 'But beauty passes; beauty ____;'",
+                options: ["fades", "vanishes", "crumbles", "dies"],
+                answer: 1,
+                topic: "Line Completions & Quotes"
+            },
+            {
+                q: "Complete the line: 'However rare—rare it be, And when I ____, who will remember?'",
+                options: ["die", "leave", "crumble", "fall"],
+                answer: 2,
+                topic: "Line Completions & Quotes"
+            },
+            {
+                q: "What does the poet mean by the word 'crumble' in the poem?",
+                options: ["To fall into pieces", "To die and turn to dust", "To get angry", "To cry loudly"],
+                answer: 1,
+                topic: "Vocabulary & Devices"
+            },
+            {
+                q: "Who will remember the lady after the poet dies?",
+                options: ["Her family", "Nobody", "The villagers", "Her children"],
+                answer: 1,
+                topic: "Poem Concepts & Themes"
+            },
+            {
+                q: "The poet feels that after his death, the lady will be ____.",
+                options: ["Forgotten", "Worshipped", "Immortalized", "Rewarded"],
+                answer: 0,
+                topic: "Poem Concepts & Themes"
+            },
+            {
+                q: "What tone does the poet express regarding modern human relationships and feelings?",
+                options: ["Loss of feeling and transience of human life", "High excitement", "Heroic courage", "Humorous joke"],
+                answer: 0,
+                topic: "Poem Concepts & Themes"
+            },
+            {
+                q: "Walter de la Mare makes us aware of the ____.",
+                options: ["Inhuman conditions of modern life", "Benefits of industrialization", "Glories of war", "Joy of urban life"],
+                answer: 0,
+                topic: "Poem Concepts & Themes"
+            },
+            {
+                q: "Which book of children's verse by de la Mare brought him recognition?",
+                options: ["Songs for the Children", "Peacock Pie", "A Child's Day", "Both A and B"],
+                answer: 3,
+                topic: "Poet's Biography"
+            },
+            {
+                q: "Where is the lady lying now?",
+                options: ["In a garden", "Inside a grave (tomb)", "In a palace", "On a bed"],
+                answer: 1,
+                topic: "Poem Concepts & Themes"
+            },
+            {
+                q: "The poem 'An Epitaph' is an example of a ____.",
+                options: ["Elegy / Short Lyric", "Epic Poem", "Sonnet", "Ballad of War"],
+                answer: 0,
+                topic: "Vocabulary & Devices"
+            },
+            {
+                q: "In 'An Epitaph', the poet expresses his sad feeling for a ____.",
+                options: ["Lady", "Child", "Man", "Soldier"],
+                answer: 0,
+                topic: "Poem Concepts & Themes"
+            },
+            {
+                q: "What passes and vanishes according to Walter de la Mare?",
+                options: ["Wealth", "Beauty", "Knowledge", "Power"],
+                answer: 1,
+                topic: "Poem Concepts & Themes"
+            },
+            {
+                q: "According to the poet, physical beauty is ____.",
+                options: ["Everlasting", "Not everlasting", "Truthful", "Unchanging"],
+                answer: 1,
+                topic: "Poem Concepts & Themes"
+            },
+            {
+                q: "Walter de la Mare lived in which century?",
+                options: ["18th-19th Century", "19th-20th Century", "17th-18th Century", "21st Century"],
+                answer: 1,
+                topic: "Poet's Biography"
+            },
+            {
+                q: "Who was light of step and heart?",
+                options: ["A West Indian lady", "A West country lady", "The poet's sister", "A queen"],
+                answer: 1,
+                topic: "Poem Concepts & Themes"
+            },
+            {
+                q: "Who wrote the line: 'And when I crumble, who will remember?'",
+                options: ["John Keats", "Walter de la Mare", "Rupert Brooke", "Walt Whitman"],
+                answer: 1,
+                topic: "Line Completions & Quotes"
+            },
+            {
+                q: "Walter de la Mare shows a clean interest in ____ themes.",
+                options: ["Old World & Supernatural", "Scientific", "Political", "Commercial"],
+                answer: 0,
+                topic: "Poet's Biography"
+            },
+            {
+                q: "The poet loved the lady, but what was her short-coming?",
+                options: ["She was arrogant", "Her beauty was transient and she lacked deep love", "She was poor", "She was blind"],
+                answer: 1,
+                topic: "Poem Concepts & Themes"
+            },
+            {
+                q: "The overall atmosphere of the poem 'An Epitaph' is ____.",
+                options: ["Joyful", "Melancholic and reflective", "Frightening", "Aggressive"],
+                answer: 1,
+                topic: "Poem Concepts & Themes"
+            },
+            {
+                q: "What does the word 'rare' mean in 'However rare—rare it be'?",
+                options: ["Uncommon / Exceptional", "Raw", "Frequent", "Cheap"],
+                answer: 0,
+                topic: "Vocabulary & Devices"
+            },
+            {
+                q: "The poet is mourning near the ____ of the lady.",
+                options: ["Grave / Tomb", "House", "School", "Church gate"],
+                answer: 0,
+                topic: "Poem Concepts & Themes"
+            },
+            {
+                q: "Who awarded Walter de la Mare the Order of Merit in 1953?",
+                options: ["King George VI", "Queen Elizabeth II", "Queen Victoria", "Winston Churchill"],
+                answer: 1,
+                topic: "Poet's Biography"
+            },
+            {
+                q: "The line 'I think she was the most beautiful lady' shows the poet's ____.",
+                options: ["Admiration for her beauty", "Hatred for her", "Jealousy", "Indifference"],
+                answer: 0,
+                topic: "Poem Concepts & Themes"
+            },
+            {
+                q: "When the poet says 'who will remember?', he is worried about ____.",
+                options: ["The oblivion and forgotten memory of the lady after his death", "His own fame", "His money", "His country"],
+                answer: 0,
+                topic: "Poem Concepts & Themes"
+            },
+            {
+                q: "Which word in the poem rhymes with 'vanishes'?",
+                options: ["Passes", "Crumbles", "Remembers", "Be"],
+                answer: 0,
+                topic: "Vocabulary & Devices"
+            },
+            {
+                q: "Which of the following works is NOT written by Walter de la Mare?",
+                options: ["Peacock Pie", "Songs for the Children", "The Listeners", "Fire-Hymn"],
+                answer: 3,
+                topic: "Poet's Biography"
+            },
+            {
+                q: "In Bihar Board syllabus, 'An Epitaph' belongs to which section of English?",
+                options: ["Prose Section", "Poetry Section (Rainbow Part 2)", "Story of English", "Drama"],
+                answer: 1,
+                topic: "Poem Concepts & Themes"
+            },
+            {
+                q: "Walter de la Mare moved with his family to London after his father's death in ____.",
+                options: ["1877", "1880", "1890", "1901"],
+                answer: 0,
+                topic: "Poet's Biography"
+            },
+            {
+                q: "What kind of beauty fades according to the poem?",
+                options: ["Inner beauty of character", "Outer physical beauty", "Beauty of nature", "Moral beauty"],
+                answer: 1,
+                topic: "Poem Concepts & Themes"
+            },
+            {
+                q: "The poet uses the word 'crumble' as a euphemism for ____.",
+                options: ["Living", "Dying / Death", "Sleeping", "Traveling"],
+                answer: 1,
+                topic: "Vocabulary & Devices"
+            },
+            {
+                q: "What is the primary message of the poem 'An Epitaph'?",
+                options: ["Physical beauty is short-lived, while virtue and memories are forgotten unless recorded", "Everyone should travel to Western country", "Children should play in gardens", "War brings destruction"],
+                answer: 0,
+                topic: "Poem Concepts & Themes"
+            },
+            {
+                q: "Walter de la Mare worked for about twenty years in the statistical department of ____.",
+                options: ["Anglo-American Oil Company", "Bank of England", "British Railways", "London Post Office"],
+                answer: 0,
+                topic: "Poet's Biography"
+            },
+            {
+                q: "The line 'Light of step and heart' uses which figure of speech / idiom?",
+                options: ["Metaphor describing a carefree nature", "Simile using 'like'", "Hyperbole", "Personification of heart"],
+                answer: 0,
+                topic: "Vocabulary & Devices"
+            },
+            {
+                q: "Why does the poet call the lady 'most beautiful'?",
+                options: ["Because he loved and admired her immensely", "Because she won a beauty contest", "Because everyone in the country declared so", "Because she was a queen"],
+                answer: 0,
+                topic: "Poem Concepts & Themes"
+            }
+        ];
+
+        // QUIZ STATE VARIABLES
+        let currentQIndex = 0;
+        let score = 0;
+        let userAnswers = []; // stores { question, selected, correct, timeTaken }
+        let qStartTime = 0;
+        let qTimerInterval = null;
+        let totalTimerInterval = null;
+        let totalSeconds = 0;
+        let qSeconds = 0;
+
+        const praises = [
+            { text: "Spot On! 🎉", emoji: "🌟" },
+            { text: "Brilliant Work! ⭐", emoji: "👏" },
+            { text: "Awesome! Keep Going! 🚀", emoji: "🔥" },
+            { text: "Fantastic Answer! 💎", emoji: "👑" },
+            { text: "Superb Knowledge! 🎯", emoji: "🏆" }
+        ];
+
+        // DOM ELEMENTS
+        const startScreen = document.getElementById('startScreen');
+        const quizScreen = document.getElementById('quizScreen');
+        const resultScreen = document.getElementById('resultScreen');
+
+        const questionText = document.getElementById('questionText');
+        const optionsContainer = document.getElementById('optionsContainer');
+        const questionNumBadge = document.getElementById('questionNumBadge');
+        const topicBadge = document.getElementById('topicBadge');
+        const progressBar = document.getElementById('progressBar');
+        const scoreTracker = document.getElementById('scoreTracker');
+        const nextBtn = document.getElementById('nextBtn');
+        const qTimerText = document.getElementById('qTimerText');
+        const totalTimerText = document.getElementById('totalTimerText');
+
+        // START QUIZ
+        function startQuiz() {
+            startScreen.classList.add('hidden');
+            resultScreen.classList.add('hidden');
+            quizScreen.classList.remove('hidden');
+            quizScreen.classList.add('flex');
+
+            currentQIndex = 0;
+            score = 0;
+            userAnswers = [];
+            totalSeconds = 0;
+
+            // Start Global Timer
+            clearInterval(totalTimerInterval);
+            totalTimerInterval = setInterval(() => {
+                totalSeconds++;
+                const mins = Math.floor(totalSeconds / 60).toString().padStart(2, '0');
+                const secs = (totalSeconds % 60).toString().padStart(2, '0');
+                totalTimerText.innerText = `${mins}:${secs}`;
+            }, 1000);
+
+            loadQuestion();
+        }
+
+        // LOAD QUESTION
+        function loadQuestion() {
+            const qData = quizData[currentQIndex];
+
+            // Reset States
+            nextBtn.disabled = true;
+            nextBtn.className = "px-6 py-2.5 bg-slate-300 text-slate-500 font-bold rounded-xl cursor-not-allowed transition-all flex items-center gap-2";
+
+            // Update UI Labels
+            questionNumBadge.innerText = `Question ${currentQIndex + 1} of ${quizData.length}`;
+            topicBadge.innerText = qData.topic;
+            questionText.innerText = `${currentQIndex + 1}. ${qData.q}`;
+            scoreTracker.innerText = `Score: ${score}/${currentQIndex}`;
+
+            // Update Progress Bar
+            const progPercent = ((currentQIndex + 1) / quizData.length) * 100;
+            progressBar.style.width = `${progPercent}%`;
+
+            // Reset and Start Question Timer
+            qSeconds = 0;
+            qTimerText.innerText = `0s`;
+            clearInterval(qTimerInterval);
+            qTimerInterval = setInterval(() => {
+                qSeconds++;
+                qTimerText.innerText = `${qSeconds}s`;
+            }, 1000);
+
+            // Render Options
+            optionsContainer.innerHTML = '';
+            const optionLabels = ['A', 'B', 'C', 'D'];
+            
+            qData.options.forEach((optText, index) => {
+                const button = document.createElement('button');
+                button.className = `option-btn w-full text-left p-4 rounded-2xl border-2 border-slate-200 bg-white hover:border-indigo-300 font-medium text-slate-700 flex items-center gap-3 transition-all text-sm md:text-base`;
+                button.onclick = () => selectOption(index);
+                button.innerHTML = `
+                    <span class="w-8 h-8 rounded-xl bg-slate-100 text-slate-600 font-bold flex items-center justify-center shrink-0 border border-slate-200 text-sm">
+                        ${optionLabels[index]}
+                    </span>
+                    <span class="flex-grow">${optText}</span>
+                    <i class="fa-solid fa-circle-check opacity-0 text-xl font-bold"></i>
+                `;
+                optionsContainer.appendChild(button);
+            });
+        }
+
+        // OPTION SELECTION
+        function selectOption(selectedIndex) {
+            clearInterval(qTimerInterval); // Freeze Q timer
+            const qData = quizData[currentQIndex];
+            const buttons = optionsContainer.querySelectorAll('button');
+            const isCorrect = selectedIndex === qData.answer;
+
+            // Record Answer
+            userAnswers.push({
+                questionIndex: currentQIndex,
+                selected: selectedIndex,
+                correct: qData.answer,
+                isCorrect: isCorrect,
+                timeSpent: qSeconds,
+                topic: qData.topic
+            });
+
+            // Disable all buttons
+            buttons.forEach(btn => btn.disabled = true);
+
+            if (isCorrect) {
+                score++;
+                buttons[selectedIndex].classList.add('correct-anim');
+                buttons[selectedIndex].querySelector('.fa-circle-check').className = "fa-solid fa-circle-check opacity-100 text-white text-xl";
+                
+                // Trigger Visual Praises & Confetti
+                triggerConfetti();
+                showPraiseToast();
+            } else {
+                buttons[selectedIndex].classList.add('incorrect-anim');
+                buttons[selectedIndex].querySelector('.fa-circle-check').className = "fa-solid fa-circle-xmark opacity-100 text-white text-xl";
+                
+                // Highlight correct option
+                buttons[qData.answer].classList.add('correct-anim');
+                buttons[qData.answer].querySelector('.fa-circle-check').className = "fa-solid fa-circle-check opacity-100 text-white text-xl";
+            }
+
+            scoreTracker.innerText = `Score: ${score}/${currentQIndex + 1}`;
+
+            // Enable Next Button
+            nextBtn.disabled = false;
+            nextBtn.className = "px-6 py-2.5 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-bold rounded-xl shadow-lg hover:shadow-indigo-500/30 hover:scale-105 active:scale-95 transition-all flex items-center gap-2 cursor-pointer";
+        }
+
+        // NEXT QUESTION
+        function nextQuestion() {
+            if (currentQIndex < quizData.length - 1) {
+                currentQIndex++;
+                loadQuestion();
+            } else {
+                finishQuiz();
+            }
+        }
+
+        // SHOW PRAISE TOAST
+        function showPraiseToast() {
+            const toast = document.getElementById('praiseToast');
+            const praiseText = document.getElementById('praiseText');
+            const praiseEmoji = document.getElementById('praiseEmoji');
+            
+            const randomPraise = praises[Math.floor(Math.random() * praises.length)];
+            praiseText.innerText = randomPraise.text;
+            praiseEmoji.innerText = randomPraise.emoji;
+
+            toast.classList.remove('hidden');
+            setTimeout(() => {
+                toast.classList.add('hidden');
+            }, 1800);
+        }
+
+        // CONFETTI EFFECT
+        function triggerConfetti() {
+            confetti({
+                particleCount: 50,
+                spread: 60,
+                origin: { y: 0.8 },
+                colors: ['#4f46e5', '#10b981', '#f59e0b', '#ec4899']
+            });
+        }
+
+        // FINISH QUIZ AND SHOW RESULT ANALYSIS
+        function finishQuiz() {
+            clearInterval(totalTimerInterval);
+            clearInterval(qTimerInterval);
+
+            quizScreen.classList.add('hidden');
+            quizScreen.classList.remove('flex');
+            resultScreen.classList.remove('hidden');
+
+            const accuracy = Math.round((score / quizData.length) * 100);
+            const avgTime = Math.round(totalSeconds / quizData.length);
+            const mins = Math.floor(totalSeconds / 60);
+            const secs = totalSeconds % 60;
+
+            // Populate Metrics
+            document.getElementById('resScore').innerText = `${score} / ${quizData.length}`;
+            document.getElementById('resAccuracy').innerText = `${accuracy}%`;
+            document.getElementById('resTime').innerText = `${mins}m ${secs}s`;
+            document.getElementById('resAvgTime').innerText = `${avgTime}s`;
+
+            // Topic Breakdown Calculation
+            const topicStats = {};
+            userAnswers.forEach(ans => {
+                if (!topicStats[ans.topic]) {
+                    topicStats[ans.topic] = { total: 0, correct: 0 };
+                }
+                topicStats[ans.topic].total++;
+                if (ans.isCorrect) topicStats[ans.topic].correct++;
+            });
+
+            const topicContainer = document.getElementById('topicBreakdown');
+            topicContainer.innerHTML = '';
+
+            for (const [topic, data] of Object.entries(topicStats)) {
+                const perc = Math.round((data.correct / data.total) * 100);
+                const item = document.createElement('div');
+                item.innerHTML = `
+                    <div class="flex justify-between text-xs font-semibold mb-1">
+                        <span class="text-slate-700">${topic}</span>
+                        <span class="text-indigo-600">${data.correct}/${data.total} (${perc}%)</span>
+                    </div>
+                    <div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
+                        <div class="bg-gradient-to-r from-indigo-500 to-emerald-500 h-full" style="width: ${perc}%"></div>
+                    </div>
+                `;
+                topicContainer.appendChild(item);
+            }
+
+            // Render Detailed Review List
+            renderReviewList('all');
+        }
+
+        // RENDER REVIEW LIST
+        function renderReviewList(filter) {
+            const reviewList = document.getElementById('reviewList');
+            reviewList.innerHTML = '';
+
+            userAnswers.forEach((ans, idx) => {
+                if (filter === 'incorrect' && ans.isCorrect) return;
+
+                const qData = quizData[ans.questionIndex];
+                const card = document.createElement('div');
+                card.className = `p-3.5 rounded-xl border ${ans.isCorrect ? 'bg-emerald-50/50 border-emerald-200' : 'bg-red-50/50 border-red-200'} text-xs leading-relaxed`;
+
+                card.innerHTML = `
+                    <div class="flex justify-between items-start gap-2 mb-1.5">
+                        <span class="font-bold text-slate-800">Q${idx + 1}. ${qData.q}</span>
+                        <span class="px-2 py-0.5 rounded font-bold shrink-0 ${ans.isCorrect ? 'bg-emerald-200 text-emerald-800' : 'bg-red-200 text-red-800'}">
+                            ${ans.isCorrect ? 'Correct' : 'Incorrect'}
+                        </span>
+                    </div>
+                    <p class="text-slate-600 mb-1">
+                        <strong class="text-slate-700">Your Answer:</strong> 
+                        <span class="${ans.isCorrect ? 'text-emerald-700 font-semibold' : 'text-red-600 font-semibold'}">
+                            ${qData.options[ans.selected]}
+                        </span>
+                    </p>
+                    ${!ans.isCorrect ? `
+                        <p class="text-slate-600">
+                            <strong class="text-slate-700">Correct Answer:</strong> 
+                            <span class="text-emerald-700 font-semibold">${qData.options[ans.correct]}</span>
+                        </p>
+                    ` : ''}
+                    <div class="text-[10px] text-slate-400 mt-2 flex justify-between">
+                        <span>Topic: ${ans.topic}</span>
+                        <span>Time spent: ${ans.timeSpent}s</span>
+                    </div>
+                `;
+                reviewList.appendChild(card);
+            });
+        }
+
+        // FILTER REVIEW LIST
+        function filterReview(type) {
+            renderReviewList(type);
+        }
+
+        // RESTART QUIZ
+        function restartQuiz() {
+            resultScreen.classList.add('hidden');
+            startScreen.classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>

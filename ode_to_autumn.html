@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ode to Autumn - Class 12 Bihar Board English Quiz</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Canvas Confetti Library -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <!-- Chart.js Library -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Google Font: Inter & Merriweather -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Merriweather:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #FFFBEB 0%, #FEF3C7 35%, #FDE68A 100%);
+            min-height: 100vh;
+        }
+        .serif-font {
+            font-family: 'Merriweather', serif;
+        }
+        .custom-glass {
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(245, 158, 11, 0.2);
+        }
+        .option-btn {
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .option-btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(217, 119, 6, 0.15);
+        }
+        .correct-anim {
+            animation: pulseCorrect 0.6s ease-out;
+            background-color: #10B981 !important;
+            color: white !important;
+            border-color: #059669 !important;
+        }
+        .incorrect-anim {
+            animation: shakeIncorrect 0.4s ease-in-out;
+            background-color: #EF4444 !important;
+            color: white !important;
+            border-color: #DC2626 !important;
+        }
+        @keyframes pulseCorrect {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.03); }
+            100% { transform: scale(1); }
+        }
+        @keyframes shakeIncorrect {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-6px); }
+            40%, 80% { transform: translateX(6px); }
+        }
+        .praise-toast {
+            animation: floatUp 1.2s ease-out forwards;
+        }
+        @keyframes floatUp {
+            0% { opacity: 0; transform: translate(-50%, 20px) scale(0.8); }
+            20% { opacity: 1; transform: translate(-50%, 0) scale(1.1); }
+            80% { opacity: 1; transform: translate(-50%, -10px) scale(1); }
+            100% { opacity: 0; transform: translate(-50%, -30px) scale(0.9); }
+        }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #FEF3C7;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #D97706;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="text-amber-950 flex flex-col justify-between p-2 md:p-6 relative overflow-x-hidden">
+
+    <!-- Floating Praise Toast Container -->
+    <div id="praiseContainer" class="fixed top-20 left-1/2 z-50 pointer-events-none transform -translate-x-1/2"></div>
+
+    <!-- Main Container -->
+    <div class="max-w-4xl mx-auto w-full flex-grow flex flex-col justify-center my-4">
+
+        <!-- HEADER SECTION -->
+        <header class="text-center mb-6">
+            <div class="inline-flex items-center gap-2 bg-amber-200/80 text-amber-900 px-4 py-1.5 rounded-full text-xs md:text-sm font-semibold tracking-wide uppercase mb-2 shadow-sm border border-amber-300">
+                <i class="fa-solid fa-graduation-cap"></i> Bihar Board Class 12 English (Rainbow Part 2)
+            </div>
+            <h1 class="text-3xl md:text-5xl font-extrabold serif-font text-amber-900 tracking-tight">
+                Ode to Autumn
+            </h1>
+            <p class="text-xs md:text-sm text-amber-800 mt-1 italic">
+                By John Keats (1795–1821) &bull; 50 Practice Questions
+            </p>
+        </header>
+
+        <!-- WELCOME / START CARD -->
+        <div id="startCard" class="custom-glass rounded-3xl p-6 md:p-10 shadow-2xl text-center space-y-6">
+            <div class="w-20 h-20 bg-amber-500/10 text-amber-700 rounded-full flex items-center justify-center mx-auto text-3xl shadow-inner">
+                <i class="fa-solid fa-leaf"></i>
+            </div>
+            <h2 class="text-2xl md:text-3xl font-bold text-amber-900 serif-font">
+                Master Class 12 Poetry Chapter
+            </h2>
+            <p class="text-sm md:text-base text-amber-800 leading-relaxed max-w-2xl mx-auto">
+                Test your comprehensive knowledge of John Keats' masterpiece. This test includes 50 curated objective questions covering poem stanzas, literary devices, line quotes, key themes, and historical facts tailored for your Bihar Board examinations.
+            </p>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-3 max-w-xl mx-auto text-left text-xs md:text-sm">
+                <div class="bg-amber-100/70 p-3 rounded-xl border border-amber-200">
+                    <span class="block text-amber-600 font-semibold">Total Questions</span>
+                    <span class="text-lg font-bold text-amber-900">50 MCQs</span>
+                </div>
+                <div class="bg-amber-100/70 p-3 rounded-xl border border-amber-200">
+                    <span class="block text-amber-600 font-semibold">Marks</span>
+                    <span class="text-lg font-bold text-amber-900">50 Marks</span>
+                </div>
+                <div class="bg-amber-100/70 p-3 rounded-xl border border-amber-200">
+                    <span class="block text-amber-600 font-semibold">Live Timer</span>
+                    <span class="text-lg font-bold text-amber-900">Active</span>
+                </div>
+                <div class="bg-amber-100/70 p-3 rounded-xl border border-amber-200">
+                    <span class="block text-amber-600 font-semibold">Analytics</span>
+                    <span class="text-lg font-bold text-amber-900">Detailed</span>
+                </div>
+            </div>
+
+            <button id="startBtn" onclick="startQuiz()" class="bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-700 hover:to-amber-800 text-white font-bold px-8 py-3.5 rounded-full text-base md:text-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-0.5">
+                <i class="fa-solid fa-play mr-2"></i> Start 50-Question Quiz
+            </button>
+        </div>
+
+        <!-- QUIZ CONTAINER (Initially Hidden) -->
+        <div id="quizCard" class="hidden custom-glass rounded-3xl p-5 md:p-8 shadow-2xl relative">
+            
+            <!-- TOP BAR: Progress & Stats -->
+            <div class="flex flex-wrap items-center justify-between gap-3 pb-4 mb-4 border-b border-amber-200/80">
+                <!-- Question Counter -->
+                <div class="flex items-center gap-2">
+                    <span class="bg-amber-600 text-white font-bold text-xs md:text-sm px-3 py-1 rounded-full shadow-sm" id="qCounterBadge">
+                        Q 1 / 50
+                    </span>
+                    <span class="text-xs md:text-sm text-amber-700 font-medium hidden sm:inline" id="topicBadge">
+                        Category: Stanza 1
+                    </span>
+                </div>
+
+                <!-- Timer Badges -->
+                <div class="flex items-center gap-3 text-xs md:text-sm font-semibold text-amber-800">
+                    <div class="bg-amber-100 px-3 py-1.5 rounded-xl border border-amber-300 flex items-center gap-1.5">
+                        <i class="fa-regular fa-clock text-amber-600"></i>
+                        <span>Question: <span id="questionTimer" class="font-mono text-amber-950 font-bold">00s</span></span>
+                    </div>
+                    <div class="bg-amber-100 px-3 py-1.5 rounded-xl border border-amber-300 flex items-center gap-1.5">
+                        <i class="fa-solid fa-stopwatch text-amber-600"></i>
+                        <span>Total: <span id="totalTimer" class="font-mono text-amber-950 font-bold">00:00</span></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PROGRESS BAR -->
+            <div class="w-full bg-amber-200/70 h-2.5 rounded-full overflow-hidden mb-6">
+                <div id="progressBar" class="bg-amber-600 h-full w-0 transition-all duration-300"></div>
+            </div>
+
+            <!-- QUESTION BLOCK -->
+            <div class="mb-6">
+                <h3 id="questionText" class="text-lg md:text-xl font-bold text-amber-950 leading-relaxed serif-font min-h-[60px]">
+                    Loading question...
+                </h3>
+            </div>
+
+            <!-- OPTIONS CONTAINER -->
+            <div id="optionsContainer" class="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4 mb-6">
+                <!-- 4 Options loaded via JS -->
+            </div>
+
+            <!-- FOOTER BAR: Instant Feedback & Next Button -->
+            <div class="flex items-center justify-between pt-4 border-t border-amber-200/80">
+                <div id="feedbackText" class="text-xs md:text-sm font-semibold text-amber-800 min-h-[20px]">
+                    Select an option to proceed.
+                </div>
+                <button id="nextBtn" onclick="nextQuestion()" disabled class="bg-amber-600 opacity-50 cursor-not-allowed hover:bg-amber-700 text-white font-bold px-6 py-2.5 rounded-xl text-sm transition-all flex items-center gap-2 shadow-md">
+                    <span>Next</span>
+                    <i class="fa-solid fa-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- RESULT ANALYSIS DASHBOARD (Initially Hidden) -->
+        <div id="resultCard" class="hidden custom-glass rounded-3xl p-6 md:p-10 shadow-2xl space-y-8">
+            <div class="text-center space-y-2">
+                <div class="inline-block bg-amber-500 text-white p-3 rounded-2xl shadow-md mb-2">
+                    <i class="fa-solid fa-trophy text-3xl"></i>
+                </div>
+                <h2 class="text-3xl md:text-4xl font-extrabold text-amber-900 serif-font">
+                    Quiz Performance Analysis
+                </h2>
+                <p class="text-xs md:text-sm text-amber-700">Detailed scorecard for Ode to Autumn</p>
+            </div>
+
+            <!-- MAIN STATS GRID -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="bg-white/90 p-4 rounded-2xl shadow-sm border border-amber-200 text-center">
+                    <span class="text-xs font-semibold uppercase text-amber-600 tracking-wider">Score Obtained</span>
+                    <p class="text-2xl md:text-3xl font-extrabold text-amber-900 mt-1"><span id="resScore">0</span> / 50</p>
+                </div>
+                <div class="bg-white/90 p-4 rounded-2xl shadow-sm border border-amber-200 text-center">
+                    <span class="text-xs font-semibold uppercase text-amber-600 tracking-wider">Accuracy</span>
+                    <p class="text-2xl md:text-3xl font-extrabold text-emerald-600 mt-1"><span id="resAccuracy">0</span>%</p>
+                </div>
+                <div class="bg-white/90 p-4 rounded-2xl shadow-sm border border-amber-200 text-center">
+                    <span class="text-xs font-semibold uppercase text-amber-600 tracking-wider">Total Time</span>
+                    <p class="text-2xl md:text-3xl font-extrabold text-amber-900 mt-1" id="resTotalTime">00:00</p>
+                </div>
+                <div class="bg-white/90 p-4 rounded-2xl shadow-sm border border-amber-200 text-center">
+                    <span class="text-xs font-semibold uppercase text-amber-600 tracking-wider">Avg Time / Q</span>
+                    <p class="text-2xl md:text-3xl font-extrabold text-amber-900 mt-1" id="resAvgTime">0s</p>
+                </div>
+            </div>
+
+            <!-- CHARTS & TOPIC ANALYSIS SECTION -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Topic Accuracy Breakdown -->
+                <div class="bg-white/80 p-5 rounded-2xl border border-amber-200 shadow-sm">
+                    <h4 class="font-bold text-amber-900 mb-3 flex items-center gap-2">
+                        <i class="fa-solid fa-chart-pie text-amber-600"></i> Topic-wise Mastery Breakdown
+                    </h4>
+                    <div id="topicAnalysisList" class="space-y-3 text-xs md:text-sm">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+
+                <!-- Visual Chart -->
+                <div class="bg-white/80 p-5 rounded-2xl border border-amber-200 shadow-sm flex flex-col justify-center items-center">
+                    <h4 class="font-bold text-amber-900 mb-3 flex items-center gap-2 self-start">
+                        <i class="fa-solid fa-chart-donut text-amber-600"></i> Overall Performance Chart
+                    </h4>
+                    <div class="w-full max-w-[220px] relative">
+                        <canvas id="scoreChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- QUESTION REVIEW LIST (TOGGLEABLE) -->
+            <div class="bg-white/80 p-5 rounded-2xl border border-amber-200 shadow-sm">
+                <div class="flex justify-between items-center mb-4">
+                    <h4 class="font-bold text-amber-900 flex items-center gap-2">
+                        <i class="fa-solid fa-list-check text-amber-600"></i> Complete Question Review
+                    </h4>
+                    <span class="text-xs text-amber-600 font-semibold">50 Items</span>
+                </div>
+                <div id="reviewList" class="space-y-3 max-h-96 overflow-y-auto pr-2">
+                    <!-- Populated by JS -->
+                </div>
+            </div>
+
+            <!-- ACTION BUTTONS -->
+            <div class="flex flex-wrap justify-center gap-4 pt-4">
+                <button onclick="restartQuiz()" class="bg-amber-600 hover:bg-amber-700 text-white font-bold px-8 py-3 rounded-full shadow-lg transition-all flex items-center gap-2">
+                    <i class="fa-solid fa-rotate-right"></i>
+                    <span>Retake Quiz</span>
+                </button>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="text-center text-xs text-amber-800/80 py-3">
+        Bihar Board Class 12th English (Rainbow Part 2) Quiz &bull; Created with ❤️ for Students
+    </footer>
+
+    <!-- QUIZ LOGIC SCRIPT -->
+    <script>
+        // 50 COMPLETE AND SPECIFIC QUESTIONS FOR "ODE TO AUTUMN" (BIHAR BOARD CLASS 12)
+        const quizData = [
+            {
+                q: "Who has written the famous poem 'Ode to Autumn'?",
+                options: ["John Donne", "John Keats", "Walt Whitman", "Rupert Brooke"],
+                correct: 1,
+                topic: "Author & Context"
+            },
+            {
+                q: "'Ode to Autumn' is a/an ________ poetical work.",
+                options: ["Elegy", "Sonnet", "Ode", "Ballad"],
+                correct: 2,
+                topic: "Literary Form"
+            },
+            {
+                q: "John Keats belongs to which era of English Literature?",
+                options: ["Elizabethan Era", "Victorian Era", "Romantic Era", "Modern Era"],
+                correct: 2,
+                topic: "Author & Context"
+            },
+            {
+                q: "In the line 'Season of mists and mellow fruitfulness', what does 'mellow' mean?",
+                options: ["Bitter and green", "Soft, sweet, and ripe", "Dry and dead", "Cold and freezing"],
+                correct: 1,
+                topic: "Stanza 1: Abundance"
+            },
+            {
+                q: "Who is described as the 'close bosom-friend of the maturing sun' in the poem?",
+                options: ["Spring", "Autumn", "Winter", "Summer"],
+                correct: 1,
+                topic: "Stanza 1: Personification"
+            },
+            {
+                q: "Autumn conspires with the sun to load and bless which trees with apples?",
+                options: ["Moss'd cottage-trees", "Oak trees", "Pine trees", "Banyan trees"],
+                correct: 0,
+                topic: "Stanza 1: Abundance"
+            },
+            {
+                q: "With what fruit are the moss'd cottage trees loaded in Stanza 1?",
+                options: ["Mangoes", "Grapes", "Apples", "Peaches"],
+                correct: 2,
+                topic: "Stanza 1: Abundance"
+            },
+            {
+                q: "The sun and Autumn conspire to swell the gourd and plump the ________ shells.",
+                options: ["Walnut", "Hazel", "Almond", "Coconut"],
+                correct: 1,
+                topic: "Stanza 1: Abundance"
+            },
+            {
+                q: "What is the hazel shell plumped with in the poem?",
+                options: ["A sweet kernel", "Water", "Air", "Seeds"],
+                correct: 0,
+                topic: "Stanza 1: Abundance"
+            },
+            {
+                q: "Why do bees think warm days will never cease in Autumn?",
+                options: ["Because summer has o'er-brimm'd their clammy cells", "Because it never rains", "Because winter is far away", "Because flowers do not bloom"],
+                correct: 0,
+                topic: "Stanza 1: Bees & Flowers"
+            },
+            {
+                q: "What fills the 'clammy cells' of the bees in Autumn?",
+                options: ["Water", "Honey", "Wax", "Pollen"],
+                correct: 1,
+                topic: "Stanza 1: Bees & Flowers"
+            },
+            {
+                q: "In Stanza 2, Autumn is personified as sitting careless on a ________ floor.",
+                options: ["Granary", "Bedroom", "Kitchen", "Garden"],
+                correct: 0,
+                topic: "Stanza 2: Personification"
+            },
+            {
+                q: "When Autumn sits on the granary floor, by what is her hair gently lifted?",
+                options: ["A winnowing wind", "A heavy storm", "A thunderbolt", "A sea breeze"],
+                correct: 0,
+                topic: "Stanza 2: Personification"
+            },
+            {
+                q: "Autumn is seen sound asleep on a half-reaped furrow, drows'd with the fume of ________.",
+                options: ["Roses", "Poppies", "Tulips", "Jasmines"],
+                correct: 1,
+                topic: "Stanza 2: Personification"
+            },
+            {
+                q: "What tool does Autumn spare while sleeping among the poppies?",
+                options: ["Plough", "Sickle", "Axe", "Spade"],
+                correct: 1,
+                topic: "Stanza 2: Harvest Work"
+            },
+            {
+                q: "Sometimes Autumn is compared to a ________ carrying a laden head across a brook.",
+                options: ["Gleaner", "Weaver", "Painter", "Shepherd"],
+                correct: 0,
+                topic: "Stanza 2: Harvest Work"
+            },
+            {
+                q: "Where does Autumn watch the last oozings hours by hours with a patient look?",
+                options: ["By a cider-press", "By a river bank", "In an apple orchard", "Near a windmill"],
+                correct: 0,
+                topic: "Stanza 2: Cider Press"
+            },
+            {
+                q: "What does the cider-press squeeze out in Stanza 2?",
+                options: ["Grape juice", "Apple juice (Cider)", "Sugarcane juice", "Orange juice"],
+                correct: 1,
+                topic: "Stanza 2: Cider Press"
+            },
+            {
+                q: "Which season's songs are asked about in the line: 'Where are the songs of Spring? Ay, where are they?'",
+                options: ["Winter", "Summer", "Spring", "Autumn"],
+                correct: 2,
+                topic: "Stanza 3: Music of Autumn"
+            },
+            {
+                q: "What advice does Keats give to Autumn regarding Spring's music?",
+                options: ["'Think not of them, thou hast thy music too'", "'Go search for Spring'", "'Sing aloud for Spring'", "'Cry for the lost flowers'"],
+                correct: 0,
+                topic: "Stanza 3: Music of Autumn"
+            },
+            {
+                q: "In Stanza 3, clouds bloom the soft-dying day and touch the stubble-plains with a ________ hue.",
+                options: ["Golden", "Rosy", "Blue", "Silver"],
+                correct: 1,
+                topic: "Stanza 3: Twilight Scene"
+            },
+            {
+                q: "Where do the small gnats mourn in Stanza 3?",
+                options: ["Among the river sallows", "In the forest", "On top of mountains", "Inside houses"],
+                correct: 0,
+                topic: "Stanza 3: Music of Nature"
+            },
+            {
+                q: "How do the small gnats sing their mournful choir?",
+                options: ["Borne aloft or sinking as the light wind lives or dies", "Screaming loudly", "Dancing in pairs", "chirping like sparrows"],
+                correct: 0,
+                topic: "Stanza 3: Music of Nature"
+            },
+            {
+                q: "Which animals bleat loud from hilly bourn in the third stanza?",
+                options: ["Full-grown lambs", "Cows", "Goats", "Deer"],
+                correct: 0,
+                topic: "Stanza 3: Music of Nature"
+            },
+            {
+                q: "Where do hedge-crickets sing in the final stanza?",
+                options: ["In the garden-croft", "In the deep well", "On the tall trees", "Under the water"],
+                correct: 0,
+                topic: "Stanza 3: Music of Nature"
+            },
+            {
+                q: "Which bird whistles with a soft treble note from a garden-croft?",
+                options: ["Nightingale", "Red-breast (Robin)", "Cuckoo", "Pigeon"],
+                correct: 1,
+                topic: "Stanza 3: Music of Nature"
+            },
+            {
+                q: "What do gathering swallows do in the sky at the end of the poem?",
+                options: ["Fly away silently", "Twitter in the skies", "Build nests", "Sleep"],
+                correct: 1,
+                topic: "Stanza 3: Music of Nature"
+            },
+            {
+                q: "In which year was John Keats born?",
+                options: ["1795", "1821", "1785", "1800"],
+                correct: 0,
+                topic: "Author & Context"
+            },
+            {
+                q: "At what very young age did John Keats die of tuberculosis?",
+                options: ["20", "25", "30", "35"],
+                correct: 1,
+                topic: "Author & Context"
+            },
+            {
+                q: "Which deadly disease caused the early death of John Keats?",
+                options: ["Malaria", "Tuberculosis", "Cholera", "Typhoid"],
+                correct: 1,
+                topic: "Author & Context"
+            },
+            {
+                q: "John Keats was trained to become a ________ before devoting himself to poetry.",
+                options: ["Lawyer", "Surgeon / Apothecary", "Teacher", "Engineer"],
+                correct: 1,
+                topic: "Author & Context"
+            },
+            {
+                q: "Which famous line by Keats expresses his love for nature: 'A thing of beauty is a ________ forever'?",
+                options: ["Joy", "Dream", "Memory", "Sorrow"],
+                correct: 0,
+                topic: "Author & Context"
+            },
+            {
+                q: "How many stanzas are there in the poem 'Ode to Autumn'?",
+                options: ["2", "3", "4", "5"],
+                correct: 1,
+                topic: "Poetic Structure"
+            },
+            {
+                q: "Each stanza in 'Ode to Autumn' consists of how many lines?",
+                options: ["10 lines", "11 lines", "12 lines", "14 lines"],
+                correct: 1,
+                topic: "Poetic Structure"
+            },
+            {
+                q: "What main theme is highlighted in the FIRST stanza of the poem?",
+                options: ["Music of twilight", "Abundance, harvest, and maturity of nature", "Winter's arrival", "Human sadness"],
+                correct: 1,
+                topic: "Stanza 1: Abundance"
+            },
+            {
+                q: "What is the primary focus of the SECOND stanza of the poem?",
+                options: ["Personification of Autumn as a worker/harvester", "The coldness of snow", "Bird songs", "Spring memories"],
+                correct: 0,
+                topic: "Stanza 2: Personification"
+            },
+            {
+                q: "What is the central focus of the THIRD stanza of the poem?",
+                options: ["Plump hazel shells", "The unique sounds and music of Autumn evening", "Sowing seeds", "Summer heat"],
+                correct: 1,
+                topic: "Stanza 3: Music of Autumn"
+            },
+            {
+                q: "The line 'Conspiring with him how to load and bless' contains which literary device?",
+                options: ["Personification", "Simile", "Hyperbole", "Oxymoron"],
+                correct: 0,
+                topic: "Poetic Devices"
+            },
+            {
+                q: "In 'Ode to Autumn', Autumn is depicted not as a season of decay, but as a season of ________.",
+                options: ["Famine", "Fulfillment and maturity", "Barrenness", "Storms"],
+                correct: 1,
+                topic: "Themes & Central Idea"
+            },
+            {
+                q: "What kind of tone does Keats maintain throughout 'Ode to Autumn'?",
+                options: ["Angry and rebellious", "Calm, serene, and appreciative", "Gloomy and desperate", "Humorous and funny"],
+                correct: 1,
+                topic: "Themes & Central Idea"
+            },
+            {
+                q: "Complete the quote: 'And fill all fruit with ________ to the core.'",
+                options: ["Ripeness", "Sweetness", "Water", "Juice"],
+                correct: 0,
+                topic: "Stanza 1: Line Quotes"
+            },
+            {
+                q: "Which word in Stanza 1 means 'creepers' or vines running around thatch-eaves?",
+                options: ["Vines", "Moss", "Gourds", "Sallows"],
+                correct: 0,
+                topic: "Stanza 1: Vocabulary"
+            },
+            {
+                q: "What are 'thatch-eaves' mentioned in the poem?",
+                options: ["Roof overhangs made of straw/thatch", "Wooden doors", "Garden fences", "Stone walls"],
+                correct: 0,
+                topic: "Stanza 1: Vocabulary"
+            },
+            {
+                q: "What does the word 'winnowing' refer to in the context of harvest?",
+                options: ["Separating grain from chaff by wind", "Cutting trees", "Planting seeds", "Watering crops"],
+                correct: 0,
+                topic: "Stanza 2: Vocabulary"
+            },
+            {
+                q: "What does 'hilly bourn' mean in Stanza 3?",
+                options: ["Hilly domain or boundary", "Flat desert", "Deep ocean", "Dark cave"],
+                correct: 0,
+                topic: "Stanza 3: Vocabulary"
+            },
+            {
+                q: "Which of the following is NOT a sound of Autumn listed by Keats in Stanza 3?",
+                options: ["Gnats mourning", "Lambs bleating", "Swallows twittering", "Rooster crowing"],
+                correct: 3,
+                topic: "Stanza 3: Music of Nature"
+            },
+            {
+                q: "Keats wrote his great odes, including 'Ode to Autumn', in which productive year?",
+                options: ["1819", "1805", "1830", "1799"],
+                correct: 0,
+                topic: "Author & Context"
+            },
+            {
+                q: "'Ode to Autumn' is widely regarded as one of the most perfect ________ poems in English literature.",
+                options: ["Lyrical", "Narrative", "Dramatic", "Epic"],
+                correct: 0,
+                topic: "Literary Form"
+            },
+            {
+                q: "In the poem, the sun is referred to as 'maturing sun'. What does it mature?",
+                options: ["Fruits and crops of the earth", "Sea waves", "Ice mountains", "City buildings"],
+                correct: 0,
+                topic: "Stanza 1: Abundance"
+            },
+            {
+                q: "What overall philosophy of Keats is expressed in finding beauty in Autumn's decline?",
+                options: ["Acceptance of natural cycles of life and death", "Fear of growing old", "Hatred for nature", "Desire for immortal wealth"],
+                correct: 0,
+                topic: "Themes & Central Idea"
+            }
+        ];
+
+        // QUIZ STATE VARIABLES
+        let currentQIndex = 0;
+        let score = 0;
+        let userAnswers = []; // Store { question, selected, correctIndex, timeTaken, topic }
+        let totalTimeSeconds = 0;
+        let questionTimeSeconds = 0;
+        let totalTimerInterval = null;
+        let questionTimerInterval = null;
+        let isOptionSelected = false;
+
+        // PRAISE PHRASES FOR CORRECTION
+        const praiseWords = [
+            "Brilliant! 🌟",
+            "Keats Master! 📚",
+            "Outstanding! 🎯",
+            "Superb Work! 💫",
+            "Perfect Choice! ✨",
+            "Genius Mind! 🧠",
+            "Excellence! 🏆"
+        ];
+
+        // START QUIZ
+        function startQuiz() {
+            document.getElementById('startCard').classList.add('hidden');
+            document.getElementById('quizCard').classList.remove('hidden');
+            
+            // Reset state
+            currentQIndex = 0;
+            score = 0;
+            userAnswers = [];
+            totalTimeSeconds = 0;
+            
+            // Start Global Timer
+            clearInterval(totalTimerInterval);
+            totalTimerInterval = setInterval(() => {
+                totalTimeSeconds++;
+                document.getElementById('totalTimer').textContent = formatTime(totalTimeSeconds);
+            }, 1000);
+
+            loadQuestion();
+        }
+
+        // LOAD CURRENT QUESTION
+        function loadQuestion() {
+            isOptionSelected = false;
+            questionTimeSeconds = 0;
+            
+            // Start Question Timer
+            clearInterval(questionTimerInterval);
+            document.getElementById('questionTimer').textContent = "00s";
+            questionTimerInterval = setInterval(() => {
+                questionTimeSeconds++;
+                document.getElementById('questionTimer').textContent = `${questionTimeSeconds < 10 ? '0' : ''}${questionTimeSeconds}s`;
+            }, 1000);
+
+            const qData = quizData[currentQIndex];
+            
+            // Update Header & Progress
+            document.getElementById('qCounterBadge').textContent = `Q ${currentQIndex + 1} / ${quizData.length}`;
+            document.getElementById('topicBadge').textContent = `Topic: ${qData.topic}`;
+            
+            const progressPercent = ((currentQIndex + 1) / quizData.length) * 100;
+            document.getElementById('progressBar').style.width = `${progressPercent}%`;
+
+            // Set Question Text
+            document.getElementById('questionText').textContent = `${currentQIndex + 1}. ${qData.q}`;
+
+            // Reset Feedback & Next Button
+            const feedbackEl = document.getElementById('feedbackText');
+            feedbackEl.textContent = "Select an option to lock your answer.";
+            feedbackEl.className = "text-xs md:text-sm font-semibold text-amber-800 min-h-[20px]";
+
+            const nextBtn = document.getElementById('nextBtn');
+            nextBtn.disabled = true;
+            nextBtn.classList.add('opacity-50', 'cursor-not-allowed');
+
+            // Render Options
+            const optionsContainer = document.getElementById('optionsContainer');
+            optionsContainer.innerHTML = '';
+
+            const optionLabels = ['A', 'B', 'C', 'D'];
+            qData.options.forEach((opt, idx) => {
+                const btn = document.createElement('button');
+                btn.className = `option-btn w-full text-left p-4 rounded-2xl bg-white/90 border border-amber-200/90 text-amber-950 font-medium text-sm md:text-base flex items-center gap-3 shadow-sm hover:border-amber-400 focus:outline-none`;
+                btn.onclick = () => selectOption(idx);
+                btn.innerHTML = `
+                    <span class="w-8 h-8 rounded-xl bg-amber-100 text-amber-800 font-bold flex items-center justify-center shrink-0 text-xs border border-amber-300">
+                        ${optionLabels[idx]}
+                    </span>
+                    <span class="flex-grow">${opt}</span>
+                    <i class="fa-regular fa-circle text-amber-300 status-icon"></i>
+                `;
+                optionsContainer.appendChild(btn);
+            });
+        }
+
+        // HANDLE OPTION SELECTION
+        function selectOption(selectedIndex) {
+            if (isOptionSelected) return;
+            isOptionSelected = true;
+
+            // Stop question timer
+            clearInterval(questionTimerInterval);
+
+            const qData = quizData[currentQIndex];
+            const isCorrect = (selectedIndex === qData.correct);
+            const optionsBtns = document.querySelectorAll('#optionsContainer button');
+
+            // Record Answer
+            if (isCorrect) score++;
+            userAnswers.push({
+                question: qData.q,
+                selected: selectedIndex,
+                correctIndex: qData.correct,
+                options: qData.options,
+                isCorrect: isCorrect,
+                timeTaken: questionTimeSeconds,
+                topic: qData.topic
+            });
+
+            // Style Options
+            optionsBtns.forEach((btn, idx) => {
+                btn.disabled = true;
+                const icon = btn.querySelector('.status-icon');
+
+                if (idx === qData.correct) {
+                    btn.classList.add('correct-anim');
+                    icon.className = 'fa-solid fa-circle-check text-white text-lg';
+                } else if (idx === selectedIndex && !isCorrect) {
+                    btn.classList.add('incorrect-anim');
+                    icon.className = 'fa-solid fa-circle-xmark text-white text-lg';
+                } else {
+                    btn.classList.add('opacity-50');
+                }
+            });
+
+            // Feedback & Animations
+            const feedbackEl = document.getElementById('feedbackText');
+            if (isCorrect) {
+                feedbackEl.textContent = "Correct answer! Well done!";
+                feedbackEl.className = "text-xs md:text-sm font-bold text-emerald-600 min-h-[20px]";
+                
+                // Confetti & Toast
+                triggerConfetti();
+                showPraiseToast();
+            } else {
+                feedbackEl.textContent = `Incorrect. Correct answer is: ${qData.options[qData.correct]}`;
+                feedbackEl.className = "text-xs md:text-sm font-bold text-rose-600 min-h-[20px]";
+            }
+
+            // Enable Next Button
+            const nextBtn = document.getElementById('nextBtn');
+            nextBtn.disabled = false;
+            nextBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+            nextBtn.focus();
+        }
+
+        // NEXT QUESTION OR FINISH
+        function nextQuestion() {
+            if (currentQIndex < quizData.length - 1) {
+                currentQIndex++;
+                loadQuestion();
+            } else {
+                finishQuiz();
+            }
+        }
+
+        // CELEBRATION EFFECTS
+        function triggerConfetti() {
+            confetti({
+                particleCount: 40,
+                spread: 60,
+                origin: { y: 0.7 },
+                colors: ['#F59E0B', '#10B981', '#FBBF24', '#D97706']
+            });
+        }
+
+        function showPraiseToast() {
+            const toast = document.createElement('div');
+            const randomPraise = praiseWords[Math.floor(Math.random() * praiseWords.length)];
+            toast.className = 'praise-toast bg-amber-600 text-white font-extrabold text-sm md:text-lg px-6 py-2 rounded-full shadow-xl border-2 border-amber-300';
+            toast.textContent = randomPraise;
+            
+            const container = document.getElementById('praiseContainer');
+            container.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.remove();
+            }, 1200);
+        }
+
+        // TIME FORMATTER (MM:SS)
+        function formatTime(seconds) {
+            const mins = Math.floor(seconds / 60);
+            const secs = seconds % 60;
+            return `${mins < 10 ? '0' : ''}${mins}:${secs < 10 ? '0' : ''}${secs}`;
+        }
+
+        // FINISH QUIZ & DISPLAY ANALYTICS
+        function finishQuiz() {
+            clearInterval(totalTimerInterval);
+            clearInterval(questionTimerInterval);
+
+            document.getElementById('quizCard').classList.add('hidden');
+            document.getElementById('resultCard').classList.remove('hidden');
+
+            const totalQ = quizData.length;
+            const accuracy = Math.round((score / totalQ) * 100);
+            const avgTime = Math.round(totalTimeSeconds / totalQ);
+
+            // Populate Main Stats
+            document.getElementById('resScore').textContent = score;
+            document.getElementById('resAccuracy').textContent = accuracy;
+            document.getElementById('resTotalTime').textContent = formatTime(totalTimeSeconds);
+            document.getElementById('resAvgTime').textContent = `${avgTime}s`;
+
+            // Topic-wise Analysis Calculation
+            const topicStats = {};
+            userAnswers.forEach(ans => {
+                if (!topicStats[ans.topic]) {
+                    topicStats[ans.topic] = { total: 0, correct: 0 };
+                }
+                topicStats[ans.topic].total++;
+                if (ans.isCorrect) topicStats[ans.topic].correct++;
+            });
+
+            // Render Topic-wise List
+            const topicListEl = document.getElementById('topicAnalysisList');
+            topicListEl.innerHTML = '';
+            for (const [topic, stat] of Object.entries(topicStats)) {
+                const topicAcc = Math.round((stat.correct / stat.total) * 100);
+                const item = document.createElement('div');
+                item.className = 'bg-amber-50 p-3 rounded-xl border border-amber-200/80';
+                item.innerHTML = `
+                    <div class="flex justify-between items-center mb-1">
+                        <span class="font-semibold text-amber-900">${topic}</span>
+                        <span class="font-bold ${topicAcc >= 75 ? 'text-emerald-600' : topicAcc >= 50 ? 'text-amber-600' : 'text-rose-600'}">${stat.correct}/${stat.total} (${topicAcc}%)</span>
+                    </div>
+                    <div class="w-full bg-amber-200 h-2 rounded-full overflow-hidden">
+                        <div class="h-full ${topicAcc >= 75 ? 'bg-emerald-500' : topicAcc >= 50 ? 'bg-amber-500' : 'bg-rose-500'}" style="width: ${topicAcc}%"></div>
+                    </div>
+                `;
+                topicListEl.appendChild(item);
+            }
+
+            // Render Chart.js Donut Chart
+            renderChart(score, totalQ - score);
+
+            // Render Complete Question Review List
+            const reviewListEl = document.getElementById('reviewList');
+            reviewListEl.innerHTML = '';
+            userAnswers.forEach((ans, idx) => {
+                const item = document.createElement('div');
+                item.className = `p-3.5 rounded-xl border text-xs md:text-sm ${ans.isCorrect ? 'bg-emerald-50/70 border-emerald-200' : 'bg-rose-50/70 border-rose-200'}`;
+                
+                item.innerHTML = `
+                    <div class="flex items-start justify-between gap-2 mb-1">
+                        <span class="font-bold ${ans.isCorrect ? 'text-emerald-900' : 'text-rose-900'}">
+                            Q${idx + 1}: ${ans.question}
+                        </span>
+                        <span class="shrink-0 px-2 py-0.5 rounded text-[10px] font-bold uppercase ${ans.isCorrect ? 'bg-emerald-200 text-emerald-800' : 'bg-rose-200 text-rose-800'}">
+                            ${ans.isCorrect ? 'Correct' : 'Incorrect'}
+                        </span>
+                    </div>
+                    <div class="space-y-0.5 text-amber-900">
+                        <p><strong>Your Answer:</strong> <span class="${ans.isCorrect ? 'text-emerald-700 font-semibold' : 'text-rose-700 font-semibold'}">${ans.options[ans.selected]}</span></p>
+                        ${!ans.isCorrect ? `<p><strong>Correct Answer:</strong> <span class="text-emerald-700 font-semibold">${ans.options[ans.correctIndex]}</span></p>` : ''}
+                        <p class="text-[11px] text-amber-700 mt-1"><i class="fa-regular fa-clock"></i> Time taken: ${ans.timeTaken}s | Category: ${ans.topic}</p>
+                    </div>
+                `;
+                reviewListEl.appendChild(item);
+            });
+        }
+
+        // CHART RENDERING FUNCTION
+        let scoreChartInstance = null;
+        function renderChart(correctCount, incorrectCount) {
+            const ctx = document.getElementById('scoreChart').getContext('2d');
+            
+            if (scoreChartInstance) {
+                scoreChartInstance.destroy();
+            }
+
+            scoreChartInstance = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Correct', 'Incorrect'],
+                    datasets: [{
+                        data: [correctCount, incorrectCount],
+                        backgroundColor: ['#10B981', '#EF4444'],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                font: { family: 'Inter', size: 12 },
+                                color: '#78350F'
+                            }
+                        }
+                    },
+                    cutout: '70%'
+                }
+            });
+        }
+
+        // RESTART QUIZ
+        function restartQuiz() {
+            document.getElementById('resultCard').classList.add('hidden');
+            startQuiz();
+        }
+    </script>
+</body>
+</html>

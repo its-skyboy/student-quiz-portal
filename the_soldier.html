@@ -1,0 +1,951 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Class 12 Bihar Board English - The Soldier (50 MCQs Quiz)</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Canvas Confetti CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #311042 100%);
+            min-height: 100vh;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #1e1b4b;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #4f46e5;
+            border-radius: 4px;
+        }
+
+        /* Pulse Animation for Motivation Popup */
+        @keyframes popIn {
+            0% { transform: scale(0.5); opacity: 0; }
+            70% { transform: scale(1.1); opacity: 1; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        .animate-pop-in {
+            animation: popIn 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+
+        /* Glow effects */
+        .correct-glow {
+            box-shadow: 0 0 20px rgba(34, 197, 94, 0.4);
+        }
+        .wrong-glow {
+            box-shadow: 0 0 20px rgba(239, 68, 68, 0.4);
+        }
+    </style>
+</head>
+<text class="text-gray-100 flex flex-col min-h-screen justify-between">
+
+    <!-- Navbar / Header -->
+    <header class="bg-slate-900/80 backdrop-blur-md border-b border-slate-700/50 sticky top-0 z-40">
+        <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-amber-500 to-indigo-600 flex items-center justify-center font-bold text-white text-xl shadow-lg">
+                    <i class="fa-solid font-bold fa-shield-halved"></i>
+                </div>
+                <div>
+                    <h1 class="font-bold text-lg md:text-xl text-amber-400 leading-tight">Class 12 Bihar Board</h1>
+                    <p class="text-xs text-slate-400">Rainbow Part 2 &bull; Poetry: <span class="text-slate-200 font-semibold">The Soldier</span></p>
+                </div>
+            </div>
+
+            <div id="header-stats" class="hidden sm:flex items-center space-x-6 text-sm font-medium">
+                <div class="flex items-center space-x-2 bg-slate-800/80 px-3 py-1.5 rounded-lg border border-slate-700">
+                    <i class="fa-solid fa-clock text-amber-400"></i>
+                    <span id="total-timer-text" class="font-mono text-slate-200">00:00</span>
+                </div>
+                <div class="flex items-center space-x-2 bg-slate-800/80 px-3 py-1.5 rounded-lg border border-slate-700">
+                    <i class="fa-solid fa-trophy text-emerald-400"></i>
+                    <span id="score-counter-text" class="font-mono text-slate-200">0 / 50</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="max-w-4xl w-full mx-auto p-4 sm:p-6 flex-grow flex flex-col justify-center">
+
+        <!-- START SCREEN -->
+        <section id="start-screen" class="bg-slate-900/90 border border-slate-700/70 rounded-2xl p-6 sm:p-10 shadow-2xl backdrop-blur-md text-center my-auto">
+            <div class="w-20 h-20 mx-auto mb-6 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-full flex items-center justify-center shadow-lg shadow-indigo-500/30">
+                <i class="fa-solid fa-feather-pointed text-4xl text-white"></i>
+            </div>
+            <h2 class="text-3xl sm:text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-purple-300 to-indigo-300 mb-3">
+                'The Soldier' Mastery Quiz
+            </h2>
+            <p class="text-slate-300 text-sm sm:text-base max-w-2xl mx-auto mb-6 leading-relaxed">
+                Test your thorough knowledge of Rupert Brooke's famous patriotic war sonnet. This practice set features 
+                <span class="text-amber-400 font-bold">50 comprehensive questions</span> designed as per the Bihar Board Class 12 English syllabus.
+            </p>
+
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-2xl mx-auto mb-8 text-left">
+                <div class="bg-slate-800/60 p-3 rounded-xl border border-slate-700/60">
+                    <i class="fa-solid fa-list-check text-indigo-400 mb-1"></i>
+                    <div class="text-xs text-slate-400">Total MCQs</div>
+                    <div class="text-lg font-bold text-slate-100">50 Questions</div>
+                </div>
+                <div class="bg-slate-800/60 p-3 rounded-xl border border-slate-700/60">
+                    <i class="fa-solid fa-stopwatch text-emerald-400 mb-1"></i>
+                    <div class="text-xs text-slate-400">Question Timer</div>
+                    <div class="text-lg font-bold text-slate-100">Real-time</div>
+                </div>
+                <div class="bg-slate-800/60 p-3 rounded-xl border border-slate-700/60">
+                    <i class="fa-solid fa-layer-group text-amber-400 mb-1"></i>
+                    <div class="text-xs text-slate-400">Categories</div>
+                    <div class="text-lg font-bold text-slate-100">4 Sub-topics</div>
+                </div>
+                <div class="bg-slate-800/60 p-3 rounded-xl border border-slate-700/60">
+                    <i class="fa-solid fa-chart-line text-purple-400 mb-1"></i>
+                    <div class="text-xs text-slate-400">Analytics</div>
+                    <div class="text-lg font-bold text-slate-100">Detailed Report</div>
+                </div>
+            </div>
+
+            <button id="start-btn" class="w-full sm:w-auto px-10 py-4 bg-gradient-to-r from-amber-500 to-indigo-600 hover:from-amber-600 hover:to-indigo-700 text-white font-bold text-lg rounded-xl shadow-lg transition duration-200 transform hover:scale-105 active:scale-95 flex items-center justify-center space-x-3 mx-auto">
+                <span>Start 50-Question Quiz Now</span>
+                <i class="fa-solid fa-arrow-right"></i>
+            </button>
+        </section>
+
+        <!-- QUIZ SCREEN -->
+        <section id="quiz-screen" class="hidden flex flex-col space-y-4 my-auto">
+            
+            <!-- Progress Bar & Details Header -->
+            <div class="bg-slate-900/80 border border-slate-800 rounded-xl p-4 shadow-xl backdrop-blur-md">
+                <div class="flex justify-between items-center text-sm font-medium mb-2">
+                    <div class="flex items-center space-x-2">
+                        <span id="question-category" class="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-indigo-900/80 text-indigo-300 border border-indigo-700">
+                            Poet Biography
+                        </span>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <span class="text-slate-400 text-xs sm:text-sm">
+                            Question <span id="current-q-num" class="text-amber-400 font-bold">1</span> / 50
+                        </span>
+                        <div class="flex items-center space-x-1 bg-slate-800 text-amber-300 px-2.5 py-1 rounded-md text-xs font-mono border border-slate-700">
+                            <i class="fa-regular fa-clock text-amber-400"></i>
+                            <span id="q-timer">00s</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Progress Bar Container -->
+                <div class="w-full bg-slate-800 rounded-full h-2.5 overflow-hidden">
+                    <div id="progress-bar" class="bg-gradient-to-r from-amber-400 via-indigo-500 to-emerald-400 h-2.5 rounded-full transition-all duration-300" style="width: 2%;"></div>
+                </div>
+            </div>
+
+            <!-- Question Card -->
+            <div class="bg-slate-900/90 border border-slate-700/80 rounded-2xl p-6 sm:p-8 shadow-2xl backdrop-blur-md relative overflow-hidden">
+                <div class="mb-6">
+                    <h3 id="question-text" class="text-lg sm:text-xl md:text-2xl font-bold text-slate-100 leading-snug">
+                        Loading question...
+                    </h3>
+                </div>
+
+                <!-- Options Grid -->
+                <div id="options-container" class="grid grid-cols-1 gap-3.5">
+                    <!-- Dynamic Options Inserted Here -->
+                </div>
+
+                <!-- Next Button Container -->
+                <div id="action-container" class="mt-6 flex justify-between items-center pt-4 border-t border-slate-800">
+                    <div id="feedback-hint" class="text-xs sm:text-sm text-slate-400 italic">
+                        Select one option to reveal the answer.
+                    </div>
+                    <button id="next-btn" disabled class="px-6 py-2.5 bg-indigo-600 hover:bg-indigo-500 disabled:opacity-40 disabled:hover:bg-indigo-600 text-white font-semibold rounded-lg shadow-md transition flex items-center space-x-2">
+                        <span>Next Question</span>
+                        <i class="fa-solid fa-chevron-right text-xs"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- RESULT ANALYSIS SCREEN -->
+        <section id="result-screen" class="hidden bg-slate-900/95 border border-slate-700/80 rounded-2xl p-6 sm:p-8 shadow-2xl backdrop-blur-md my-6">
+            
+            <div class="text-center mb-8 border-b border-slate-800 pb-6">
+                <div id="result-badge-icon" class="w-20 h-20 mx-auto mb-3 rounded-full bg-amber-500/20 border-2 border-amber-400 flex items-center justify-center text-amber-400 text-4xl shadow-lg">
+                    <i class="fa-solid fa-award"></i>
+                </div>
+                <h2 id="performance-rank" class="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-amber-300 to-indigo-300">
+                    Literary Champion!
+                </h2>
+                <p id="performance-msg" class="text-slate-300 text-sm mt-1 max-w-lg mx-auto">
+                    Outstanding performance! You have displayed brilliant command over Rupert Brooke's poem.
+                </p>
+            </div>
+
+            <!-- Key Summary Stats -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+                <div class="bg-slate-800/80 p-4 rounded-xl border border-slate-700/80 text-center">
+                    <span class="text-xs text-slate-400 font-medium uppercase tracking-wider">Total Score</span>
+                    <div id="res-score" class="text-2xl sm:text-3xl font-extrabold text-emerald-400 mt-1">45 / 50</div>
+                </div>
+                <div class="bg-slate-800/80 p-4 rounded-xl border border-slate-700/80 text-center">
+                    <span class="text-xs text-slate-400 font-medium uppercase tracking-wider">Accuracy Rate</span>
+                    <div id="res-accuracy" class="text-2xl sm:text-3xl font-extrabold text-indigo-400 mt-1">90%</div>
+                </div>
+                <div class="bg-slate-800/80 p-4 rounded-xl border border-slate-700/80 text-center">
+                    <span class="text-xs text-slate-400 font-medium uppercase tracking-wider">Total Time</span>
+                    <div id="res-total-time" class="text-2xl sm:text-3xl font-extrabold text-amber-400 mt-1 font-mono">08:45</div>
+                </div>
+                <div class="bg-slate-800/80 p-4 rounded-xl border border-slate-700/80 text-center">
+                    <span class="text-xs text-slate-400 font-medium uppercase tracking-wider">Avg Time / Q</span>
+                    <div id="res-avg-time" class="text-2xl sm:text-3xl font-extrabold text-purple-400 mt-1 font-mono">10.5s</div>
+                </div>
+            </div>
+
+            <!-- Topic-Wise Performance Breakdown -->
+            <div class="mb-8 bg-slate-800/40 p-5 rounded-xl border border-slate-700/60">
+                <h3 class="text-lg font-bold text-slate-200 mb-4 flex items-center space-x-2">
+                    <i class="fa-solid fa-chart-pie text-amber-400"></i>
+                    <span>Sub-Domain Performance Breakdown</span>
+                </h3>
+                <div id="topic-analysis-container" class="space-y-4">
+                    <!-- Dynamic Topic Bars Inserted Here -->
+                </div>
+            </div>
+
+            <!-- Detailed Question Review Accordion / List -->
+            <div class="mb-8">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-lg font-bold text-slate-200 flex items-center space-x-2">
+                        <i class="fa-solid fa-list-ol text-indigo-400"></i>
+                        <span>Question-by-Question Detailed Review</span>
+                    </h3>
+                    <span class="text-xs text-slate-400">Filter or review all 50 answers</span>
+                </div>
+                <div id="review-list" class="space-y-3 max-h-96 overflow-y-auto pr-2 rounded-xl bg-slate-950/40 p-3 border border-slate-800">
+                    <!-- Dynamic Question Review Rows Inserted Here -->
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="flex flex-col sm:flex-row justify-center items-center gap-4 pt-4 border-t border-slate-800">
+                <button id="restart-btn" class="w-full sm:w-auto px-8 py-3.5 bg-gradient-to-r from-amber-500 to-indigo-600 hover:from-amber-600 hover:to-indigo-700 text-white font-bold rounded-xl shadow-lg transition transform hover:scale-105 active:scale-95 flex items-center justify-center space-x-2">
+                    <i class="fa-solid fa-rotate-right"></i>
+                    <span>Retake 50-Question Quiz</span>
+                </button>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- MOTIVATIONAL CELEBRATION POPUP OVERLAY -->
+    <div id="motivate-modal" class="fixed inset-0 z-50 flex items-center justify-center pointer-events-none opacity-0 transition-opacity duration-300">
+        <div class="bg-gradient-to-tr from-emerald-600 to-indigo-700 border border-emerald-300/40 rounded-2xl p-6 shadow-2xl text-center text-white max-w-sm mx-4 transform animate-pop-in">
+            <div id="motivate-icon" class="text-5xl mb-2">🎉</div>
+            <h4 id="motivate-title" class="text-2xl font-black tracking-wide uppercase">Superb Job!</h4>
+            <p id="motivate-sub" class="text-emerald-100 text-sm font-medium mt-1">Spot on! You got it completely right!</p>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-slate-950/70 border-t border-slate-800/80 py-4 text-center text-xs text-slate-500">
+        <p>Bihar Board Class 12th Rainbow Part 2 English &bull; Interactive Learning Module</p>
+    </footer>
+
+    <!-- JavaScript Application Logic -->
+    <script>
+        // 50 MCQs Dataset for 'The Soldier' by Rupert Brooke
+        const quizData = [
+            // Category 1: Poet Biography & Context (1-12)
+            {
+                q: "Who is the poet of the patriotic poem 'The Soldier'?",
+                options: ["Rupert Brooke", "T.S. Eliot", "Walt Whitman", "Walter de la Mare"],
+                answer: 0,
+                category: "Poet Biography"
+            },
+            {
+                q: "In which year was the poet Rupert Brooke born?",
+                options: ["1887", "1895", "1875", "1915"],
+                answer: 0,
+                category: "Poet Biography"
+            },
+            {
+                q: "When did Rupert Brooke pass away?",
+                options: ["1915", "1918", "1920", "1939"],
+                answer: 0,
+                category: "Poet Biography"
+            },
+            {
+                q: "Rupert Brooke died of septicemia on his way to which battle field?",
+                options: ["Gallipoli", "Somme", "Waterloo", "Normandy"],
+                answer: 0,
+                category: "Poet Biography"
+            },
+            {
+                q: "On which Aegean island was Rupert Brooke buried after his death during World War I?",
+                options: ["Skyros", "Crete", "Rhodes", "Cyprus"],
+                answer: 0,
+                category: "Poet Biography"
+            },
+            {
+                q: "Famous poet W.B. Yeats described Rupert Brooke as 'the handsomest young man in ______'.",
+                options: ["England", "Europe", "Ireland", "The World"],
+                answer: 0,
+                category: "Poet Biography"
+            },
+            {
+                q: "Rupert Brooke is predominantly remembered as a ______ poet.",
+                options: ["War", "Nature", "Romantic", "Metaphysical"],
+                answer: 0,
+                category: "Poet Biography"
+            },
+            {
+                q: "During which historical conflict was 'The Soldier' written?",
+                options: ["World War I", "World War II", "Crimean War", "Boer War"],
+                answer: 0,
+                category: "Poet Biography"
+            },
+            {
+                q: "Rupert Brooke belonged to which literary group of poets?",
+                options: ["Georgian Poets", "Victorian Poets", "Lake Poets", "Modernist Poets"],
+                answer: 0,
+                category: "Poet Biography"
+            },
+            {
+                q: "'The Soldier' is part of a sequence of how many war sonnets written by Rupert Brooke?",
+                options: ["Five", "Three", "Ten", "Seven"],
+                answer: 0,
+                category: "Poet Biography"
+            },
+            {
+                q: "In which collection was 'The Soldier' published in 1915?",
+                options: ["1914 and Other Poems", "Lyrical Ballads", "The Waste Land", "Leaves of Grass"],
+                answer: 0,
+                category: "Poet Biography"
+            },
+            {
+                q: "What rank did Rupert Brooke hold in the Royal Naval Division?",
+                options: ["Sub-Lieutenant", "Captain", "Major", "Colonel"],
+                answer: 0,
+                category: "Poet Biography"
+            },
+
+            // Category 2: Poem Lines & Vocabulary (13-26)
+            {
+                q: "Complete the opening line: 'If I should die, think only this of me: That there's some corner of a ______ field...'",
+                options: ["foreign", "battle", "distant", "English"],
+                answer: 0,
+                category: "Poem Lines & Vocab"
+            },
+            {
+                q: "According to the poet, what will that foreign corner forever be if he dies there?",
+                options: ["England", "Peaceful", "Blessed", "Glorious"],
+                answer: 0,
+                category: "Poem Lines & Vocab"
+            },
+            {
+                q: "In the line 'In that rich earth a richer ______ concealed', what is the missing word?",
+                options: ["dust", "heart", "body", "soldier"],
+                answer: 0,
+                category: "Poem Lines & Vocab"
+            },
+            {
+                q: "What did England give her soldier to love?",
+                options: ["Her flowers", "Her glory", "Her rivers", "Her crown"],
+                answer: 0,
+                category: "Poem Lines & Vocab"
+            },
+            {
+                q: "What did England give her soldier to roam?",
+                options: ["Her ways", "Her mountains", "Her fields", "Her woods"],
+                answer: 0,
+                category: "Poem Lines & Vocab"
+            },
+            {
+                q: "The soldier's body is described as breathing 'air of ______'.",
+                options: ["England", "Heaven", "Freedom", "Peace"],
+                answer: 0,
+                category: "Poem Lines & Vocab"
+            },
+            {
+                q: "By what rivers was the soldier washed, according to the poem?",
+                options: ["Rivers of home (England)", "Rivers of France", "Rivers of Nile", "Rivers of Rome"],
+                answer: 0,
+                category: "Poem Lines & Vocab"
+            },
+            {
+                q: "The soldier is blessed by 'suns of ______'.",
+                options: ["home", "glory", "peace", "summer"],
+                answer: 0,
+                category: "Poem Lines & Vocab"
+            },
+            {
+                q: "In the second stanza, the pulse in the eternal mind sheds away all ______.",
+                options: ["evil", "fear", "hate", "pain"],
+                answer: 0,
+                category: "Poem Lines & Vocab"
+            },
+            {
+                q: "Whose thoughts does the soldier's heart give back in eternity?",
+                options: ["England's", "His mother's", "God's", "His fellow soldiers'"],
+                answer: 0,
+                category: "Poem Lines & Vocab"
+            },
+            {
+                q: "What does the phrase 'gentleness' in the poem refer to?",
+                options: ["Peaceful English thoughts and manners", "Kindness of nurses", "Softness of nature", "Tranquillity of death"],
+                answer: 0,
+                category: "Poem Lines & Vocab"
+            },
+            {
+                q: "Where are the 'hearts at peace' located in the final line of the sonnet?",
+                options: ["Under an English heaven", "In the grave", "On the battlefield", "In a foreign land"],
+                answer: 0,
+                category: "Poem Lines & Vocab"
+            },
+            {
+                q: "What word is used in the poem to signify the soldier's mortal remains?",
+                options: ["Dust", "Ashes", "Clay", "Bones"],
+                answer: 0,
+                category: "Poem Lines & Vocab"
+            },
+            {
+                q: "What does the poet mean by 'dreams happy as her day'?",
+                options: ["Joyful memories nurtured by England", "Daydreams on the battlefield", "Hopes for future victory", "Sleep in eternal rest"],
+                answer: 0,
+                category: "Poem Lines & Vocab"
+            },
+
+            // Category 3: Literary Devices & Structure (27-38)
+            {
+                q: "What type of poem is 'The Soldier'?",
+                options: ["Sonnet", "Elegy", "Ballad", "Epic"],
+                answer: 0,
+                category: "Literary Devices & Form"
+            },
+            {
+                q: "How many lines does the poem 'The Soldier' consist of?",
+                options: ["14 lines", "12 lines", "16 lines", "20 lines"],
+                answer: 0,
+                category: "Literary Devices & Form"
+            },
+            {
+                q: "The structure of 'The Soldier' combines elements of which two traditional sonnet forms?",
+                options: ["Petrarchan and Shakespearean", "Spenserian and Petrarchan", "Miltonic and Modern", "Free verse and Blank verse"],
+                answer: 0,
+                category: "Literary Devices & Form"
+            },
+            {
+                q: "The first 8 lines of a sonnet are known as the ______.",
+                options: ["Octave", "Sestet", "Quatrain", "Couplet"],
+                answer: 0,
+                category: "Literary Devices & Form"
+            },
+            {
+                q: "The final 6 lines of a sonnet are known as the ______.",
+                options: ["Sestet", "Octave", "Refrain", "Stanza"],
+                answer: 0,
+                category: "Literary Devices & Form"
+            },
+            {
+                q: "What is the rhyme scheme of the Octave (first 8 lines) in 'The Soldier'?",
+                options: ["ABAB CDCD", "ABBA ABBA", "AABB CCDD", "ABCB DEFE"],
+                answer: 0,
+                category: "Literary Devices & Form"
+            },
+            {
+                q: "What is the rhyme scheme of the Sestet (last 6 lines) in 'The Soldier'?",
+                options: ["EFGEFG", "CDECDE", "EFEFGG", "EEFFGG"],
+                answer: 0,
+                category: "Literary Devices & Form"
+            },
+            {
+                q: "When England is referred to as a mother giving birth and rearing a child, which figure of speech is used?",
+                options: ["Personification", "Hyperbole", "Oxymoron", "Simile"],
+                answer: 0,
+                category: "Literary Devices & Form"
+            },
+            {
+                q: "In 'A dust whom England bore, shaped, made aware', the word 'dust' is a ______ for the soldier.",
+                options: ["Metaphor", "Simile", "Alliteration", "Onomatopoeia"],
+                answer: 0,
+                category: "Literary Devices & Form"
+            },
+            {
+                q: "How many times is the word 'England' or 'English' explicitly mentioned in the poem?",
+                options: ["6 times", "4 times", "8 times", "2 times"],
+                answer: 0,
+                category: "Literary Devices & Form"
+            },
+            {
+                q: "The line 'washed by the rivers, blest by suns of home' evokes which literary element?",
+                options: ["Imagery", "Irony", "Satire", "Paradox"],
+                answer: 0,
+                category: "Literary Devices & Form"
+            },
+            {
+                q: "What is the dominant tone of the poem 'The Soldier'?",
+                options: ["Patriotic and idealistic", "Pessimistic and bitter", "Satirical and mocking", "Angry and violent"],
+                answer: 0,
+                category: "Literary Devices & Form"
+            },
+
+            // Category 4: Theme & Philosophical Message (39-50)
+            {
+                q: "What is the primary theme of 'The Soldier'?",
+                options: ["Patriotism and devotion to one's motherland", "Horrors and brutality of war", "Fear of death in battle", "Hatred towards enemy nations"],
+                answer: 0,
+                category: "Theme & Message"
+            },
+            {
+                q: "How does the poet view death in service of his motherland England?",
+                options: ["As a noble and glorious sacrifice", "As a tragic waste of young life", "As a terrifying experience", "As an unfair punishment"],
+                answer: 0,
+                category: "Theme & Message"
+            },
+            {
+                q: "Why will a foreign field become 'forever England'?",
+                options: ["Because an English soldier's body is buried there", "Because England will conquer that land", "Because the flag will be placed there", "Because English flowers will grow there"],
+                answer: 0,
+                category: "Theme & Message"
+            },
+            {
+                q: "Unlike later war poets like Wilfred Owen, Rupert Brooke's war poetry represents ______.",
+                options: ["Early wartime idealism and romantic patriotism", "Realist trench warfare horrors", "Anti-war protests", "Political satire"],
+                answer: 0,
+                category: "Theme & Message"
+            },
+            {
+                q: "What does 'eternal mind' in the poem signify?",
+                options: ["Universal spirit / Divine memory", "The British army command", "Human memory on earth", "The poet's brain"],
+                answer: 0,
+                category: "Theme & Message"
+            },
+            {
+                q: "What relationship does the poet establish between the soldier and England?",
+                options: ["Mother and child relationship", "Master and servant relationship", "King and subject relationship", "Stranger relationship"],
+                answer: 0,
+                category: "Theme & Message"
+            },
+            {
+                q: "According to the poet, what happens to human evil after death in battle?",
+                options: ["It is washed away into eternity", "It remains in the grave", "It causes eternal suffering", "It turns into revenge"],
+                answer: 0,
+                category: "Theme & Message"
+            },
+            {
+                q: "What feeling does the poem aim to inspire in its readers?",
+                options: ["Love and pride for one's country", "Dread of joining the army", "Anger against war generals", "Grief for lost soldiers"],
+                answer: 0,
+                category: "Theme & Message"
+            },
+            {
+                q: "Which word best describes the soldier's attitude towards dying?",
+                options: ["Serene and accepting", "Terrified and reluctant", "Rebellious and furious", "Indifferent and bored"],
+                answer: 0,
+                category: "Theme & Message"
+            },
+            {
+                q: "In Bihar Board Class 12 English syllabus, 'The Soldier' is prescribed under which section?",
+                options: ["Poetry Section (Rainbow Part 2)", "Prose Section", "Story of English", "Grammar Section"],
+                answer: 0,
+                category: "Theme & Message"
+            },
+            {
+                q: "What does the phrase 'laughter, learnt of friends' highlight about English life?",
+                options: ["The joyful and peaceful memories of home", "Jokes shared in military camps", "Mockery of enemy soldiers", "Humor in times of crisis"],
+                answer: 0,
+                category: "Theme & Message"
+            },
+            {
+                q: "The ending phrase 'under an English heaven' suggests that heaven itself is ______.",
+                options: ["Filled with the peace and essence of England", "Only accessible to British people", "Located directly above London", "A cold and distant realm"],
+                answer: 0,
+                category: "Theme & Message"
+            }
+        ];
+
+        // App State Variables
+        let currentQIndex = 0;
+        let score = 0;
+        let userAnswers = []; // Store: { question, userAns, correctAns, isCorrect, timeSpent }
+        
+        let questionStartTime = 0;
+        let qTimerInterval = null;
+        let totalTimerInterval = null;
+        let totalElapsedSeconds = 0;
+
+        // Motivational Praise Lists
+        const praiseMessages = [
+            { title: "Brilliant!", sub: "You really know Rupert Brooke's work!", icon: "🌟" },
+            { title: "Spot On!", sub: "Perfect answer! Keep up the momentum!", icon: "🎉" },
+            { title: "Superb Job!", sub: " Bihar Board topper material!", icon: "⚡" },
+            { title: "Master of Literature!", sub: "Flawless choice! You're crushing this!", icon: "🏆" },
+            { title: "Outstanding!", sub: "Your literary concepts are rock solid!", icon: "🔥" }
+        ];
+
+        // DOM Elements
+        const startScreen = document.getElementById('start-screen');
+        const quizScreen = document.getElementById('quiz-screen');
+        const resultScreen = document.getElementById('result-screen');
+
+        const startBtn = document.getElementById('start-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const restartBtn = document.getElementById('restart-btn');
+
+        const questionText = document.getElementById('question-text');
+        const optionsContainer = document.getElementById('options-container');
+        const questionCategory = document.getElementById('question-category');
+        const currentQNum = document.getElementById('current-q-num');
+        const progressBar = document.getElementById('progress-bar');
+        const qTimerText = document.getElementById('q-timer');
+        const totalTimerText = document.getElementById('total-timer-text');
+        const scoreCounterText = document.getElementById('score-counter-text');
+        const headerStats = document.getElementById('header-stats');
+        const feedbackHint = document.getElementById('feedback-hint');
+
+        const motivateModal = document.getElementById('motivate-modal');
+        const motivateTitle = document.getElementById('motivate-title');
+        const motivateSub = document.getElementById('motivate-sub');
+        const motivateIcon = document.getElementById('motivate-icon');
+
+        // Event Listeners
+        startBtn.addEventListener('click', startQuiz);
+        nextBtn.addEventListener('click', loadNextQuestion);
+        restartBtn.addEventListener('click', startQuiz);
+
+        // Start Quiz Function
+        function startQuiz() {
+            currentQIndex = 0;
+            score = 0;
+            userAnswers = [];
+            totalElapsedSeconds = 0;
+
+            startScreen.classList.add('hidden');
+            resultScreen.classList.add('hidden');
+            quizScreen.classList.remove('hidden');
+            headerStats.classList.remove('hidden');
+
+            scoreCounterText.textContent = `0 / ${quizData.length}`;
+            
+            // Start Total Timer
+            clearInterval(totalTimerInterval);
+            totalTimerInterval = setInterval(() => {
+                totalElapsedSeconds++;
+                totalTimerText.textContent = formatTime(totalElapsedSeconds);
+            }, 1000);
+
+            renderQuestion();
+        }
+
+        // Render Current Question
+        function renderQuestion() {
+            const qData = quizData[currentQIndex];
+
+            // Reset Question Timer
+            clearInterval(qTimerInterval);
+            let qSeconds = 0;
+            qTimerText.textContent = "00s";
+            questionStartTime = Date.now();
+
+            qTimerInterval = setInterval(() => {
+                qSeconds++;
+                qTimerText.textContent = `${qSeconds < 10 ? '0' : ''}${qSeconds}s`;
+            }, 1000);
+
+            // Update UI elements
+            currentQNum.textContent = currentQIndex + 1;
+            questionCategory.textContent = qData.category;
+            questionText.textContent = `${currentQIndex + 1}. ${qData.q}`;
+            progressBar.style.width = `${((currentQIndex + 1) / quizData.length) * 100}%`;
+            
+            feedbackHint.textContent = "Select one option to reveal the answer.";
+            feedbackHint.className = "text-xs sm:text-sm text-slate-400 italic";
+
+            nextBtn.disabled = true;
+
+            // Render Options
+            optionsContainer.innerHTML = '';
+            
+            // Shuffle display options while keeping track of true original index
+            const optionsWithOriginal = qData.options.map((opt, idx) => ({ text: opt, originalIndex: idx }));
+            
+            optionsWithOriginal.forEach((optObj, idx) => {
+                const letter = String.fromCharCode(65 + idx); // A, B, C, D
+                const btn = document.createElement('button');
+                btn.className = "option-btn w-full p-4 rounded-xl border border-slate-700/80 bg-slate-800/60 hover:bg-slate-700/80 text-slate-100 flex items-center justify-between text-left transition duration-200 transform hover:-translate-y-0.5 active:translate-y-0 group";
+                btn.dataset.originalIndex = optObj.originalIndex;
+
+                btn.innerHTML = `
+                    <div class="flex items-center space-x-3.5">
+                        <span class="w-8 h-8 rounded-lg bg-slate-700 group-hover:bg-indigo-600 text-slate-200 group-hover:text-white font-bold flex items-center justify-center text-sm transition">
+                            ${letter}
+                        </span>
+                        <span class="font-medium text-sm sm:text-base">${optObj.text}</span>
+                    </div>
+                    <div class="icon-indicator hidden text-lg"></div>
+                `;
+
+                btn.addEventListener('click', () => selectAnswer(btn, optObj.originalIndex, qData.answer));
+                optionsContainer.appendChild(btn);
+            });
+        }
+
+        // Handle Option Selection
+        function selectAnswer(selectedBtn, chosenIdx, correctIdx) {
+            // Stop Question Timer
+            clearInterval(qTimerInterval);
+            const timeSpentSec = Math.round((Date.now() - questionStartTime) / 1000);
+
+            // Disable all option buttons
+            const allBtns = optionsContainer.querySelectorAll('.option-btn');
+            allBtns.forEach(btn => {
+                btn.disabled = true;
+                btn.classList.remove('hover:bg-slate-700/80', 'hover:-translate-y-0.5');
+                btn.classList.add('cursor-default');
+            });
+
+            const isCorrect = (chosenIdx === correctIdx);
+
+            if (isCorrect) {
+                score++;
+                scoreCounterText.textContent = `${score} / ${quizData.length}`;
+
+                // Style chosen button as correct
+                selectedBtn.classList.remove('bg-slate-800/60', 'border-slate-700/80');
+                selectedBtn.classList.add('bg-emerald-950/80', 'border-emerald-500', 'text-emerald-200', 'correct-glow');
+                
+                const iconDiv = selectedBtn.querySelector('.icon-indicator');
+                iconDiv.classList.remove('hidden');
+                iconDiv.innerHTML = `<i class="fa-solid fa-circle-check text-emerald-400"></i>`;
+
+                feedbackHint.textContent = "✓ Excellent! Correct Answer.";
+                feedbackHint.className = "text-xs sm:text-sm text-emerald-400 font-semibold";
+
+                // Trigger Motivational Effects
+                triggerCelebration();
+
+            } else {
+                // Style chosen button as incorrect
+                selectedBtn.classList.remove('bg-slate-800/60', 'border-slate-700/80');
+                selectedBtn.classList.add('bg-rose-950/80', 'border-rose-500', 'text-rose-200', 'wrong-glow');
+                
+                const iconDiv = selectedBtn.querySelector('.icon-indicator');
+                iconDiv.classList.remove('hidden');
+                iconDiv.innerHTML = `<i class="fa-solid fa-circle-xmark text-rose-400"></i>`;
+
+                // Highlight correct answer
+                allBtns.forEach(btn => {
+                    if (parseInt(btn.dataset.originalIndex) === correctIdx) {
+                        btn.classList.remove('bg-slate-800/60', 'border-slate-700/80');
+                        btn.classList.add('bg-emerald-950/60', 'border-emerald-500/80', 'text-emerald-200');
+                        const correctIcon = btn.querySelector('.icon-indicator');
+                        correctIcon.classList.remove('hidden');
+                        correctIcon.innerHTML = `<i class="fa-solid fa-check text-emerald-400"></i>`;
+                    }
+                });
+
+                feedbackHint.textContent = "✗ Incorrect! The correct answer is highlighted in green.";
+                feedbackHint.className = "text-xs sm:text-sm text-rose-400 font-semibold";
+            }
+
+            // Record User Response for Result Analysis
+            userAnswers.push({
+                question: quizData[currentQIndex].q,
+                category: quizData[currentQIndex].category,
+                options: quizData[currentQIndex].options,
+                chosenIdx: chosenIdx,
+                correctIdx: correctIdx,
+                isCorrect: isCorrect,
+                timeSpent: timeSpentSec
+            });
+
+            nextBtn.disabled = false;
+        }
+
+        // Trigger Confetti & Motivational Popup
+        function triggerCelebration() {
+            // 1. Confetti Burst
+            try {
+                confetti({
+                    particleCount: 50,
+                    spread: 60,
+                    origin: { y: 0.7 }
+                });
+            } catch(e) {}
+
+            // 2. Motivational Card Popup
+            const randomPraise = praiseMessages[Math.floor(Math.random() * praiseMessages.length)];
+            motivateTitle.textContent = randomPraise.title;
+            motivateSub.textContent = randomPraise.sub;
+            motivateIcon.textContent = randomPraise.icon;
+
+            motivateModal.classList.remove('opacity-0', 'pointer-events-none');
+            
+            setTimeout(() => {
+                motivateModal.classList.add('opacity-0', 'pointer-events-none');
+            }, 1200);
+        }
+
+        // Next Question Handler
+        function loadNextQuestion() {
+            currentQIndex++;
+
+            if (currentQIndex < quizData.length) {
+                renderQuestion();
+            } else {
+                finishQuiz();
+            }
+        }
+
+        // Finish Quiz & Show Analysis
+        function finishQuiz() {
+            clearInterval(totalTimerInterval);
+            clearInterval(qTimerInterval);
+
+            quizScreen.classList.add('hidden');
+            resultScreen.classList.remove('hidden');
+
+            // Calculate Metrics
+            const totalQuestions = quizData.length;
+            const accuracy = Math.round((score / totalQuestions) * 100);
+            const avgTime = (totalElapsedSeconds / totalQuestions).toFixed(1);
+
+            // Populate Top Summary Cards
+            document.getElementById('res-score').textContent = `${score} / ${totalQuestions}`;
+            document.getElementById('res-accuracy').textContent = `${accuracy}%`;
+            document.getElementById('res-total-time').textContent = formatTime(totalElapsedSeconds);
+            document.getElementById('res-avg-time').textContent = `${avgTime}s`;
+
+            // Performance Badge / Rank Setup
+            const rankTitle = document.getElementById('performance-rank');
+            const rankMsg = document.getElementById('performance-msg');
+            const badgeIcon = document.getElementById('result-badge-icon');
+
+            if (accuracy >= 90) {
+                rankTitle.textContent = "Gold Scholar & Literary Master!";
+                rankMsg.textContent = "Incredible effort! You scored 90%+ and mastered Rupert Brooke's poem for your Class 12 exams!";
+                badgeIcon.className = "w-20 h-20 mx-auto mb-3 rounded-full bg-amber-500/20 border-2 border-amber-400 flex items-center justify-center text-amber-400 text-4xl shadow-lg";
+                badgeIcon.innerHTML = `<i class="fa-solid fa-crown"></i>`;
+            } else if (accuracy >= 75) {
+                rankTitle.textContent = "Silver Scholar!";
+                rankMsg.textContent = "Great performance! You have a solid grasp of the poem lines, devices, and poet background.";
+                badgeIcon.className = "w-20 h-20 mx-auto mb-3 rounded-full bg-indigo-500/20 border-2 border-indigo-400 flex items-center justify-center text-indigo-400 text-4xl shadow-lg";
+                badgeIcon.innerHTML = `<i class="fa-solid fa-award"></i>`;
+            } else if (accuracy >= 50) {
+                rankTitle.textContent = "Bronze Scholar!";
+                rankMsg.textContent = "Good attempt! Revise the poem stanza-by-stanza to boost your score above 90%.";
+                badgeIcon.className = "w-20 h-20 mx-auto mb-3 rounded-full bg-purple-500/20 border-2 border-purple-400 flex items-center justify-center text-purple-400 text-4xl shadow-lg";
+                badgeIcon.innerHTML = `<i class="fa-solid fa-medal"></i>`;
+            } else {
+                rankTitle.textContent = "Needs Revision";
+                rankMsg.textContent = "Don't worry! Read 'The Soldier' text carefully and retake the quiz to improve your accuracy.";
+                badgeIcon.className = "w-20 h-20 mx-auto mb-3 rounded-full bg-rose-500/20 border-2 border-rose-400 flex items-center justify-center text-rose-400 text-4xl shadow-lg";
+                badgeIcon.innerHTML = `<i class="fa-solid fa-book-open"></i>`;
+            }
+
+            // Topic-Wise Breakdown Logic
+            renderTopicAnalysis();
+
+            // Question Review List
+            renderQuestionReview();
+        }
+
+        // Render Topic Wise Analysis
+        function renderTopicAnalysis() {
+            const container = document.getElementById('topic-analysis-container');
+            container.innerHTML = '';
+
+            const categories = {};
+
+            userAnswers.forEach(ans => {
+                if (!categories[ans.category]) {
+                    categories[ans.category] = { correct: 0, total: 0 };
+                }
+                categories[ans.category].total++;
+                if (ans.isCorrect) {
+                    categories[ans.category].correct++;
+                }
+            });
+
+            for (const [cat, data] of Object.entries(categories)) {
+                const catAcc = Math.round((data.correct / data.total) * 100);
+                
+                const item = document.createElement('div');
+                item.className = "space-y-1.5";
+                item.innerHTML = `
+                    <div class="flex justify-between items-center text-xs sm:text-sm font-medium">
+                        <span class="text-slate-300">${cat}</span>
+                        <span class="text-slate-400">${data.correct} / ${data.total} (<span class="${catAcc >= 75 ? 'text-emerald-400' : catAcc >= 50 ? 'text-amber-400' : 'text-rose-400'}">${catAcc}%</span>)</span>
+                    </div>
+                    <div class="w-full bg-slate-900 rounded-full h-2 overflow-hidden border border-slate-800">
+                        <div class="h-2 rounded-full transition-all duration-500 ${catAcc >= 75 ? 'bg-emerald-500' : catAcc >= 50 ? 'bg-amber-500' : 'bg-rose-500'}" style="width: ${catAcc}%"></div>
+                    </div>
+                `;
+                container.appendChild(item);
+            }
+        }
+
+        // Render Question-by-Question Review List
+        function renderQuestionReview() {
+            const container = document.getElementById('review-list');
+            container.innerHTML = '';
+
+            userAnswers.forEach((ans, idx) => {
+                const userChoiceText = ans.options[ans.chosenIdx];
+                const correctChoiceText = ans.options[ans.correctIdx];
+
+                const row = document.createElement('div');
+                row.className = `p-3 rounded-lg border text-xs sm:text-sm ${
+                    ans.isCorrect ? 'bg-emerald-950/20 border-emerald-800/40' : 'bg-rose-950/20 border-rose-800/40'
+                }`;
+
+                row.innerHTML = `
+                    <div class="flex items-start justify-between gap-2">
+                        <div class="font-semibold text-slate-200">
+                            Q${idx + 1}. ${ans.question}
+                        </div>
+                        <span class="shrink-0 px-2 py-0.5 rounded text-[10px] font-bold ${
+                            ans.isCorrect ? 'bg-emerald-900 text-emerald-300' : 'bg-rose-900 text-rose-300'
+                        }">
+                            ${ans.isCorrect ? 'Correct' : 'Incorrect'}
+                        </span>
+                    </div>
+                    <div class="mt-2 grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+                        <div class="${ans.isCorrect ? 'text-emerald-400' : 'text-rose-400'}">
+                            <span class="text-slate-400">Your Answer:</span> ${userChoiceText}
+                        </div>
+                        ${!ans.isCorrect ? `
+                            <div class="text-emerald-400">
+                                <span class="text-slate-400">Correct Answer:</span> ${correctChoiceText}
+                            </div>
+                        ` : ''}
+                    </div>
+                    <div class="mt-1 text-[10px] text-slate-500 flex justify-between">
+                        <span>Category: ${ans.category}</span>
+                        <span>Time taken: ${ans.timeSpent}s</span>
+                    </div>
+                `;
+                container.appendChild(row);
+            });
+        }
+
+        // Helper: Format Seconds into MM:SS
+        function formatTime(totalSeconds) {
+            const minutes = Math.floor(totalSeconds / 60);
+            const seconds = totalSeconds % 60;
+            return `${minutes < 10 ? '0' : ''}${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+        }
+    </script>
+</body>
+</html>

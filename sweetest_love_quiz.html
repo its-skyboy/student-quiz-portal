@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BSEB Class 12 English - Sweetest Love I Do Not Goe Master Quiz</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Cinzel:wght@600;700;800&display=swap" rel="stylesheet">
+    <!-- Confetti Animation Library -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <!-- Chart.js for Topic Analysis -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: radial-gradient(circle at top, #2e1065 0%, #0f172a 60%, #020617 100%);
+            min-height: 100vh;
+        }
+        .font-cinzel {
+            font-family: 'Cinzel', serif;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.96);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(234, 179, 8, 0.3);
+        }
+        .gold-gradient-text {
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 50%, #d97706 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        @keyframes floatBadge {
+            0% { transform: translate(-50%, 0) scale(0.7); opacity: 0; }
+            50% { opacity: 1; transform: translate(-50%, -25px) scale(1.1); }
+            100% { transform: translate(-50%, -50px) scale(1); opacity: 0; }
+        }
+        .praise-badge {
+            position: fixed;
+            top: 30%;
+            left: 50%;
+            pointer-events: none;
+            animation: floatBadge 1.2s ease-out forwards;
+            z-index: 100;
+        }
+    </style>
+</head>
+<body class="text-slate-800 antialiased py-6 px-4 sm:px-6 lg:px-8">
+
+    <div class="max-w-4xl mx-auto">
+        <!-- Main Header -->
+        <header class="text-center mb-8">
+            <div class="inline-flex items-center gap-2 bg-amber-500/10 text-amber-300 border border-amber-500/30 text-xs font-bold uppercase tracking-widest px-4 py-1.5 rounded-full mb-3 shadow-inner">
+                <span>👑</span> BSEB Class 12 English (Rainbow Part 2)
+            </div>
+            <h1 class="text-3xl sm:text-5xl font-extrabold text-white tracking-tight font-cinzel">
+                Sweetest Love <span class="gold-gradient-text">I Do Not Goe</span>
+            </h1>
+            <p class="text-slate-300 text-sm sm:text-base mt-2 max-w-xl mx-auto">
+                50 Comprehensive MCQs on John Donne • Metaphysical Poetry Analysis • Line Completions & Context
+            </p>
+        </header>
+
+        <!-- Welcome Screen -->
+        <div id="welcome-screen" class="glass-card rounded-3xl shadow-2xl p-6 sm:p-10 text-center border-2 border-amber-400/40">
+            <div class="w-20 h-20 bg-gradient-to-tr from-amber-500 to-purple-600 text-white rounded-3xl flex items-center justify-center mx-auto mb-5 text-3xl shadow-lg transform rotate-3">
+                📜
+            </div>
+            <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 mb-3 font-cinzel">Mastery Challenge</h2>
+            <p class="text-slate-600 mb-8 max-w-lg mx-auto text-sm sm:text-base leading-relaxed">
+                Test your knowledge on Donne's life, metaphysical conceits, rhyme schemes, stanza analysis, and Bihar Board examination patterns.
+            </p>
+            <button onclick="startQuiz()" class="w-full sm:w-auto px-10 py-4 bg-gradient-to-r from-amber-500 via-purple-600 to-indigo-600 hover:from-amber-600 hover:to-indigo-700 text-white font-extrabold rounded-2xl shadow-xl hover:shadow-purple-500/30 transition-all transform hover:-translate-y-0.5 active:translate-y-0">
+                Begin 50-Question Quiz 🚀
+            </button>
+        </div>
+
+        <!-- Quiz Container -->
+        <div id="quiz-container" class="hidden">
+            <!-- Top Controls & Progress Bar -->
+            <div class="glass-card rounded-2xl p-4 sm:p-5 mb-5 shadow-xl flex flex-wrap items-center justify-between gap-4 border border-purple-200">
+                <div class="flex items-center gap-3">
+                    <span class="bg-purple-900 text-amber-300 font-bold text-xs px-3 py-1.5 rounded-xl shadow">
+                        Q <span id="current-q-num">1</span>/50
+                    </span>
+                    <span id="topic-tag" class="text-xs font-bold uppercase tracking-wider text-purple-700 bg-purple-100 px-3 py-1 rounded-lg">
+                        Poet Context
+                    </span>
+                </div>
+
+                <!-- Timers & Live Score -->
+                <div class="flex items-center gap-3 sm:gap-5 text-xs sm:text-sm font-bold">
+                    <div class="flex items-center gap-1.5 text-slate-700 bg-amber-50 border border-amber-200 px-3 py-1.5 rounded-xl">
+                        ⏱️ Total: <span id="total-timer-display" class="text-amber-800 font-mono">00:00</span>
+                    </div>
+                    <div class="flex items-center gap-1.5 text-slate-700 bg-indigo-50 border border-indigo-200 px-3 py-1.5 rounded-xl">
+                        ⏳ Question: <span id="question-timer-display" class="text-indigo-800 font-mono">0s</span>
+                    </div>
+                    <div class="bg-purple-50 text-purple-900 px-3 py-1.5 rounded-xl border border-purple-200">
+                        Score: <span id="live-score" class="text-emerald-600 font-extrabold">0</span>
+                    </div>
+                </div>
+
+                <!-- Progress Bar -->
+                <div class="w-full bg-slate-200 h-2.5 rounded-full overflow-hidden">
+                    <div id="progress-bar" class="bg-gradient-to-r from-amber-500 to-purple-600 h-full w-0 transition-all duration-300"></div>
+                </div>
+            </div>
+
+            <!-- Question Card -->
+            <div class="glass-card rounded-3xl p-6 sm:p-8 shadow-2xl relative border border-amber-300/40">
+                <div id="question-text" class="text-lg sm:text-xl font-bold text-slate-900 mb-6 leading-relaxed">
+                    <!-- Loaded via JS -->
+                </div>
+
+                <div id="options-container" class="grid grid-cols-1 gap-3.5">
+                    <!-- Options loaded via JS -->
+                </div>
+
+                <!-- Explanation Box -->
+                <div id="explanation-box" class="hidden mt-6 p-4 rounded-2xl bg-amber-50/80 border border-amber-200 text-sm text-slate-800 shadow-inner">
+                    <span class="font-bold text-purple-900 block mb-1">📖 Key Analysis & Insight:</span>
+                    <p id="explanation-text" class="leading-relaxed"></p>
+                </div>
+
+                <!-- Next Button -->
+                <div class="mt-8 flex justify-end">
+                    <button id="next-btn" onclick="nextQuestion()" class="hidden px-7 py-3 bg-gradient-to-r from-purple-700 to-indigo-700 hover:from-purple-800 hover:to-indigo-800 text-white font-bold rounded-2xl shadow-lg transition-all transform active:scale-95">
+                        Next Question ➔
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Result Analysis Dashboard -->
+        <div id="result-screen" class="hidden glass-card rounded-3xl p-6 sm:p-10 shadow-2xl border-2 border-amber-400">
+            <div class="text-center mb-8">
+                <div id="grade-icon" class="w-20 h-20 bg-amber-100 text-amber-600 rounded-full flex items-center justify-center mx-auto mb-3 text-4xl shadow-inner">
+                    🏆
+                </div>
+                <h2 class="text-2xl sm:text-4xl font-extrabold text-slate-900 font-cinzel" id="grade-title">Assessment Complete!</h2>
+                <p class="text-slate-600 text-sm mt-1" id="grade-subtitle">BSEB Class 12 English Performance Summary</p>
+            </div>
+
+            <!-- Metrics Grid -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
+                <div class="bg-purple-50 border border-purple-200 p-4 rounded-2xl text-center">
+                    <div class="text-xs text-purple-600 font-bold uppercase">Marks Obtained</div>
+                    <div class="text-2xl sm:text-3xl font-extrabold text-purple-950 mt-1"><span id="res-score">0</span> / 50</div>
+                </div>
+                <div class="bg-emerald-50 border border-emerald-200 p-4 rounded-2xl text-center">
+                    <div class="text-xs text-emerald-600 font-bold uppercase">Accuracy Rate</div>
+                    <div class="text-2xl sm:text-3xl font-extrabold text-emerald-950 mt-1"><span id="res-accuracy">0</span>%</div>
+                </div>
+                <div class="bg-amber-50 border border-amber-200 p-4 rounded-2xl text-center">
+                    <div class="text-xs text-amber-600 font-bold uppercase">Total Duration</div>
+                    <div class="text-2xl sm:text-3xl font-extrabold text-amber-950 mt-1" id="res-total-time">00:00</div>
+                </div>
+                <div class="bg-indigo-50 border border-indigo-200 p-4 rounded-2xl text-center">
+                    <div class="text-xs text-indigo-600 font-bold uppercase">Avg Time / Q</div>
+                    <div class="text-2xl sm:text-3xl font-extrabold text-indigo-950 mt-1"><span id="res-avg-time">0</span>s</div>
+                </div>
+            </div>
+
+            <!-- Topic Wise Accuracy Chart -->
+            <div class="mb-8 bg-slate-50 p-5 sm:p-6 rounded-2xl border border-slate-200">
+                <h3 class="font-bold text-slate-900 mb-4 text-base flex items-center gap-2">
+                    📊 Category-Wise Mastery Breakdown
+                </h3>
+                <div class="relative h-64 w-full">
+                    <canvas id="topicChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Expert Feedback -->
+            <div class="mb-8 p-5 bg-purple-50/80 border border-purple-200 rounded-2xl">
+                <h3 class="font-bold text-purple-900 mb-2 text-base">📝 Board Examiner Recommendation</h3>
+                <p id="feedback-text" class="text-sm text-purple-950 leading-relaxed"></p>
+            </div>
+
+            <div class="text-center">
+                <button onclick="restartQuiz()" class="px-10 py-4 bg-gradient-to-r from-purple-700 via-indigo-700 to-amber-600 text-white font-extrabold rounded-2xl shadow-xl hover:shadow-2xl transition-all transform hover:-translate-y-0.5">
+                    Retake Master Quiz 🔄
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const quizData = [
+            // Poet & Metaphysical Context (12 Qs)
+            {
+                q: "Who is the poet of 'Sweetest Love I Do Not Goe'?",
+                a: ["John Keats", "John Donne", "Walt Whitman", "Rupert Brooke"],
+                c: 1,
+                topic: "Poet Context",
+                exp: "John Donne (1572–1631) is the legendary metaphysical poet who wrote 'Sweetest Love I Do Not Goe'."
+            },
+            {
+                q: "John Donne is celebrated as the pioneer of which school of poetry?",
+                a: ["Romantic Poetry", "Metaphysical Poetry", "War Poetry", "Victorian Poetry"],
+                c: 1,
+                topic: "Poet Context",
+                exp: "John Donne is widely regarded as the pioneer and greatest exponent of Metaphysical Poetry."
+            },
+            {
+                q: "In which year was John Donne born?",
+                a: ["1572", "1588", "1631", "1600"],
+                c: 0,
+                topic: "Poet Context",
+                exp: "John Donne was born in 1572 in London into a prominent Roman Catholic family."
+            },
+            {
+                q: "Why was John Donne forced to leave Oxford University without a degree?",
+                a: ["Due to poor academic marks", "Because of his Roman Catholic religion", "Due to financial debts", "Because he ran away"],
+                c: 1,
+                topic: "Poet Context",
+                exp: "Donne was forced to leave Oxford without a degree because he refused to take the Oath of Supremacy due to his Catholic faith."
+            },
+            {
+                q: "John Donne was briefly imprisoned for secretly marrying whom?",
+                a: ["Anne More", "Mary Arden", "Fanny Brawne", "Lucy Morgan"],
+                c: 0,
+                topic: "Poet Context",
+                exp: "Donne secretly married Anne More, the niece of his patron Sir Thomas Egerton, resulting in his brief imprisonment."
+            },
+            {
+                q: "At what age did John Donne accept ordination in the Anglican Church?",
+                a: ["25", "30", "42", "50"],
+                c: 2,
+                topic: "Poet Context",
+                exp: "In 1615, at the age of 42, Donne accepted ordination in the Anglican Church and later became Dean of St. Paul's."
+            },
+            {
+                q: "Which major collection contains Donne's celebrated love lyrics and satires?",
+                a: ["Songs and Sonnets", "Lyrical Ballads", "Leaves of Grass", "The Prelude"],
+                c: 0,
+                topic: "Poet Context",
+                exp: "Donne's famous love poems were posthumously collected in 'Songs and Sonnets' (1633)."
+            },
+            {
+                q: "To whom is the poem 'Sweetest Love I Do Not Goe' traditionally addressed?",
+                a: ["His mother", "His beloved wife, Anne More", "Queen Elizabeth I", "An imaginary lady"],
+                c: 1,
+                topic: "Poet Context",
+                exp: "The poem was written as a parting song (valediction) to his wife, Anne More, before his trip to Continental Europe."
+            },
+            {
+                q: "Donne studied both _______ and theology during his early career.",
+                a: ["Medicine", "Law", "Engineering", "Astronomy"],
+                c: 1,
+                topic: "Poet Context",
+                exp: "Donne read law at Lincoln's Inn and engaged in extensive theological studies."
+            },
+            {
+                q: "In 1621, John Donne was appointed as the Dean of which famous cathedral?",
+                a: ["Westminster Abbey", "St. Paul's Cathedral", "Canterbury Cathedral", "York Minster"],
+                c: 1,
+                topic: "Poet Context",
+                exp: "Donne became Dean of St. Paul's Cathedral in London, where he gained fame for his eloquent sermons."
+            },
+            {
+                q: "What characteristic defines Donne's metaphysical love poetry?",
+                a: ["Simple nature descriptions", "Intellectual wit, conceits, and passionate reasoning", "Strict military themes", "Childhood memories"],
+                c: 1,
+                topic: "Poet Context",
+                exp: "Metaphysical poetry blends intense emotional passion with complex intellectual conceits and sharp wit."
+            },
+            {
+                q: "When did John Donne pass away?",
+                a: ["1615", "1631", "1650", "1598"],
+                c: 1,
+                topic: "Poet Context",
+                exp: "John Donne died on March 31, 1631."
+            },
+
+            // Themes & Central Meaning (13 Qs)
+            {
+                q: "What is the principal theme of 'Sweetest Love I Do Not Goe'?",
+                a: ["Fear of physical death", "True love overcoming separation and distance", "Patriotic duty", "Hatred towards worldliness"],
+                c: 1,
+                topic: "Themes & Meaning",
+                exp: "The central theme is that spiritual, true love transcends physical distance and temporary separation."
+            },
+            {
+                q: "Why does the speaker state he is NOT leaving his beloved?",
+                a: ["Because he is tired of her", "Because he hopes the world can show a fitter love", "Neither of the above", "Both A and B"],
+                c: 2,
+                topic: "Themes & Meaning",
+                exp: "Donne explicitly clarifies in stanza 1 that he is not leaving out of weariness or searching for a 'fitter love'."
+            },
+            {
+                q: "What comparison does the poet draw to reassure his wife that he will return?",
+                a: ["The rising and setting of the sun", "The flow of river waters", "The changing of seasons", "The flight of migratory birds"],
+                c: 0,
+                topic: "Themes & Meaning",
+                exp: "Donne compares his journey to the sun, which went away last night yet returned this morning."
+            },
+            {
+                q: "Why does the poet claim his return will be faster than the sun's?",
+                a: ["He has a faster horse", "He has more motives and wings (desire and affection)", "He travels by sea", "He has magical powers"],
+                c: 1,
+                topic: "Themes & Meaning",
+                exp: "He argues he has 'more wings and spurs'—namely, intense love and desire to reunite with her."
+            },
+            {
+                q: "What human limitation does Donne highlight in the third stanza ('O how feeble is man's power')?",
+                a: ["Man cannot build big cities", "Man cannot add an extra hour to a good fortune", "Man cannot sail across oceans", "Man cannot control animals"],
+                c: 1,
+                topic: "Themes & Meaning",
+                exp: "Donne reflects on human helplessness: when good fortune comes, man cannot add another hour to it."
+            },
+            {
+                q: "What do humans inadvertently do when bad chance/misfortune strikes?",
+                a: ["They pray silently", "They join their strength to it and teach it art/length", "They run away immediately", "They forget it quickly"],
+                c: 1,
+                topic: "Themes & Meaning",
+                exp: "Donne notes that people dwell on bad luck, giving it extra power over their lives ('we join to it our strength')."
+            },
+            {
+                q: "According to the poet, when his wife sighs deeply, what is she actually sighing away?",
+                a: ["Air", "His soul / breath", "Her tears", "The wind"],
+                c: 1,
+                topic: "Themes & Meaning",
+                exp: "Donne hyperbolically claims that when she sighs, she sighs not wind, but draws his very soul away."
+            },
+            {
+                q: "When the beloved weeps bitterly, what does she waste or decay?",
+                a: ["Her eyesight", "His life's blood", "Her beauty", "The domestic peace"],
+                c: 1,
+                topic: "Themes & Meaning",
+                exp: "He says her tears decay his life's blood, because as two lovers united, her grief physically hurts his spirit."
+            },
+            {
+                q: "How does Donne view temporary separation and ultimate death in this poem?",
+                a: ["As an absolute end", "As a mere practice or rehearsal for the final sleep/death", "As something to be terrified of", "As a divine punishment"],
+                c: 1,
+                topic: "Themes & Meaning",
+                exp: "He regards short separations as a gentle rehearsal ('feigned death') for physical death."
+            },
+            {
+                q: "What advice does the poet give his wife in the final stanza regarding her thoughts?",
+                a: ["To think bad thoughts of him", "Not to divine/forethink any ill against him", "To forget him completely", "To leave the house"],
+                c: 1,
+                topic: "Themes & Meaning",
+                exp: "He asks her 'destining heart' not to foresee any evil, lest destiny fulfill her fears."
+            },
+            {
+                q: "In the poem, true lovers who keep each other alive in their hearts are never _______.",
+                a: ["Happy", "Parted / separated", "Rich", "Young"],
+                c: 1,
+                topic: "Themes & Meaning",
+                exp: "Donne concludes: 'They who one another keep / Alive, ne'er parted be.'"
+            },
+            {
+                q: "What tone best characterizes 'Sweetest Love I Do Not Goe'?",
+                a: ["Mournful and bitter", "Affectionate, reassuring, and wittily philosophical", "Angry and demanding", "Sarcastic and humorous"],
+                c: 1,
+                topic: "Themes & Meaning",
+                exp: "The tone is deeply loving, reassuring, logical, and philosophically comforting."
+            },
+            {
+                q: "The line 'Yesternight the Sun went hence, And yet is here today' illustrates Donne's use of:",
+                a: ["A conceit / analogy", "Historical narrative", "Political allegory", "Satirical irony"],
+                c: 0,
+                topic: "Themes & Meaning",
+                exp: "Comparing his journey to the sun's daily cycle is a classic metaphysical conceit."
+            },
+
+            // Stanza & Line Completions (13 Qs)
+            {
+                q: "Complete the opening line: 'Sweetest love, I do not goe, For _______ of thee.'",
+                a: ["fear", "weariness", "hatred", "sorrow"],
+                c: 1,
+                topic: "Line Completions",
+                exp: "The original text opens: 'Sweetest love, I do not goe, / For weariness of thee'."
+            },
+            {
+                q: "'Nor in hope the world can show A fitter _______ for me.'",
+                a: ["home", "place", "Love", "heart"],
+                c: 2,
+                topic: "Line Completions",
+                exp: "The line reads: 'Nor in hope the world can show / A fitter Love for me'."
+            },
+            {
+                q: "'But since that I Must die at last, 'tis best, To use myself in _______.'",
+                a: ["jest", "rest", "grief", "pain"],
+                c: 0,
+                topic: "Line Completions",
+                exp: "Donne writes: ''Tis best, / To use my self in jest', referring to mock death through temporary parting."
+            },
+            {
+                q: "'Yesternight the _______ went hence, And yet is here today.'",
+                a: ["Moon", "Sun", "Wind", "Star"],
+                c: 1,
+                topic: "Line Completions",
+                exp: "The second stanza opens with: 'Yesternight the Sun went hence...'"
+            },
+            {
+                q: "'He hath no desire nor sense, Nor halfe so short a _______.'",
+                a: ["life", "way", "day", "path"],
+                c: 1,
+                topic: "Line Completions",
+                exp: "Donne states the sun has 'no desire nor sense, / Nor halfe so short a way'."
+            },
+            {
+                q: "'O how feeble is _______ power, That if good fortune fall, Cannot add another hour.'",
+                a: ["man's", "love's", "life's", "nature's"],
+                c: 0,
+                topic: "Line Completions",
+                exp: "The third stanza begins: 'O how feeble is man's power...'"
+            },
+            {
+                q: "'When thou sigh'st, thou sigh'st not winde, But sigh'st my _______ away.'",
+                a: ["heart", "soul", "life", "blood"],
+                c: 1,
+                topic: "Line Completions",
+                exp: "Donne says: 'But sigh'st my soule away' (soul away)."
+            },
+            {
+                q: "'When thou weep'st, unkindly kinde, My life's _______ doth decay.'",
+                a: ["blood", "breath", "spirit", "joy"],
+                c: 0,
+                topic: "Line Completions",
+                exp: "The line is: 'My life's blood doth decay'."
+            },
+            {
+                q: "'It cannot bee That thou lov'st mee, as thou say'st, If in thine my _______ thou waste.'",
+                a: ["life", "heart", "time", "mind"],
+                c: 0,
+                topic: "Line Completions",
+                exp: "Donne completes the line with: 'If in thine my life thou waste'."
+            },
+            {
+                q: "'Let not thy divining _______ Forethinke me any ill.'",
+                a: ["mind", "heart", "soul", "spirit"],
+                c: 1,
+                topic: "Line Completions",
+                exp: "Stanza 5 states: 'Let not thy divining heart / Forethinke me any ill'."
+            },
+            {
+                q: "'Destiny may take thy part, And may thy _______ fulfill.'",
+                a: ["fears", "wishes", "dreams", "words"],
+                c: 0,
+                topic: "Line Completions",
+                exp: "The poet warns: 'And may thy feares fulfill'."
+            },
+            {
+                q: "'But thinke that wee Are but turn'd aside to _______.'",
+                a: ["sleep", "rest", "dream", "pray"],
+                c: 0,
+                topic: "Line Completions",
+                exp: "Donne encourages her to think of them as lying side by side in bed: 'Are but turn'd aside to sleepe'."
+            },
+            {
+                q: "'They who one another keepe Alive, ne'er _______ bee.'",
+                a: ["lost", "parted", "sad", "alone"],
+                c: 1,
+                topic: "Line Completions",
+                exp: "The famous concluding line is: 'Alive, ne'er parted bee'."
+            },
+
+            // Literary Devices & Structure (12 Qs)
+            {
+                q: "In 'Sweetest Love I Do Not Goe', what archaic spelling does Donne use for 'Go' in the title?",
+                a: ["Goe", "Gow", "Gone", "Goeth"],
+                c: 0,
+                topic: "Literary Devices",
+                exp: "The original 17th-century spelling used by Donne in the title is 'Goe'."
+            },
+            {
+                q: "What literary device is present in the phrase 'unkindly kinde'?",
+                a: ["Simile", "Oxymoron", "Personification", "Hyperbole"],
+                c: 1,
+                topic: "Literary Devices",
+                exp: "'Unkindly kind' combines two contradictory terms, making it a classic oxymoron."
+            },
+            {
+                q: "How many stanzas are there in 'Sweetest Love I Do Not Goe'?",
+                a: ["4", "5", "6", "8"],
+                c: 1,
+                topic: "Literary Devices",
+                exp: "The poem consists of exactly 5 stanzas, each containing 8 lines (octaves)."
+            },
+            {
+                q: "How many total lines are there in the poem 'Sweetest Love I Do Not Goe'?",
+                a: ["30", "40", "50", "24"],
+                c: 1,
+                topic: "Literary Devices",
+                exp: "With 5 stanzas of 8 lines each, the poem contains 40 lines in total."
+            },
+            {
+                q: "What is the rhyme scheme of the first stanza in 'Sweetest Love I Do Not Goe'?",
+                a: ["ababbcdc", "ababcddc", "ababcdcd", "aabbccdd"],
+                c: 1,
+                topic: "Literary Devices",
+                exp: "The rhyme scheme for the stanzas is ababcddc (goe/thee/show/me = abab, last/jest/be/die = cddc)."
+            },
+            {
+                q: "The line 'When thou weep'st... My life's blood doth decay' contains an example of:",
+                a: ["Understatement", "Hyperbole (Exaggeration)", "Alliteration only", "Onomatopoeia"],
+                c: 1,
+                topic: "Literary Devices",
+                exp: "Claiming that tears physically melt or decay the lover's blood is poetic hyperbole."
+            },
+            {
+                q: "In the poem, what does the 'Sun' symbolize in the metaphysical conceit?",
+                a: ["Inconstancy and anger", "A constant journeyer that returns reliably", "Divine wrath", "Passing time only"],
+                c: 1,
+                topic: "Literary Devices",
+                exp: "The sun symbolizes predictable departure and guaranteed return."
+            },
+            {
+                q: "What figure of speech is used when the poet addresses his 'Sweetest love' directly?",
+                a: ["Apostrophe", "Metonymy", "Synecdoche", "Irony"],
+                c: 0,
+                topic: "Literary Devices",
+                exp: "Addressing an absent or present person/personified object directly is known as Apostrophe."
+            },
+            {
+                q: "The term 'Metaphysical' literally means:",
+                a: ["Physical and concrete", "Beyond the physical / nature", "Historical and political", "Musical and rhythmic"],
+                c: 1,
+                topic: "Literary Devices",
+                exp: "'Meta' means beyond, and 'physics' means physical nature; hence, dealing with spiritual/abstract ideas."
+            },
+            {
+                q: "Who coined the phrase 'Metaphysical Poets' to describe John Donne and his followers?",
+                a: ["Dryden & Dr. Samuel Johnson", "William Wordsworth", "TS Eliot", "Matthew Arnold"],
+                c: 0,
+                topic: "Literary Devices",
+                exp: "John Dryden first noted Donne's metaphysics, and Dr. Samuel Johnson formally coined 'Metaphysical Poets'."
+            },
+            {
+                q: "Which poetic meter form primarily underlies the lighter lines in 'Sweetest Love I Do Not Goe'?",
+                a: ["Strict Iambic Pentameter", "Trochaic and Iambic short dimeter/trimeter blends", "Anapestic tetrameter", "Free Verse"],
+                c: 1,
+                topic: "Literary Devices",
+                exp: "Donne uses a lyrical blend of short trochaic and iambic feet to create a song-like cadence."
+            },
+            {
+                q: "In Bihar Board textbook Rainbow Part 2, 'Sweetest Love I Do Not Goe' is placed as the _______ poem.",
+                a: ["First (Poetry Section 1)", "Fifth", "Tenth", "Last"],
+                c: 0,
+                topic: "Literary Devices",
+                exp: "'Sweetest Love I Do Not Goe' is Chapter 1 of the Poetry section in Class 12th BSEB Rainbow Part 2."
+            }
+        ];
+
+        let currentIndex = 0;
+        let score = 0;
+        let totalSecondsElapsed = 0;
+        let questionSecondsElapsed = 0;
+        let totalTimerInterval = null;
+        let questionTimerInterval = null;
+        let topicStats = {};
+        let chartInstance = null;
+
+        const praises = [
+            "Outstanding! 🌟", "Spot On! 🔥", "Genius! 🚀", 
+            "Bullseye! 🎯", "Splendid! ✨", "Donne Scholar! 📜"
+        ];
+
+        function startQuiz() {
+            document.getElementById('welcome-screen').classList.add('hidden');
+            document.getElementById('quiz-container').classList.remove('hidden');
+            
+            currentIndex = 0;
+            score = 0;
+            totalSecondsElapsed = 0;
+            topicStats = {};
+
+            // Initialize Category Tracking
+            quizData.forEach(q => {
+                if (!topicStats[q.topic]) {
+                    topicStats[q.topic] = { total: 0, correct: 0 };
+                }
+                topicStats[q.topic].total++;
+            });
+
+            startOverallTimer();
+            loadQuestion();
+        }
+
+        function startOverallTimer() {
+            clearInterval(totalTimerInterval);
+            totalTimerInterval = setInterval(() => {
+                totalSecondsElapsed++;
+                const mins = Math.floor(totalSecondsElapsed / 60).toString().padStart(2, '0');
+                const secs = (totalSecondsElapsed % 60).toString().padStart(2, '0');
+                document.getElementById('total-timer-display').innerText = `${mins}:${secs}`;
+            }, 1000);
+        }
+
+        function startQuestionTimer() {
+            clearInterval(questionTimerInterval);
+            questionSecondsElapsed = 0;
+            document.getElementById('question-timer-display').innerText = `0s`;
+            questionTimerInterval = setInterval(() => {
+                questionSecondsElapsed++;
+                document.getElementById('question-timer-display').innerText = `${questionSecondsElapsed}s`;
+            }, 1000);
+        }
+
+        function loadQuestion() {
+            const qData = quizData[currentIndex];
+            
+            // Progress Bar & Counts
+            document.getElementById('current-q-num').innerText = currentIndex + 1;
+            document.getElementById('topic-tag').innerText = qData.topic;
+            document.getElementById('question-text').innerText = `Q${currentIndex + 1}. ${qData.q}`;
+            
+            const progressPercent = ((currentIndex + 1) / quizData.length) * 100;
+            document.getElementById('progress-bar').style.width = `${progressPercent}%`;
+
+            const optionsContainer = document.getElementById('options-container');
+            optionsContainer.innerHTML = '';
+
+            qData.a.forEach((optText, optIdx) => {
+                const btn = document.createElement('button');
+                btn.className = "w-full text-left bg-slate-50 border-2 border-slate-200 hover:border-purple-500 hover:bg-purple-50/60 rounded-2xl p-4 font-semibold text-slate-700 transition-all flex items-center justify-between group";
+                
+                btn.innerHTML = `
+                    <span class="flex items-center gap-3">
+                        <span class="w-7 h-7 rounded-lg bg-slate-200 text-slate-700 font-bold text-xs flex items-center justify-center group-hover:bg-purple-600 group-hover:text-white transition-colors">
+                            ${String.fromCharCode(65 + optIdx)}
+                        </span>
+                        <span>${optText}</span>
+                    </span>
+                    <span class="icon-indicator text-lg"></span>
+                `;
+                
+                btn.onclick = () => selectOption(optIdx, qData.c, btn, optionsContainer);
+                optionsContainer.appendChild(btn);
+            });
+
+            document.getElementById('explanation-box').classList.add('hidden');
+            document.getElementById('next-btn').classList.add('hidden');
+
+            startQuestionTimer();
+        }
+
+        function selectOption(selectedIdx, correctIdx, selectedBtn, container) {
+            clearInterval(questionTimerInterval);
+
+            const allBtns = container.querySelectorAll('button');
+            allBtns.forEach(b => b.disabled = true);
+
+            const isCorrect = (selectedIdx === correctIdx);
+            
+            if (isCorrect) {
+                selectedBtn.classList.remove('bg-slate-50', 'border-slate-200', 'text-slate-700');
+                selectedBtn.classList.add('bg-emerald-50', 'border-emerald-500', 'text-emerald-900', 'font-bold');
+                selectedBtn.querySelector('.icon-indicator').innerText = '✅';
+
+                score++;
+                topicStats[quizData[currentIndex].topic].correct++;
+                document.getElementById('live-score').innerText = score;
+
+                // Confetti & Floating Badge
+                confetti({ particleCount: 70, spread: 60, origin: { y: 0.65 } });
+                triggerPraiseBadge();
+            } else {
+                selectedBtn.classList.remove('bg-slate-50', 'border-slate-200', 'text-slate-700');
+                selectedBtn.classList.add('bg-rose-50', 'border-rose-500', 'text-rose-900', 'font-bold');
+                selectedBtn.querySelector('.icon-indicator').innerText = '❌';
+
+                // Highlight Correct Option
+                const correctBtn = allBtns[correctIdx];
+                correctBtn.classList.remove('bg-slate-50', 'border-slate-200', 'text-slate-700');
+                correctBtn.classList.add('bg-emerald-50', 'border-emerald-500', 'text-emerald-900', 'font-bold');
+                correctBtn.querySelector('.icon-indicator').innerText = '✅';
+            }
+
+            // Display Explanation
+            document.getElementById('explanation-text').innerText = quizData[currentIndex].exp;
+            document.getElementById('explanation-box').classList.remove('hidden');
+            document.getElementById('next-btn').classList.remove('hidden');
+        }
+
+        function triggerPraiseBadge() {
+            const text = praises[Math.floor(Math.random() * praises.length)];
+            const badge = document.createElement('div');
+            badge.className = "praise-badge bg-gradient-to-r from-amber-500 to-purple-700 text-white font-extrabold px-6 py-3 rounded-2xl shadow-2xl text-lg font-cinzel";
+            badge.innerText = text;
+            document.body.appendChild(badge);
+            setTimeout(() => badge.remove(), 1200);
+        }
+
+        function nextQuestion() {
+            currentIndex++;
+            if (currentIndex < quizData.length) {
+                loadQuestion();
+            } else {
+                finishQuiz();
+            }
+        }
+
+        function finishQuiz() {
+            clearInterval(totalTimerInterval);
+            clearInterval(questionTimerInterval);
+
+            document.getElementById('quiz-container').classList.add('hidden');
+            document.getElementById('result-screen').classList.remove('hidden');
+
+            const accuracy = Math.round((score / quizData.length) * 100);
+            const totalMins = Math.floor(totalSecondsElapsed / 60);
+            const totalSecs = totalSecondsElapsed % 60;
+            const formattedTime = `${totalMins.toString().padStart(2, '0')}:${totalSecs.toString().padStart(2, '0')}`;
+            const avgTime = (totalSecondsElapsed / quizData.length).toFixed(1);
+
+            document.getElementById('res-score').innerText = score;
+            document.getElementById('res-accuracy').innerText = accuracy;
+            document.getElementById('res-total-time').innerText = formattedTime;
+            document.getElementById('res-avg-time').innerText = avgTime;
+
+            // Grade Header & Feedback logic
+            const gradeTitle = document.getElementById('grade-title');
+            const gradeSubtitle = document.getElementById('grade-subtitle');
+            const gradeIcon = document.getElementById('grade-icon');
+            const feedbackText = document.getElementById('feedback-text');
+
+            if (accuracy >= 90) {
+                gradeIcon.innerText = "👑";
+                gradeTitle.innerText = "BSEB Topper Grade!";
+                gradeSubtitle.innerText = "Mastery Level: Outstanding Metaphysical Scholar";
+                feedbackText.innerText = "Phenomenal performance! You demonstrated complete command over John Donne's biography, metaphysical conceits, rhyme structure, and stanzas. You are ready to score full marks in BSEB Board Examinations!";
+            } else if (accuracy >= 70) {
+                gradeIcon.innerText = "🥇";
+                gradeTitle.innerText = "First Division Performance!";
+                gradeSubtitle.innerText = "Mastery Level: Strong Understanding";
+                feedbackText.innerText = "Great work! You have a solid grasp of the core poem and its theme. Review minor details in line completions and metaphysical literary devices to hit 100%.";
+            } else {
+                gradeIcon.innerText = "📚";
+                gradeTitle.innerText = "Needs Revision";
+                gradeSubtitle.innerText = "Mastery Level: Developing Knowledge";
+                feedbackText.innerText = "Good attempt! Re-read Rainbow Part 2 Chapter 1 ('Sweetest Love I Do Not Goe') along with Donne's biography notes to strengthen your accuracy.";
+            }
+
+            renderChart();
+        }
+
+        function renderChart() {
+            const ctx = document.getElementById('topicChart').getContext('2d');
+            const topics = Object.keys(topicStats);
+            const accuracies = topics.map(t => Math.round((topicStats[t].correct / topicStats[t].total) * 100));
+
+            if (chartInstance) {
+                chartInstance.destroy();
+            }
+
+            chartInstance = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: topics,
+                    datasets: [{
+                        label: 'Category Accuracy (%)',
+                        data: accuracies,
+                        backgroundColor: [
+                            'rgba(147, 51, 234, 0.8)',
+                            'rgba(245, 158, 11, 0.8)',
+                            'rgba(16, 185, 129, 0.8)',
+                            'rgba(99, 102, 241, 0.8)'
+                        ],
+                        borderColor: [
+                            'rgb(147, 51, 234)',
+                            'rgb(245, 158, 11)',
+                            'rgb(16, 185, 129)',
+                            'rgb(99, 102, 241)'
+                        ],
+                        borderWidth: 2,
+                        borderRadius: 10
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 100,
+                            ticks: { font: { family: 'Plus Jakarta Sans', weight: '600' } }
+                        },
+                        x: {
+                            ticks: { font: { family: 'Plus Jakarta Sans', weight: '600' } }
+                        }
+                    },
+                    plugins: {
+                        legend: { display: false }
+                    }
+                }
+            });
+        }
+
+        function restartQuiz() {
+            document.getElementById('result-screen').classList.add('hidden');
+            document.getElementById('welcome-screen').classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>
