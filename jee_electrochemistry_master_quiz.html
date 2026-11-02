@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Electrochemistry – JEE Quiz</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:Segoe UI,Arial,sans-serif;color:#fff;min-height:100vh;background:linear-gradient(135deg,#1e1b4b,#0f3d5e,#134e4a);background-attachment:fixed}
+.wrap{max-width:860px;margin:auto;padding:18px}
+.card{background:rgba(255,255,255,.09);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.18);border-radius:20px;padding:22px;margin-bottom:16px;box-shadow:0 10px 30px rgba(0,0,0,.3)}
+h1{margin:0 0 6px;font-size:2rem;background:linear-gradient(90deg,#fde047,#f472b6,#38bdf8);-webkit-background-clip:text;color:transparent}
+button{font:inherit;cursor:pointer;border:0;border-radius:12px;padding:12px 22px;color:#fff;background:linear-gradient(90deg,#8b5cf6,#ec4899);font-weight:600;transition:.2s}button:hover{transform:translateY(-2px)}
+.len{background:rgba(255,255,255,.15);margin:4px}.len.on{background:linear-gradient(90deg,#f59e0b,#ef4444)}
+.top{display:flex;gap:10px;flex-wrap:wrap;justify-content:space-between;font-weight:600}
+.pill{background:rgba(0,0,0,.3);padding:6px 14px;border-radius:30px}
+.bar{height:8px;background:rgba(255,255,255,.2);border-radius:8px;margin:12px 0;overflow:hidden}.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,#34d399,#38bdf8,#a78bfa);transition:.4s}
+.chip{display:inline-block;font-size:.75rem;padding:3px 10px;border-radius:20px;margin-right:6px;background:#6366f1}.chip.adv{background:#e11d48}
+.q{font-size:1.1rem;line-height:1.6;margin:12px 0}
+.opt{display:block;width:100%;text-align:left;margin:9px 0;padding:13px 16px;background:rgba(255,255,255,.12);border:2px solid transparent;font-weight:500}
+.opt:hover:not(:disabled){border-color:#fde047}.opt:disabled{cursor:default;transform:none}
+.opt.ok{background:#16a34a;border-color:#86efac;animation:pop .5s}.opt.bad{background:#dc2626;border-color:#fca5a5;animation:shake .4s}
+@keyframes pop{50%{transform:scale(1.04)}}@keyframes shake{25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
+.sol{background:rgba(251,191,36,.15);border-left:4px solid #fbbf24;padding:12px 16px;border-radius:10px;margin-top:12px;line-height:1.6;animation:fade .5s}
+@keyframes fade{from{opacity:0;transform:translateY(8px)}}
+#praise{position:fixed;top:30%;left:50%;transform:translate(-50%,-50%) scale(0);font-size:2.4rem;font-weight:800;pointer-events:none;z-index:9;text-shadow:0 4px 20px #000;text-align:center}
+#praise.show{animation:burst 1.4s}@keyframes burst{20%{transform:translate(-50%,-50%) scale(1.2) rotate(-4deg)}80%{transform:translate(-50%,-50%) scale(1);opacity:1}100%{transform:translate(-50%,-80%) scale(1);opacity:0}}
+#cf{position:fixed;inset:0;pointer-events:none;z-index:8}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}.stat{background:rgba(0,0,0,.28);border-radius:14px;padding:14px;text-align:center}.stat b{display:block;font-size:1.7rem;color:#fde047}
+.row{display:flex;align-items:center;gap:10px;margin:9px 0;font-size:.9rem}.row span:first-child{width:180px}.tr{flex:1;height:14px;background:rgba(255,255,255,.15);border-radius:8px;overflow:hidden}.tr i{display:block;height:100%}
+.bars{display:flex;align-items:flex-end;height:120px;gap:1px}.bars i{flex:1;min-width:2px;border-radius:2px 2px 0 0}
+details{background:rgba(0,0,0,.25);border-radius:12px;padding:10px 14px;margin:8px 0}summary{cursor:pointer}
+svg text{fill:#fff}.hide{display:none}
+</style></head><body>
+<canvas id="cf"></canvas><div id="praise"></div>
+<div class="wrap">
+<div id="start" class="card"><h1>⚡ Electrochemistry – JEE Challenge</h1>
+<p>JEE Main → Advanced pattern · numericals, diagrams, concept traps · fresh numbers &amp; shuffled order every attempt.</p>
+<p><b>Marking:</b> +4 correct, −1 wrong, 0 skipped. Wrong answers show a full solution.</p>
+<p>Choose number of questions:</p><div id="lens"></div><br><button onclick="startQuiz()">🚀 Start Quiz</button></div>
+
+<div id="quiz" class="card hide">
+<div class="top"><span class="pill" id="pn"></span><span class="pill">⏱ Question: <b id="tq">0s</b></span><span class="pill">🕒 Total: <b id="tt">0:00</b></span><span class="pill">🏆 <b id="sc">0</b></span><span class="pill">🔥 <b id="st">0</b></span></div>
+<div class="bar"><i id="pb"></i></div>
+<div id="qbody"></div><div id="opts"></div><div id="solbox"></div>
+<div style="margin-top:14px;display:flex;gap:10px"><button id="skip" style="background:#475569" onclick="skipQ()">Skip ⏭</button><button id="next" class="hide" onclick="nextQ()">Next ➜</button></div></div>
+
+<div id="result" class="hide"></div></div>
+
+<script>
+const $=id=>document.getElementById(id),F=96500;
+const rnd=(a,b)=>Math.floor(Math.random()*(b-a+1))+a,pick=a=>a[rnd(0,a.length-1)];
+const shuf=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){let j=rnd(0,i);[a[i],a[j]]=[a[j],a[i]]}return a};
+const sci=x=>{let[m,e]=x.toExponential(2).split('e');return m+' × 10<sup>'+(+e)+'</sup>'};
+// numeric option builder: val correct, wr wrong values, fmt formatter
+function mk(t,l,q,val,wr,fmt,s){let o=[fmt(val)];wr.forEach(w=>{let x=fmt(w);if(!o.includes(x))o.push(x)});let k=1;while(o.length<4){let x=fmt(val*(1+.3*k++));if(!o.includes(x))o.push(x)}o=o.slice(0,4);return{t,l,q,o,s}}
+const fx=d=>v=>v.toFixed(d),fu=(d,u)=>v=>v.toFixed(d)+' '+u;
+const G=[
+()=>{let[m,M,n]=pick([['Cu',63.5,2],['Ag',108,1],['Al',27,3],['Zn',65.4,2]]),I=rnd(2,6),t=rnd(20,60),w=M*I*t*60/(n*F);return mk("Faraday's Laws",'Mains',`A current of ${I} A is passed for ${t} min through a solution of ${m}<sup>${n}+</sup> using inert electrodes. Mass of ${m} deposited? (At. mass ${M}, F = 96500 C)`,w,[w*n,w/2,w*2],fu(2,'g'),`Q = It = ${I}×${t*60} = ${I*t*60} C.<br>w = (M/nF)·Q = (${M}/${n}×96500)×${I*t*60} = <b>${w.toFixed(2)} g</b>.`)},
+()=>{let a=rnd(-2,1),b=rnd(-3,-1),d=a-b,E=1.10-.0295*d;return mk('Nernst Equation','Mains',`Zn|Zn<sup>2+</sup>(10<sup>${a}</sup> M) || Cu<sup>2+</sup>(10<sup>${b}</sup> M)|Cu, E°cell = 1.10 V at 298 K. EMF of the cell?`,E,[1.10+.0295*d,1.10-.059*d,1.10],fu(4,'V'),`E = E° − (0.059/2)·log([Zn²⁺]/[Cu²⁺]) = 1.10 − 0.0295×(${a}−(${b})) = <b>${E.toFixed(4)} V</b>.`)},
+()=>{let E=pick([.34,.46,.76,1.10,.80]),n=pick([1,2,3]),g=-n*F*E/1000;return mk('Thermodynamics of Cells','Mains',`A cell reaction involves ${n} electron(s) with E°cell = ${E} V. Find ΔG° (kJ/mol, F = 96500).`,g,[-g,g/2,g*2],fu(1,'kJ'),`ΔG° = −nFE° = −${n}×96500×${E} = <b>${g.toFixed(1)} kJ</b>.`)},
+()=>{let m=2*rnd(3,8),E=.0295*m;return mk('Thermodynamics of Cells','Advanced',`For a 2-electron cell reaction at 298 K, E°cell = ${E.toFixed(4)} V. The equilibrium constant K is nearest to (use 2.303RT/F = 0.059 V)`,m,[m/2,2*m,m+2],v=>'10<sup>'+v+'</sup>',`log K = nE°/0.059 = 2×${E.toFixed(4)}/0.059 = ${m} → <b>K = 10<sup>${m}</sup></b>.`)},
+()=>{let a=rnd(420,430),b=rnd(120,128),c=rnd(88,92),v=a+c-b;return mk('Conductance & Kohlrausch','Mains',`Λ°m (S cm² mol⁻¹): HCl = ${a}, NaCl = ${b}, CH<sub>3</sub>COONa = ${c}. Find Λ°m of CH<sub>3</sub>COOH.`,v,[a+b+c,a-c+b,a-b-c],fx(0),`Λ°(HAc) = Λ°(HCl) + Λ°(NaAc) − Λ°(NaCl) = ${a}+${c}−${b} = <b>${v}</b>.`)},
+()=>{let al=pick([.02,.03,.04,.05]),c=pick([.01,.02,.05]),L=390*al,K=c*al*al/(1-al);return mk('Conductance & Kohlrausch','Advanced',`For a weak monobasic acid of ${c} M, Λm = ${L.toFixed(1)} S cm² mol⁻¹ and Λ°m = 390. Ka = ?`,K,[c*al*al*10,c*al/(1-al),al*al/(1-al)],sci,`α = Λm/Λ° = ${al}. Ka = cα²/(1−α) = ${c}×${al}²/${(1-al).toFixed(2)} = <b>${sci(K)}</b>.`)},
+()=>{let b=pick([.5,1,1.25,2]),R=pick([200,250,400,500]),c=pick([.05,.1,.2]),L=b/R*1000/c;return mk('Conductance & Kohlrausch','Mains',`A cell of constant ${b} cm⁻¹ filled with ${c} M electrolyte shows resistance ${R} Ω. Molar conductivity (S cm² mol⁻¹)?`,L,[L*10,L/10,L*2],fx(1),`κ = b/R = ${b}/${R} S cm⁻¹. Λm = κ×1000/c = <b>${L.toFixed(1)}</b>.`)},
+()=>{let I=rnd(2,10),t=rnd(10,40),Q=I*t*60,V=Q/F*5600;return mk('Electrolysis','Mains',`${I} A is passed for ${t} min through dilute H<sub>2</sub>SO<sub>4</sub> (Pt electrodes). Volume of O<sub>2</sub> at STP at anode (mL)?`,V,[V*2,V/2,V*4],fx(0),`4OH⁻/2H₂O → O₂ needs 4 F per mole; 1 F gives 5600 mL. Q = ${Q} C = ${(Q/F).toFixed(3)} F → <b>${V.toFixed(0)} mL</b>.`)},
+()=>{let p=rnd(1,6),E=-.059*p;return mk('Nernst Equation','Mains',`Potential of hydrogen electrode (H<sub>2</sub>, 1 atm) in a solution of pH = ${p} at 298 K vs SHE?`,E,[-E,-.0295*p,-.118*p],fu(3,'V'),`E = −0.059·pH = −0.059×${p} = <b>${E.toFixed(3)} V</b>.`)},
+()=>{let x=-rnd(2,4),k=rnd(1,2),E=.0295*k;return mk('Nernst Equation','Mains',`Cu|Cu<sup>2+</sup>(10<sup>${x}</sup> M)||Cu<sup>2+</sup>(10<sup>${x+k}</sup> M)|Cu. EMF at 298 K?`,E,[.059*k,.0295*(k+1),.0295*k/2],fu(4,'V'),`Concentration cell: E = (0.059/2)·log(c<sub>cathode</sub>/c<sub>anode</sub>) = 0.0295×${k} = <b>${E.toFixed(4)} V</b>.`)},
+()=>{let[r,n]=pick([['MnO<sub>4</sub><sup>−</sup> → Mn<sup>2+</sup>',5],['Cr<sub>2</sub>O<sub>7</sub><sup>2−</sup> → 2Cr<sup>3+</sup>',6],['MnO<sub>4</sub><sup>−</sup> → MnO<sub>2</sub>',3]]),x=pick([.5,2,3,.2]),Q=n*x*F;return mk("Faraday's Laws",'Advanced',`Charge (C) required to reduce ${x} mol of ${r} in a cell?`,Q,[x*F,n*F,Q*2],v=>Math.round(v).toLocaleString(),`Electrons per ion = ${n}. Q = n·x·F = ${n}×${x}×96500 = <b>${Math.round(Q).toLocaleString()} C</b>.`)},
+()=>{let w=rnd(2,9),c=w*31.75/108;return mk("Faraday's Laws",'Mains',`The same charge passes through AgNO<sub>3</sub> and CuSO<sub>4</sub> cells in series. If ${w} g Ag deposits, mass of Cu deposited? (Ag 108, Cu 63.5)`,c,[w*63.5/108,w*108/31.75,c*2],fu(2,'g'),`Equal charge → equal equivalents: w<sub>Cu</sub>/31.75 = ${w}/108 → <b>${c.toFixed(2)} g</b>.`)},
+()=>{let x=rnd(2,8),S=-2*F*x*1e-4;return mk('Thermodynamics of Cells','Advanced',`For a 2e⁻ cell reaction, (∂E/∂T)<sub>p</sub> = −${x}×10⁻⁴ V K⁻¹. ΔS of the reaction (J K⁻¹ mol⁻¹)?`,S,[-S,S/2,S*2],fx(1),`ΔS = nF(∂E/∂T) = 2×96500×(−${x}×10⁻⁴) = <b>${S.toFixed(1)}</b>.`)},
+()=>{let p=rnd(1,5),E=1.51-.0944*p;return mk('Nernst Equation','Advanced',`MnO<sub>4</sub><sup>−</sup> + 8H<sup>+</sup> + 5e⁻ → Mn<sup>2+</sup> + 4H<sub>2</sub>O, E° = 1.51 V. At [MnO<sub>4</sub><sup>−</sup>] = [Mn<sup>2+</sup>] and pH = ${p}, E = ?`,E,[1.51-.059*p,1.51+.0944*p,1.51-.472*p],fu(3,'V'),`E = 1.51 − (0.059/5)·log(1/[H⁺]⁸) = 1.51 − 0.0944·pH = <b>${E.toFixed(3)} V</b>.`)},
+()=>{let a=rnd(180,200),b=rnd(150,165);return mk('Conductance & Kohlrausch','Mains',`λ°(Al³⁺) = ${a}, λ°(SO<sub>4</sub><sup>2−</sup>) = ${b} S cm² mol⁻¹. Λ°m of Al<sub>2</sub>(SO<sub>4</sub>)<sub>3</sub>?`,2*a+3*b,[a+b,3*a+2*b,2*a+b],fx(0),`Λ°m = 2λ°(Al³⁺) + 3λ°(SO₄²⁻) = 2×${a}+3×${b} = <b>${2*a+3*b}</b>.`)},
+()=>{let p=rnd(40,80),n=rnd(50,80),t=p/(p+n);return mk('Conductance & Kohlrausch','Mains',`Limiting ionic conductivities: cation ${p}, anion ${n} S cm² mol⁻¹. Transport number of the cation?`,t,[n/(p+n),p/n,.5],fx(3),`t₊ = λ₊/(λ₊+λ₋) = ${p}/${p+n} = <b>${t.toFixed(3)}</b>.`)}
+];
+const dan=`<svg viewBox="0 0 320 170" width="320"><rect x="30" y="80" width="90" height="75" fill="#38bdf8" opacity=".4"/><rect x="200" y="80" width="90" height="75" fill="#f97316" opacity=".4"/><rect x="65" y="50" width="12" height="90" fill="#9ca3af"/><rect x="245" y="50" width="12" height="90" fill="#b45309"/><path d="M71 50V20H251V50" stroke="#fde047" fill="none" stroke-width="2"/><path d="M110 75Q160 10 210 75" stroke="#a78bfa" fill="none" stroke-width="8"/><text x="62" y="165" font-size="12">Zn / ZnSO₄</text><text x="225" y="165" font-size="12">Cu / CuSO₄</text><text x="140" y="14" font-size="12">wire + voltmeter</text><text x="132" y="55" font-size="11">salt bridge (KNO₃)</text></svg>`;
+const lam=`<svg viewBox="0 0 280 190" width="300"><path d="M40 10V160H260" stroke="#fff" fill="none"/><path d="M40 40L250 75" stroke="#34d399" fill="none" stroke-width="3"/><path d="M40 40Q55 140 250 148" stroke="#f472b6" fill="none" stroke-width="3"/><text x="205" y="62" font-size="14">X</text><text x="200" y="140" font-size="14">Y</text><text x="125" y="180" font-size="12">√c →</text><text x="2" y="14" font-size="12">Λm</text></svg>`;
+const S=[
+{t:'Galvanic Cells',l:'Mains',q:'Given E°(Zn²⁺/Zn) = −0.76 V and E°(Cu²⁺/Cu) = +0.34 V, which is correct?',o:['Zn displaces Cu from CuSO₄; E°cell = 1.10 V','Cu displaces Zn from ZnSO₄; E°cell = 1.10 V','Zn displaces Cu; E°cell = 0.42 V','Cu is anode; E°cell = −1.10 V'],s:'Zn (lower E°red) is oxidised at the anode; E°cell = 0.34 − (−0.76) = 1.10 V &gt; 0, so Zn reduces Cu²⁺ spontaneously.'},
+{t:'Batteries & Corrosion',l:'Mains',q:'During discharge of a lead storage battery:',o:['H₂SO₄ is consumed, PbSO₄ forms on both electrodes, density falls','H₂SO₄ is produced and density rises','PbO₂ is formed at the anode','Only the cathode gets PbSO₄ coating'],s:'Anode: Pb + SO₄²⁻ → PbSO₄ + 2e⁻; Cathode: PbO₂ + 4H⁺ + SO₄²⁻ + 2e⁻ → PbSO₄ + 2H₂O. Acid is used up so density falls.'},
+{t:'Galvanic Cells',l:'Mains',q:'E°red (V): Li⁺/Li = −3.05, K⁺/K = −2.93, Ca²⁺/Ca = −2.87, Na⁺/Na = −2.71. Strongest reducing agent?',o:['Li','K','Ca','Na'],s:'The most negative E°red belongs to the strongest reducing agent: Li (−3.05 V).'},
+{t:'Electrolysis',l:'Mains',q:'Electrolysis of aqueous NaCl with inert electrodes gives at cathode and anode respectively:',o:['H₂ and Cl₂','Na and Cl₂','H₂ and O₂','Na and O₂'],s:'Water is reduced easier than Na⁺ (H₂ at cathode). At anode Cl⁻ is oxidised in preference to water because of the high overpotential of O₂ → Cl₂.'},
+{t:'Electrolysis',l:'Advanced',q:'Electrolysis of CuSO₄(aq) using copper electrodes: the concentration of Cu²⁺ in solution',o:['Remains constant','Increases','Decreases','Becomes zero'],s:'Anode: Cu → Cu²⁺ + 2e⁻ (Cu dissolves); cathode: Cu²⁺ + 2e⁻ → Cu. Same amount dissolved and deposited.'},
+{t:'Batteries & Corrosion',l:'Mains',q:'EMF of a mercury cell remains constant during its life because',o:['Overall reaction involves no ion whose concentration changes','Hg is a noble metal','KOH is not consumed because it is solid','Temperature is constant'],s:'Zn + HgO → ZnO + Hg: no ions appear in the net reaction, so Q stays constant and so does E.'},
+{t:'Conductance & Kohlrausch',l:'Mains',q:'On dilution of a weak electrolyte solution:',o:['κ decreases and Λm increases','κ increases and Λm decreases','Both increase','Both decrease'],s:'Fewer ions per unit volume → κ falls; degree of ionisation rises sharply → Λm rises.'},
+{t:'Conductance & Kohlrausch',l:'Mains',q:'Which ion has the highest limiting molar ionic conductivity in water?',o:['H⁺','K⁺','Na⁺','Li⁺'],s:'H⁺ moves by the Grotthuss (proton-hopping) mechanism: λ° ≈ 350 S cm² mol⁻¹. Li⁺ is most hydrated hence slowest.'},
+{t:'Batteries & Corrosion',l:'Mains',q:'In an alkaline H₂–O₂ fuel cell the anode reaction is:',o:['H₂ + 2OH⁻ → 2H₂O + 2e⁻','O₂ + 2H₂O + 4e⁻ → 4OH⁻','H₂ → 2H⁺ + 2e⁻','2H₂O → O₂ + 4H⁺ + 4e⁻'],s:'Anode = oxidation of H₂; in alkaline medium it consumes OH⁻. The O₂ reduction is the cathode reaction.'},
+{t:'Galvanic Cells',l:'Advanced',q:'Which electrolyte is unsuitable for a salt bridge in a cell containing an Ag⁺ half-cell?',o:['KCl','KNO₃','NH₄NO₃','LiNO₃'],s:'Cl⁻ precipitates Ag⁺ as AgCl. Nitrates with similar ionic mobilities are suitable.'},
+{t:'Batteries & Corrosion',l:'Mains',q:'In rusting of iron, the anodic reaction is:',o:['Fe → Fe²⁺ + 2e⁻','O₂ + 4H⁺ + 4e⁻ → 2H₂O','Fe → Fe³⁺ + 3e⁻','2H₂O → O₂ + 4H⁺ + 4e⁻'],s:'Iron is oxidised to Fe²⁺ at the anodic spot; O₂ is reduced at the cathodic region. Fe²⁺ later oxidises to rust Fe₂O₃·xH₂O.'},
+{t:'Thermodynamics of Cells',l:'Mains',q:'Which set is consistent with a spontaneous cell reaction?',o:['E°&gt;0, ΔG°&lt;0, K&gt;1','E°&gt;0, ΔG°&gt;0, K&gt;1','E°&lt;0, ΔG°&lt;0, K&lt;1','E°&lt;0, ΔG°&lt;0, K&gt;1'],s:'ΔG° = −nFE° = −RT ln K. Positive E° → negative ΔG° → K &gt; 1.'},
+{t:'Galvanic Cells',l:'Advanced',q:'Consider the Daniell cell shown. Which statement is correct?',svg:dan,o:['Anions of the salt bridge migrate towards the Zn half-cell','Electrons flow from Cu to Zn in the wire','K⁺ moves towards the Zn half-cell','Zn electrode is the cathode'],s:'Zn is the anode (Zn²⁺ builds up), electrons flow Zn → Cu. To keep neutrality, anions go to the anode (Zn) side and cations to the Cu side.'},
+{t:'Conductance & Kohlrausch',l:'Advanced',q:'The plots of Λm vs √c for two electrolytes are shown. Which curve is for CH₃COOH and how is its Λ°m found?',svg:lam,o:['Y; by Kohlrausch law of independent migration of ions','X; by extrapolating the plot to c = 0','Y; by extrapolating the linear region','X; by Kohlrausch law'],s:'A weak electrolyte shows a steep rise at low c (Y) – extrapolation fails, so Λ°m is obtained from Kohlrausch law. Strong electrolytes (X) give a straight line (Λm = Λ° − A√c).'},
+{t:'Electrolysis',l:'Advanced',q:'After electrolysis of aqueous CuSO₄ with Pt electrodes, the pH of the solution',o:['Decreases','Increases','Stays 7','Becomes 14'],s:'Cu²⁺ is reduced at cathode, water is oxidised at anode: 2H₂O → O₂ + 4H⁺ + 4e⁻. H₂SO₄ is formed so pH falls.'},
+{t:'Nernst Equation',l:'Mains',q:'For Cu²⁺ + 2e⁻ → Cu at 298 K, the slope of E vs log[Cu²⁺] is',o:['0.0295 V','0.059 V','0.118 V','−0.0295 V'],s:'E = E° + (0.059/2) log[Cu²⁺] → slope = 0.0295 V.'},
+{t:'Nernst Equation',l:'Advanced',q:'E°cell of a concentration cell is',o:['Zero','Positive','Negative','Equal to E of cathode'],s:'Both electrodes are identical, so E°cathode = E°anode and E°cell = 0; EMF arises only from the concentration ratio.'}
+];
+const SH=(x)=>{let c=x.o[0],o=shuf(x.o);return{...x,o,a:o.indexOf(c)}};
+let Qs,i,res,N=50,score,streak,best,t0,tq0,timer,lock;
+$('lens').innerHTML=[25,50,100].map(n=>`<button class="len ${n==N?'on':''}" onclick="N=${n};document.querySelectorAll('.len').forEach(b=>b.classList.remove('on'));this.classList.add('on')">${n}</button>`).join('');
+function build(){let out=shuf(S).slice(0,Math.min(S.length,Math.ceil(N*.35))).map(SH),seen=new Set(out.map(x=>x.q)),g=[];
+ while(out.length<N){if(!g.length)g=shuf(G);let f=g.pop(),x,k=0;do{x=f();k++}while(seen.has(x.q)&&k<8);seen.add(x.q);let c=x.o[0];x.o=shuf(x.o);x.a=x.o.indexOf(c);out.push(x)}
+ return shuf(out)}
+function startQuiz(){Qs=build();i=0;res=[];score=0;streak=0;best=0;t0=Date.now();$('start').classList.add('hide');$('result').classList.add('hide');$('quiz').classList.remove('hide');clearInterval(timer);timer=setInterval(tick,250);show()}
+function fmt(s){return Math.floor(s/60)+':'+String(Math.floor(s%60)).padStart(2,'0')}
+function tick(){$('tq').textContent=Math.floor((Date.now()-tq0)/1000)+'s';$('tt').textContent=fmt((Date.now()-t0)/1000)}
+function show(){let q=Qs[i];lock=false;tq0=Date.now();$('pn').textContent=`Q ${i+1}/${N}`;$('pb').style.width=(i/N*100)+'%';$('sc').textContent=score;$('st').textContent=streak;
+ $('qbody').innerHTML=`<span class="chip">${q.t}</span><span class="chip ${q.l=='Advanced'?'adv':''}">JEE ${q.l}</span><div class="q">${q.q}</div>${q.svg?`<div style="text-align:center">${q.svg}</div>`:''}`;
+ $('opts').innerHTML=q.o.map((o,k)=>`<button class="opt" onclick="ans(${k})"><b>${'ABCD'[k]}.</b> ${o}</button>`).join('');
+ $('solbox').innerHTML='';$('next').classList.add('hide');$('skip').classList.remove('hide');$('next').textContent=i==N-1?'Finish 🏁':'Next ➜'}
+function ans(k){if(lock)return;lock=true;let q=Qs[i],tm=(Date.now()-tq0)/1000,ok=k==q.a,B=document.querySelectorAll('.opt');B.forEach(b=>b.disabled=true);
+ B[q.a].classList.add('ok');
+ if(ok){score+=4;streak++;best=Math.max(best,streak);praise(streak)}
+ else{B[k].classList.add('bad');score-=1;streak=0;$('solbox').innerHTML=`<div class="sol"><b>❌ Correct answer: ${'ABCD'[q.a]}</b><br>${q.s}</div>`;msg(pick(['Not quite – learn it, own it! 💪','Mistakes build rank! 📘','Read the solution, next one is yours! 🎯']),'#fca5a5')}
+ res.push({q,k,ok,tm,sk:false});$('sc').textContent=score;$('st').textContent=streak;done()}
+function skipQ(){if(lock)return;lock=true;let q=Qs[i];document.querySelectorAll('.opt').forEach(b=>b.disabled=true);document.querySelectorAll('.opt')[q.a].classList.add('ok');streak=0;$('solbox').innerHTML=`<div class="sol"><b>Skipped – answer: ${'ABCD'[q.a]}</b><br>${q.s}</div>`;res.push({q,k:-1,ok:false,tm:(Date.now()-tq0)/1000,sk:true});done()}
+function done(){$('next').classList.remove('hide');$('skip').classList.add('hide')}
+function nextQ(){i++;i<N?show():finish()}
+function msg(t,c){let p=$('praise');p.textContent=t;p.style.color=c;p.classList.remove('show');void p.offsetWidth;p.classList.add('show')}
+function praise(s){let L=s>=5?['🔥 UNSTOPPABLE! '+s+' in a row!','🚀 Topper mode ON!']:s>=3?['⚡ Hat-trick! Streak '+s,'🌟 On fire!']:['✅ Brilliant!','🎉 Excellent!','👏 Well done!','💯 Spot on!','🧠 Sharp mind!'];msg(pick(L),pick(['#fde047','#86efac','#f9a8d4','#7dd3fc']));confetti(s>=3?160:80)}
+let P=[],cv=$('cf'),cx=cv.getContext('2d');
+function confetti(n){cv.width=innerWidth;cv.height=innerHeight;for(let j=0;j<n;j++)P.push({x:innerWidth/2,y:innerHeight*.35,vx:(Math.random()-.5)*16,vy:-Math.random()*14-3,c:`hsl(${rnd(0,360)},90%,60%)`,s:rnd(5,10),r:Math.random()*6,l:100});if(P.length==n)anim()}
+function anim(){cx.clearRect(0,0,cv.width,cv.height);P=P.filter(p=>p.l-->0);P.forEach(p=>{p.x+=p.vx;p.y+=p.vy;p.vy+=.4;p.r+=.2;cx.save();cx.translate(p.x,p.y);cx.rotate(p.r);cx.fillStyle=p.c;cx.fillRect(-p.s/2,-p.s/4,p.s,p.s/2);cx.restore()});if(P.length)requestAnimationFrame(anim);else cx.clearRect(0,0,cv.width,cv.height)}
+function finish(){clearInterval(timer);$('quiz').classList.add('hide');let tot=(Date.now()-t0)/1000,att=res.filter(r=>!r.sk),cor=att.filter(r=>r.ok).length,wr=att.length-cor,sk=res.length-att.length,acc=att.length?cor/att.length*100:0,mx=4*N,pct=score/mx*100;
+ let grade=pct>=85?'🏆 Outstanding – Advanced ready!':pct>=65?'🌟 Strong – keep polishing':pct>=40?'📈 Good base – revise weak topics':'💪 Needs work – study the solutions below';
+ let by=(key)=>{let m={};res.forEach(r=>{let k=r.q[key];m[k]=m[k]||{n:0,a:0,c:0,t:0};m[k].n++;m[k].t+=r.tm;if(!r.sk){m[k].a++;if(r.ok)m[k].c++}});return m};
+ let tp=by('t'),lv=by('l'),avg=tot/N;
+ let rows=m=>Object.entries(m).map(([k,v])=>{let a=v.a?v.c/v.a*100:0;return`<div class="row"><span>${k} <small>(${v.c}/${v.n})</small></span><div class="tr"><i style="width:${a}%;background:${a>=70?'#22c55e':a>=40?'#f59e0b':'#ef4444'}"></i></div><span style="width:110px">${a.toFixed(0)}% · ${(v.t/v.n).toFixed(0)}s avg</span></div>`}).join('');
+ let C=251.3,d1=cor/N*C,d2=wr/N*C,d3=sk/N*C;
+ let arr=Object.entries(tp).filter(e=>e[1].a).map(([k,v])=>[k,v.c/v.a]).sort((a,b)=>a[1]-b[1]),slow=[...res].map((r,j)=>[j+1,r.tm]).sort((a,b)=>b[1]-a[1])[0],fastWrong=res.filter(r=>!r.ok&&!r.sk&&r.tm<avg/2).length;
+ let ins=[`🔻 Weakest topic: <b>${arr[0]?arr[0][0]:'–'}</b> (${arr[0]?(arr[0][1]*100).toFixed(0):0}%)`,`🔺 Strongest topic: <b>${arr.length?arr[arr.length-1][0]:'–'}</b>`,`🐢 Slowest question: Q${slow[0]} (${slow[1].toFixed(0)}s)`,fastWrong?`⚠️ ${fastWrong} wrong answers were rushed (under half your average time) – read carefully!`:'✅ No rushed mistakes – good discipline.',`🔥 Best streak: <b>${best}</b>`,`⏱ JEE pace check: ~${(avg).toFixed(0)}s/question (target ≈ 120s)`];
+ let wrongs=res.map((r,j)=>({r,j})).filter(x=>!x.r.ok);
+ $('result').innerHTML=`<div class="card"><h1>📊 Result Analysis</h1><p style="font-size:1.2rem">${grade}</p>
+ <div class="grid"><div class="stat"><b>${score}/${mx}</b>Marks</div><div class="stat"><b>${acc.toFixed(1)}%</b>Accuracy</div><div class="stat"><b>${fmt(tot)}</b>Total time</div><div class="stat"><b>${avg.toFixed(0)}s</b>Avg / question</div><div class="stat"><b>${cor}</b>Correct</div><div class="stat"><b>${wr}</b>Wrong (−${wr})</div><div class="stat"><b>${sk}</b>Skipped</div><div class="stat"><b>${best}</b>Best streak</div></div></div>
+ <div class="card"><h3>Attempt breakdown</h3><div style="display:flex;gap:24px;align-items:center;flex-wrap:wrap"><svg viewBox="0 0 100 100" width="150" style="transform:rotate(-90deg)"><circle cx="50" cy="50" r="40" fill="none" stroke="#22c55e" stroke-width="16" stroke-dasharray="${d1} ${C}"/><circle cx="50" cy="50" r="40" fill="none" stroke="#ef4444" stroke-width="16" stroke-dasharray="${d2} ${C}" stroke-dashoffset="${-d1}"/><circle cx="50" cy="50" r="40" fill="none" stroke="#94a3b8" stroke-width="16" stroke-dasharray="${d3} ${C}" stroke-dashoffset="${-d1-d2}"/></svg><div>🟢 Correct ${cor}<br>🔴 Wrong ${wr}<br>⚪ Skipped ${sk}</div></div></div>
+ <div class="card"><h3>Topic-wise accuracy &amp; speed</h3>${rows(tp)}<h3>Level-wise</h3>${rows(lv)}</div>
+ <div class="card"><h3>Time per question <small>(green correct · red wrong · grey skipped)</small></h3><div class="bars">${res.map((r,j)=>`<i title="Q${j+1}: ${r.tm.toFixed(0)}s" style="height:${Math.max(3,r.tm/Math.max(...res.map(x=>x.tm))*100)}%;background:${r.sk?'#94a3b8':r.ok?'#22c55e':'#ef4444'}"></i>`).join('')}</div></div>
+ <div class="card"><h3>Insights</h3>${ins.map(x=>`<p>${x}</p>`).join('')}</div>
+ <div class="card"><h3>📘 Review: wrong &amp; skipped (${wrongs.length})</h3>${wrongs.map(({r,j})=>`<details><summary>Q${j+1} · ${r.q.t} · your answer: ${r.sk?'Skipped':'ABCD'[r.k]}</summary><div class="q">${r.q.q}</div>${r.q.svg||''}<p>✅ Correct: <b>${'ABCD'[r.q.a]}. ${r.q.o[r.q.a]}</b></p><div class="sol">${r.q.s}</div></details>`).join('')||'<p>🎉 Perfect – nothing to review!</p>'}</div>
+ <button onclick="location.reload()">🔄 New Quiz (fresh questions)</button>`;
+ $('result').classList.remove('hide');window.scrollTo(0,0);if(pct>=40)confetti(200)}
+</script></body></html>

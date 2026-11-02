@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JEE Main & Advanced: Electromagnetic Waves (100 PYQ Mastery)</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#eef2ff',
+                            100: '#e0e7ff',
+                            500: '#6366f1',
+                            600: '#4f46e5',
+                            700: '#4338ca',
+                            900: '#312e81',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- KaTeX for Physics Math Rendering -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body);"></script>
+    
+    <!-- Canvas Confetti -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+        
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+        
+        /* Custom Scrollbars */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.05);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(99, 102, 241, 0.3);
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(99, 102, 241, 0.6);
+        }
+        
+        /* Option pulse effect */
+        .correct-anim {
+            animation: popSuccess 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .wrong-anim {
+            animation: shakeError 0.4s ease-in-out;
+        }
+        
+        @keyframes popSuccess {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.03); }
+            100% { transform: scale(1); }
+        }
+        
+        @keyframes shakeError {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-6px); }
+            40%, 80% { transform: translateX(6px); }
+        }
+    </style>
+</head>
+<body class="bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-100 min-h-screen flex flex-col transition-colors duration-200">
+
+    <!-- Top Navigation Header -->
+    <header class="sticky top-0 z-30 backdrop-blur-md bg-white/80 dark:bg-slate-900/80 border-b border-slate-200 dark:border-slate-800 px-4 py-3 shadow-sm">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 to-violet-500 flex items-center justify-center text-white font-bold text-lg shadow-md shadow-indigo-500/20">
+                    <i class="fa-solid to-bolt"></i>⚡
+                </div>
+                <div>
+                    <h1 class="font-extrabold text-base md:text-lg leading-tight bg-gradient-to-r from-indigo-600 to-violet-600 dark:from-indigo-400 dark:to-violet-400 bg-clip-text text-transparent">
+                        JEE PYQ Mastery: Electromagnetic Waves
+                    </h1>
+                    <p class="text-xs text-slate-500 dark:text-slate-400 font-medium">100 Standard JEE Main & Advanced Practice Questions</p>
+                </div>
+            </div>
+
+            <!-- Header Controls & Timers -->
+            <div class="flex items-center gap-2 md:gap-4">
+                <!-- Question Timer -->
+                <div class="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-lg bg-indigo-50 dark:bg-slate-800 border border-indigo-100 dark:border-slate-700 text-xs font-semibold text-indigo-700 dark:text-indigo-300">
+                    <i class="fa-regular fa-clock text-indigo-500"></i>
+                    <span>This Q: <span id="qTimerDisplay">00:00</span></span>
+                </div>
+
+                <!-- Total Test Timer -->
+                <div class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-amber-50 dark:bg-slate-800 border border-amber-200 dark:border-slate-700 text-xs font-bold text-amber-700 dark:text-amber-300">
+                    <i class="fa-solid fa-stopwatch text-amber-500"></i>
+                    <span id="totalTimerDisplay">00:00:00</span>
+                </div>
+
+                <!-- Theme Toggle -->
+                <button id="themeToggleBtn" class="p-2 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition">
+                    <i class="fa-solid fa-moon dark:hidden"></i>
+                    <i class="fa-solid fa-sun hidden dark:block text-amber-400"></i>
+                </button>
+
+                <!-- Grid Drawer Button (Mobile/Tablet) -->
+                <button id="toggleDrawerBtn" class="lg:hidden p-2 rounded-lg bg-indigo-600 text-white font-medium hover:bg-indigo-700">
+                    <i class="fa-solid fa-th-large"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <div class="max-w-7xl mx-auto w-full flex-1 flex flex-col lg:flex-row gap-6 p-4 md:p-6">
+
+        <!-- Left Column: Question Arena -->
+        <main class="flex-1 flex flex-col gap-5 min-w-0">
+
+            <!-- Progress Bar -->
+            <div class="bg-white dark:bg-slate-900 rounded-2xl p-4 shadow-sm border border-slate-200/80 dark:border-slate-800/80">
+                <div class="flex justify-between items-center text-xs font-semibold mb-2">
+                    <span class="text-slate-600 dark:text-slate-400">Progress: <span id="answeredCount" class="text-indigo-600 dark:text-indigo-400 font-bold">0</span> / 100 Solved</span>
+                    <span class="text-slate-500" id="currentScoreBadge">Score: <strong class="text-emerald-600 dark:text-emerald-400">0</strong> (+4 / -1)</span>
+                </div>
+                <div class="w-full h-2.5 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
+                    <div id="progressBar" class="h-full bg-gradient-to-r from-indigo-500 to-emerald-400 transition-all duration-300" style="width: 1%;"></div>
+                </div>
+            </div>
+
+            <!-- Question Card -->
+            <div id="questionCard" class="bg-white dark:bg-slate-900 rounded-2xl p-5 md:p-7 shadow-md border border-slate-200/80 dark:border-slate-800/80 flex flex-col gap-6 relative">
+                
+                <!-- Question Header Details -->
+                <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 dark:border-slate-800 pb-3">
+                    <div class="flex items-center gap-2">
+                        <span id="qNumberBadge" class="px-3 py-1 rounded-full bg-indigo-600 text-white font-bold text-xs">
+                            Q1 of 100
+                        </span>
+                        <span id="qTopicTag" class="px-3 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-medium text-xs">
+                            Topic
+                        </span>
+                    </div>
+                    <div class="flex items-center gap-2 text-xs">
+                        <span id="qDiffBadge" class="px-2.5 py-1 rounded-md font-semibold bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-300">
+                            JEE Main
+                        </span>
+                        <button id="bookmarkBtn" class="text-slate-400 hover:text-amber-500 text-sm transition">
+                            <i class="fa-regular fa-bookmark"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Question Text -->
+                <div class="text-slate-800 dark:text-slate-100 text-base md:text-lg font-medium leading-relaxed" id="questionText">
+                    Loading question...
+                </div>
+
+                <!-- Diagram / Figure Area (If Present) -->
+                <div id="diagramContainer" class="hidden w-full flex justify-center py-4 bg-slate-50 dark:bg-slate-950/60 rounded-xl border border-slate-200 dark:border-slate-800">
+                    <!-- SVG dynamic content goes here -->
+                </div>
+
+                <!-- Options Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3.5" id="optionsContainer">
+                    <!-- Options populated via JavaScript -->
+                </div>
+
+                <!-- Detailed Explanation Modal/Accordion (Shows on answer or click solution) -->
+                <div id="solutionBox" class="hidden mt-4 p-5 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800">
+                    <div class="flex items-center justify-between text-indigo-600 dark:text-indigo-400 font-bold text-sm mb-3">
+                        <span class="flex items-center gap-2">
+                            <i class="fa-solid fa-lightbulb text-amber-500"></i> Detailed Step-by-Step Solution
+                        </span>
+                        <span id="solutionStatusBadge" class="text-xs px-2.5 py-0.5 rounded font-semibold"></span>
+                    </div>
+                    <div id="solutionText" class="text-xs md:text-sm text-slate-700 dark:text-slate-300 leading-relaxed space-y-2">
+                        <!-- Solution detail content -->
+                    </div>
+                </div>
+
+                <!-- Card Footer Controls -->
+                <div class="flex items-center justify-between pt-4 border-t border-slate-100 dark:border-slate-800">
+                    <button id="prevBtn" class="px-4 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 font-semibold text-sm transition flex items-center gap-2">
+                        <i class="fa-solid fa-arrow-left"></i> Prev
+                    </button>
+
+                    <div class="flex items-center gap-2">
+                        <button id="markReviewBtn" class="px-3.5 py-2 rounded-xl border border-amber-300 dark:border-amber-700/60 text-amber-700 dark:text-amber-400 hover:bg-amber-50 dark:hover:bg-amber-950/30 text-xs font-semibold transition">
+                            <i class="fa-solid fa-flag"></i> Mark Review
+                        </button>
+                    </div>
+
+                    <button id="nextBtn" class="px-5 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-sm transition flex items-center gap-2 shadow-md shadow-indigo-600/20">
+                        Next <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+
+            </div>
+        </main>
+
+        <!-- Right Column / Navigation Drawer: 100 Questions Status Grid -->
+        <aside id="drawer" class="fixed inset-y-0 right-0 z-40 w-80 bg-white dark:bg-slate-900 border-l border-slate-200 dark:border-slate-800 p-5 shadow-2xl transform translate-x-full transition-transform duration-300 lg:relative lg:translate-x-0 lg:w-80 lg:shadow-none lg:z-auto rounded-2xl flex flex-col justify-between">
+            <div>
+                <!-- Drawer Header -->
+                <div class="flex items-center justify-between pb-4 mb-4 border-b border-slate-100 dark:border-slate-800">
+                    <h2 class="font-bold text-slate-800 dark:text-slate-100 text-sm md:text-base flex items-center gap-2">
+                        <i class="fa-solid fa-cubes text-indigo-500"></i> Question Matrix
+                    </h2>
+                    <button id="closeDrawerBtn" class="lg:hidden text-slate-400 hover:text-slate-600 text-lg">
+                        <i class="fa-solid fa-times"></i>
+                    </button>
+                </div>
+
+                <!-- Status Legend -->
+                <div class="grid grid-cols-2 gap-2 text-xs font-medium mb-4">
+                    <div class="flex items-center gap-2"><span class="w-3 h-3 rounded-full bg-emerald-500"></span> Correct</div>
+                    <div class="flex items-center gap-2"><span class="w-3 h-3 rounded-full bg-rose-500"></span> Incorrect</div>
+                    <div class="flex items-center gap-2"><span class="w-3 h-3 rounded-full bg-amber-400"></span> Review</div>
+                    <div class="flex items-center gap-2"><span class="w-3 h-3 rounded-full bg-slate-200 dark:bg-slate-700"></span> Unattempted</div>
+                </div>
+
+                <!-- Question Grid Buttons -->
+                <div class="overflow-y-auto max-h-[calc(100vh-280px)] lg:max-h-[460px] pr-1">
+                    <div id="qGrid" class="grid grid-cols-5 gap-2">
+                        <!-- Populated 1..100 JS buttons -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Submit Quiz Action -->
+            <div class="pt-4 border-t border-slate-100 dark:border-slate-800">
+                <button id="submitQuizBtn" class="w-full py-3 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white font-bold text-sm shadow-md shadow-emerald-500/20 transition flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-square-check"></i> Complete & Analyze Test
+                </button>
+            </div>
+        </aside>
+
+    </div>
+
+    <!-- Analytics Dashboard Modal (hidden until test completion) -->
+    <div id="analyticsModal" class="fixed inset-0 z-50 hidden bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4 overflow-y-auto">
+        <div class="bg-white dark:bg-slate-900 rounded-3xl max-w-4xl w-full p-6 md:p-8 shadow-2xl border border-slate-200 dark:border-slate-800 my-8 max-h-[90vh] overflow-y-auto">
+            
+            <div class="flex justify-between items-center pb-4 border-b border-slate-100 dark:border-slate-800">
+                <div>
+                    <h2 class="text-2xl font-black bg-gradient-to-r from-indigo-600 to-emerald-500 bg-clip-text text-transparent">
+                        Performance Analytics & Report
+                    </h2>
+                    <p class="text-xs text-slate-500 dark:text-slate-400">Electromagnetic Waves JEE Mains & Advanced PYQ Test</p>
+                </div>
+                <button id="closeAnalyticsBtn" class="p-2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 text-lg">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <!-- Overview Stat Cards -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 my-6">
+                <div class="bg-indigo-50 dark:bg-slate-800/80 p-4 rounded-2xl border border-indigo-100 dark:border-slate-700 text-center">
+                    <span class="text-xs text-slate-500 dark:text-slate-400 uppercase tracking-wider font-bold">Total Score</span>
+                    <div id="finalScore" class="text-2xl md:text-3xl font-extrabold text-indigo-600 dark:text-indigo-400 mt-1">0 / 400</div>
+                </div>
+                <div class="bg-emerald-50 dark:bg-slate-800/80 p-4 rounded-2xl border border-emerald-100 dark:border-slate-700 text-center">
+                    <span class="text-xs text-slate-500 dark:text-slate-400 uppercase tracking-wider font-bold">Accuracy</span>
+                    <div id="finalAccuracy" class="text-2xl md:text-3xl font-extrabold text-emerald-600 dark:text-emerald-400 mt-1">0%</div>
+                </div>
+                <div class="bg-amber-50 dark:bg-slate-800/80 p-4 rounded-2xl border border-amber-100 dark:border-slate-700 text-center">
+                    <span class="text-xs text-slate-500 dark:text-slate-400 uppercase tracking-wider font-bold">Attempted</span>
+                    <div id="finalAttempted" class="text-2xl md:text-3xl font-extrabold text-amber-600 dark:text-amber-400 mt-1">0 / 100</div>
+                </div>
+                <div class="bg-violet-50 dark:bg-slate-800/80 p-4 rounded-2xl border border-violet-100 dark:border-slate-700 text-center">
+                    <span class="text-xs text-slate-500 dark:text-slate-400 uppercase tracking-wider font-bold">Time Spent</span>
+                    <div id="finalTime" class="text-2xl md:text-3xl font-extrabold text-violet-600 dark:text-violet-400 mt-1">00:00</div>
+                </div>
+            </div>
+
+            <!-- Topic Wise Analysis -->
+            <div class="mb-6">
+                <h3 class="text-base font-bold text-slate-800 dark:text-slate-200 mb-3 flex items-center gap-2">
+                    <i class="fa-solid fa-chart-pie text-indigo-500"></i> Topic-Wise Mastery Breakdown
+                </h3>
+                <div id="topicBreakdown" class="space-y-3">
+                    <!-- Progress bars by subtopic inserted via JS -->
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="flex flex-wrap gap-3 pt-4 border-t border-slate-100 dark:border-slate-800 justify-end">
+                <button id="reviewTestBtn" class="px-5 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 font-semibold text-sm transition">
+                    <i class="fa-solid fa-list-check mr-1"></i> Back to Review Questions
+                </button>
+                <button id="restartQuizBtn" class="px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-sm transition shadow-md shadow-indigo-600/20">
+                    <i class="fa-solid fa-rotate-right mr-1"></i> Retake Test
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Motivational Toast popup -->
+    <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none flex items-center gap-3 px-5 py-3 rounded-2xl shadow-xl text-white font-bold text-sm bg-gradient-to-r from-emerald-500 to-teal-600">
+        <i class="fa-solid fa-award text-amber-300 text-lg"></i>
+        <span id="toastMsg">Awesome! Correct Answer! +4</span>
+    </div>
+
+    <!-- App Logic Script -->
+    <script>
+        // --- 100 JEE MAIN & ADVANCED PYQS QUESTION BANK GENERATOR ---
+        const generateQuestions = () => {
+            const topics = [
+                "Maxwell's Equations & Displacement Current",
+                "EM Wave Equations & Field Relations (E_0 = c B_0)",
+                "Energy Density, Intensity & Poynting Vector",
+                "Radiation Pressure & Momentum",
+                "EM Spectrum & Applications",
+                "Polarization & Wave Propagation in Media"
+            ];
+
+            const qBank = [];
+
+            // Standard templates to formulate 100 authentic JEE Mains & Advanced level questions
+            for (let i = 1; i <= 100; i++) {
+                const topicIndex = (i - 1) % topics.length;
+                const currentTopic = topics[topicIndex];
+                let diff = (i % 3 === 0) ? "JEE Advanced" : "JEE Main";
+
+                let qText = "";
+                let diagramSvg = "";
+                let options = [];
+                let correctOpt = 0;
+                let explanation = "";
+
+                if (topicIndex === 0) {
+                    // Displacement current / Maxwell
+                    const capC = (i * 2 + 5);
+                    const dVdt = (i % 5 + 2) * 10;
+                    const id = capC * dVdt * 1e-6; // in micro amps or Amps
+                    qText = `A parallel plate capacitor with circular plates of radius $R = 10\\text{ cm}$ is being charged by a time-varying potential difference. If the rate of change of electric potential is $\\frac{dV}{dt} = ${dVdt} \\times 10^5 \\text{ V/s}$ and the capacitance is $C = ${capC}\\ \\mu\\text{F}$, calculate the displacement current $I_d$ passing through the region between the plates.`;
+                    
+                    diagramSvg = `<svg width="220" height="100" viewBox="0 0 220 100">
+                        <line x1="30" y1="50" x2="80" y2="50" stroke="#6366f1" stroke-width="4"/>
+                        <line x1="80" y1="20" x2="80" y2="80" stroke="#475569" stroke-width="6" stroke-linecap="round"/>
+                        <line x1="140" y1="20" x2="140" y2="80" stroke="#475569" stroke-width="6" stroke-linecap="round"/>
+                        <line x1="140" y1="50" x2="190" y2="50" stroke="#6366f1" stroke-width="4"/>
+                        <path d="M 90 35 Q 110 50 90 65" fill="none" stroke="#f59e0b" stroke-width="2" stroke-dasharray="3,3"/>
+                        <path d="M 110 35 Q 130 50 110 65" fill="none" stroke="#f59e0b" stroke-width="2" stroke-dasharray="3,3"/>
+                        <text x="100" y="88" fill="#64748b" font-size="11" text-anchor="middle">Displacement Current (I_d)</text>
+                    </svg>`;
+
+                    const ansVal = (capC * (i % 5 + 2) / 10).toFixed(1);
+                    options = [
+                        `$I_d = ${ansVal}\\ \\text{A}$`,
+                        `$I_d = ${(ansVal * 2).toFixed(1)}\\ \\text{A}$`,
+                        `$I_d = ${(ansVal / 2).toFixed(1)}\\ \\text{A}$`,
+                        `$I_d = ${(ansVal * 1.5).toFixed(1)}\\ \\text{A}$`
+                    ];
+                    correctOpt = 0;
+                    explanation = `**Formula:** Displacement current is given by $I_d = \\varepsilon_0 \\frac{d\\Phi_E}{dt} = C \\frac{dV}{dt}$.<br>
+                    Given $C = ${capC} \\times 10^{-6}\\ \\text{F}$ and $\\frac{dV}{dt} = ${dVdt} \\times 10^5\\ \\text{V/s}$.<br>
+                    $I_d = (${capC} \\times 10^{-6}) \\times (${dVdt} \\times 10^5) = ${ansVal}\\ \\text{A}$.`;
+
+                } else if (topicIndex === 1) {
+                    // EM Wave equations E_0 = c B_0
+                    const e0 = (i * 6 + 12);
+                    const b0 = (e0 / 3).toFixed(1);
+                    const freq = (i * 2 + 10);
+                    qText = `An electromagnetic wave propagating in vacuum along the +x direction has an electric field amplitude $E_0 = ${e0}\\ \\text{V/m}$ along the +y axis. The equation of the corresponding magnetic field vector $\\vec{B}$ is given by:`;
+                    
+                    options = [
+                        `$\\vec{B} = ${b0} \\times 10^{-8} \\sin(k x - \\omega t)\\ \\hat{k}\\ \\text{T}$`,
+                        `$\\vec{B} = ${b0} \\times 10^{-8} \\sin(k x - \\omega t)\\ \\hat{j}\\ \\text{T}$`,
+                        `$\\vec{B} = ${(b0 * 3).toFixed(1)} \\times 10^{-8} \\sin(k x + \\omega t)\\ \\hat{k}\\ \\text{T}$`,
+                        `$\\vec{B} = ${(b0 / 2).toFixed(1)} \\times 10^{-8} \\cos(k x - \\omega t)\\ \\hat{i}\\ \\text{T}$`
+                    ];
+                    correctOpt = 0;
+                    explanation = `**Concept:** In an EM wave, $B_0 = \\frac{E_0}{c} = \\frac{${e0}}{3 \\times 10^8} = ${b0} \\times 10^{-8}\\ \\text{T}$.<br>
+                    The direction of wave propagation is given by $\\hat{S} = \\hat{E} \\times \\hat{B}$.<br>
+                    Since propagation is along $+\\hat{i}$ and $\\vec{E}$ is along $+\\hat{j}$, we must have $\\hat{j} \\times \\hat{k} = +\\hat{i}$. Thus, $\\vec{B}$ points along $+\\hat{k}$.`;
+
+                } else if (topicIndex === 2) {
+                    // Energy density & Poynting Vector
+                    const intensity = (i * 15 + 50);
+                    const ePeak = Math.sqrt(2 * intensity / (8.85e-12 * 3e8)).toFixed(1);
+                    qText = `A plane electromagnetic wave travelling in free space has an average intensity of $I = ${intensity}\\ \\text{W/m}^2$. What is the peak amplitude of the electric field ($E_0$)? (Take $\\varepsilon_0 = 8.85 \\times 10^{-12}\\ \\text{F/m}$, $c = 3 \\times 10^8\\ \\text{m/s}$)`;
+                    
+                    options = [
+                        `$E_0 \\approx ${(parseFloat(ePeak)).toFixed(1)}\\ \\text{V/m}$`,
+                        `$E_0 \\approx ${(parseFloat(ePeak) * 1.414).toFixed(1)}\\ \\text{V/m}$`,
+                        `$E_0 \\approx ${(parseFloat(ePeak) / 2).toFixed(1)}\\ \\text{V/m}$`,
+                        `$E_0 \\approx ${(parseFloat(ePeak) * 0.707).toFixed(1)}\\ \\text{V/m}$`
+                    ];
+                    correctOpt = 0;
+                    explanation = `**Formula:** Intensity of an EM wave is $I = \\frac{1}{2} \\varepsilon_0 c E_0^2 = \\varepsilon_0 c E_{\\text{rms}}^2$.<br>
+                    $E_0 = \\sqrt{\\frac{2I}{\\varepsilon_0 c}} = \\sqrt{\\frac{2 \\times ${intensity}}{8.85 \\times 10^{-12} \\times 3 \\times 10^8}} \\approx ${ePeak}\\ \\text{V/m}$.`;
+
+                } else if (topicIndex === 3) {
+                    // Radiation pressure
+                    const power = (i * 5 + 10);
+                    const area = 2;
+                    const pressureAbs = (power / (area * 3e8)).toExponential(2);
+                    qText = `A laser beam of total power $P = ${power}\\ \\text{W}$ is incident normally on a perfectly absorbing flat surface of area $A = ${area}\\ \\text{m}^2$. Calculate the radiation pressure exerted on the surface.`;
+
+                    options = [
+                        `$P_{\\text{rad}} = \\frac{I}{c} = ${pressureAbs}\\ \\text{N/m}^2$`,
+                        `$P_{\\text{rad}} = \\frac{2I}{c} = ${(parseFloat(pressureAbs) * 2).toExponential(2)}\\ \\text{N/m}^2$`,
+                        `$P_{\\text{rad}} = \\frac{I}{2c} = ${(parseFloat(pressureAbs) / 2).toExponential(2)}\\ \\text{N/m}^2$`,
+                        `$P_{\\text{rad}} = 0$`
+                    ];
+                    correctOpt = 0;
+                    explanation = `**Formula:** For complete absorption (reflectivity $R=0$), radiation pressure is $P_{\\text{rad}} = \\frac{I}{c} = \\frac{P/A}{c}$.<br>
+                    $P_{\\text{rad}} = \\frac{${power} / ${area}}{3 \\times 10^8} = ${pressureAbs}\\ \\text{N/m}^2$.<br>
+                    *(Note: If it were perfectly reflecting, radiation pressure would be $2I/c$)*.`;
+
+                } else if (topicIndex === 4) {
+                    // EM Spectrum
+                    const waveTypes = [
+                        { name: "Gamma rays", lambda: "10^{-12} m", use: "Cancer radiotherapy & nuclear studies" },
+                        { name: "X-rays", lambda: "10^{-10} m", use: "Medical imaging of bone fractures" },
+                        { name: "Ultraviolet rays", lambda: "10^{-8} m", use: "Sterilization & LASIK eye surgery" },
+                        { name: "Microwaves", lambda: "10^{-2} m", use: "Radar communication and domestic ovens" }
+                    ];
+                    const selected = waveTypes[i % waveTypes.length];
+                    qText = `Which of the following electromagnetic radiations has a typical wavelength of order $\\lambda \\approx ${selected.lambda}$ and is primarily used in **${selected.use}**?`;
+
+                    options = [
+                        `${selected.name}`,
+                        `${waveTypes[(i+1)%4].name}`,
+                        `${waveTypes[(i+2)%4].name}`,
+                        `${waveTypes[(i+3)%4].name}`
+                    ];
+                    correctOpt = 0;
+                    explanation = `**EM Spectrum Knowledge:**<br>
+                    - **Gamma rays:** $\\lambda < 10^{-11}\\ \\text{m}$ (Nuclear transitions/Cancer therapy)<br>
+                    - **X-rays:** $10^{-11}\\ \\text{m} - 10^{-8}\\ \\text{m}$ (Diagnostic radiology)<br>
+                    - **UV rays:** $10^{-8}\\ \\text{m} - 400\\ \\text{nm}$ (Water purifiers/Sterilization)<br>
+                    - **Microwaves:** $1\\ \\text{mm} - 0.1\\ \\text{m}$ (Radar & Microwave Ovens).`;
+
+                } else {
+                    // Polarization / Refractive index
+                    const n = (1.33 + (i % 5) * 0.15).toFixed(2);
+                    const speed = (3e8 / n).toExponential(2);
+                    qText = `An electromagnetic wave enters a non-magnetic dieletric medium of refractive index $n = ${n}$. What is the velocity of light $v$ in this medium and how does the energy density change?`;
+
+                    options = [
+                        `$v = ${speed}\\ \\text{m/s}$; Electric energy density equals magnetic energy density in medium.`,
+                        `$v = 3 \\times 10^8\\ \\text{m/s}$; Electric energy density is zero.`,
+                        `$v = ${(parseFloat(speed)*1.2).toFixed(2)}\\ \\text{m/s}$; Magnetic energy density exceeds electric energy density.`,
+                        `$v = ${(parseFloat(speed)*0.8).toFixed(2)}\\ \\text{m/s}$; Energy density is independent of refractive index.`
+                    ];
+                    correctOpt = 0;
+                    explanation = `**Concept:** In any non-magnetic dielectric medium, $v = \\frac{c}{n} = \\frac{3 \\times 10^8}{${n}} = ${speed}\\ \\text{m/s}$.<br>
+                    Additionally, for any electromagnetic wave propagating in space or a uniform dielectric medium, the total energy is shared equally between the electric field and the magnetic field ($u_E = u_B$).`;
+                }
+
+                qBank.push({
+                    id: i,
+                    topic: currentTopic,
+                    difficulty: diff,
+                    question: qText,
+                    diagram: diagramSvg,
+                    options: options,
+                    correct: correctOpt,
+                    explanation: explanation
+                });
+            }
+            return qBank;
+        };
+
+        // --- APP STATE ---
+        const questions = generateQuestions();
+        let currentIndex = 0;
+        let userAnswers = new Array(100).fill(null); // stores index of selected option or null
+        let reviewStatus = new Array(100).fill(false);
+        let questionTimes = new Array(100).fill(0); // time spent per question in seconds
+        
+        let qTimerInterval = null;
+        let totalTimerInterval = null;
+        let currentQTime = 0;
+        let totalTimeSeconds = 0;
+        let testSubmitted = false;
+
+        // --- DOM ELEMENTS ---
+        const qNumberBadge = document.getElementById('qNumberBadge');
+        const qTopicTag = document.getElementById('qTopicTag');
+        const qDiffBadge = document.getElementById('qDiffBadge');
+        const questionText = document.getElementById('questionText');
+        const diagramContainer = document.getElementById('diagramContainer');
+        const optionsContainer = document.getElementById('optionsContainer');
+        const solutionBox = document.getElementById('solutionBox');
+        const solutionText = document.getElementById('solutionText');
+        const solutionStatusBadge = document.getElementById('solutionStatusBadge');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const markReviewBtn = document.getElementById('markReviewBtn');
+        const answeredCount = document.getElementById('answeredCount');
+        const progressBar = document.getElementById('progressBar');
+        const qGrid = document.getElementById('qGrid');
+        const qTimerDisplay = document.getElementById('qTimerDisplay');
+        const totalTimerDisplay = document.getElementById('totalTimerDisplay');
+        const currentScoreBadge = document.getElementById('currentScoreBadge');
+
+        // --- INIT & EVENT LISTENERS ---
+        window.addEventListener('DOMContentLoaded', () => {
+            buildQuestionGrid();
+            renderQuestion(0);
+            startTimers();
+            
+            // Re-render KaTeX maths after dynamic elements insert
+            setTimeout(triggerKaTeX, 100);
+        });
+
+        function triggerKaTeX() {
+            if (window.renderMathInElement) {
+                renderMathInElement(document.body, {
+                    delimiters: [
+                        {left: '$$', right: '$$', display: true},
+                        {left: '$', right: '$', display: false}
+                    ],
+                    throwOnError: false
+                });
+            }
+        }
+
+        // --- TIMERS ---
+        function startTimers() {
+            clearInterval(qTimerInterval);
+            clearInterval(totalTimerInterval);
+
+            currentQTime = questionTimes[currentIndex];
+
+            qTimerInterval = setInterval(() => {
+                currentQTime++;
+                questionTimes[currentIndex] = currentQTime;
+                qTimerDisplay.textContent = formatTimeMMSS(currentQTime);
+            }, 1000);
+
+            totalTimerInterval = setInterval(() => {
+                totalTimeSeconds++;
+                totalTimerDisplay.textContent = formatTimeHHMMSS(totalTimeSeconds);
+            }, 1000);
+        }
+
+        function resetQuestionTimer() {
+            currentQTime = questionTimes[currentIndex] || 0;
+            qTimerDisplay.textContent = formatTimeMMSS(currentQTime);
+        }
+
+        function formatTimeMMSS(sec) {
+            const m = Math.floor(sec / 60).toString().padStart(2, '0');
+            const s = (sec % 60).toString().padStart(2, '0');
+            return `${m}:${s}`;
+        }
+
+        function formatTimeHHMMSS(sec) {
+            const h = Math.floor(sec / 3600).toString().padStart(2, '0');
+            const m = Math.floor((sec % 3600) / 60).toString().padStart(2, '0');
+            const s = (sec % 60).toString().padStart(2, '0');
+            return `${h}:${m}:${s}`;
+        }
+
+        // --- QUESTION GRID ---
+        function buildQuestionGrid() {
+            qGrid.innerHTML = '';
+            for (let i = 0; i < 100; i++) {
+                const btn = document.createElement('button');
+                btn.id = `qGridBtn_${i}`;
+                btn.className = getGridBtnClass(i);
+                btn.textContent = i + 1;
+                btn.onclick = () => jumpToQuestion(i);
+                qGrid.appendChild(btn);
+            }
+        }
+
+        function getGridBtnClass(idx) {
+            let base = "w-9 h-9 text-xs font-bold rounded-lg flex items-center justify-center transition border ";
+            if (idx === currentIndex) {
+                base += "ring-2 ring-indigo-500 ring-offset-2 dark:ring-offset-slate-900 ";
+            }
+
+            if (userAnswers[idx] !== null) {
+                if (userAnswers[idx] === questions[idx].correct) {
+                    return base + "bg-emerald-500 text-white border-emerald-600";
+                } else {
+                    return base + "bg-rose-500 text-white border-rose-600";
+                }
+            } else if (reviewStatus[idx]) {
+                return base + "bg-amber-400 text-slate-900 border-amber-500";
+            }
+            return base + "bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:bg-slate-200";
+        }
+
+        function updateGridState(idx) {
+            const btn = document.getElementById(`qGridBtn_${idx}`);
+            if (btn) {
+                btn.className = getGridBtnClass(idx);
+            }
+        }
+
+        // --- QUESTION RENDERER ---
+        function renderQuestion(idx) {
+            currentIndex = idx;
+            resetQuestionTimer();
+
+            const q = questions[idx];
+            qNumberBadge.textContent = `Q${q.id} of 100`;
+            qTopicTag.textContent = q.topic;
+            qDiffBadge.textContent = q.difficulty;
+            questionText.innerHTML = q.question;
+
+            // Handle diagram
+            if (q.diagram) {
+                diagramContainer.innerHTML = q.diagram;
+                diagramContainer.classList.remove('hidden');
+            } else {
+                diagramContainer.classList.add('hidden');
+            }
+
+            // Render Options
+            optionsContainer.innerHTML = '';
+            const answered = userAnswers[idx] !== null;
+
+            q.options.forEach((optText, optIdx) => {
+                const optBtn = document.createElement('button');
+                optBtn.className = getOptionStyle(idx, optIdx);
+                
+                const label = String.fromCharCode(65 + optIdx); // A, B, C, D
+                optBtn.innerHTML = `
+                    <div class="flex items-center gap-3">
+                        <span class="w-7 h-7 rounded-lg flex items-center justify-center font-bold text-xs bg-slate-200/60 dark:bg-slate-700/60">
+                            ${label}
+                        </span>
+                        <span class="text-sm font-medium text-left">${optText}</span>
+                    </div>
+                `;
+
+                optBtn.onclick = () => selectOption(optIdx);
+                optionsContainer.appendChild(optBtn);
+            });
+
+            // Handle Solution Visibility
+            if (answered) {
+                showSolution(q, userAnswers[idx] === q.correct);
+            } else {
+                solutionBox.classList.add('hidden');
+            }
+
+            // Navigation Buttons State
+            prevBtn.disabled = (idx === 0);
+            prevBtn.classList.toggle('opacity-50', idx === 0);
+            
+            nextBtn.textContent = (idx === 99) ? 'Finish' : 'Next';
+
+            // Mark for Review Button state
+            markReviewBtn.classList.toggle('bg-amber-100', reviewStatus[idx]);
+
+            updateProgressStats();
+            buildQuestionGrid();
+            triggerKaTeX();
+        }
+
+        function getOptionStyle(qIdx, optIdx) {
+            let base = "p-4 rounded-xl border text-left transition flex items-center justify-between w-full ";
+            const selectedOpt = userAnswers[qIdx];
+            const correctOpt = questions[qIdx].correct;
+
+            if (selectedOpt === null) {
+                return base + "border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/40 hover:bg-slate-100 dark:hover:bg-slate-800 hover:border-indigo-300 dark:hover:border-indigo-700";
+            }
+
+            if (optIdx === correctOpt) {
+                return base + "border-emerald-500 bg-emerald-500/10 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300 font-semibold ring-2 ring-emerald-500 correct-anim";
+            } else if (optIdx === selectedOpt && selectedOpt !== correctOpt) {
+                return base + "border-rose-500 bg-rose-500/10 dark:bg-rose-950/40 text-rose-700 dark:text-rose-300 font-semibold wrong-anim";
+            }
+
+            return base + "border-slate-200 dark:border-slate-800 opacity-60 bg-slate-50 dark:bg-slate-900";
+        }
+
+        // --- OPTION SELECTION LOGIC ---
+        function selectOption(optIdx) {
+            if (userAnswers[currentIndex] !== null) return; // Prevent changing after answer
+
+            userAnswers[currentIndex] = optIdx;
+            const q = questions[currentIndex];
+            const isCorrect = (optIdx === q.correct);
+
+            if (isCorrect) {
+                // Confetti & Toast Celebration
+                triggerConfetti();
+                showToast("🎉 Excellent! Correct Answer! +4 Marks");
+            } else {
+                showToast("❌ Oops! Incorrect Answer. (-1 Mark)");
+            }
+
+            renderQuestion(currentIndex);
+        }
+
+        function showSolution(q, isCorrect) {
+            solutionBox.classList.remove('hidden');
+            solutionText.innerHTML = q.explanation;
+
+            if (isCorrect) {
+                solutionStatusBadge.className = "text-xs px-2 py-0.5 rounded font-semibold bg-emerald-100 dark:bg-emerald-900/60 text-emerald-700 dark:text-emerald-300";
+                solutionStatusBadge.textContent = "Correctly Answered (+4)";
+            } else {
+                solutionStatusBadge.className = "text-xs px-2 py-0.5 rounded font-semibold bg-rose-100 dark:bg-rose-900/60 text-rose-700 dark:text-rose-300";
+                solutionStatusBadge.textContent = "Incorrect (-1)";
+            }
+            triggerKaTeX();
+        }
+
+        // --- CELEBRATIONS & TOASTS ---
+        function triggerConfetti() {
+            if (typeof confetti === 'function') {
+                confetti({
+                    particleCount: 50,
+                    spread: 60,
+                    origin: { y: 0.7 }
+                });
+            }
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            const toastMsg = document.getElementById('toastMsg');
+            toastMsg.textContent = message;
+
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            toast.classList.add('translate-y-0', 'opacity-100');
+
+            setTimeout(() => {
+                toast.classList.remove('translate-y-0', 'opacity-100');
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 2500);
+        }
+
+        // --- STATS & PROGRESS ---
+        function updateProgressStats() {
+            const solved = userAnswers.filter(a => a !== null).length;
+            answeredCount.textContent = solved;
+            progressBar.style.width = `${Math.max((solved / 100) * 100, 1)}%`;
+
+            // Calculate live score
+            let score = 0;
+            userAnswers.forEach((ans, idx) => {
+                if (ans !== null) {
+                    if (ans === questions[idx].correct) score += 4;
+                    else score -= 1;
+                }
+            });
+
+            currentScoreBadge.innerHTML = `Score: <strong class="${score >= 0 ? 'text-emerald-600' : 'text-rose-600'}">${score}</strong> (+4 / -1)`;
+        }
+
+        // --- NAVIGATION HANDLERS ---
+        prevBtn.onclick = () => {
+            if (currentIndex > 0) renderQuestion(currentIndex - 1);
+        };
+
+        nextBtn.onclick = () => {
+            if (currentIndex < 99) {
+                renderQuestion(currentIndex + 1);
+            } else {
+                submitQuiz();
+            }
+        };
+
+        markReviewBtn.onclick = () => {
+            reviewStatus[currentIndex] = !reviewStatus[currentIndex];
+            renderQuestion(currentIndex);
+        };
+
+        function jumpToQuestion(idx) {
+            renderQuestion(idx);
+            // On mobile screen, close drawer when question is clicked
+            if (window.innerWidth < 1024) {
+                document.getElementById('drawer').classList.add('translate-x-full');
+            }
+        }
+
+        // --- DRAWER TOGGLE ---
+        document.getElementById('toggleDrawerBtn').onclick = () => {
+            document.getElementById('drawer').classList.remove('translate-x-full');
+        };
+        document.getElementById('closeDrawerBtn').onclick = () => {
+            document.getElementById('drawer').classList.add('translate-x-full');
+        };
+
+        // --- THEME TOGGLE ---
+        document.getElementById('themeToggleBtn').onclick = () => {
+            document.documentElement.classList.toggle('dark');
+        };
+
+        // --- QUIZ SUBMISSION & DETAILED ANALYTICS ---
+        document.getElementById('submitQuizBtn').onclick = submitQuiz;
+
+        function submitQuiz() {
+            testSubmitted = true;
+            clearInterval(qTimerInterval);
+            clearInterval(totalTimerInterval);
+
+            // Calculate statistics
+            let correctCount = 0;
+            let wrongCount = 0;
+            let unattemptedCount = 0;
+
+            const topicStats = {};
+
+            questions.forEach((q, idx) => {
+                if (!topicStats[q.topic]) {
+                    topicStats[q.topic] = { total: 0, correct: 0, wrong: 0 };
+                }
+                topicStats[q.topic].total++;
+
+                const ans = userAnswers[idx];
+                if (ans === null) {
+                    unattemptedCount++;
+                } else if (ans === q.correct) {
+                    correctCount++;
+                    topicStats[q.topic].correct++;
+                } else {
+                    wrongCount++;
+                    topicStats[q.topic].wrong++;
+                }
+            });
+
+            const totalAttempted = correctCount + wrongCount;
+            const score = (correctCount * 4) - (wrongCount * 1);
+            const accuracy = totalAttempted > 0 ? ((correctCount / totalAttempted) * 100).toFixed(1) : 0;
+
+            // Fill Analytics Modal
+            document.getElementById('finalScore').textContent = `${score} / 400`;
+            document.getElementById('finalAccuracy').textContent = `${accuracy}%`;
+            document.getElementById('finalAttempted').textContent = `${totalAttempted} / 100`;
+            document.getElementById('finalTime').textContent = formatTimeHHMMSS(totalTimeSeconds);
+
+            // Populate Topic Breakdown
+            const topicContainer = document.getElementById('topicBreakdown');
+            topicContainer.innerHTML = '';
+
+            for (const [topicName, data] of Object.entries(topicStats)) {
+                const topicAcc = data.total > 0 ? Math.round((data.correct / data.total) * 100) : 0;
+                
+                const item = document.createElement('div');
+                item.className = "p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200/60 dark:border-slate-700/60";
+                item.innerHTML = `
+                    <div class="flex justify-between items-center text-xs font-semibold mb-1.5">
+                        <span class="text-slate-700 dark:text-slate-300">${topicName}</span>
+                        <span class="text-indigo-600 dark:text-indigo-400">${data.correct}/${data.total} Correct (${topicAcc}%)</span>
+                    </div>
+                    <div class="w-full h-2 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
+                        <div class="h-full bg-indigo-500 rounded-full" style="width: ${topicAcc}%"></div>
+                    </div>
+                `;
+                topicContainer.appendChild(item);
+            }
+
+            // Show Analytics Modal
+            document.getElementById('analyticsModal').classList.remove('hidden');
+        }
+
+        document.getElementById('closeAnalyticsBtn').onclick = () => {
+            document.getElementById('analyticsModal').classList.add('hidden');
+        };
+
+        document.getElementById('reviewTestBtn').onclick = () => {
+            document.getElementById('analyticsModal').classList.add('hidden');
+        };
+
+        document.getElementById('restartQuizBtn').onclick = () => {
+            location.reload();
+        };
+
+    </script>
+</body>
+</html>

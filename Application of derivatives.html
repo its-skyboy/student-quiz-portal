@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Applications of Derivatives – JEE Quiz</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:Segoe UI,Arial,sans-serif;color:#fff;min-height:100vh;background:linear-gradient(135deg,#1e1b4b,#0f3d5e,#134e4a);background-attachment:fixed}
+.wrap{max-width:860px;margin:auto;padding:18px}
+.card{background:rgba(255,255,255,.09);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.18);border-radius:20px;padding:22px;margin-bottom:16px;box-shadow:0 10px 30px rgba(0,0,0,.3)}
+h1{margin:0 0 6px;font-size:2rem;background:linear-gradient(90deg,#fde047,#f472b6,#38bdf8);-webkit-background-clip:text;color:transparent}
+button{font:inherit;cursor:pointer;border:0;border-radius:12px;padding:12px 22px;color:#fff;background:linear-gradient(90deg,#8b5cf6,#ec4899);font-weight:600;transition:.2s}button:hover{transform:translateY(-2px)}
+.len{background:rgba(255,255,255,.15);margin:4px}.len.on{background:linear-gradient(90deg,#f59e0b,#ef4444)}
+.top{display:flex;gap:10px;flex-wrap:wrap;justify-content:space-between;font-weight:600}
+.pill{background:rgba(0,0,0,.3);padding:6px 14px;border-radius:30px}
+.bar{height:8px;background:rgba(255,255,255,.2);border-radius:8px;margin:12px 0;overflow:hidden}.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,#34d399,#38bdf8,#a78bfa);transition:.4s}
+.chip{display:inline-block;font-size:.75rem;padding:3px 10px;border-radius:20px;margin-right:6px;background:#6366f1}.chip.adv{background:#e11d48}
+.q{font-size:1.1rem;line-height:1.6;margin:12px 0}
+.opt{display:block;width:100%;text-align:left;margin:9px 0;padding:13px 16px;background:rgba(255,255,255,.12);border:2px solid transparent;font-weight:500}
+.opt:hover:not(:disabled){border-color:#fde047}.opt:disabled{cursor:default;transform:none}
+.opt.ok{background:#16a34a;border-color:#86efac;animation:pop .5s}.opt.bad{background:#dc2626;border-color:#fca5a5;animation:shake .4s}
+@keyframes pop{50%{transform:scale(1.04)}}@keyframes shake{25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
+.sol{background:rgba(251,191,36,.15);border-left:4px solid #fbbf24;padding:12px 16px;border-radius:10px;margin-top:12px;line-height:1.6;animation:fade .5s}
+@keyframes fade{from{opacity:0;transform:translateY(8px)}}
+#praise{position:fixed;top:30%;left:50%;transform:translate(-50%,-50%) scale(0);font-size:2.4rem;font-weight:800;pointer-events:none;z-index:9;text-shadow:0 4px 20px #000;text-align:center}
+#praise.show{animation:burst 1.4s}@keyframes burst{20%{transform:translate(-50%,-50%) scale(1.2) rotate(-4deg)}80%{transform:translate(-50%,-50%) scale(1);opacity:1}100%{transform:translate(-50%,-80%) scale(1);opacity:0}}
+#cf{position:fixed;inset:0;pointer-events:none;z-index:8}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}.stat{background:rgba(0,0,0,.28);border-radius:14px;padding:14px;text-align:center}.stat b{display:block;font-size:1.7rem;color:#fde047}
+.row{display:flex;align-items:center;gap:10px;margin:9px 0;font-size:.9rem}.row span:first-child{width:180px}.tr{flex:1;height:14px;background:rgba(255,255,255,.15);border-radius:8px;overflow:hidden}.tr i{display:block;height:100%}
+.bars{display:flex;align-items:flex-end;height:120px;gap:1px}.bars i{flex:1;min-width:2px;border-radius:2px 2px 0 0}
+details{background:rgba(0,0,0,.25);border-radius:12px;padding:10px 14px;margin:8px 0}summary{cursor:pointer}
+svg text{fill:#fff}.hide{display:none}
+</style></head><body>
+<canvas id="cf"></canvas><div id="praise"></div>
+<div class="wrap">
+<div id="start" class="card"><h1>⚡ Applications of Derivatives – JEE Challenge</h1>
+<p>JEE Main → Advanced pattern · numericals, diagrams, concept traps · fresh numbers &amp; shuffled order every attempt.</p>
+<p><b>Marking:</b> +4 correct, −1 wrong, 0 skipped. Wrong answers show a full solution.</p>
+<p>Choose number of questions:</p><div id="lens"></div><br><button onclick="startQuiz()">🚀 Start Quiz</button></div>
+
+<div id="quiz" class="card hide">
+<div class="top"><span class="pill" id="pn"></span><span class="pill">⏱ Question: <b id="tq">0s</b></span><span class="pill">🕒 Total: <b id="tt">0:00</b></span><span class="pill">🏆 <b id="sc">0</b></span><span class="pill">🔥 <b id="st">0</b></span></div>
+<div class="bar"><i id="pb"></i></div>
+<div id="qbody"></div><div id="opts"></div><div id="solbox"></div>
+<div style="margin-top:14px;display:flex;gap:10px"><button id="skip" style="background:#475569" onclick="skipQ()">Skip ⏭</button><button id="next" class="hide" onclick="nextQ()">Next ➜</button></div></div>
+
+<div id="result" class="hide"></div></div>
+
+<script>
+const $=id=>document.getElementById(id),F=96500;
+const rnd=(a,b)=>Math.floor(Math.random()*(b-a+1))+a,pick=a=>a[rnd(0,a.length-1)];
+const shuf=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){let j=rnd(0,i);[a[i],a[j]]=[a[j],a[i]]}return a};
+const sci=x=>{let[m,e]=x.toExponential(2).split('e');return m+' × 10<sup>'+(+e)+'</sup>'};
+// numeric option builder: val correct, wr wrong values, fmt formatter
+function mk(t,l,q,val,wr,fmt,s){let o=[fmt(val)];wr.forEach(w=>{let x=fmt(w);if(!o.includes(x))o.push(x)});let k=1;while(o.length<4){let x=fmt(val*(1+.3*k++));if(!o.includes(x))o.push(x)}o=o.slice(0,4);return{t,l,q,o,s}}
+const fx=d=>v=>v.toFixed(d),fu=(d,u)=>v=>v.toFixed(d)+' '+u;
+const G=[
+()=>{let r=rnd(2,6),dr=rnd(1,3),v=4*Math.PI*r*r*dr;return mk('Rate of Change','Mains',`Radius of a sphere increases at ${dr} cm/s. Rate of increase of volume when r = ${r} cm (cm³/s)?`,v,[v/r,v*r/3,8*Math.PI*r*dr],fx(2),`dV/dt = 4πr²·dr/dt = 4π×${r*r}×${dr} = <b>${v.toFixed(2)}</b>.`)},
+()=>{let k=rnd(1,4);return mk('Maxima & Minima','Mains',`Maximum value of f(x) = ${3*k*k}x − x³ for x ≥ 0 is`,2*k**3,[k**3,3*k**3,2*k*k],fx(0),`f′ = ${3*k*k} − 3x² = 0 ⇒ x = ${k}. f(${k}) = ${3*k**3} − ${k**3} = <b>${2*k**3}</b>.`)},
+()=>{let L=pick([6,9,12,15,18]),v=2*L**3/27;return mk('Maxima & Minima','Advanced',`Squares of side x are cut from the corners of a ${L}×${L} sheet to make an open box. Maximum volume?`,v,[L**3/27,4*L**3/27,L**3/9],fx(1),`V = x(${L}−2x)²; V′ = 0 ⇒ x = ${L/6}. Vmax = 2L³/27 = <b>${v.toFixed(1)}</b>.`)},
+()=>{let a=rnd(1,9),b=rnd(1,9),v=2*Math.sqrt(a*b);return mk('Maxima & Minima','Advanced',`Minimum value of f(x) = ${a}x + ${b}/x for x > 0?`,v,[a+b,Math.sqrt(a*b),2*a*b],fx(3),`AM ≥ GM: ${a}x + ${b}/x ≥ 2√(${a}·${b}) = <b>${v.toFixed(3)}</b> (at x = √(${b}/${a})).`)}
+];
+const S=[
+{t:'Mean Value Theorems',l:'Mains',q:'For f(x) = x² on [1, 3], the value of c in Lagrange’s MVT is',o:['2','3/2','5/2','1'],s:'f′(c) = [f(3) − f(1)]/2 = 4 ⇒ 2c = 4 ⇒ c = 2.'},
+{t:'Monotonicity',l:'Advanced',q:'f(x) = 2x³ − 9x² + 12x + 5 is decreasing in',o:['(1, 2)','(−∞, 1)','(2, ∞)','(0, 1)'],s:'f′ = 6(x−1)(x−2) < 0 for 1 < x < 2.'},
+{t:'Maxima & Minima',l:'Advanced',q:'Number of real roots of x³ − 3x + 1 = 0 is',o:['3','1','2','0'],s:'f′ = 0 at x = ±1; f(−1) = 3 > 0, f(1) = −1 < 0 ⇒ sign changes thrice ⇒ 3 real roots.'}
+];
+const SH=(x)=>{let c=x.o[0],o=shuf(x.o);return{...x,o,a:o.indexOf(c)}};
+let Qs,i,res,N=50,score,streak,best,t0,tq0,timer,lock;
+$('lens').innerHTML=[25,50,100].map(n=>`<button class="len ${n==N?'on':''}" onclick="N=${n};document.querySelectorAll('.len').forEach(b=>b.classList.remove('on'));this.classList.add('on')">${n}</button>`).join('');
+function build(){let out=shuf(S).slice(0,Math.min(S.length,Math.ceil(N*.35))).map(SH),seen=new Set(out.map(x=>x.q)),g=[];
+ while(out.length<N){if(!g.length)g=shuf(G);let f=g.pop(),x,k=0;do{x=f();k++}while(seen.has(x.q)&&k<8);seen.add(x.q);let c=x.o[0];x.o=shuf(x.o);x.a=x.o.indexOf(c);out.push(x)}
+ return shuf(out)}
+function startQuiz(){Qs=build();i=0;res=[];score=0;streak=0;best=0;t0=Date.now();$('start').classList.add('hide');$('result').classList.add('hide');$('quiz').classList.remove('hide');clearInterval(timer);timer=setInterval(tick,250);show()}
+function fmt(s){return Math.floor(s/60)+':'+String(Math.floor(s%60)).padStart(2,'0')}
+function tick(){$('tq').textContent=Math.floor((Date.now()-tq0)/1000)+'s';$('tt').textContent=fmt((Date.now()-t0)/1000)}
+function show(){let q=Qs[i];lock=false;tq0=Date.now();$('pn').textContent=`Q ${i+1}/${N}`;$('pb').style.width=(i/N*100)+'%';$('sc').textContent=score;$('st').textContent=streak;
+ $('qbody').innerHTML=`<span class="chip">${q.t}</span><span class="chip ${q.l=='Advanced'?'adv':''}">JEE ${q.l}</span><div class="q">${q.q}</div>${q.svg?`<div style="text-align:center">${q.svg}</div>`:''}`;
+ $('opts').innerHTML=q.o.map((o,k)=>`<button class="opt" onclick="ans(${k})"><b>${'ABCD'[k]}.</b> ${o}</button>`).join('');
+ $('solbox').innerHTML='';$('next').classList.add('hide');$('skip').classList.remove('hide');$('next').textContent=i==N-1?'Finish 🏁':'Next ➜'}
+function ans(k){if(lock)return;lock=true;let q=Qs[i],tm=(Date.now()-tq0)/1000,ok=k==q.a,B=document.querySelectorAll('.opt');B.forEach(b=>b.disabled=true);
+ B[q.a].classList.add('ok');
+ if(ok){score+=4;streak++;best=Math.max(best,streak);praise(streak)}
+ else{B[k].classList.add('bad');score-=1;streak=0;$('solbox').innerHTML=`<div class="sol"><b>❌ Correct answer: ${'ABCD'[q.a]}</b><br>${q.s}</div>`;msg(pick(['Not quite – learn it, own it! 💪','Mistakes build rank! 📘','Read the solution, next one is yours! 🎯']),'#fca5a5')}
+ res.push({q,k,ok,tm,sk:false});$('sc').textContent=score;$('st').textContent=streak;done()}
+function skipQ(){if(lock)return;lock=true;let q=Qs[i];document.querySelectorAll('.opt').forEach(b=>b.disabled=true);document.querySelectorAll('.opt')[q.a].classList.add('ok');streak=0;$('solbox').innerHTML=`<div class="sol"><b>Skipped – answer: ${'ABCD'[q.a]}</b><br>${q.s}</div>`;res.push({q,k:-1,ok:false,tm:(Date.now()-tq0)/1000,sk:true});done()}
+function done(){$('next').classList.remove('hide');$('skip').classList.add('hide')}
+function nextQ(){i++;i<N?show():finish()}
+function msg(t,c){let p=$('praise');p.textContent=t;p.style.color=c;p.classList.remove('show');void p.offsetWidth;p.classList.add('show')}
+function praise(s){let L=s>=5?['🔥 UNSTOPPABLE! '+s+' in a row!','🚀 Topper mode ON!']:s>=3?['⚡ Hat-trick! Streak '+s,'🌟 On fire!']:['✅ Brilliant!','🎉 Excellent!','👏 Well done!','💯 Spot on!','🧠 Sharp mind!'];msg(pick(L),pick(['#fde047','#86efac','#f9a8d4','#7dd3fc']));confetti(s>=3?160:80)}
+let P=[],cv=$('cf'),cx=cv.getContext('2d');
+function confetti(n){cv.width=innerWidth;cv.height=innerHeight;for(let j=0;j<n;j++)P.push({x:innerWidth/2,y:innerHeight*.35,vx:(Math.random()-.5)*16,vy:-Math.random()*14-3,c:`hsl(${rnd(0,360)},90%,60%)`,s:rnd(5,10),r:Math.random()*6,l:100});if(P.length==n)anim()}
+function anim(){cx.clearRect(0,0,cv.width,cv.height);P=P.filter(p=>p.l-->0);P.forEach(p=>{p.x+=p.vx;p.y+=p.vy;p.vy+=.4;p.r+=.2;cx.save();cx.translate(p.x,p.y);cx.rotate(p.r);cx.fillStyle=p.c;cx.fillRect(-p.s/2,-p.s/4,p.s,p.s/2);cx.restore()});if(P.length)requestAnimationFrame(anim);else cx.clearRect(0,0,cv.width,cv.height)}
+function finish(){clearInterval(timer);$('quiz').classList.add('hide');let tot=(Date.now()-t0)/1000,att=res.filter(r=>!r.sk),cor=att.filter(r=>r.ok).length,wr=att.length-cor,sk=res.length-att.length,acc=att.length?cor/att.length*100:0,mx=4*N,pct=score/mx*100;
+ let grade=pct>=85?'🏆 Outstanding – Advanced ready!':pct>=65?'🌟 Strong – keep polishing':pct>=40?'📈 Good base – revise weak topics':'💪 Needs work – study the solutions below';
+ let by=(key)=>{let m={};res.forEach(r=>{let k=r.q[key];m[k]=m[k]||{n:0,a:0,c:0,t:0};m[k].n++;m[k].t+=r.tm;if(!r.sk){m[k].a++;if(r.ok)m[k].c++}});return m};
+ let tp=by('t'),lv=by('l'),avg=tot/N;
+ let rows=m=>Object.entries(m).map(([k,v])=>{let a=v.a?v.c/v.a*100:0;return`<div class="row"><span>${k} <small>(${v.c}/${v.n})</small></span><div class="tr"><i style="width:${a}%;background:${a>=70?'#22c55e':a>=40?'#f59e0b':'#ef4444'}"></i></div><span style="width:110px">${a.toFixed(0)}% · ${(v.t/v.n).toFixed(0)}s avg</span></div>`}).join('');
+ let C=251.3,d1=cor/N*C,d2=wr/N*C,d3=sk/N*C;
+ let arr=Object.entries(tp).filter(e=>e[1].a).map(([k,v])=>[k,v.c/v.a]).sort((a,b)=>a[1]-b[1]),slow=[...res].map((r,j)=>[j+1,r.tm]).sort((a,b)=>b[1]-a[1])[0],fastWrong=res.filter(r=>!r.ok&&!r.sk&&r.tm<avg/2).length;
+ let ins=[`🔻 Weakest topic: <b>${arr[0]?arr[0][0]:'–'}</b> (${arr[0]?(arr[0][1]*100).toFixed(0):0}%)`,`🔺 Strongest topic: <b>${arr.length?arr[arr.length-1][0]:'–'}</b>`,`🐢 Slowest question: Q${slow[0]} (${slow[1].toFixed(0)}s)`,fastWrong?`⚠️ ${fastWrong} wrong answers were rushed (under half your average time) – read carefully!`:'✅ No rushed mistakes – good discipline.',`🔥 Best streak: <b>${best}</b>`,`⏱ JEE pace check: ~${(avg).toFixed(0)}s/question (target ≈ 120s)`];
+ let wrongs=res.map((r,j)=>({r,j})).filter(x=>!x.r.ok);
+ $('result').innerHTML=`<div class="card"><h1>📊 Result Analysis</h1><p style="font-size:1.2rem">${grade}</p>
+ <div class="grid"><div class="stat"><b>${score}/${mx}</b>Marks</div><div class="stat"><b>${acc.toFixed(1)}%</b>Accuracy</div><div class="stat"><b>${fmt(tot)}</b>Total time</div><div class="stat"><b>${avg.toFixed(0)}s</b>Avg / question</div><div class="stat"><b>${cor}</b>Correct</div><div class="stat"><b>${wr}</b>Wrong (−${wr})</div><div class="stat"><b>${sk}</b>Skipped</div><div class="stat"><b>${best}</b>Best streak</div></div></div>
+ <div class="card"><h3>Attempt breakdown</h3><div style="display:flex;gap:24px;align-items:center;flex-wrap:wrap"><svg viewBox="0 0 100 100" width="150" style="transform:rotate(-90deg)"><circle cx="50" cy="50" r="40" fill="none" stroke="#22c55e" stroke-width="16" stroke-dasharray="${d1} ${C}"/><circle cx="50" cy="50" r="40" fill="none" stroke="#ef4444" stroke-width="16" stroke-dasharray="${d2} ${C}" stroke-dashoffset="${-d1}"/><circle cx="50" cy="50" r="40" fill="none" stroke="#94a3b8" stroke-width="16" stroke-dasharray="${d3} ${C}" stroke-dashoffset="${-d1-d2}"/></svg><div>🟢 Correct ${cor}<br>🔴 Wrong ${wr}<br>⚪ Skipped ${sk}</div></div></div>
+ <div class="card"><h3>Topic-wise accuracy &amp; speed</h3>${rows(tp)}<h3>Level-wise</h3>${rows(lv)}</div>
+ <div class="card"><h3>Time per question <small>(green correct · red wrong · grey skipped)</small></h3><div class="bars">${res.map((r,j)=>`<i title="Q${j+1}: ${r.tm.toFixed(0)}s" style="height:${Math.max(3,r.tm/Math.max(...res.map(x=>x.tm))*100)}%;background:${r.sk?'#94a3b8':r.ok?'#22c55e':'#ef4444'}"></i>`).join('')}</div></div>
+ <div class="card"><h3>Insights</h3>${ins.map(x=>`<p>${x}</p>`).join('')}</div>
+ <div class="card"><h3>📘 Review: wrong &amp; skipped (${wrongs.length})</h3>${wrongs.map(({r,j})=>`<details><summary>Q${j+1} · ${r.q.t} · your answer: ${r.sk?'Skipped':'ABCD'[r.k]}</summary><div class="q">${r.q.q}</div>${r.q.svg||''}<p>✅ Correct: <b>${'ABCD'[r.q.a]}. ${r.q.o[r.q.a]}</b></p><div class="sol">${r.q.s}</div></details>`).join('')||'<p>🎉 Perfect – nothing to review!</p>'}</div>
+ <button onclick="location.reload()">🔄 New Quiz (fresh questions)</button>`;
+ $('result').classList.remove('hide');window.scrollTo(0,0);if(pct>=40)confetti(200)}
+</script></body></html>

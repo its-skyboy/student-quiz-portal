@@ -1,0 +1,1249 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JEE Chemistry Master Quiz: Biomolecules (100 PYQs)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+        }
+        .dark .glass-card {
+            background: rgba(15, 23, 42, 0.92);
+            border: 1px solid rgba(51, 65, 85, 0.4);
+        }
+        @keyframes pulseGlow {
+            0%, 100% { box-shadow: 0 0 15px rgba(99, 102, 241, 0.4); }
+            50% { box-shadow: 0 0 30px rgba(99, 102, 241, 0.8); }
+        }
+        .animate-glow { animation: pulseGlow 3s infinite; }
+        .custom-scrollbar::-webkit-scrollbar { width: 8px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: rgba(0,0,0,0.05); }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(99, 102, 241, 0.3); border-radius: 4px; }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-indigo-950 via-slate-900 to-purple-950 text-slate-100 min-h-screen flex flex-col justify-between selection:bg-indigo-500 selection:text-white">
+
+    <!-- Top Navigation Header -->
+    <header class="w-full bg-slate-900/80 backdrop-blur-md border-b border-slate-800 sticky top-0 z-50 px-6 py-4 flex items-center justify-between shadow-lg">
+        <div class="flex items-center space-x-3">
+            <div class="bg-gradient-to-tr from-indigo-500 to-purple-500 p-2.5 rounded-xl shadow-md text-white font-black text-xl tracking-wider">
+                JEE ⚡ BIO
+            </div>
+            <div>
+                <h1 class="font-extrabold text-lg md:text-xl bg-gradient-to-r from-white via-indigo-200 to-purple-300 bg-clip-text text-transparent">Biomolecules Master Challenge</h1>
+                <p class="text-xs text-slate-400">100 Rigorous JEE Main & Advanced PYQs with Analytics</p>
+            </div>
+        </div>
+        <div id="header-stats" class="hidden md:flex items-center space-x-6 text-sm font-semibold">
+            <div class="bg-slate-800/80 px-4 py-2 rounded-xl border border-slate-700/60 flex items-center space-x-2">
+                <span class="text-indigo-400">⏱️ Question Timer:</span>
+                <span id="q-timer" class="text-white font-bold font-mono">00:00</span>
+            </div>
+            <div class="bg-slate-800/80 px-4 py-2 rounded-xl border border-slate-700/60 flex items-center space-x-2">
+                <span class="text-purple-400">🏆 Score:</span>
+                <span id="live-score" class="text-emerald-400 font-bold">0</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="flex-grow flex items-center justify-center p-4 md:p-8">
+
+        <!-- 1. START SCREEN -->
+        <div id="start-screen" class="max-w-3xl w-full glass-card rounded-3xl p-8 md:p-12 text-slate-800 dark:text-slate-100 shadow-2xl animate-glow">
+            <div class="text-center space-y-6">
+                <span class="inline-block bg-indigo-500/10 dark:bg-indigo-500/20 text-indigo-600 dark:text-indigo-300 px-4 py-1.5 rounded-full text-sm font-bold tracking-wide uppercase border border-indigo-500/30">
+                    Target JEE Main & Advanced
+                </span>
+                <h2 class="text-3xl md:text-5xl font-extrabold tracking-tight">
+                    Conquer <span class="bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">Biomolecules</span>
+                </h2>
+                <p class="text-slate-600 dark:text-slate-300 text-base md:text-lg max-w-2xl mx-auto leading-relaxed">
+                    Test your mastery across Carbohydrates, Proteins, Amino Acids, Nucleic Acids, Vitamins, and Lipids. 100 curated authentic questions featuring standard JEE marking (+4 for correct, -1 for incorrect).
+                </p>
+                
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 py-4 text-left">
+                    <div class="bg-slate-100 dark:bg-slate-800/60 p-4 rounded-2xl border border-slate-200 dark:border-slate-700">
+                        <div class="text-2xl font-black text-indigo-600 dark:text-indigo-400">100</div>
+                        <div class="text-xs text-slate-500 dark:text-slate-400 font-medium">Total Questions</div>
+                    </div>
+                    <div class="bg-slate-100 dark:bg-slate-800/60 p-4 rounded-2xl border border-slate-200 dark:border-slate-700">
+                        <div class="text-2xl font-black text-purple-600 dark:text-purple-400">+4 / -1</div>
+                        <div class="text-xs text-slate-500 dark:text-slate-400 font-medium">JEE Marking Scheme</div>
+                    </div>
+                    <div class="bg-slate-100 dark:bg-slate-800/60 p-4 rounded-2xl border border-slate-200 dark:border-slate-700">
+                        <div class="text-2xl font-black text-emerald-600 dark:text-emerald-400">Live</div>
+                        <div class="text-xs text-slate-500 dark:text-slate-400 font-medium">Timer & Analytics</div>
+                    </div>
+                    <div class="bg-slate-100 dark:bg-slate-800/60 p-4 rounded-2xl border border-slate-200 dark:border-slate-700">
+                        <div class="text-2xl font-black text-amber-600 dark:text-amber-400">Detailed</div>
+                        <div class="text-xs text-slate-500 dark:text-slate-400 font-medium">Explanations</div>
+                    </div>
+                </div>
+
+                <button onclick="startQuiz()" class="w-full md:w-auto px-10 py-4 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white font-extrabold text-lg rounded-2xl shadow-xl hover:shadow-indigo-500/25 transform hover:-translate-y-0.5 transition-all duration-200">
+                    Start Master Challenge 🚀
+                </button>
+            </div>
+        </div>
+
+        <!-- 2. QUIZ INTERFACE -->
+        <div id="quiz-screen" class="hidden max-w-4xl w-full glass-card rounded-3xl p-6 md:p-10 text-slate-800 dark:text-slate-100 shadow-2xl">
+            <!-- Progress and Meta Bar -->
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 pb-6 border-b border-slate-200 dark:border-slate-700/60">
+                <div class="flex items-center space-x-3">
+                    <span id="question-badge" class="px-3.5 py-1 rounded-xl bg-indigo-500/10 dark:bg-indigo-500/20 text-indigo-600 dark:text-indigo-300 font-bold text-xs uppercase tracking-wider border border-indigo-500/20">
+                        Carbohydrates
+                    </span>
+                    <span class="text-slate-400 text-sm font-semibold">Question <span id="current-q-num" class="text-indigo-600 dark:text-indigo-400 font-extrabold">1</span> of 100</span>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <div class="text-xs font-bold text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-slate-800 px-3 py-1.5 rounded-xl border border-slate-200 dark:border-slate-700">
+                        ⏳ <span id="quiz-q-timer" class="font-mono">00:00</span>
+                    </div>
+                    <div class="w-32 bg-slate-200 dark:bg-slate-700 h-2.5 rounded-full overflow-hidden">
+                        <div id="progress-bar" class="bg-gradient-to-r from-indigo-500 to-purple-600 h-full w-[1%] transition-all duration-300"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question Card -->
+            <div class="space-y-6">
+                <h3 id="question-text" class="text-lg md:text-xl font-bold leading-relaxed text-slate-900 dark:text-white">
+                    Loading question...
+                </h3>
+
+                <!-- Options List -->
+                <div id="options-container" class="space-y-3">
+                    <!-- Options injected dynamically -->
+                </div>
+
+                <!-- Explanation Box (Hidden initially) -->
+                <div id="explanation-box" class="hidden mt-6 p-5 rounded-2xl bg-indigo-50 dark:bg-slate-800/90 border border-indigo-200 dark:border-indigo-500/30 space-y-2 animate-fadeIn">
+                    <div class="flex items-center space-x-2 font-bold text-indigo-700 dark:text-indigo-300 text-sm">
+                        <span id="explanation-icon">💡</span>
+                        <span id="explanation-title">Detailed Solution & Chemical Reasoning</span>
+                    </div>
+                    <p id="explanation-text" class="text-sm text-slate-700 dark:text-slate-300 leading-relaxed"></p>
+                </div>
+
+                <!-- Navigation Footer -->
+                <div class="flex items-center justify-between pt-6 border-t border-slate-200 dark:border-slate-700/60">
+                    <button onclick="previousQuestion()" id="prev-btn" class="px-5 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-300 font-semibold text-sm hover:bg-slate-100 dark:hover:bg-slate-800 disabled:opacity-40 disabled:cursor-not-allowed transition-all">
+                        ← Previous
+                    </button>
+                    <button onclick="nextQuestion()" id="next-btn" class="px-8 py-3 bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-sm rounded-xl shadow-lg shadow-indigo-500/20 transition-all">
+                        Next Question →
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. RESULT & ANALYTICS DASHBOARD -->
+        <div id="result-screen" class="hidden max-w-5xl w-full glass-card rounded-3xl p-6 md:p-10 text-slate-800 dark:text-slate-100 shadow-2xl space-y-8">
+            <div class="text-center space-y-3">
+                <span class="inline-block bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 px-4 py-1.5 rounded-full text-sm font-bold uppercase tracking-wider border border-emerald-500/30">
+                    🎉 Quiz Completed Successfully!
+                </span>
+                <h2 class="text-3xl md:text-4xl font-extrabold">Your Comprehensive Performance Analytics</h2>
+                <p class="text-slate-500 dark:text-slate-400 text-sm">Detailed breakdown of your JEE Biomolecules Master Challenge performance.</p>
+            </div>
+
+            <!-- Top Score Cards -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="bg-white/80 dark:bg-slate-800/80 p-5 rounded-2xl border border-slate-200 dark:border-slate-700 text-center shadow-sm">
+                    <div class="text-xs text-slate-500 dark:text-slate-400 font-semibold mb-1">Total Marks Obtained</div>
+                    <div id="res-total-marks" class="text-3xl font-black text-indigo-600 dark:text-indigo-400">0 / 400</div>
+                </div>
+                <div class="bg-white/80 dark:bg-slate-800/80 p-5 rounded-2xl border border-slate-200 dark:border-slate-700 text-center shadow-sm">
+                    <div class="text-xs text-slate-500 dark:text-slate-400 font-semibold mb-1">Overall Accuracy</div>
+                    <div id="res-accuracy" class="text-3xl font-black text-purple-600 dark:text-purple-400">0%</div>
+                </div>
+                <div class="bg-white/80 dark:bg-slate-800/80 p-5 rounded-2xl border border-slate-200 dark:border-slate-700 text-center shadow-sm">
+                    <div class="text-xs text-slate-500 dark:text-slate-400 font-semibold mb-1">Total Time Taken</div>
+                    <div id="res-time" class="text-3xl font-black text-emerald-600 dark:text-emerald-400">00:00</div>
+                </div>
+                <div class="bg-white/80 dark:bg-slate-800/80 p-5 rounded-2xl border border-slate-200 dark:border-slate-700 text-center shadow-sm">
+                    <div class="text-xs text-slate-500 dark:text-slate-400 font-semibold mb-1">Correct / Incorrect</div>
+                    <div id="res-stats-counts" class="text-2xl font-black text-slate-700 dark:text-slate-200">0 / 0</div>
+                </div>
+            </div>
+
+            <!-- Analytics & Charts Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Topic-wise Breakdown Table -->
+                <div class="bg-white/80 dark:bg-slate-800/80 p-6 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm flex flex-col justify-between">
+                    <h3 class="font-extrabold text-lg mb-4 text-slate-900 dark:text-white flex items-center space-x-2">
+                        <span>📊</span><span>Topic-wise Performance</span>
+                    </h3>
+                    <div class="overflow-x-auto flex-grow">
+                        <table class="w-full text-left text-sm">
+                            <thead>
+                                <tr class="border-b border-slate-200 dark:border-slate-700 text-slate-400">
+                                    <th class="pb-3 font-semibold">Topic</th>
+                                    <th class="pb-3 font-semibold text-center">Correct</th>
+                                    <th class="pb-3 font-semibold text-center">Accuracy</th>
+                                    <th class="pb-3 font-semibold text-right">Marks</th>
+                                </tr>
+                            </thead>
+                            <tbody id="topic-breakdown-body" class="divide-y divide-slate-100 dark:divide-slate-700/50">
+                                <!-- Injected dynamically -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Chart Container -->
+                <div class="bg-white/80 dark:bg-slate-800/80 p-6 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm flex flex-col items-center justify-center">
+                    <h3 class="font-extrabold text-lg mb-2 text-slate-900 dark:text-white self-start flex items-center space-x-2">
+                        <span>📈</span><span>Accuracy Distribution</span>
+                    </h3>
+                    <div class="w-full h-64 flex items-center justify-center">
+                        <canvas id="accuracyChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Detailed Question Review Accordion -->
+            <div class="bg-white/80 dark:bg-slate-800/80 p-6 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm space-y-4">
+                <h3 class="font-extrabold text-lg text-slate-900 dark:text-white flex items-center space-x-2">
+                    <span>📝</span><span>Question-by-Question Review</span>
+                </h3>
+                <div id="review-list" class="space-y-3 max-h-96 overflow-y-auto custom-scrollbar pr-2">
+                    <!-- Injected dynamically -->
+                </div>
+            </div>
+
+            <!-- Retake Button -->
+            <div class="text-center pt-4">
+                <button onclick="location.reload()" class="px-8 py-3.5 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white font-extrabold text-base rounded-2xl shadow-xl transition-all">
+                    Retake Master Quiz 🔄
+                </button>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="w-full text-center py-4 text-xs text-slate-500 border-t border-slate-800/80">
+        JEE Chemistry Master Series • Biomolecules PYQ Suite • Designed for Advanced Aspirants
+    </footer>
+
+    <!-- JavaScript Application Logic -->
+    <script>
+        // 100 Comprehensive JEE Main & Advanced Biomolecules Questions Bank
+        const questionsData = [
+            // CARBOHYDRATES (1-25)
+            {
+                topic: "Carbohydrates",
+                q: "Which of the following carbohydrates is a non-reducing sugar?",
+                options: ["Glucose", "Fructose", "Sucrose", "Maltose"],
+                answer: 2,
+                explanation: "Sucrose is a non-reducing sugar because the reducing groups of glucose (C1) and fructose (C2) are involved in glycosidic bond formation (alpha-D-glucopyranosyl-(1->2)-beta-D-fructofuranoside)."
+            },
+            {
+                topic: "Carbohydrates",
+                q: "D-Glucose on reaction with excess of phenylhydrazine gives:",
+                options: ["Monophenylhydrazone", "Osazone", "Glucaric acid", "Sorbitol"],
+                answer: 1,
+                explanation: "D-glucose reacts with 3 equivalents of phenylhydrazine to form glucosazone (osazone), characterized by needle-like crystals, involving C1 and C2 carbons."
+            },
+            {
+                topic: "Carbohydrates",
+                q: "Which reagent can distinguish between an aldose and a ketose?",
+                options: ["Tollens' reagent", "Fehling's solution", "Bromine water", "Lucas reagent"],
+                answer: 2,
+                explanation: "Bromine water oxidizes aldoses to corresponding aldonic acids (monocarboxylic acids) but does not oxidize ketoses, thus distinguishing them."
+            },
+            {
+                topic: "Carbohydrates",
+                q: "In Haworth projection of alpha-D-glucopyranose, the OH group at C1 is oriented:",
+                options: ["Upward (cis)", "Downward (trans)", "Planar", "Perpendicular"],
+                answer: 1,
+                explanation: "In alpha-D-glucopyranose, the OH group at the anomeric carbon (C1) is trans to the CH2OH group at C5, pointing downwards in the standard Haworth representation."
+            },
+            {
+                topic: "Carbohydrates",
+                q: "Which of the following is a C-2 epimer of D-glucose?",
+                options: ["D-Galactose", "D-Mannose", "D-Fructose", "D-Ribose"],
+                answer: 1,
+                explanation: "D-Mannose differs from D-glucose only in the configuration around C-2 carbon atom, making them C-2 epimers."
+            },
+            {
+                topic: "Carbohydrates",
+                q: "Which of the following is a C-4 epimer of D-glucose?",
+                options: ["D-Galactose", "D-Mannose", "D-Fructose", "L-Glucose"],
+                answer: 0,
+                explanation: "D-Galactose and D-glucose differ in configuration exclusively at the C-4 carbon atom."
+            },
+            {
+                topic: "Carbohydrates",
+                q: "Starch is a polymer of alpha-D-glucose consisting of two components:",
+                options: ["Amylose and Amylopectin", "Cellulose and Glycogen", "Amylose and Cellulose", "Amylopectin and Glycogen"],
+                answer: 0,
+                explanation: "Starch is composed of water-soluble amylose (linear, alpha-1,4-glycosidic linkage) and water-insoluble amylopectin (branched, alpha-1,4 and alpha-1,6 linkages)."
+            },
+            {
+                topic: "Carbohydrates",
+                q: "Cellulose is a linear polymer of beta-D-glucose units joined by:",
+                options: ["alpha-1,4-glycosidic bond", "beta-1,4-glycosidic bond", "alpha-1,6-glycosidic bond", "beta-1,6-glycosidic bond"],
+                answer: 1,
+                explanation: "Cellulose consists of unbranched chains of beta-D-glucose connected by beta-1,4-glycosidic linkages, imparting high tensile strength."
+            },
+            {
+                topic: "Carbohydrates",
+                q: "Which carbohydrate is also known as 'blood sugar'?",
+                options: ["Fructose", "Sucrose", "D-Glucose", "Lactose"],
+                answer: 2,
+                explanation: "D-Glucose is referred to as blood sugar because human blood maintains a constant concentration of glucose (approx 65-110 mg/dL)."
+            },
+            {
+                topic: "Carbohydrates",
+                q: "Fructose is a ketohexose. In its cyclic hemiketal form, it predominantly exists as a:",
+                options: ["5-membered furanose ring", "6-membered pyranose ring", "3-membered epoxide", "Linear chain only"],
+                answer: 0,
+                explanation: "Free fructose predominantly forms a 5-membered furanose ring (beta-D-fructofuranose), although in sucrose it exists in furanose form."
+            },
+            {
+                topic: "Carbohydrates",
+                q: "Hydrolysis of sucrose yields an equimolar mixture of:",
+                options: ["D-Glucose and D-Galactose", "D-Glucose and D-Fructose", "Two molecules of D-Glucose", "D-Glucose and L-Glucose"],
+                answer: 1,
+                explanation: "Hydrolysis of sucrose (a disaccharide) breaks the glycosidic bond, yielding equimolar D-glucose and D-fructose."
+            },
+            {
+                topic: "Carbohydrates",
+                q: "Inversion of cane sugar refers to:",
+                options: ["Change in optical rotation from dextro to laevo", "Conversion of starch to glucose", "Racemization of glucose", "Hydrolysis of cellulose"],
+                answer: 0,
+                explanation: "Sucrose is dextrorotatory (+66.5°), but upon hydrolysis, mixture of glucose (+52.7°) and fructose (-92.4°) becomes laevorotatory overall. This sign inversion is termed inversion of sugar."
+            },
+            {
+                topic: "Carbohydrates",
+                q: "Which of the following is a reducing disaccharide?",
+                options: ["Sucrose", "Trehalose", "Maltose", "Cellobiose"],
+                answer: 2,
+                explanation: "Maltose contains two glucose units with a free reducing aldehyde group at C1 of one glucose ring."
+            },
+            {
+                topic: "Carbohydrates",
+                q: "Glycogen, stored in animal liver and muscles, has a structure similar to:",
+                options: ["Amylose", "Amylopectin (highly branched)", "Cellulose", "Inulin"],
+                answer: 1,
+                explanation: "Glycogen resembles amylopectin but is even more highly branched (branching occurs every 8-12 glucose units)."
+            },
+            {
+                topic: "Carbohydrates",
+                q: "Which test is used to detect carbohydrates?",
+                options: ["Biuret test", "Molisch test", "Ninhydrin test", "Xanthoproteic test"],
+                answer: 1,
+                explanation: "Molisch test is a general chemical test for all carbohydrates, utilizing alpha-naphthol and concentrated sulfuric acid to form purple rings."
+            },
+            {
+                topic: "Carbohydrates",
+                q: "Reaction of D-glucose with hydroxylamine (NH2OH) forms an oxime. This confirms the presence of:",
+                options: ["A primary alcohol group", "A carbonyl (aldehyde) group", "A carboxylic acid group", "Five hydroxyl groups"],
+                answer: 1,
+                explanation: "Reaction with hydroxylamine to form oximes proves the presence of a carbonyl group (specifically aldehyde in aldoses)."
+            },
+            {
+                topic: "Carbohydrates",
+                q: "Acetylation of D-glucose with acetic anhydride gives pentaacetate. This proves the presence of:",
+                options: ["One aldehyde group", "Five -OH groups", "One primary alcohol group", "Six carbon atoms"],
+                answer: 1,
+                explanation: "Formation of D-glucose pentaacetate indicates the presence of five hydroxyl (-OH) groups in glucose."
+            },
+            {
+                topic: "Carbohydrates",
+                q: "Oxidation of D-glucose with strong nitric acid (HNO3) yields:",
+                options: ["Gluconic acid", "Saccharic (glucaric) acid", "Sorbitol", "Fructose"],
+                answer: 1,
+                explanation: "Concentrated HNO3 oxidizes both the terminal -CH2OH group and the -CHO aldehyde group of D-glucose into dicarboxylic saccharic acid."
+            },
+            {
+                topic: "Carbohydrates",
+                q: "Which of the following disaccharides contains beta-1,4-glycosidic linkage?",
+                options: ["Maltose", "Sucrose", "Lactose", "Trehalose"],
+                answer: 2,
+                explanation: "Lactose is composed of beta-D-galactose and beta-D-glucose joined by a beta-1,4-glycosidic bond."
+            },
+            {
+                topic: "Carbohydrates",
+                q: "Which monosaccharide unit is present in both starch and cellulose?",
+                options: ["D-Fructose", "D-Galactose", "D-Glucose", "D-Ribose"],
+                answer: 2,
+                explanation: "Both starch and cellulose are polymers built entirely from D-glucose monomer units."
+            },
+            {
+                topic: "Carbohydrates",
+                q: "Mutarotation is exhibited by:",
+                options: ["Sucrose", "D-Glucose", "Methyl alpha-D-glucoside", "Cellulose"],
+                answer: 1,
+                explanation: "Mutarotation is the spontaneous change in optical rotation observed when an optically active compound is dissolved in water, due to equilibrium between alpha and beta anomers via open-chain form."
+            },
+            {
+                topic: "Carbohydrates",
+                q: "The number of chiral centers in an open-chain aldohexose is:",
+                options: ["3", "4", "5", "6"],
+                answer: 1,
+                explanation: "An open-chain aldohexose (like D-glucose) has 4 chiral (asymmetric) carbon atoms (C2, C3, C4, C5)."
+            },
+            {
+                topic: "Carbohydrates",
+                q: "Which of the following is a ketotetrose?",
+                options: ["Erythrulose", "Ribulose", "Dihydroxyacetone", "Fructose"],
+                answer: 0,
+                explanation: "Erythrulose is a ketotetrose (4 carbons, ketone group at C2)."
+            },
+            {
+                topic: "Carbohydrates",
+                q: "Which of the following sugars is sweetest in taste?",
+                options: ["Sucrose", "Glucose", "Fructose", "Lactose"],
+                answer: 2,
+                explanation: "D-Fructose is the sweetest naturally occurring sugar, significantly sweeter than sucrose or glucose."
+            },
+            {
+                topic: "Carbohydrates",
+                q: "Cyanohydrin formation by D-glucose with HCN confirms the presence of:",
+                options: ["Terminal primary alcohol", "Carbonyl group", "Ether linkage", "Alpha-linkage"],
+                answer: 1,
+                explanation: "Addition of HCN to glucose to form cyanohydrin confirms the presence of a carbonyl group (C=O)."
+            },
+
+            // PROTEINS & AMINO ACIDS (26-55)
+            {
+                topic: "Proteins",
+                q: "Which of the following amino acids is optically inactive?",
+                options: ["Alanine", "Glycine", "Valine", "Serine"],
+                answer: 1,
+                explanation: "Glycine is the simplest amino acid where the R group is a hydrogen atom (-H), making C2 symmetrical (achiral) and optically inactive."
+            },
+            {
+                topic: "Proteins",
+                q: "At isoelectric point (pI), amino acids exist primarily as:",
+                options: ["Cations", "Anions", "Zwitterions (dipolar ions)", "Neutral uncharged molecules"],
+                answer: 2,
+                explanation: "At the isoelectric point, the amino acid carries both positive and negative charges, existing as a net neutral zwitterion with minimum migration in an electric field."
+            },
+            {
+                topic: "Proteins",
+                q: "Which of the following is an essential amino acid for humans?",
+                options: ["Glycine", "Alanine", "Valine", "Serine"],
+                answer: 2,
+                explanation: "Valine is an essential amino acid (cannot be synthesized by the human body and must be obtained from diet)."
+            },
+            {
+                topic: "Proteins",
+                q: "The peptide bond linking amino acids in proteins is chemically a:",
+                options: ["Ester bond", "Amide bond", "Ether bond", "Glycosidic bond"],
+                answer: 1,
+                explanation: "A peptide bond is formed by the condensation reaction between the carboxyl group of one amino acid and the amino group of another, forming an amide linkage (-CONH-)."
+            },
+            {
+                topic: "Proteins",
+                q: "Secondary structure of proteins (such as alpha-helix) is stabilized primarily by:",
+                options: ["Hydrogen bonding", "Disulfide linkages", "Ionic bonds", "Peptide covalent bonds"],
+                answer: 0,
+                explanation: "Alpha-helices and beta-pleated sheets (secondary structures) are stabilized by hydrogen bonds between the C=O and N-H groups of peptide bonds."
+            },
+            {
+                topic: "Proteins",
+                q: "Denaturation of proteins causes loss of biological activity due to disruption of:",
+                options: ["Primary structure", "Secondary and tertiary structures", "Only peptide bonds", "Only disulfide bonds"],
+                answer: 1,
+                explanation: "Denaturation disrupts hydrogen bonds and hydrophobic interactions, destroying secondary, tertiary, and quaternary structures while leaving primary structure (peptide sequence) intact."
+            },
+            {
+                topic: "Proteins",
+                q: "Which test gives a violet/purple color with proteins and peptides containing at least two peptide bonds?",
+                options: ["Molisch test", "Biuret test", "Ninhydrin test", "Xanthoproteic test"],
+                answer: 1,
+                explanation: "Biuret test reacts with peptide linkages in alkaline copper sulfate solution to yield a characteristic purple/violet complex."
+            },
+            {
+                topic: "Proteins",
+                q: "Reaction of alpha-amino acids with ninhydrin gives a characteristic color, which is typically:",
+                options: ["Yellow", "Deep Blue / Purple (Ruhemann's purple)", "Cherry Red", "Green"],
+                answer: 1,
+                explanation: "Ninhydrin reacts with primary alpha-amino acids to form a deep purple colored complex known as Ruhemann's purple."
+            },
+            {
+                topic: "Proteins",
+                q: "Which of the following amino acids contains a sulfur atom?",
+                options: ["Cysteine", "Serine", "Proline", "Tyrosine"],
+                answer: 0,
+                explanation: "Cysteine (and methionine) contains a thiol (-SH) sulfur functional group."
+            },
+            {
+                topic: "Proteins",
+                q: "Proteins are polymers of:",
+                options: ["L-Alpha-amino acids", "D-Alpha-amino acids", "Beta-amino acids", "Hydroxy acids"],
+                answer: 0,
+                explanation: "Natural proteins are condensation polymers consisting exclusively of L-alpha-amino acids."
+            },
+            {
+                topic: "Proteins",
+                q: "Which of the following is an acidic amino acid?",
+                options: ["Lysine", "Arginine", "Aspartic acid", "Histidine"],
+                answer: 2,
+                explanation: "Aspartic acid and glutamic acid possess a second carboxylic acid group in their side chain, making them acidic amino acids."
+            },
+            {
+                topic: "Proteins",
+                q: "Which of the following is a basic amino acid?",
+                options: ["Glycine", "Valine", "Lysine", "Leucine"],
+                answer: 2,
+                explanation: "Lysine, arginine, and histidine contain additional basic amino groups in their side chains."
+            },
+            {
+                topic: "Proteins",
+                q: "The tertiary structure of a protein refers to:",
+                options: ["Linear sequence of amino acids", "Folding and coiling of polypeptide chain into 3D structure", "Association of multiple polypeptide subunits", "Hydrogen bonding between backbone atoms"],
+                answer: 1,
+                explanation: "Tertiary structure represents the overall 3D folding of a single polypeptide chain stabilized by side-chain interactions (hydrogen bonds, ionic bonds, disulfide bridges, hydrophobic forces)."
+            },
+            {
+                topic: "Proteins",
+                q: "Quaternary structure of proteins applies to proteins that have:",
+                options: ["Only one polypeptide chain", "Two or more polypeptide chains (subunits)", "No helical structure", "Only primary linkages"],
+                answer: 1,
+                explanation: "Quaternary structure describes the spatial arrangement and interaction of multiple folded protein subunits (e.g., hemoglobin)."
+            },
+            {
+                topic: "Proteins",
+                q: "Which amino acid has an aromatic side chain?",
+                options: ["Phenylalanine", "Alanine", "Serine", "Cysteine"],
+                answer: 0,
+                explanation: "Phenylalanine, tyrosine, and tryptophan contain aromatic ring systems in their side chains."
+            },
+            {
+                topic: "Proteins",
+                q: "In fibrous proteins, polypeptide chains are held together by:",
+                options: ["Strong covalent disulfide bonds and hydrogen bonds", "Weak van der Waals forces only", "Ionic bonds only", "Hydrophobic interactions only"],
+                answer: 0,
+                explanation: "Fibrous proteins (like keratin and collagen) feature parallel polypeptide chains held together by strong hydrogen bonds and disulfide cross-links."
+            },
+            {
+                topic: "Proteins",
+                q: "Globular proteins are characterized by:",
+                options: ["Water-insoluble linear fibers", "Folded spherical structures that are water-soluble", "Lack of any secondary structure", "Absence of tertiary folding"],
+                answer: 1,
+                explanation: "Globular proteins (like enzymes and insulin) fold into compact, spherical shapes and are generally soluble in water."
+            },
+            {
+                topic: "Proteins",
+                q: "Which amino acid is classified as an imino acid rather than a primary amino acid?",
+                options: ["Glycine", "Proline", "Valine", "Tryptophan"],
+                answer: 1,
+                explanation: "Proline contains a secondary amine group where the nitrogen is part of a pyrrolidine ring, making it an imino acid."
+            },
+            {
+                topic: "Proteins",
+                q: "Boiling egg white in water causes protein denaturation. Which structural levels are altered?",
+                options: ["Primary structure only", "Secondary, tertiary, and quaternary structures", "All structures including primary", "Only peptide bonds"],
+                answer: 1,
+                explanation: "Heat denaturation disrupts hydrogen bonds and spatial conformations (secondary, tertiary, quaternary), leaving the covalent primary peptide sequence intact."
+            },
+            {
+                topic: "Proteins",
+                q: "Xanthoproteic test gives a yellow color with proteins containing:",
+                options: ["Aliphatic amino acids", "Aromatic rings (like tyrosine and tryptophan)", "Sulfur groups", "Basic nitrogen groups"],
+                answer: 1,
+                explanation: "Concentrated nitric acid nitration of aromatic rings in amino acids like tyrosine produces yellow nitro derivatives in the Xanthoproteic test."
+            },
+            {
+                topic: "Proteins",
+                q: "The linkage responsible for holding two polypeptide chains together in insulin is:",
+                options: ["Ester linkage", "Disulfide linkage (-S-S-)", "Glycosidic linkage", "Hydrogen bond"],
+                answer: 1,
+                explanation: "Insulin chains A and B are linked together by inter-chain disulfide bonds (-S-S-)."
+            },
+            {
+                topic: "Proteins",
+                q: "Which of the following is a non-essential amino acid?",
+                options: ["Valine", "Alanine", "Lysine", "Phenylalanine"],
+                answer: 1,
+                explanation: "Alanine can be synthesized by the human body, making it a non-essential amino acid."
+            },
+            {
+                topic: "Proteins",
+                q: "The isoelectric point of an amino acid is defined as the pH at which:",
+                options: ["It has maximum net positive charge", "It has maximum net negative charge", "It has zero net charge (zwitterionic form)", "It precipitates out completely"],
+                answer: 2,
+                explanation: "At the isoelectric point (pI), the positive and negative charges balance out, resulting in zero net electrical charge."
+            },
+            {
+                topic: "Proteins",
+                q: "Enzymes are biocatalysts that are chemically:",
+                options: ["Carbohydrates", "Globular proteins", "Lipids", "Nucleic acids"],
+                answer: 1,
+                explanation: "Almost all enzymes are globular proteins that accelerate biochemical reactions with high specificity."
+            },
+            {
+                topic: "Proteins",
+                q: "Which of the following vitamins is water-soluble?",
+                options: ["Vitamin A", "Vitamin D", "Vitamin C", "Vitamin K"],
+                answer: 2,
+                explanation: "Vitamin C (ascorbic acid) and B-complex vitamins are water-soluble, whereas A, D, E, and K are fat-soluble."
+            },
+            {
+                topic: "Proteins",
+                q: "Deficiency of Vitamin B1 (thiamine) causes the disease known as:",
+                options: ["Scurvy", "Beri-beri", "Rickets", "Night blindness"],
+                answer: 1,
+                explanation: "Beri-beri is caused by deficiency of Vitamin B1 (thiamine)."
+            },
+            {
+                topic: "Proteins",
+                q: "Deficiency of Vitamin C leads to:",
+                options: ["Rickets", "Scurvy", "Beriberi", "Night blindness"],
+                answer: 1,
+                explanation: "Scurvy (characterized by bleeding gums and delayed wound healing) is caused by Vitamin C deficiency."
+            },
+            {
+                topic: "Proteins",
+                q: "Vitamin D deficiency in children causes:",
+                options: ["Scurvy", "Rickets", "Beri-beri", "Xerophthalmia"],
+                answer: 1,
+                explanation: "Rickets (softening and weakening of bones in children) is caused by Vitamin D deficiency."
+            },
+            {
+                topic: "Proteins",
+                q: "Fat-soluble vitamins include:",
+                options: ["Vitamin B and C", "Vitamin A, D, E, and K", "Vitamin C and K", "Vitamin B12 and folic acid"],
+                answer: 1,
+                explanation: "Vitamins A, D, E, and K are fat-soluble and can accumulate in the liver and adipose tissues."
+            },
+            {
+                topic: "Proteins",
+                q: "Night blindness is caused due to the deficiency of:",
+                options: ["Vitamin A", "Vitamin B", "Vitamin C", "Vitamin D"],
+                answer: 0,
+                explanation: "Vitamin A (retinol) deficiency leads to xerophthalmia and night blindness."
+            },
+
+            // NUCLEIC ACIDS (56-80)
+            {
+                topic: "Nucleic Acids",
+                q: "The nitrogenous bases present in DNA are:",
+                options: ["Adenine, Guanine, Cytosine, Uracil", "Adenine, Guanine, Cytosine, Thymine", "Adenine, Thymine, Uracil, Cytosine", "Guanine, Cytosine, Thymine, Uracil"],
+                answer: 1,
+                explanation: "DNA contains purines (Adenine, Guanine) and pyrimidines (Cytosine, Thymine). Uracil is found in RNA instead of thymine."
+            },
+            {
+                topic: "Nucleic Acids",
+                q: "A nucleoside consists of:",
+                options: ["Nitrogenous base + Pentose sugar", "Nitrogenous base + Phosphate group", "Pentose sugar + Phosphate group", "Base + Sugar + Phosphate"],
+                answer: 0,
+                explanation: "A nucleoside is composed of a nitrogenous base attached to a pentose sugar (ribose or deoxyribose) via beta-N-glycosidic linkage."
+            },
+            {
+                topic: "Nucleic Acids",
+                q: "A nucleotide consists of:",
+                options: ["Base + Sugar", "Sugar + Phosphate", "Base + Sugar + Phosphate group", "Base + Phosphate"],
+                answer: 2,
+                explanation: "A nucleotide is formed when a phosphate group is esterified to the hydroxyl group of the sugar moiety of a nucleoside."
+            },
+            {
+                topic: "Nucleic Acids",
+                q: "In DNA double helix, Adenine pairs specifically with Thymine through how many hydrogen bonds?",
+                options: ["1", "2", "3", "4"],
+                answer: 1,
+                explanation: "Adenine pairs with Thymine through 2 hydrogen bonds, while Guanine pairs with Cytosine through 3 hydrogen bonds."
+            },
+            {
+                topic: "Nucleic Acids",
+                q: "Which pyrimidine base is present in RNA but absent in DNA?",
+                options: ["Thymine", "Cytosine", "Uracil", "Adenine"],
+                answer: 2,
+                explanation: "Uracil is present in RNA replacing thymine (5-methyluracil) found in DNA."
+            },
+            {
+                topic: "Nucleic Acids",
+                q: "The sugar molecule present in RNA is:",
+                options: ["2-Deoxy-D-ribose", "D-Ribose", "D-Glucose", "D-Fructose"],
+                answer: 1,
+                explanation: "RNA contains D-ribose sugar, whereas DNA contains 2-deoxy-D-ribose sugar."
+            },
+            {
+                topic: "Nucleic Acids",
+                q: "Linkage between adjacent nucleotides in nucleic acids is:",
+                options: ["Phosphodiester linkage", "Peptide linkage", "Glycosidic linkage", "Ester linkage"],
+                answer: 0,
+                explanation: "Adjacent nucleotides are joined by 3',5'-phosphodiester bonds between the phosphate group and the sugar hydroxyls."
+            },
+            {
+                topic: "Nucleic Acids",
+                q: "Chargaff's rules for double-stranded DNA state that:",
+                options: ["A = T and G = C", "A = G and T = C", "A + T = G + C", "A = C and G = T"],
+                answer: 0,
+                explanation: "In double-stranded DNA, the amount of adenine equals thymine (A=T) and the amount of guanine equals cytosine (G=C)."
+            },
+            {
+                topic: "Nucleic Acids",
+                q: "Which of the following is responsible for transmission of hereditary characters?",
+                options: ["RNA", "DNA", "Proteins", "Enzymes"],
+                answer: 1,
+                explanation: "DNA (Deoxyribonucleic acid) is the genetic material responsible for storing and transmitting hereditary information."
+            },
+            {
+                topic: "Nucleic Acids",
+                q: "Which RNA type has the highest molecular weight and acts as a template for protein synthesis?",
+                options: ["tRNA", "rRNA", "mRNA", "Viral RNA"],
+                answer: 2,
+                explanation: "mRNA (messenger RNA) carries genetic code transcribed from DNA to ribosomes for protein translation."
+            },
+            {
+                topic: "Nucleic Acids",
+                q: "Transfer RNA (tRNA) functions to:",
+                options: ["Store genetic code", "Bring specific amino acids to ribosomes during translation", "Form ribosomal scaffolding", "Catalyze DNA replication"],
+                answer: 1,
+                explanation: "tRNA molecules act as adaptor molecules that carry specific amino acids to the mRNA template on ribosomes."
+            },
+            {
+                topic: "Nucleic Acids",
+                q: "The double helix model of DNA was proposed by:",
+                options: ["Watson and Crick", "Linus Pauling", "Rosalind Franklin", "Gregor Mendel"],
+                answer: 0,
+                explanation: "James Watson and Francis Crick proposed the iconic 3D double helix structure of DNA in 1953."
+            },
+            {
+                topic: "Nucleic Acids",
+                q: "Hydrolysis of nucleic acids yields:",
+                options: ["Only pentose sugars", "Pentose sugar, phosphoric acid, and nitrogenous bases", "Only amino acids", "Fatty acids and glycerol"],
+                answer: 1,
+                explanation: "Complete hydrolysis of nucleic acids breaks down phosphodiester and glycosidic bonds, yielding pentose sugars, phosphoric acid, and purine/pyrimidine bases."
+            },
+            {
+                topic: "Nucleic Acids",
+                q: "Which nitrogenous base is a purine derivative?",
+                options: ["Thymine", "Cytosine", "Uracil", "Adenine"],
+                answer: 3,
+                explanation: "Adenine and Guanine are bicyclic purines, whereas Thymine, Cytosine, and Uracil are monocyclic pyrimidines."
+            },
+            {
+                topic: "Nucleic Acids",
+                q: "Which nitrogenous base is a pyrimidine derivative?",
+                options: ["Adenine", "Guanine", "Cytosine", "Both Cytosine and Thymine"],
+                answer: 3,
+                explanation: "Cytosine, Thymine, and Uracil are pyrimidine derivatives."
+            },
+            {
+                topic: "Nucleic Acids",
+                q: "The connection between the base and sugar in a nucleoside is through:",
+                options: ["C-C bond", "Beta-N-glycosidic bond", "Phosphodiester bond", "Hydrogen bond"],
+                answer: 1,
+                explanation: "The base is attached to C1' of the sugar via a beta-N-glycosidic bond (N1 of pyrimidines or N9 of purines)."
+            },
+            {
+                topic: "Nucleic Acids",
+                q: "What is the primary difference between DNA and RNA regarding oxygen atoms on the pentose ring?",
+                options: ["RNA has one more oxygen atom at C2'", "DNA has an extra oxygen at C3'", "RNA lacks oxygen at C5'", "No difference in oxygen content"],
+                answer: 0,
+                explanation: "DNA stands for deoxyribonucleic acid because the C2' position of its ribose ring lacks an oxygen atom (has -H instead of -OH)."
+            },
+            {
+                topic: "Nucleic Acids",
+                q: "In a DNA sample, if the percentage of Adenine is 20%, what is the percentage of Cytosine?",
+                options: ["20%", "30%", "40%", "60%"],
+                answer: 1,
+                explanation: "By Chargaff's rules, A=T (20% each, total 40%). Remaining 60% is G+C. Since G=C, Cytosine is 30%."
+            },
+            {
+                topic: "Nucleic Acids",
+                q: "Which type of RNA is most abundant in a cell?",
+                options: ["mRNA", "tRNA", "rRNA", "Viral RNA"],
+                answer: 2,
+                explanation: "Ribosomal RNA (rRNA) constitutes about 80% of total cellular RNA."
+            },
+            {
+                topic: "Nucleic Acids",
+                q: "The backbone of a nucleic acid strand is formed by alternating units of:",
+                options: ["Base and sugar", "Sugar and phosphate group", "Base and phosphate group", "Amino acid and sugar"],
+                answer: 1,
+                explanation: "The sugar-phosphate backbone forms the structural framework of nucleic acid strands."
+            },
+            {
+                topic: "Nucleic Acids",
+                q: "Denaturation of DNA involves:",
+                options: ["Breakage of phosphodiester bonds", "Separation of complementary strands by breaking hydrogen bonds", "Cleavage of sugar rings", "Methylation of bases"],
+                answer: 1,
+                explanation: "Heating DNA breaks the hydrogen bonds between base pairs, causing the double helix strands to unwind and separate."
+            },
+            {
+                topic: "Nucleic Acids",
+                q: "Which functional group is attached to the 5' carbon of a nucleotide pentose sugar?",
+                options: ["Hydroxyl group", "Phosphate group", "Amino group", "Methyl group"],
+                answer: 1,
+                explanation: "The 5' carbon of the pentose sugar in a nucleotide is esterified with a phosphoric acid group."
+            },
+            {
+                topic: "Nucleic Acids",
+                q: "Which functional group is free at the 3' end of a polynucleotide chain?",
+                options: ["Phosphate group", "Hydroxyl group (-OH) at C3'", "Amino group", "Aldehyde group"],
+                answer: 1,
+                explanation: "A polynucleotide strand has a free 3'-hydroxyl (-OH) group on the pentose sugar."
+            },
+            {
+                topic: "Nucleic Acids",
+                q: "Genetic information in retroviruses is stored in:",
+                options: ["Double-stranded DNA", "Single-stranded RNA", "Proteins", "Lipids"],
+                answer: 1,
+                explanation: "Retroviruses (like HIV) store their genetic information in single-stranded RNA, which is reverse transcribed into DNA."
+            },
+            {
+                topic: "Nucleic Acids",
+                q: "Which chemical bond connects Guanine and Cytosine in DNA?",
+                options: ["2 hydrogen bonds", "3 hydrogen bonds", "1 covalent bond", "Ionic bond"],
+                answer: 1,
+                explanation: "Guanine and Cytosine are connected by 3 strong hydrogen bonds, making GC-rich DNA regions more stable against heat denaturation."
+            },
+
+            // VITAMINS & LIPIDS (81-100)
+            {
+                topic: "Vitamins & Lipids",
+                q: "Which vitamin is also known as Ascorbic acid?",
+                options: ["Vitamin A", "Vitamin B6", "Vitamin C", "Vitamin K"],
+                answer: 2,
+                explanation: "Vitamin C is chemically known as L-ascorbic acid."
+            },
+            {
+                topic: "Vitamins & Lipids",
+                q: "Deficiency of Vitamin B12 causes:",
+                options: ["Pernicious anemia", "Scurvy", "Rickets", "Sterility"],
+                answer: 0,
+                explanation: "Pernicious anemia is caused by a deficiency of Vitamin B12 (cobalamin), which contains a corrin ring with a cobalt ion."
+            },
+            {
+                topic: "Vitamins & Lipids",
+                q: "Which vitamin helps in blood clotting and is known as anti-hemorrhagic factor?",
+                options: ["Vitamin A", "Vitamin E", "Vitamin K", "Vitamin D"],
+                answer: 2,
+                explanation: "Vitamin K is essential for the synthesis of prothrombin and other blood clotting factors."
+            },
+            {
+                topic: "Vitamins & Lipids",
+                q: "Which vitamin acts as an antioxidant and is known as tocopherol (fertility vitamin)?",
+                options: ["Vitamin A", "Vitamin E", "Vitamin K", "Vitamin C"],
+                answer: 1,
+                explanation: "Vitamin E refers to tocopherols, which function as fat-soluble antioxidants protecting cell membranes."
+            },
+            {
+                topic: "Vitamins & Lipids",
+                q: "Which of the following is classified as a fat-soluble vitamin that regulates calcium and phosphorus metabolism?",
+                options: ["Vitamin C", "Vitamin D", "Vitamin B1", "Vitamin B2"],
+                answer: 1,
+                explanation: "Vitamin D (calciferol) regulates calcium and phosphorus homeostasis for healthy bone mineralization."
+            },
+            {
+                topic: "Vitamins & Lipids",
+                q: "Lipids are a class of organic compounds characterized by being:",
+                options: ["Soluble in water, insoluble in organic solvents", "Insoluble in water, soluble in non-polar organic solvents", "Soluble in both water and organic solvents", "Polymers of amino acids"],
+                answer: 1,
+                explanation: "Lipids are defined by their hydrophobic nature—insoluble in water but soluble in non-polar organic solvents like ether, chloroform, and benzene."
+            },
+            {
+                topic: "Vitamins & Lipids",
+                q: "Fats and oils are chemically:",
+                options: ["Esters of glycerol and fatty acids (triglycerides)", "Ethers of polyhydric alcohols", "Amides of fatty acids", "Polymers of isoprene"],
+                answer: 0,
+                explanation: "Fats and oils are triesters of glycerol with long-chain carboxylic (fatty) acids, commonly called triglycerides."
+            },
+            {
+                topic: "Vitamins & Lipids",
+                q: "Vegetable oils can be converted into solid fats (vanaspati ghee) by:",
+                options: ["Hydrolysis", "Catalytic hydrogenation", "Oxidation", "Dehydration"],
+                answer: 1,
+                explanation: "Catalytic hydrogenation adds hydrogen across carbon-carbon double bonds in unsaturated fatty acid chains of oils, converting liquid oils into saturated solid fats."
+            },
+            {
+                topic: "Vitamins & Lipids",
+                q: "Saponification of fats with aqueous sodium hydroxide yields soap and:",
+                options: ["Glycerol", "Glycol", "Methanol", "Glucose"],
+                answer: 0,
+                explanation: "Saponification is alkaline hydrolysis of triglycerides, yielding sodium salts of fatty acids (soaps) and glycerol."
+            },
+            {
+                topic: "Vitamins & Lipids",
+                q: "Which of the following fatty acids is classified as saturated?",
+                options: ["Oleic acid", "Linoleic acid", "Palmitic acid", "Linolenic acid"],
+                answer: 2,
+                explanation: "Palmitic acid (C16H32O2) and stearic acid are common saturated fatty acids lacking C=C double bonds."
+            },
+            {
+                topic: "Vitamins & Lipids",
+                q: "Which fatty acid contains multiple double bonds (polyunsaturated)?",
+                options: ["Palmitic acid", "Stearic acid", "Linoleic acid", "Butyric acid"],
+                answer: 2,
+                explanation: "Linoleic acid and linolenic acid contain multiple double bonds and are essential polyunsaturated fatty acids."
+            },
+            {
+                topic: "Vitamins & Lipids",
+                q: "Phospholipids are important constituents of cell membranes. A typical phospholipid contains:",
+                options: ["Glycerol, two fatty acids, phosphoric acid, and a nitrogenous base", "Three fatty acids and glycerol", "Only fatty acids and sphingosine", "Steroid rings only"],
+                answer: 0,
+                explanation: "Glycerophospholipids consist of glycerol esterified with two fatty acids and one phosphoric acid linked to a polar head group like choline."
+            },
+            {
+                topic: "Vitamins & Lipids",
+                q: "Waxes are esters formed between:",
+                options: ["Glycerol and fatty acids", "Long-chain fatty acids and long-chain monohydric alcohols", "Cholesterol and fatty acids", "Amino acids and fatty acids"],
+                answer: 1,
+                explanation: "Waxes are simple lipids composed of esters of long-chain fatty acids and long-chain monohydric fatty alcohols."
+            },
+            {
+                topic: "Vitamins & Lipids",
+                q: "Which steroid molecule is a precursor for steroid hormones and Vitamin D in animal tissues?",
+                options: ["Cholesterol", "Testosterone", "Progesterone", "Cortisol"],
+                answer: 0,
+                explanation: "Cholesterol is a vital steroid lipid that serves as a precursor for bile acids, steroid hormones, and Vitamin D synthesis."
+            },
+            {
+                topic: "Vitamins & Lipids",
+                q: "Rancidity of fats and oils occurs due to:",
+                options: ["Hydrogenation", "Air oxidation of double bonds and microbial hydrolysis", "Saponification", "Polymerization"],
+                answer: 1,
+                explanation: "Rancidity is caused by oxidative cleavage of double bonds by atmospheric oxygen and enzymatic hydrolysis producing foul-smelling aldehydes and free fatty acids."
+            },
+            {
+                topic: "Vitamins & Lipids",
+                q: "Which vitamin deficiency causes sterility or reproductive failure in rats?",
+                options: ["Vitamin A", "Vitamin E", "Vitamin K", "Vitamin D"],
+                answer: 1,
+                explanation: "Vitamin E is famously known as the anti-sterility or fertility vitamin because deficiency impairs normal reproduction in laboratory rodents."
+            },
+            {
+                topic: "Vitamins & Lipids",
+                q: "Iodine number of an oil or fat is a measure of:",
+                options: ["Degree of unsaturation (number of double bonds)", "Molecular weight", "Acid content", "Saponification value"],
+                answer: 0,
+                explanation: "Iodine number is defined as the grams of iodine consumed by 100 grams of fat or oil, quantifying the degree of carbon-carbon unsaturation."
+            },
+            {
+                topic: "Vitamins & Lipids",
+                q: "Which of the following is a derived lipid?",
+                options: ["Triglyceride", "Cholesterol (Steroid)", "Phospholipid", "Wax"],
+                answer: 1,
+                explanation: "Derived lipids include steroids, terpenes, and prostaglandins derived from hydrolysis of simple or complex lipids."
+            },
+            {
+                topic: "Vitamins & Lipids",
+                q: "Which vitamin is synthesized in human skin upon exposure to sunlight (UV rays)?",
+                options: ["Vitamin A", "Vitamin C", "Vitamin D", "Vitamin K"],
+                answer: 2,
+                explanation: "Vitamin D3 (cholecalciferol) is synthesized in the skin from 7-dehydrocholesterol under UV-B sunlight irradiation."
+            },
+            {
+                topic: "Vitamins & Lipids",
+                q: "Which of the following elements is specifically present in proteins and nucleic acids, but generally absent in simple lipids and carbohydrates?",
+                options: ["Carbon", "Hydrogen", "Oxygen", "Nitrogen"],
+                answer: 3,
+                explanation: "Nitrogen is a hallmark element in amino acids (proteins) and nitrogenous bases (nucleic acids), whereas simple carbohydrates and lipids consist exclusively of C, H, and O."
+            }
+        ];
+
+        // App State Variables
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let userAnswers = new Array(questionsData.length).fill(null);
+        let questionTimerInterval = null;
+        let questionSecondsElapsed = 0;
+        let totalTimerInterval = null;
+        let totalSecondsElapsed = 0;
+        let accuracyChartInstance = null;
+
+        // Start Quiz Function
+        function startQuiz() {
+            document.getElementById('start-screen').classList.add('hidden');
+            document.getElementById('quiz-screen').classList.remove('hidden');
+            document.getElementById('header-stats').classList.remove('hidden');
+
+            // Start total quiz timer
+            totalSecondsElapsed = 0;
+            totalTimerInterval = setInterval(() => {
+                totalSecondsElapsed++;
+            }, 1000);
+
+            loadQuestion(0);
+        }
+
+        // Load Question
+        function loadQuestion(index) {
+            currentQuestionIndex = index;
+            const q = questionsData[index];
+
+            // Update UI elements
+            document.getElementById('current-q-num').innerText = index + 1;
+            document.getElementById('question-badge').innerText = q.topic;
+            document.getElementById('question-text').innerText = `${index + 1}. ${q.q}`;
+
+            // Update progress bar
+            const progressPercent = ((index + 1) / questionsData.length) * 100;
+            document.getElementById('progress-bar').style.width = `${progressPercent}%`;
+
+            // Reset Question Timer
+            questionSecondsElapsed = 0;
+            document.getElementById('quiz-q-timer').innerText = "00:00";
+            if (questionTimerInterval) clearInterval(questionTimerInterval);
+            questionTimerInterval = setInterval(() => {
+                questionSecondsElapsed++;
+                let m = Math.floor(questionSecondsElapsed / 60).toString().padStart(2, '0');
+                let s = (questionSecondsElapsed % 60).toString().padStart(2, '0');
+                document.getElementById('quiz-q-timer').innerText = `${m}:${s}`;
+            }, 1000);
+
+            // Render options
+            const optionsContainer = document.getElementById('options-container');
+            optionsContainer.innerHTML = '';
+
+            const explanationBox = document.getElementById('explanation-box');
+            explanationBox.classList.add('hidden');
+
+            q.options.forEach((opt, optIdx) => {
+                const btn = document.createElement('button');
+                btn.className = `w-full text-left p-4 rounded-2xl border transition-all duration-200 font-medium text-sm md:text-base flex items-center justify-between group ${
+                    userAnswers[index] !== null 
+                        ? (optIdx === q.answer 
+                            ? 'bg-emerald-500/10 border-emerald-500 text-emerald-700 dark:text-emerald-300 font-bold'
+                            : (userAnswers[index] === optIdx 
+                                ? 'bg-rose-500/10 border-rose-500 text-rose-700 dark:text-rose-300'
+                                : 'bg-white dark:bg-slate-800/80 border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 opacity-60'))
+                        : 'bg-white dark:bg-slate-800/80 border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:border-indigo-500 hover:shadow-md'
+                }`;
+
+                btn.innerHTML = `
+                    <div class="flex items-center space-x-3">
+                        <span class="w-7 h-7 rounded-xl bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 font-bold flex items-center justify-center text-xs group-hover:bg-indigo-600 group-hover:text-white transition-colors">
+                            ${String.fromCharCode(65 + optIdx)}
+                        </span>
+                        <span>${opt}</span>
+                    </div>
+                `;
+
+                if (userAnswers[index] === null) {
+                    btn.onclick = () => selectOption(optIdx);
+                } else {
+                    btn.disabled = true;
+                }
+
+                optionsContainer.appendChild(btn);
+            });
+
+            // If already answered, show explanation
+            if (userAnswers[index] !== null) {
+                showExplanation(q, userAnswers[index]);
+            }
+
+            // Navigation buttons state
+            document.getElementById('prev-btn').disabled = index === 0;
+            document.getElementById('next-btn').innerText = index === questionsData.length - 1 ? 'Finish & Analyze 🏆' : 'Next Question →';
+        }
+
+        // Select Option Logic
+        function selectOption(selectedOptIdx) {
+            clearInterval(questionTimerInterval);
+            const q = questionsData[currentQuestionIndex];
+            userAnswers[currentQuestionIndex] = selectedOptIdx;
+
+            const isCorrect = selectedOptIdx === q.answer;
+
+            if (isCorrect) {
+                score += 4;
+                // Trigger celebratory confetti animation
+                confetti({
+                    particleCount: 80,
+                    spread: 70,
+                    origin: { y: 0.6 }
+                });
+            } else {
+                score -= 1; // JEE negative marking
+            }
+
+            // Update live score display
+            document.getElementById('live-score').innerText = score;
+
+            // Re-render options to show colors
+            loadQuestion(currentQuestionIndex);
+        }
+
+        // Show Explanation Box
+        function showExplanation(q, selectedOptIdx) {
+            const isCorrect = selectedOptIdx === q.answer;
+            const explanationBox = document.getElementById('explanation-box');
+            const explanationTitle = document.getElementById('explanation-title');
+            const explanationIcon = document.getElementById('explanation-icon');
+            const explanationText = document.getElementById('explanation-text');
+
+            explanationBox.classList.remove('hidden');
+            if (isCorrect) {
+                explanationIcon.innerText = '🎉';
+                explanationTitle.innerText = 'Correct Answer! Well done.';
+                explanationTitle.className = 'font-bold text-emerald-600 dark:text-emerald-400 text-sm';
+                explanationBox.className = 'mt-6 p-5 rounded-2xl bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-500/30 space-y-2 animate-fadeIn';
+            } else {
+                explanationIcon.innerText = '❌';
+                explanationTitle.innerText = `Incorrect. Correct option was (${String.fromCharCode(65 + q.answer)})`;
+                explanationTitle.className = 'font-bold text-rose-600 dark:text-rose-400 text-sm';
+                explanationBox.className = 'mt-6 p-5 rounded-2xl bg-rose-50 dark:bg-rose-950/30 border border-rose-200 dark:border-rose-500/30 space-y-2 animate-fadeIn';
+            }
+            explanationText.innerText = q.explanation;
+        }
+
+        // Navigation
+        function nextQuestion() {
+            if (currentQuestionIndex < questionsData.length - 1) {
+                loadQuestion(currentQuestionIndex + 1);
+            } else {
+                finishQuiz();
+            }
+        }
+
+        function previousQuestion() {
+            if (currentQuestionIndex > 0) {
+                loadQuestion(currentQuestionIndex - 1);
+            }
+        }
+
+        // Finish Quiz & Generate Analytics
+        function finishQuiz() {
+            clearInterval(totalTimerInterval);
+            document.getElementById('quiz-screen').classList.add('hidden');
+            document.getElementById('header-stats').classList.add('hidden');
+            document.getElementById('result-screen').classList.remove('hidden');
+
+            // Compute statistics
+            let correctCount = 0;
+            let incorrectCount = 0;
+            let unattemptedCount = 0;
+
+            const topicStats = {
+                "Carbohydrates": { total: 0, correct: 0, marks: 0 },
+                "Proteins": { total: 0, correct: 0, marks: 0 },
+                "Nucleic Acids": { total: 0, correct: 0, marks: 0 },
+                "Vitamins & Lipids": { total: 0, correct: 0, marks: 0 }
+            };
+
+            questionsData.forEach((q, idx) => {
+                if (!topicStats[q.topic]) {
+                    topicStats[q.topic] = { total: 0, correct: 0, marks: 0 };
+                }
+                topicStats[q.topic].total++;
+
+                const userAns = userAnswers[idx];
+                if (userAns === null) {
+                    unattemptedCount++;
+                } else if (userAns === q.answer) {
+                    correctCount++;
+                    topicStats[q.topic].correct++;
+                    topicStats[q.topic].marks += 4;
+                } else {
+                    incorrectCount++;
+                    topicStats[q.topic].marks -= 1;
+                }
+            });
+
+            const totalAttempted = correctCount + incorrectCount;
+            const accuracy = totalAttempted > 0 ? ((correctCount / totalAttempted) * 100).toFixed(1) : 0;
+            const maxPossibleMarks = questionsData.length * 4;
+
+            // Populate top score cards
+            document.getElementById('res-total-marks').innerText = `${score} / ${maxPossibleMarks}`;
+            document.getElementById('res-accuracy').innerText = `${accuracy}%`;
+            
+            let tm = Math.floor(totalSecondsElapsed / 60).toString().padStart(2, '0');
+            let ts = (totalSecondsElapsed % 60).toString().padStart(2, '0');
+            document.getElementById('res-time').innerText = `${tm}:${ts}`;
+            document.getElementById('res-stats-counts').innerText = `${correctCount} / ${incorrectCount}`;
+
+            // Populate Topic-wise Breakdown Table
+            const topicBody = document.getElementById('topic-breakdown-body');
+            topicBody.innerHTML = '';
+            
+            Object.keys(topicStats).forEach(topic => {
+                const stat = topicStats[topic];
+                const topAccuracy = stat.total > 0 ? ((stat.correct / stat.total) * 100).toFixed(0) : 0;
+                
+                const tr = document.createElement('tr');
+                tr.className = 'border-b border-slate-100 dark:border-slate-700/50';
+                tr.innerHTML = `
+                    <td class="py-3 font-bold text-slate-800 dark:text-slate-200">${topic}</td>
+                    <td class="py-3 text-center font-semibold text-slate-600 dark:text-slate-400">${stat.correct} / ${stat.total}</td>
+                    <td class="py-3 text-center">
+                        <span class="px-2.5 py-1 rounded-lg text-xs font-bold ${topAccuracy >= 70 ? 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400' : 'bg-amber-500/10 text-amber-600 dark:text-amber-400'}">
+                            ${topAccuracy}%
+                        </span>
+                    </td>
+                    <td class="py-3 text-right font-extrabold text-indigo-600 dark:text-indigo-400">${stat.marks}</td>
+                `;
+                topicBody.appendChild(tr);
+            });
+
+            // Render Chart.js Accuracy Distribution
+            const ctx = document.getElementById('accuracyChart').getContext('2d');
+            if (accuracyChartInstance) accuracyChartInstance.destroy();
+
+            accuracyChartInstance = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Correct (+4)', 'Incorrect (-1)', 'Unattempted (0)'],
+                    datasets: [{
+                        data: [correctCount, incorrectCount, unattemptedCount],
+                        backgroundColor: ['#10b981', '#f43f5e', '#64748b'],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                color: document.documentElement.classList.contains('dark') ? '#cbd5e1' : '#334155',
+                                font: { family: 'Plus Jakarta Sans', weight: '600' }
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Populate Question Review List
+            const reviewList = document.getElementById('review-list');
+            reviewList.innerHTML = '';
+
+            questionsData.forEach((q, idx) => {
+                const userAns = userAnswers[idx];
+                const isCorrect = userAns === q.answer;
+                const isUnattempted = userAns === null;
+
+                const div = document.createElement('div');
+                div.className = `p-4 rounded-2xl border ${isUnattempted ? 'bg-slate-50 dark:bg-slate-800/40 border-slate-200 dark:border-slate-700' : (isCorrect ? 'bg-emerald-50/50 dark:bg-emerald-950/20 border-emerald-200 dark:border-emerald-500/30' : 'bg-rose-50/50 dark:bg-rose-950/20 border-rose-200 dark:border-rose-500/30')}`;
+
+                div.innerHTML = `
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-xs font-bold text-indigo-500 uppercase tracking-wide">Q${idx + 1} • ${q.topic}</span>
+                        <span class="px-2 py-0.5 rounded text-xs font-extrabold ${isUnattempted ? 'bg-slate-200 text-slate-700' : (isCorrect ? 'bg-emerald-500 text-white' : 'bg-rose-500 text-white')}">
+                            ${isUnattempted ? 'Unattempted (0)' : (isCorrect ? 'Correct (+4)' : 'Incorrect (-1)')}
+                        </span>
+                    </div>
+                    <p class="font-semibold text-sm text-slate-900 dark:text-white mb-2">${q.q}</p>
+                    <div class="text-xs space-y-1 text-slate-600 dark:text-slate-300">
+                        <div><strong class="text-slate-700 dark:text-slate-200">Your Answer:</strong> ${isUnattempted ? 'None' : q.options[userAns]}</div>
+                        <div><strong class="text-emerald-600 dark:text-emerald-400">Correct Answer:</strong> ${q.options[q.answer]}</div>
+                        <div class="mt-2 pt-2 border-t border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400"><strong>Explanation:</strong> ${q.explanation}</div>
+                    </div>
+                `;
+                reviewList.appendChild(div);
+            });
+        }
+    </script>
+</body>
+</html>

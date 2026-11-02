@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Quiz & Study Portal</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-900 text-slate-100 min-h-screen p-4 sm:p-6">
+    <div class="max-w-6xl mx-auto">
+        <!-- Header Section -->
+        <header class="text-center mb-8">
+            <h1 class="text-3xl sm:text-4xl font-bold text-cyan-400 mb-2">Student Quiz & Study Portal</h1>
+            <p class="text-slate-400">Apna subject select karein ya search bar mein file ka naam likhkar dhoondhein.</p>
+        </header>
+
+        <!-- Search Bar -->
+        <div class="mb-6 max-w-xl mx-auto">
+            <input type="text" id="searchInput" placeholder="Quiz ya study material search karein..." 
+                class="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 text-slate-100 focus:outline-none focus:border-cyan-400 transition shadow-md">
+        </div>
+
+        <!-- Category Filter Buttons -->
+        <div class="flex flex-wrap justify-center gap-2 mb-10" id="categoryButtons">
+            <button data-filter="all" class="cat-btn bg-cyan-500 text-slate-950 font-semibold px-4 py-2 rounded-lg transition shadow">All</button>
+            <button data-filter="english" class="cat-btn bg-slate-800 text-slate-300 hover:bg-slate-700 px-4 py-2 rounded-lg transition shadow">English</button>
+            <button data-filter="hindi" class="cat-btn bg-slate-800 text-slate-300 hover:bg-slate-700 px-4 py-2 rounded-lg transition shadow">Hindi</button>
+            <button data-filter="maths" class="cat-btn bg-slate-800 text-slate-300 hover:bg-slate-700 px-4 py-2 rounded-lg transition shadow">Maths</button>
+            <button data-filter="physics" class="cat-btn bg-slate-800 text-slate-300 hover:bg-slate-700 px-4 py-2 rounded-lg transition shadow">Physics</button>
+            <button data-filter="physical_chemistry" class="cat-btn bg-slate-800 text-slate-300 hover:bg-slate-700 px-4 py-2 rounded-lg transition shadow">Physical Chemistry</button>
+            <button data-filter="inorganic_chemistry" class="cat-btn bg-slate-800 text-slate-300 hover:bg-slate-700 px-4 py-2 rounded-lg transition shadow">Inorganic Chemistry</button>
+            <button data-filter="organic_chemistry" class="cat-btn bg-slate-800 text-slate-300 hover:bg-slate-700 px-4 py-2 rounded-lg transition shadow">Organic Chemistry</button>
+            <button data-filter="biology" class="cat-btn bg-slate-800 text-slate-300 hover:bg-slate-700 px-4 py-2 rounded-lg transition shadow">Biology</button>
+            <button data-filter="it" class="cat-btn bg-slate-800 text-slate-300 hover:bg-slate-700 px-4 py-2 rounded-lg transition shadow">Information Technology</button>
+        </div>
+
+        <!-- Cards Grid (Yeh JavaScript se automatic bharega) -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6" id="quizGrid"></div>
+    </div>
+
+    <!-- JavaScript for Automatic Card Generation, Search and Filter -->
+    <script>
+        // --- SAARI FILES KI LIST YAHAN HAI ---
+        // Future mein koi nayi file (jaise matrices) add karni ho, toh bas yahan niche ek line jodh dena!
+        const quizzes = [
+            { title: "Class 11 & 12 Trigonometry Formula Sheet", category: "maths", file: "Class 11 and 12 Trigonometry Formula Sheet.pdf", btnText: "Open PDF", desc: "Complete trigonometry formulas PDF." },
+            { title: "Time and Tense Quiz", category: "english", file: "Time and Tense.html", btnText: "Start Quiz", desc: "English grammar time and tense practice." },
+            { title: "Time and Tense Advanced Test 2", category: "english", file: "Time and Tense ADV.Test 2.html", btnText: "Start Quiz", desc: "Advanced level time and tense test." },
+            { title: "EMI & AC JEE Mastery Quiz", category: "physics", file: "emi_ac_jee_mastery_quiz.html", btnText: "Start Quiz", desc: "Electromagnetic induction and AC." },
+            { title: "Atoms & Nuclei 100 PYQ Masterclass", category: "physics", file: "jee_physics_atoms_nuclei_100_pyq_masterclass.html", btnText: "Start Quiz", desc: "Physics atoms and nuclei PYQs." },
+            { title: "JEE Physics Dual Nature Quiz", category: "physics", file: "jee_physics_dual_nature_quiz.html", btnText: "Start Quiz", desc: "Dual nature of radiation and matter." },
+            { title: "JEE Physics Quiz Magnetism", category: "physics", file: "jee_physics_quiz_magnetism.html", btnText: "Start Quiz", desc: "Magnetic effects of current and magnetism." },
+            { title: "JEE Current Electricity Master Quiz", category: "physics", file: "jee_current_electricity_master_quiz.html", btnText: "Start Quiz", desc: "Current electricity practice test." },
+            { title: "JEE Electromagnetic Waves 100 PYQs", category: "physics", file: "jee_electromagnetic_waves_100_pyqs.html", btnText: "Start Quiz", desc: "EM waves important questions." },
+            { title: "JEE Electronic Devices 100 PYQ Quiz", category: "physics", file: "jee_electronic_devices_100_pyq_quiz.html", btnText: "Start Quiz", desc: "Semiconductors and electronic devices." },
+            { title: "JEE Electrostatics 100 PYQ Quiz", category: "physics", file: "jee_electrostatics_100_pyq_quiz.html", btnText: "Start Quiz", desc: "Electrostatics previous year questions." },
+            { title: "JEE Optics Master Quiz", category: "physics", file: "jee_optics_master_quiz.html", btnText: "Start Quiz", desc: "Ray optics and wave optics test." },
+            { title: "Chemical Kinetics Mastery Quiz", category: "physical_chemistry", file: "jee_physical_chemistry_chemical_kinetics.html", btnText: "Start Quiz", desc: "Chemical kinetics numericals and concepts." },
+            { title: "Solutions 100 PYQ Quiz", category: "physical_chemistry", file: "jee_physical_chemistry_solutions_100_pyq_quiz.html", btnText: "Start Quiz", desc: "Solutions chapter important PYQs." },
+            { title: "JEE Electrochemistry Master Quiz", category: "physical_chemistry", file: "jee_electrochemistry_master_quiz.html", btnText: "Start Quiz", desc: "Electrochemistry concepts and Nernst equation." },
+            { title: "D and F Block Elements JEE Mastery", category: "inorganic_chemistry", file: "d_and_f_block_elements_jee_mastery_quiz.html", btnText: "Start Quiz", desc: "Transition elements important questions." },
+            { title: "JEE Coordination Compounds 100 PYQs", category: "inorganic_chemistry", file: "jee_coordination_compounds_100_pyqs.html", btnText: "Start Quiz", desc: "Coordination chemistry previous year questions." },
+            { title: "JEE Amines Master Quiz", category: "organic_chemistry", file: "jee_amines_master_quiz.html", btnText: "Start Quiz", desc: "Amines preparation and chemical reactions." },
+            { title: "JEE Biomolecules Master Quiz", category: "organic_chemistry", file: "jee_biomolecules_master_quiz.html", btnText: "Start Quiz", desc: "Carbohydrates, proteins and nucleic acids." },
+            { title: "Alcohols, Phenols & Ethers Quiz", category: "organic_chemistry", file: "jee_chemistry_alcohols_phenols_ethers_quiz.html", btnText: "Start Quiz", desc: "Important organic name reactions." },
+            { title: "JEE Haloalkanes & Haloarenes Quiz", category: "organic_chemistry", file: "jee_haloalkanes_and_haloarenes.html", btnText: "Start Quiz", desc: "Nucleophilic substitution reactions test." },
+            { title: "Aldehydes, Ketones & Acids Quiz", category: "organic_chemistry", file: "jee_organic_chemistry_aldehydes_ketones_carboxylic_acids.html", btnText: "Start Quiz", desc: "Comprehensive organic chemistry practice." },
+            { title: "NEET Locomotion Movement PYQ Quiz", category: "biology", file: "neet_locomotion_movement_pyq_quiz.html", btnText: "Start Quiz", desc: "Locomotion and movement questions." },
+            { title: "NEET PYQ Animal Kingdom & Neural Control", category: "biology", file: "neet_pyq_quiz_animal_kingdom_neural_control.html", btnText: "Start Quiz", desc: "Animal kingdom & neural control test." },
+            { title: "NEET PYQ Biological Classification", category: "biology", file: "neet_pyq_quiz_biological_classification.html", btnText: "Start Quiz", desc: "Biological classification PYQs." },
+            { title: "NEET PYQ Chemical Coordination & Integration", category: "biology", file: "neet_pyq_quiz_chemical_coordination_integration.html", btnText: "Start Quiz", desc: "Chemical coordination practice MCQs." },
+            { title: "NEET PYQ The Living World", category: "biology", file: "neet_pyq_quiz_the_living_world.html", btnText: "Start Quiz", desc: "The Living World chapter questions." },
+            { title: "Vectors Quiz", category: "maths", file: "vectors.html", btnText: "Start Quiz", desc: "Vectors chapter important practice questions." },
+{ title: "3D Geometry Quiz", category: "maths", file: "3D Geometry.html", btnText: "Start Quiz", desc: "3D Geometry important questions." },
+{ title: "Differential Equation Quiz", category: "maths", file: "Differential equation.html", btnText: "Start Quiz", desc: "Differential equation practice test." },
+{ title: "Application of Derivatives Quiz", category: "maths", file: "Application of derivatives.html", btnText: "Start Quiz", desc: "Application of derivatives questions." },
+{ title: "Definite Integrals and Area Quiz", category: "maths", file: "Definite Integrals and Area.html", btnText: "Start Quiz", desc: "Definite integrals and area practice." },
+{ title: "Probability Quiz", category: "maths", file: "Probability.html", btnText: "Start Quiz", desc: "Probability chapter important questions." },
+{ title: "Matrices and Determinant Quiz", category: "maths", file: "Matrices and Determinant.html", btnText: "Start Quiz", desc: "Matrices and determinant practice test." },
+{ title: "Continuity and Differentiability Quiz", category: "maths", file: "Contunity and differentiability.html", btnText: "Start Quiz", desc: "Continuity and differentiability practice questions." },
+{ title: "Indefinite Integrals Quiz", category: "maths", file: "Indefinite Integrals.html", btnText: "Start Quiz", desc: "Indefinite integrals important questions." },
+{ title: "Inverse Trigonometric Ratios Quiz", category: "maths", file: "Inverse Trigonometric Ratios.html", btnText: "Start Quiz", desc: "Inverse trigonometric ratios test." },
+{ title: "Linear Programming Quiz", category: "maths", file: "Linear programming.html", btnText: "Start Quiz", desc: "Linear programming practice questions." },
+{ title: "Relation and Function Quiz", category: "maths", file: "Relation and Function.html", btnText: "Start Quiz", desc: "Relation and function important questions." }
+            // AGAR MATRICES ADD KARNA HO TO BAS YAHAN NICHE AISE LIKH DENA:
+            // { title: "Matrices Master Quiz", category: "maths", file: "matrices.html", btnText: "Start Quiz", desc: "Matrices important questions." }
+        ];
+
+        const grid = document.getElementById('quizGrid');
+        const searchInput = document.getElementById('searchInput');
+        const catButtons = document.querySelectorAll('.cat-btn');
+        let currentCategory = 'all';
+
+        function displayQuizzes(filter = 'all', searchQuery = '') {
+            grid.innerHTML = '';
+            
+            const filtered = quizzes.filter(q => {
+                const matchesCat = (filter === 'all' || q.category === filter);
+                const matchesSearch = q.title.toLowerCase().includes(searchQuery.toLowerCase());
+                return matchesCat && matchesSearch;
+            });
+
+            if (filtered.length === 0) {
+                grid.innerHTML = `<p class="text-slate-400 col-span-full text-center py-10">Koi file nahi mili!</p>`;
+                return;
+            }
+
+            filtered.forEach(q => {
+                // Category badge colors formatting
+                let badgeColor = "bg-slate-800 text-slate-300";
+                let catName = q.category.toUpperCase().replace('_', ' ');
+                
+                if(q.category === 'maths') badgeColor = "bg-blue-900 text-blue-300";
+                else if(q.category === 'physics') badgeColor = "bg-amber-900 text-amber-300";
+                else if(q.category === 'physical_chemistry') badgeColor = "bg-purple-900 text-purple-300";
+                else if(q.category === 'inorganic_chemistry') badgeColor = "bg-teal-900 text-teal-300";
+                else if(q.category === 'organic_chemistry') badgeColor = "bg-rose-900 text-rose-300";
+                else if(q.category === 'biology') badgeColor = "bg-emerald-900 text-emerald-300";
+                else if(q.category === 'english') badgeColor = "bg-indigo-900 text-indigo-300";
+
+                const card = document.createElement('div');
+                card.className = "quiz-card bg-slate-800 border border-slate-700 rounded-xl p-5 hover:border-cyan-400 transition shadow-lg flex flex-col justify-between";
+                card.innerHTML = `
+                    <div>
+                        <span class="text-xs ${badgeColor} px-2.5 py-1 rounded-full font-medium">${catName}</span>
+                        <h2 class="text-lg font-semibold text-white mt-3 mb-2">${q.title}</h2>
+                        <p class="text-slate-400 text-sm mb-4">${q.desc}</p>
+                    </div>
+                    <a href="${q.file}" target="_blank" class="inline-block bg-cyan-500 text-slate-950 font-semibold py-2 px-4 rounded-lg text-center hover:bg-cyan-400 transition">${q.btnText}</a>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        // Initial Load
+        displayQuizzes();
+
+        // Search listener
+        searchInput.addEventListener('input', (e) => {
+            displayQuizzes(currentCategory, e.target.value.trim());
+        });
+
+        // Category filter listener
+        catButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                catButtons.forEach(btn => {
+                    btn.classList.remove('bg-cyan-500', 'text-slate-950', 'font-semibold');
+                    btn.classList.add('bg-slate-800', 'text-slate-300');
+                });
+                button.classList.remove('bg-slate-800', 'text-slate-300');
+                button.classList.add('bg-cyan-500', 'text-slate-950', 'font-semibold');
+
+                currentCategory = button.getAttribute('data-filter');
+                displayQuizzes(currentCategory, searchInput.value.trim());
+            });
+        });
+    </script>
+</body>
+</html>

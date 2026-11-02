@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BSEB Class 12 English - Time & Tense Advanced Master Quiz</title>
+    <!-- Tailwind CSS for modern responsive styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts for typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Confetti animation library -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <!-- Chart.js for topic-wise analysis graphs -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #311042 100%);
+            min-height: 100vh;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        @keyframes floatUp {
+            0% { transform: translateY(0px) scale(0.8); opacity: 0; }
+            50% { opacity: 1; transform: translateY(-30px) scale(1.1); }
+            100% { transform: translateY(-60px) scale(1); opacity: 0; }
+        }
+        .praise-badge {
+            position: fixed;
+            top: 25%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            animation: floatUp 1.2s ease-out forwards;
+            z-index: 100;
+        }
+    </style>
+</head>
+<body class="text-slate-800 antialiased py-6 px-4 sm:px-6 lg:px-8">
+
+    <div class="max-w-3xl mx-auto">
+        <!-- Header Section -->
+        <header class="text-center mb-8">
+            <div class="inline-block bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full mb-3">
+                BSEB Class 12 English Grammar Masterclass
+            </div>
+            <h1 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+                Time and Tense <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-pink-400">Pro Assessment</span>
+            </h1>
+            <p class="text-slate-300 text-sm sm:text-base mt-2">
+                50 Advanced Board-Level MCQs with Live Timing & Detailed Diagnostic Insights
+            </p>
+        </header>
+
+        <!-- Quiz Setup / Welcome Screen -->
+        <div id="welcome-screen" class="glass-card rounded-2xl shadow-2xl p-6 sm:p-8 text-center">
+            <div class="w-16 h-16 bg-indigo-100 text-indigo-600 rounded-2xl flex items-center justify-center mx-auto mb-4 text-2xl font-bold shadow-inner">
+                ⚡
+            </div>
+            <h2 class="text-2xl font-bold text-slate-900 mb-2">Ready to Test Your Grammar Mastery?</h2>
+            <p class="text-slate-600 mb-6 max-w-md mx-auto">
+                This diagnostic module covers tricky conditional sentences, sequence of tenses, perfect verb forms, and time markers. Earn praise badges and check instant feedback!
+            </p>
+            <button onclick="startQuiz()" class="w-full sm:w-auto px-8 py-3.5 bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-700 hover:to-violet-700 text-white font-bold rounded-xl shadow-lg hover:shadow-indigo-500/25 transition-all transform active:scale-95">
+                Start 50-Question Challenge 🚀
+            </button>
+        </div>
+
+        <!-- Quiz Question Container (Hidden initially) -->
+        <div id="quiz-container" class="hidden">
+            <!-- Progress & Timer Bar -->
+            <div class="glass-card rounded-2xl p-4 sm:p-5 mb-5 shadow-lg flex flex-wrap items-center justify-between gap-4">
+                <div class="flex items-center gap-3">
+                    <div class="bg-indigo-600 text-white text-xs font-bold px-3 py-1.5 rounded-lg shadow">
+                        Q <span id="current-q-num">1</span>/50
+                    </div>
+                    <div class="text-xs font-semibold uppercase tracking-wider text-indigo-700 bg-indigo-50 px-2.5 py-1 rounded-md" id="topic-tag">
+                        Present Tense
+                    </div>
+                </div>
+                <div class="flex items-center gap-4">
+                    <div class="flex items-center gap-1.5 text-slate-700 text-sm font-bold bg-amber-50 border border-amber-200 px-3 py-1 rounded-lg">
+                        ⏱️ <span id="timer-display">00:00</span>
+                    </div>
+                    <div class="text-xs font-bold text-slate-600 bg-slate-100 px-3 py-1.5 rounded-lg">
+                        Score: <span id="live-score" class="text-indigo-600">0</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question Card -->
+            <div class="glass-card rounded-2xl p-6 sm:p-8 shadow-2xl relative overflow-hidden">
+                <div id="question-text" class="text-lg sm:text-xl font-bold text-slate-900 mb-6 leading-relaxed">
+                    <!-- Question loaded via JS -->
+                </div>
+
+                <div id="options-container" class="grid grid-cols-1 gap-3.5">
+                    <!-- Options loaded via JS -->
+                </div>
+
+                <!-- Explanation Banner (Appears after answer selection) -->
+                <div id="explanation-box" class="hidden mt-6 p-4 rounded-xl bg-slate-50 border border-slate-200 text-sm text-slate-700">
+                    <span class="font-bold text-indigo-700 block mb-1">💡 Grammar Rule Insight:</span>
+                    <p id="explanation-text"></p>
+                </div>
+
+                <!-- Next Button -->
+                <div class="mt-8 flex justify-end">
+                    <button id="next-btn" onclick="nextQuestion()" class="hidden px-6 py-3 bg-gradient-to-r from-emerald-600 to-teal-600 text-white font-bold rounded-xl shadow-md hover:from-emerald-700 hover:to-teal-700 transition-all">
+                        Next Question ➔
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Result Analysis Dashboard (Hidden initially) -->
+        <div id="result-screen" class="hidden glass-card rounded-2xl p-6 sm:p-8 shadow-2xl">
+            <div class="text-center mb-6">
+                <div class="w-16 h-16 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto mb-3 text-3xl shadow-inner">
+                    🏆
+                </div>
+                <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900">Assessment Complete!</h2>
+                <p class="text-slate-600 text-sm mt-1">Here is your comprehensive Bihar Board Time & Tense Performance Report</p>
+            </div>
+
+            <!-- Top Summary Cards -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
+                <div class="bg-indigo-50/80 border border-indigo-100 p-4 rounded-xl text-center">
+                    <div class="text-xs text-indigo-600 font-bold uppercase">Final Score</div>
+                    <div class="text-2xl font-extrabold text-indigo-900 mt-1"><span id="res-score">0</span>/50</div>
+                </div>
+                <div class="bg-emerald-50/80 border border-emerald-100 p-4 rounded-xl text-center">
+                    <div class="text-xs text-emerald-600 font-bold uppercase">Accuracy Rate</div>
+                    <div class="text-2xl font-extrabold text-emerald-900 mt-1"><span id="res-accuracy">0</span>%</div>
+                </div>
+                <div class="bg-amber-50/80 border border-amber-100 p-4 rounded-xl text-center">
+                    <div class="text-xs text-amber-600 font-bold uppercase">Total Time</div>
+                    <div class="text-2xl font-extrabold text-amber-900 mt-1" id="res-total-time">00:00</div>
+                </div>
+                <div class="bg-purple-50/80 border border-purple-100 p-4 rounded-xl text-center">
+                    <div class="text-xs text-purple-600 font-bold uppercase">Avg Time / Q</div>
+                    <div class="text-2xl font-extrabold text-purple-900 mt-1"><span id="res-avg-time">0</span>s</div>
+                </div>
+            </div>
+
+            <!-- Topic-wise Breakdown & Graph -->
+            <div class="mb-8 bg-slate-50 p-5 rounded-xl border border-slate-200">
+                <h3 class="font-bold text-slate-800 mb-4 text-base flex items-center gap-2">
+                    📊 Topic-Wise Accuracy Breakdown
+                </h3>
+                <div class="relative h-64 w-full">
+                    <canvas id="topicChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Constructive Feedback & Recommendations -->
+            <div class="mb-8 p-5 bg-indigo-50/60 border border-indigo-100 rounded-xl">
+                <h3 class="font-bold text-indigo-900 mb-2 text-base">💡 Expert Board Examiner Feedback</h3>
+                <p id="feedback-text" class="text-sm text-indigo-950 leading-relaxed">Analyzing performance...</p>
+            </div>
+
+            <div class="text-center">
+                <button onclick="restartQuiz()" class="px-8 py-3 bg-gradient-to-r from-indigo-600 to-violet-600 text-white font-bold rounded-xl shadow-lg hover:shadow-xl transition-all">
+                    Retake Assessment 🔄
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 50 Advanced Bihar Board Level Questions on Time and Tense
+        const quizData = [
+            {
+                q: "He usually _______ to bed early, but tonight he _______ late.",
+                a: ["goes / is staying", "is going / stays", "go / stay", "went / stayed"],
+                c: 0,
+                topic: "Present Tense",
+                exp: "Use Simple Present ('goes') for habitual actions and Present Continuous ('is staying') for temporary situations happening now."
+            },
+            {
+                q: "Look! The black clouds gather; it _______ rain soon.",
+                a: ["shall", "will", "is going to", "would"],
+                c: 2,
+                topic: "Future Time",
+                exp: "When there is present evidence (black clouds gathering), 'is going to' is used to express imminent future action."
+            },
+            {
+                q: "By the time we reach the station, the train _______.",
+                a: ["will leave", "will have left", "leaves", "left"],
+                c: 1,
+                topic: "Future Perfect",
+                exp: "An action completed before a specific point in the future takes the Future Perfect tense ('will have left')."
+            },
+            {
+                q: "She _______ in this college for three years when the exams begin.",
+                a: ["will study", "studies", "will have been studying", "has studied"],
+                c: 2,
+                topic: "Future Perfect Continuous",
+                exp: "Duration up to a point in future ('for three years when...') requires Future Perfect Continuous."
+            },
+            {
+                q: "If it _______ tomorrow, we will postpone the match.",
+                a: ["rained", "rains", "will rain", "had rained"],
+                c: 1,
+                topic: "Conditionals",
+                exp: "In first conditional sentences, the 'if' clause takes the Simple Present tense, while the main clause takes 'will + verb'."
+            },
+            {
+                q: "If I _______ a bird, I would fly across the skies.",
+                a: ["am", "was", "were", "have been"],
+                c: 2,
+                topic: "Conditionals",
+                exp: "Hypothetical unreal situations in the present use 'were' for all subjects in the conditional clause."
+            },
+            {
+                q: "Had you informed me earlier, I _______ attended the seminar.",
+                a: ["will have", "would have", "had", "would"],
+                c: 1,
+                topic: "Conditionals",
+                exp: "Third conditional structure: 'Had + subject + V3' requires 'would/could/might + have + V3' in the main clause."
+            },
+            {
+                q: "He acts as though he _______ everything about the universe.",
+                a: ["knows", "knew", "had known", "has known"],
+                c: 1,
+                topic: "Sequence of Tenses",
+                exp: "'As if' or 'as though' indicating unreal past state takes the Past Indefinite (knew)."
+            },
+            {
+                q: "It is high time the government _______ strict action against corruption.",
+                a: ["takes", "took", "has taken", "will take"],
+                c: 1,
+                topic: "Special Structures",
+                exp: "The phrase 'It is high time' or 'It is time' is always followed by a verb in the Past Indefinite tense."
+            },
+            {
+                q: "He _______ his breakfast before the guests arrived.",
+                a: ["finished", "has finished", "had finished", "finishes"],
+                c: 2,
+                topic: "Past Tense",
+                exp: "Between two past actions, the earlier completed action takes Past Perfect ('had finished')."
+            },
+            {
+                q: "When I opened the door, a pigeon _______ into the room.",
+                a: ["fly", "flew", "is flying", "had flown"],
+                c: 1,
+                topic: "Past Continuous & Simple",
+                exp: "An instantaneous action interrupting an ongoing or background state takes Simple Past ('flew')."
+            },
+            {
+                q: "She _______ French for five years before she moved to Paris.",
+                a: ["learns", "learned", "had been learning", "has learned"],
+                c: 2,
+                topic: "Past Perfect Continuous",
+                exp: "An action continuing over a period up to a point in the past takes Past Perfect Continuous."
+            },
+            {
+                q: "Water _______ at 100 degrees Celsius under normal pressure.",
+                a: ["boil", "boiled", "is boiling", "boils"],
+                c: 3,
+                topic: "Present Tense",
+                exp: "Universal truths and scientific facts are expressed in the Simple Present tense."
+            },
+            {
+                q: "Listen! Someone _______ at the main entrance.",
+                a: ["knock", "knocks", "is knocking", "knocked"],
+                c: 2,
+                topic: "Present Continuous",
+                exp: "Words like 'Listen!', 'Look!', 'Behold!' signal actions happening right at the moment of speaking."
+            },
+            {
+                q: "He _______ in Patna since 2015.",
+                a: ["lives", "is living", "has been living", "lived"],
+                c: 2,
+                topic: "Present Perfect Continuous",
+                exp: "An action starting in the past and continuing into the present uses Present Perfect Continuous with 'since/for'."
+            },
+            {
+                q: "I _______ him yesterday at the exhibition.",
+                a: ["see", "saw", "have seen", "had seen"],
+                c: 1,
+                topic: "Past Tense",
+                exp: "Specific past time markers like 'yesterday', 'last week', 'in 1998' take Simple Past tense."
+            },
+            {
+                q: "She _______ her key, so she cannot open the front door now.",
+                a: ["lost", "has lost", "had lost", "loses"],
+                c: 1,
+                topic: "Present Perfect",
+                exp: "An action completed in the past with a visible consequence in the present takes Present Perfect tense."
+            },
+            {
+                q: "The principal _______ the circular just a moment ago.",
+                a: ["issue", "issued", "has issued", "had issued"],
+                c: 1,
+                topic: "Past Tense",
+                exp: "Expressions like 'just now' or 'a moment ago' with completed actions take Simple Past."
+            },
+            {
+                q: "As soon as the bell _______, the students rushed out.",
+                a: ["rang", "ring", "had rung", "will ring"],
+                c: 0,
+                topic: "Sequence of Tenses",
+                exp: "In time clauses introduced by 'as soon as', past events match with Simple Past tense."
+            },
+            {
+                q: "He will not pass unless he _______ hard.",
+                a: ["worked", "works", "will work", "does not work"],
+                c: 1,
+                topic: "Conditionals",
+                exp: "'Unless' implies a negative condition and takes the Simple Present in conditional clauses when the main clause is future."
+            },
+            {
+                q: "Bread and butter _______ my favorite morning breakfast.",
+                a: ["is", "are", "were", "have been"],
+                c: 0,
+                topic: "Subject-Verb Agreement / Tense",
+                exp: "Compound nouns expressing a single unit/idea take a singular verb ('is')."
+            },
+            {
+                q: "Time and tide _______ for no man.",
+                a: ["wait", "waits", "waiting", "waited"],
+                c: 0,
+                topic: "Present Tense",
+                exp: "Proverbs and universal adages are always stated in the Simple Present tense."
+            },
+            {
+                q: "Neither the teacher nor the students _______ present in the hall.",
+                a: ["was", "were", "is", "has been"],
+                c: 1,
+                topic: "Subject-Verb Agreement",
+                exp: "When subjects are joined by 'neither... nor', the verb agrees with the closer subject ('students', hence 'were')."
+            },
+            {
+                q: "Each boy and each girl _______ given a prize yesterday.",
+                a: ["were", "was", "have been", "are"],
+                c: 1,
+                topic: "Subject-Verb Agreement",
+                exp: "When 'each' precedes nouns connected by 'and', the verb remains singular ('was')."
+            },
+            {
+                q: "Mathematics _______ a challenging but interesting subject.",
+                a: ["are", "is", "were", "have been"],
+                c: 0,
+                topic: "Present Tense",
+                exp: "Names of subjects ending in '-ics' take singular verbs when considered as a single field of study."
+            },
+            {
+                q: "The committee _______ divided in its opinions regarding the new proposal.",
+                a: ["was", "were", "is", "has"],
+                c: 1,
+                topic: "Subject-Verb Agreement",
+                exp: "When a collective noun indicates division among members, it takes a plural verb ('were')."
+            },
+            {
+                q: "Fifty miles _______ a long distance to walk in a single day.",
+                a: ["are", "is", "were", "have been"],
+                c: 1,
+                topic: "Present Tense",
+                exp: "Expressions of distance, money, weight, or time taken as a single collective quantity take singular verbs."
+            },
+            {
+                q: "One of my best friends _______ selected for the state cricket team.",
+                a: ["have been", "were", "has been", "are"],
+                c: 2,
+                topic: "Present Perfect",
+                exp: "The phrase 'One of + plural noun' takes a singular verb ('has been')."
+            },
+            {
+                q: "She told me that she _______ her project work successfully.",
+                a: ["finish", "finished", "had finished", "has finished"],
+                c: 2,
+                topic: "Indirect Speech Tense Shift",
+                exp: "In indirect narration, when the reporting verb is past ('told'), present perfect/past simple shifts to Past Perfect ('had finished')."
+            },
+            {
+                q: "Our teacher said that the earth _______ round the sun.",
+                a: ["revolved", "revolves", "had revolved", "is revolving"],
+                c: 1,
+                topic: "Exceptions to Tense Shift",
+                exp: "Universal truths inside indirect speech do not change their tense and remain in Simple Present ('revolves')."
+            },
+            {
+                q: "He said that he _______ hard for the board examination.",
+                a: ["is working", "was working", "has worked", "works"],
+                c: 1,
+                topic: "Indirect Speech Tense Shift",
+                exp: "Past continuous tense shifts accordingly when governed by a past reporting verb."
+            },
+            {
+                q: "She asked me where I _______.",
+                a: ["live", "lived", "am living", "have lived"],
+                c: 1,
+                topic: "Indirect Speech Tense Shift",
+                exp: "Past reporting verb requires the subordinate interrogative clause verb to be in the past tense ('lived')."
+            },
+            {
+                q: "He behaves as though he _______ the owner of this grand mansion.",
+                a: ["is", "was", "were", "has been"],
+                c: 2,
+                topic: "Subjunctive Mood",
+                exp: "Unreal present states with 'as if / as though' take 'were' for all pronouns."
+            },
+            {
+                q: "I wish I _______ the Prime Minister of our country.",
+                a: ["am", "was", "were", "have been"],
+                c: 2,
+                topic: "Subjunctive Mood",
+                exp: "Expressing an unfulfilled wish about the present requires 'were'."
+            },
+            {
+                q: "It's time you _______ studying seriously for your exams.",
+                a: ["start", "started", "have started", "will start"],
+                c: 1,
+                topic: "Special Structures",
+                exp: "'It is time' or 'It's high time' must be followed by a verb in Simple Past ('started')."
+            },
+            {
+                q: "Hardly had I stepped out of the house _______ it started raining heavily.",
+                a: ["when", "than", "then", "before"],
+                c: 0,
+                topic: "Correlative Conjunctions & Tense",
+                exp: "The correlative pair for 'Hardly / Scarcely' is 'when'."
+            },
+            {
+                q: "No sooner did the train stop _______ the passengers alighted.",
+                a: ["when", "than", "then", "before"],
+                c: 1,
+                topic: "Correlative Conjunctions & Tense",
+                exp: "The correlative pair for 'No sooner' is 'than'."
+            },
+            {
+                q: "He walked as fast as he _______ to catch the bus.",
+                a: ["can", "could", "may", "will"],
+                c: 1,
+                topic: "Sequence of Tenses",
+                exp: "When the main clause is in the past tense ('walked'), subordinate purpose clauses take past modals ('could')."
+            },
+            {
+                q: "She worked hard so that she _______ score good marks.",
+                a: ["may", "might", "can", "will"],
+                c: 1,
+                topic: "Sequence of Tenses",
+                exp: "Purpose clauses following a past tense clause use 'might'."
+            },
+            {
+                q: "By next month, we _______ in our new house for ten years.",
+                a: ["will live", "will have lived", "will have been living", "live"],
+                c: 2,
+                topic: "Future Perfect Continuous",
+                exp: "Duration up to a future point uses Future Perfect Continuous."
+            },
+            {
+                q: "If you had asked me, I _______ you money.",
+                a: ["will lend", "would lend", "would have lent", "lent"],
+                c: 2,
+                topic: "Conditionals",
+                exp: "Third conditional formula requires 'would have + V3' in the main clause."
+            },
+            {
+                q: "He _______ his dinner when the phone rang.",
+                a: ["was having", "had", "has had", "is having"],
+                c: 0,
+                topic: "Past Continuous",
+                exp: "An ongoing action in the past interrupted by another action takes Past Continuous ('was having')."
+            },
+            {
+                q: "She _______ her homework before her mother returned.",
+                a: ["completed", "has completed", "had completed", "completes"],
+                c: 2,
+                topic: "Past Perfect",
+                exp: "Earlier completed past action takes Past Perfect ('had completed')."
+            },
+            {
+                q: "The sun _______ before we reached home.",
+                a: ["set", "had set", "has set", "was setting"],
+                c: 1,
+                topic: "Past Perfect",
+                exp: "Action completed before another past event takes Past Perfect."
+            },
+            {
+                q: "He usually _______ to office by car, but today he _______ by bus.",
+                a: ["goes / is going", "is going / goes", "went / goes", "go / goes"],
+                c: 0,
+                topic: "Present Tense",
+                exp: "Contrast between routine (Simple Present) and temporary current action (Present Continuous)."
+            },
+            {
+                q: "She speaks English as if she _______ a native speaker.",
+                a: ["is", "was", "were", "has been"],
+                c: 2,
+                topic: "Subjunctive Mood",
+                exp: "Unreal condition of manner with 'as if' takes 'were'."
+            },
+            {
+                q: "I _______ him for the last ten years.",
+                a: ["know", "am knowing", "have known", "knew"],
+                c: 2,
+                topic: "Present Perfect with State Verbs",
+                exp: "Verbs of perception/state like 'know' are not used in continuous tenses; use Present Perfect with 'for'."
+            },
+            {
+                q: "She _______ unconscious since four o'clock.",
+                a: ["is", "was", "has been", "had been"],
+                c: 2,
+                topic: "Present Perfect",
+                exp: "State continuing from past to present uses 'has been' with 'since'."
+            },
+            {
+                q: "He _______ French fluently now, though he couldn't last year.",
+                a: ["speaks", "is speaking", "spoke", "has spoken"],
+                c: 0,
+                topic: "Present Tense",
+                exp: "Current capability or general fact in present takes Simple Present ('speaks')."
+            },
+            {
+                q: "If you heat ice, it _______ into water.",
+                a: ["melt", "melts", "will melt", "melted"],
+                c: 1,
+                topic: "Conditionals",
+                exp: "Zero conditional for natural laws uses Simple Present in both clauses ('heat' / 'melts')."
+            }
+        ];
+
+        let currentIndex = 0;
+        let score = 0;
+        let timerInterval = null;
+        let secondsElapsed = 0;
+        let questionStartTime = 0;
+        let topicStats = {};
+        let chartInstance = null;
+
+        const praises = ["Brilliant! 🌟", "Spot On! 🔥", "Fantastic! 🎯", "Superb! ✨", "Nailed It! 🚀", "Exceptional! 🧠"];
+
+        function startQuiz() {
+            document.getElementById('welcome-screen').classList.add('hidden');
+            document.getElementById('quiz-container').classList.remove('hidden');
+            currentIndex = 0;
+            score = 0;
+            secondsElapsed = 0;
+            topicStats = {};
+            
+            // Initialize topic tracking
+            quizData.forEach(q => {
+                if (!topicStats[q.topic]) {
+                    topicStats[q.topic] = { total: 0, correct: 0 };
+                }
+                topicStats[q.topic].total++;
+            });
+
+            startOverallTimer();
+            loadQuestion();
+        }
+
+        function startOverallTimer() {
+            clearInterval(timerInterval);
+            timerInterval = setInterval(() => {
+                secondsElapsed++;
+                const mins = Math.floor(secondsElapsed / 60).toString().padStart(2, '0');
+                const secs = (secondsElapsed % 60).toString().padStart(2, '0');
+                document.getElementById('timer-display').innerText = `${mins}:${secs}`;
+            }, 1000);
+        }
+
+        function loadQuestion() {
+            const qData = quizData[currentIndex];
+            document.getElementById('current-q-num').innerText = currentIndex + 1;
+            document.getElementById('topic-tag').innerText = qData.topic;
+            document.getElementById('question-text').innerText = `Q${currentIndex + 1}. ${qData.q}`;
+            
+            const optionsContainer = document.getElementById('options-container');
+            optionsContainer.innerHTML = '';
+
+            qData.a.forEach((optText, optIdx) => {
+                const btn = document.createElement('button');
+                btn.className = "w-full text-left bg-slate-50 border-2 border-slate-200 hover:border-indigo-500 hover:bg-indigo-50/50 rounded-xl p-4 font-semibold text-slate-700 transition-all flex items-center justify-between group";
+                btn.innerHTML = `<span>${optText}</span> <span class="w-6 h-6 rounded-full border border-slate-300 flex items-center justify-center text-xs group-hover:border-indigo-500 group-hover:text-indigo-600">${String.fromCharCode(65 + optIdx)}</span>`;
+                btn.onclick = () => selectOption(optIdx, qData.c, btn, optionsContainer);
+                optionsContainer.appendChild(btn);
+            });
+
+            document.getElementById('explanation-box').classList.add('hidden');
+            document.getElementById('next-btn').classList.add('hidden');
+            questionStartTime = Date.now();
+        }
+
+        function selectOption(selectedIdx, correctIdx, selectedBtn, container) {
+            // Disable all buttons to prevent multiple clicks
+            const allBtns = container.querySelectorAll('button');
+            allBtns.forEach(b => b.disabled = true);
+
+            const isCorrect = (selectedIdx === correctIdx);
+            
+            if (isCorrect) {
+                selectedBtn.classList.remove('bg-slate-50', 'border-slate-200', 'text-slate-700');
+                selectedBtn.classList.add('bg-emerald-50', 'border-emerald-500', 'text-emerald-800', 'font-bold');
+                score++;
+                topicStats[quizData[currentIndex].topic].correct++;
+                document.getElementById('live-score').innerText = score;
+
+                // Trigger Confetti & Praise Banner
+                confetti({ particleCount: 80, spread: 70, origin: { y: 0.6 } });
+                showPraiseBadge();
+            } else {
+                selectedBtn.classList.remove('bg-slate-50', 'border-slate-200', 'text-slate-700');
+                selectedBtn.classList.add('bg-rose-50', 'border-rose-500', 'text-rose-800', 'font-bold');
+                
+                // Highlight correct answer
+                allBtns[correctIdx].classList.remove('bg-slate-50', 'border-slate-200', 'text-slate-700');
+                allBtns[correctIdx].classList.add('bg-emerald-50', 'border-emerald-500', 'text-emerald-800', 'font-bold');
+            }
+
+            // Show explanation
+            document.getElementById('explanation-text').innerText = quizData[currentIndex].exp;
+            document.getElementById('explanation-box').classList.remove('hidden');
+            document.getElementById('next-btn').classList.remove('hidden');
+        }
+
+        function showPraiseBadge() {
+            const randomPraise = praises[Math.floor(Math.random() * praises.length)];
+            const badge = document.createElement('div');
+            badge.className = "praise-badge bg-gradient-to-r from-emerald-500 to-teal-600 text-white font-extrabold px-6 py-3 rounded-2xl shadow-2xl text-lg tracking-wide";
+            badge.innerText = randomPraise;
+            document.body.appendChild(badge);
+            setTimeout(() => badge.remove(), 1200);
+        }
+
+        function nextQuestion() {
+            currentIndex++;
+            if (currentIndex < quizData.length) {
+                loadQuestion();
+            } else {
+                endQuiz();
+            }
+        }
+
+        function endQuiz() {
+            clearInterval(timerInterval);
+            document.getElementById('quiz-container').classList.add('hidden');
+            document.getElementById('result-screen').classList.remove('hidden');
+
+            const accuracy = Math.round((score / quizData.length) * 100);
+            const totalMins = Math.floor(secondsElapsed / 60);
+            const totalSecs = secondsElapsed % 60;
+            const formattedTime = `${totalMins.toString().padStart(2, '0')}:${totalSecs.toString().padStart(2, '0')}`;
+            const avgTimePerQ = (secondsElapsed / quizData.length).toFixed(1);
+
+            document.getElementById('res-score').innerText = score;
+            document.getElementById('res-accuracy').innerText = accuracy;
+            document.getElementById('res-total-time').innerText = formattedTime;
+            document.getElementById('res-avg-time').innerText = avgTimePerQ;
+
+            // Generate Feedback
+            let feedback = "";
+            if (accuracy >= 90) {
+                feedback = "Outstanding performance! You have exceptional mastery over Bihar Board advanced grammar rules like conditional structures, sequence of tenses, and perfect verb markers. You are fully ready to score 100% in your board exams!";
+            } else if (accuracy >= 70) {
+                feedback = "Great job! You have a solid grasp of core tenses. Review minor rule exceptions in conditional clauses and indirect narration shifts to achieve top-tier board scores.";
+            } else {
+                feedback = "Good effort! Time and Tense requires careful attention to time markers and auxiliary verb forms. Revise rules regarding past perfect sequences and conditional verbs to improve further.";
+            }
+            document.getElementById('feedback-text').innerText = feedback;
+
+            renderTopicChart();
+        }
+
+        function renderTopicChart() {
+            const ctx = document.getElementById('topicChart').getContext('2d');
+            const topics = Object.keys(topicStats);
+            const accuracies = topics.map(t => Math.round((topicStats[t].correct / topicStats[t].total) * 100));
+
+            if (chartInstance) {
+                chartInstance.destroy();
+            }
+
+            chartInstance = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: topics,
+                    datasets: [{
+                        label: 'Topic Accuracy (%)',
+                        data: accuracies,
+                        backgroundColor: 'rgba(99, 102, 241, 0.75)',
+                        borderColor: 'rgba(99, 102, 241, 1)',
+                        borderWidth: 2,
+                        borderRadius: 8
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 100,
+                            ticks: { font: { family: 'Plus Jakarta Sans', weight: '600' } }
+                        },
+                        x: {
+                            ticks: { font: { family: 'Plus Jakarta Sans', weight: '600' } }
+                        }
+                    },
+                    plugins: {
+                        legend: { display: false }
+                    }
+                }
+            });
+        }
+
+        function restartQuiz() {
+            document.getElementById('result-screen').classList.add('hidden');
+            document.getElementById('welcome-screen').classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>

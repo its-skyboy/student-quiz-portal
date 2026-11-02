@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BSEB Class 12 English Grammar - Time and Tense Quiz</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+            color: #f8fafc;
+            min-height: 100vh;
+        }
+        .quiz-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+    </style>
+</head>
+<body class="py-10 px-4 sm:px-6 lg:px-8">
+
+    <div class="max-w-3xl mx-auto">
+        <header class="text-center mb-10 bg-gradient-to-r from-indigo-900 via-purple-900 to-indigo-900 p-8 rounded-2xl shadow-2xl border border-indigo-700/50">
+            <span class="bg-indigo-500/20 text-indigo-300 text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider border border-indigo-400/30">Bihar Board Class 12</span>
+            <h1 class="text-3xl sm:text-4xl font-extrabold text-white mt-3 mb-2 tracking-tight">Time and Tense Quiz</h1>
+            <p class="text-indigo-200 text-sm sm:text-base">Master English Grammar with 50 high-yield objective questions. Instant feedback enabled!</p>
+            <div id="score-banner" class="mt-4 inline-block bg-white/10 px-4 py-2 rounded-xl text-sm font-medium text-indigo-100 backdrop-blur-md">
+                Score: <span id="current-score">0</span> / 50
+            </div>
+        </header>
+
+        <main id="quiz-container" class="space-y-6">
+            <!-- Questions will be populated dynamically via JavaScript -->
+        </main>
+
+        <footer class="text-center mt-12 text-slate-400 text-xs sm:text-sm">
+            <p>Designed for BSEB Intermediate Examinations | Interactive Practice Portal</p>
+        </footer>
+    </div>
+
+    <script>
+        const questionsData = [
+            { q: "He usually _______ to bed early.", a: ["go", "goes", "gone", "is going"], c: 1 },
+            { q: "Look! The train _______.", a: ["come", "comes", "is coming", "has come"], c: 2 },
+            { q: "Water _______ at 100°C.", a: ["boil", "boils", "boiled", "is boiling"], c: 1 },
+            { q: "I _______ English for five years.", a: ["learn", "am learning", "have been learning", "learned"], c: 2 },
+            { q: "She _______ her homework just now.", a: ["finish", "finished", "has finished", "had finished"], c: 2 },
+            { q: "If it rains, we _______ stay at home.", a: ["will", "would", "shall", "can"], c: 0 },
+            { q: "He _______ the letter before I arrived.", a: ["wrote", "had written", "has written", "writes"], c: 1 },
+            { q: "She _______ TV when I entered the room.", a: ["watched", "was watching", "is watching", "has watched"], c: 1 },
+            { q: "The sun _______ in the east.", a: ["rise", "rises", "rose", "is rising"], c: 1 },
+            { q: "I wish I _______ a bird.", a: ["am", "was", "were", "be"], c: 2 },
+            { q: "He acts as if he _______ a king.", a: ["is", "were", "was", "has been"], c: 1 },
+            { q: "She _______ here tomorrow.", a: ["come", "comes", "will come", "came"], c: 2 },
+            { q: "By next month, we _______ this project.", a: ["will finish", "will have finished", "finish", "finished"], c: 1 },
+            { q: "He _______ to Delhi yesterday.", a: ["go", "went", "gone", "has gone"], c: 1 },
+            { q: "Listen! Someone _______ at the door.", a: ["knock", "knocks", "is knocking", "has knocked"], c: 2 },
+            { q: "Badminton _______ by them every evening.", a: ["is played", "was played", "plays", "is playing"], c: 0 },
+            { q: "He thanked me for what I _______.", a: ["do", "have done", "had done", "did"], c: 2 },
+            { q: "The Prime Minister _______ Bihar next week.", a: ["visit", "visits", "will visit", "visited"], c: 2 },
+            { q: "She _______ since morning.", a: ["is sleeping", "has been sleeping", "sleeps", "slept"], c: 1 },
+            { q: "It _______ since 8 o'clock.", a: ["rains", "is raining", "has been raining", "rained"], c: 2 },
+            { q: "He _______ his breakfast before he went to school.", a: ["takes", "took", "had taken", "has taken"], c: 2 },
+            { q: "We _______ each other for ten years.", a: ["know", "have known", "knew", "are knowing"], c: 1 },
+            { q: "He said that he _______ busy.", a: ["is", "was", "has been", "will be"], c: 1 },
+            { q: "She _______ a song when I saw her.", a: ["sang", "was singing", "is singing", "has sung"], c: 1 },
+            { q: "Unless you work hard, you _______ pass.", a: ["will", "will not", "would", "do"], c: 1 },
+            { q: "He _______ a new car last month.", a: ["buy", "bought", "has bought", "had bought"], c: 1 },
+            { q: "The patient _______ before the doctor came.", a: ["died", "dies", "had died", "has died"], c: 2 },
+            { q: "What _______ you doing when I called?", a: ["are", "were", "did", "have"], c: 1 },
+            { q: "She speaks as though she _______ everything.", a: ["knows", "knew", "had known", "know"], c: 1 },
+            { q: "He usually _______ up at 5 AM.", a: ["get", "gets", "got", "is getting"], c: 1 },
+            { q: "He _______ English fluently now.", a: ["speak", "speaks", "is speaking", "spoke"], c: 2 },
+            { q: "I _______ never seen such a magnificent sight.", a: ["have", "has", "had", "did"], c: 0 },
+            { q: "If you had worked hard, you _______ passed.", a: ["will have", "would have", "can have", "shall have"], c: 1 },
+            { q: "He _______ here for three years.", a: ["lives", "is living", "has lived", "has been living"], c: 3 },
+            { q: "The earth _______ round the sun.", a: ["move", "moves", "moved", "is moving"], c: 1 },
+            { q: "He _______ his work just a moment ago.", a: ["completes", "completed", "has completed", "had completed"], c: 2 },
+            { q: "Bread and butter _______ my daily food.", a: ["is", "are", "were", "have been"], c: 0 },
+            { q: "Time and tide _______ for none.", a: ["wait", "waits", "waited", "is waiting"], c: 0 },
+            { q: "She _______ her keys yesterday.", a: ["lose", "lost", "has lost", "had lost"], c: 1 },
+            { q: "When I reached the station, the train _______.", a: ["left", "has left", "had left", "leaves"], c: 2 },
+            { q: "He _______ a letter now.", a: ["write", "writes", "is writing", "wrote"], c: 2 },
+            { q: "She _______ French for two years before she moved to Paris.", a: ["learns", "learned", "had been learning", "has learned"], c: 2 },
+            { q: "I _______ to Mumbai next week.", a: ["go", "went", "am going", "have gone"], c: 2 },
+            { q: "He _______ asleep while he was reading.", a: ["fall", "fell", "fallen", "was falling"], c: 1 },
+            { q: "Honesty _______ the best policy.", a: ["is", "was", "will be", "has been"], c: 0 },
+            { q: "She _______ her exam successfully last year.", a: ["pass", "passed", "has passed", "had passed"], c: 1 },
+            { q: "He _______ out five minutes ago.", a: ["go", "went", "has gone", "had gone"], c: 1 },
+            { q: "By this time tomorrow, I _______ home.", a: ["reach", "will reach", "will have reached", "reached"], c: 2 },
+            { q: "She _______ here since 2018.", a: ["lives", "lived", "has been living", "is living"], c: 2 },
+            { q: "Had I known it, I _______ helped you.", a: ["will have", "would have", "can have", "should have"], c: 1 }
+        ];
+
+        let score = 0;
+        let answeredCount = 0;
+
+        function renderQuiz() {
+            const container = document.getElementById('quiz-container');
+            container.innerHTML = '';
+
+            questionsData.forEach((item, index) => {
+                const card = document.createElement('div');
+                card.className = 'quiz-card rounded-2xl p-6 shadow-xl transition-all duration-300 hover:border-indigo-500/40';
+
+                const qTitle = document.createElement('h3');
+                qTitle.className = 'text-lg font-semibold text-slate-100 mb-4 flex items-start gap-3';
+                qTitle.innerHTML = `<span class="bg-indigo-600/30 text-indigo-300 text-xs px-2.5 py-1 rounded-lg border border-indigo-500/30 mt-0.5">Q${index + 1}</span> <span>${item.q}</span>`;
+                card.appendChild(qTitle);
+
+                const optionsGrid = document.createElement('div');
+                optionsGrid.className = 'grid grid-cols-1 sm:grid-cols-2 gap-3';
+
+                item.a.forEach((optText, optIdx) => {
+                    const btn = document.createElement('button');
+                    btn.className = 'option-btn text-left px-4 py-3 rounded-xl bg-slate-800/60 border border-slate-700 text-slate-200 text-sm font-medium transition-all duration-200 hover:bg-indigo-900/40 hover:border-indigo-500/50 focus:outline-none';
+                    btn.innerText = optText;
+
+                    btn.onclick = () => handleAnswer(btn, optIdx, item.c, optionsGrid, card);
+                    optionsGrid.appendChild(btn);
+                });
+
+                card.appendChild(optionsGrid);
+                container.appendChild(card);
+            });
+        }
+
+        function handleAnswer(selectedBtn, selectedIdx, correctIdx, optionsGrid, card) {
+            const allButtons = optionsGrid.querySelectorAll('.option-btn');
+            
+            // Disable all buttons in this card after selection
+            allButtons.forEach(btn => {
+                btn.disabled = true;
+                btn.style.cursor = 'not-allowed';
+            });
+
+            if (selectedIdx === correctIdx) {
+                selectedBtn.className = 'option-btn text-left px-4 py-3 rounded-xl bg-emerald-500/20 border border-emerald-500 text-emerald-200 text-sm font-bold shadow-lg shadow-emerald-900/20 transition-all duration-200';
+                score++;
+                document.getElementById('current-score').innerText = score;
+            } else {
+                selectedBtn.className = 'option-btn text-left px-4 py-3 rounded-xl bg-rose-500/20 border border-rose-500 text-rose-200 text-sm font-bold shadow-lg shadow-rose-900/20 transition-all duration-200';
+                // Highlight the correct answer green
+                allButtons[correctIdx].className = 'option-btn text-left px-4 py-3 rounded-xl bg-emerald-500/20 border border-emerald-500 text-emerald-200 text-sm font-bold shadow-lg shadow-emerald-900/20 transition-all duration-200';
+            }
+
+            answeredCount++;
+            if (answeredCount === questionsData.length) {
+                showCompletionBanner();
+            }
+        }
+
+        function showCompletionBanner() {
+            const banner = document.createElement('div');
+            banner.className = 'mt-8 p-6 bg-gradient-to-r from-emerald-900/80 to-teal-900/80 border border-emerald-500/50 rounded-2xl text-center shadow-2xl backdrop-blur-md animate-fade-in';
+            banner.innerHTML = `
+                <h3 class="text-2xl font-bold text-white mb-2">🎉 Quiz Completed!</h3>
+                <p class="text-emerald-200 text-base">You scored <strong>${score}</strong> out of <strong>50</strong> correct answers.</p>
+            `;
+            document.getElementById('quiz-container').prepend(banner);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        window.onload = renderQuiz;
+    </script>
+</body>
+</html>

@@ -1,0 +1,1393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEET UG PYQ Quiz - Biological Classification</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Canvas Confetti CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <!-- Chart.js CDN for detailed visual analytics -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#ecfdf5',
+                            100: '#d1fae5',
+                            400: '#34d399',
+                            500: '#10b981',
+                            600: '#059669',
+                            700: '#047857',
+                            900: '#064e3b',
+                        },
+                        dark: {
+                            900: '#060913',
+                            800: '#0f172a',
+                            700: '#1e293b',
+                            600: '#334155'
+                        }
+                    },
+                    animation: {
+                        'shake': 'shake 0.4s cubic-bezier(.36,.07,.19,.97) both',
+                        'pop-in': 'popIn 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards',
+                        'slide-up': 'slideUp 0.3s ease-out forwards'
+                    },
+                    keyframes: {
+                        shake: {
+                            '10%, 90%': { transform: 'translate3d(-2px, 0, 0)' },
+                            '20%, 80%': { transform: 'translate3d(4px, 0, 0)' },
+                            '30%, 50%, 70%': { transform: 'translate3d(-6px, 0, 0)' },
+                            '40%, 60%': { transform: 'translate3d(6px, 0, 0)' }
+                        },
+                        popIn: {
+                            '0%': { opacity: '0', transform: 'scale(0.85)' },
+                            '100%': { opacity: '1', transform: 'scale(1)' }
+                        },
+                        slideUp: {
+                            '0%': { opacity: '0', transform: 'translateY(16px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #060913;
+            color: #f1f5f9;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-image: 
+                radial-gradient(at 15% 15%, rgba(16, 185, 129, 0.12) 0px, transparent 45%),
+                radial-gradient(at 85% 85%, rgba(14, 165, 233, 0.08) 0px, transparent 45%);
+            background-attachment: fixed;
+        }
+
+        .glass-panel {
+            background: rgba(15, 23, 42, 0.78);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 20px 50px -15px rgba(0, 0, 0, 0.6);
+        }
+
+        .glass-card {
+            background: rgba(30, 41, 59, 0.65);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #060913; }
+        ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #334155; }
+
+        /* Floating Motivational Toast */
+        .toast-popup {
+            position: fixed;
+            top: 15%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.6);
+            z-index: 100;
+            pointer-events: none;
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .toast-popup.active {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between antialiased selection:bg-emerald-500 selection:text-white">
+
+    <!-- Motivational Toast popup -->
+    <div id="praiseToast" class="toast-popup">
+        <div class="px-6 py-3.5 rounded-2xl bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 text-white font-extrabold text-lg md:text-xl shadow-2xl flex items-center gap-3 border border-emerald-300/40">
+            <span id="praiseIcon" class="text-2xl">🦠</span>
+            <span id="praiseText">Perfect NCERT Answer!</span>
+        </div>
+    </div>
+
+    <!-- HEADER / NAVIGATION BAR -->
+    <header class="sticky top-0 z-40 bg-dark-900/85 backdrop-blur-md border-b border-slate-800 px-4 lg:px-8 py-3">
+        <div class="max-w-7xl mx-auto flex items-center justify-between gap-4">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-emerald-500 to-teal-400 flex items-center justify-center text-white shadow-lg shadow-emerald-500/20 font-black text-xl">
+                    🔬
+                </div>
+                <div>
+                    <h1 class="text-base sm:text-lg font-bold bg-gradient-to-r from-white via-slate-200 to-emerald-400 bg-clip-text text-transparent">NEET UG Target 2025/26</h1>
+                    <p class="text-xs text-slate-400 flex items-center gap-1.5 font-medium">
+                        <span class="inline-block w-2 h-2 rounded-full bg-emerald-500"></span>
+                        Biology: Biological Classification (50 PYQs)
+                    </p>
+                </div>
+            </div>
+
+            <div class="flex items-center gap-3 sm:gap-6">
+                <!-- Stopwatch Timer -->
+                <div class="flex items-center gap-2 bg-dark-800 px-3.5 py-1.5 rounded-xl border border-slate-700/60 text-xs sm:text-sm">
+                    <i class="fa-regular fa-clock text-emerald-400"></i>
+                    <span class="text-slate-400 hidden sm:inline">Total:</span>
+                    <span id="overallTimer" class="font-mono font-bold text-emerald-400">00:00:00</span>
+                </div>
+
+                <!-- Submit Button Header -->
+                <button onclick="confirmSubmitQuiz()" class="px-4 py-1.5 text-xs sm:text-sm font-semibold text-emerald-400 border border-emerald-500/40 hover:bg-emerald-500/10 rounded-xl transition flex items-center gap-1.5">
+                    <i class="fa-solid fa-flag-checkered"></i>
+                    <span>Submit Test</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTAINER -->
+    <main class="flex-grow max-w-7xl w-full mx-auto px-3 sm:px-6 py-4 sm:py-6 grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+        
+        <!-- LEFT SIDEBAR: Question Navigation Grid -->
+        <aside id="sidebarPalette" class="lg:col-span-4 xl:col-span-3 order-2 lg:order-1 glass-panel rounded-2xl p-4 sm:p-5">
+            <div class="flex items-center justify-between mb-4 pb-3 border-b border-slate-800">
+                <h3 class="font-bold text-slate-200 text-sm sm:text-base flex items-center gap-2">
+                    <i class="fa-solid fa-grid-2 text-emerald-400"></i> Question Palette
+                </h3>
+                <span class="text-xs text-slate-400 font-mono" id="paletteProgress">0/50 Answered</span>
+            </div>
+
+            <!-- Palette Status Legend -->
+            <div class="grid grid-cols-2 gap-2 text-xs mb-4">
+                <div class="flex items-center gap-2 text-slate-400">
+                    <span class="w-3 h-3 rounded-full bg-emerald-500/20 border border-emerald-500"></span> Correct
+                </div>
+                <div class="flex items-center gap-2 text-slate-400">
+                    <span class="w-3 h-3 rounded-full bg-rose-500/20 border border-rose-500"></span> Incorrect
+                </div>
+                <div class="flex items-center gap-2 text-slate-400">
+                    <span class="w-3 h-3 rounded-full bg-indigo-500/30 border border-indigo-400"></span> Active
+                </div>
+                <div class="flex items-center gap-2 text-slate-400">
+                    <span class="w-3 h-3 rounded-full bg-slate-800 border border-slate-700"></span> Unattempted
+                </div>
+            </div>
+
+            <!-- Question Numbers Grid -->
+            <div id="questionGrid" class="grid grid-cols-5 sm:grid-cols-10 lg:grid-cols-5 gap-2 max-h-[320px] lg:max-h-[420px] overflow-y-auto pr-1">
+                <!-- Populated dynamically via JS -->
+            </div>
+
+            <div class="mt-5 pt-4 border-t border-slate-800 text-center">
+                <div class="text-xs text-slate-400 mb-2">Completion Progress</div>
+                <div class="w-full bg-slate-800 rounded-full h-2 overflow-hidden">
+                    <div id="quizProgressBar" class="bg-gradient-to-r from-emerald-500 to-teal-400 h-full w-0 transition-all duration-300"></div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- RIGHT AREA: Active Question Display -->
+        <section id="questionContainer" class="lg:col-span-8 xl:col-span-9 order-1 lg:order-2 space-y-5">
+            
+            <div class="glass-panel rounded-2xl p-5 sm:p-7 relative overflow-hidden shadow-2xl">
+                <!-- Question Header Info -->
+                <div class="flex flex-wrap items-center justify-between gap-3 pb-4 mb-5 border-b border-slate-800 text-xs sm:text-sm">
+                    <div class="flex items-center gap-2">
+                        <span id="questionCategory" class="px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-medium">
+                            Monera
+                        </span>
+                        <span id="pyqTag" class="px-2.5 py-1 rounded-full bg-indigo-500/10 text-indigo-300 border border-indigo-500/20 font-mono">
+                            NEET 2023
+                        </span>
+                    </div>
+
+                    <div class="flex items-center gap-3">
+                        <button id="bookmarkBtn" onclick="toggleBookmark()" class="text-slate-400 hover:text-amber-400 transition text-sm">
+                            <i class="fa-regular fa-bookmark" id="bookmarkIcon"></i>
+                        </button>
+                        <!-- Per-Question Timer -->
+                        <div class="flex items-center gap-1.5 text-slate-400 font-mono bg-slate-800/80 px-3 py-1 rounded-lg border border-slate-700">
+                            <i class="fa-solid fa-stopwatch text-amber-400"></i>
+                            <span>Time:</span>
+                            <span id="questionTimer" class="font-bold text-white">0s</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question Text -->
+                <div class="mb-6">
+                    <div class="flex items-start gap-3">
+                        <span id="qIndexBadge" class="flex-shrink-0 w-8 h-8 rounded-xl bg-slate-800 text-emerald-400 border border-slate-700 font-bold flex items-center justify-center text-sm">
+                            Q1
+                        </span>
+                        <h2 id="questionText" class="text-base sm:text-lg md:text-xl font-semibold leading-relaxed text-slate-100">
+                            Loading question content...
+                        </h2>
+                    </div>
+                </div>
+
+                <!-- 4 Options -->
+                <div id="optionsGroup" class="space-y-3.5 mb-6">
+                    <!-- Options JS injected -->
+                </div>
+
+                <!-- Solution & Explanation Panel -->
+                <div id="explanationBox" class="hidden rounded-xl bg-dark-900/90 border border-slate-700 p-5 mt-5 animate-slide-up">
+                    <div class="flex items-center gap-2 mb-3 text-amber-400 font-bold text-sm">
+                        <i class="fa-solid fa-lightbulb"></i>
+                        <span>NCERT Explanation & Scientific Logic</span>
+                    </div>
+                    <div id="explanationText" class="text-xs sm:text-sm text-slate-300 leading-relaxed space-y-2">
+                        <!-- Solution content -->
+                    </div>
+                </div>
+
+                <!-- Question Footer Controls -->
+                <div class="flex items-center justify-between gap-4 pt-5 border-t border-slate-800">
+                    <button id="prevBtn" onclick="navigateQuestion(-1)" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold text-xs sm:text-sm flex items-center gap-2 transition disabled:opacity-40 disabled:cursor-not-allowed">
+                        <i class="fa-solid fa-arrow-left"></i> Previous
+                    </button>
+
+                    <span class="text-xs text-slate-400 font-mono hidden sm:inline">
+                        Question <span id="currentQNum">1</span> of 50
+                    </span>
+
+                    <button id="nextBtn" onclick="navigateQuestion(1)" class="px-5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs sm:text-sm flex items-center gap-2 transition shadow-lg shadow-emerald-600/20">
+                        Next <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- END-OF-QUIZ FULL PERFORMANCE ANALYTICS PANEL -->
+        <section id="resultContainer" class="hidden lg:col-span-12 glass-panel rounded-3xl p-6 sm:p-10 space-y-8 animate-pop-in">
+            <!-- Header Result Banner -->
+            <div class="text-center space-y-3 relative">
+                <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs sm:text-sm font-semibold">
+                    <i class="fa-solid fa-chart-line"></i> Full Diagnostic Performance Report
+                </div>
+                <h2 id="finalVerdictTitle" class="text-2xl sm:text-4xl font-extrabold text-white">Outstanding Performance!</h2>
+                <p id="finalVerdictSub" class="text-sm sm:text-base text-slate-400 max-w-2xl mx-auto">
+                    Detailed analysis of your NEET readiness in 'Biological Classification' (Class 11 Biology).
+                </p>
+            </div>
+
+            <!-- Key Metrics Summary Cards -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
+                <div class="glass-card rounded-2xl p-5 border border-emerald-500/20 text-center">
+                    <div class="text-xs font-semibold text-slate-400 mb-1">TOTAL MARKS</div>
+                    <div class="text-3xl sm:text-4xl font-black text-emerald-400 font-mono" id="resMarks">0 / 200</div>
+                    <div class="text-[10px] text-slate-500 mt-1">+4 Correct | -1 Wrong</div>
+                </div>
+
+                <div class="glass-card rounded-2xl p-5 border border-cyan-500/20 text-center">
+                    <div class="text-xs font-semibold text-slate-400 mb-1">ACCURACY</div>
+                    <div class="text-3xl sm:text-4xl font-black text-cyan-400 font-mono" id="resAccuracy">0%</div>
+                    <div class="text-[10px] text-slate-500 mt-1" id="resCorrectRatio">0 Correct / 0 Attempted</div>
+                </div>
+
+                <div class="glass-card rounded-2xl p-5 border border-amber-500/20 text-center">
+                    <div class="text-xs font-semibold text-slate-400 mb-1">TOTAL TIME</div>
+                    <div class="text-3xl sm:text-4xl font-black text-amber-400 font-mono" id="resTotalTime">00:00:00</div>
+                    <div class="text-[10px] text-slate-500 mt-1">Elapsed Duration</div>
+                </div>
+
+                <div class="glass-card rounded-2xl p-5 border border-purple-500/20 text-center">
+                    <div class="text-xs font-semibold text-slate-400 mb-1">AVG SPEED / Q</div>
+                    <div class="text-3xl sm:text-4xl font-black text-purple-400 font-mono" id="resAvgTime">0s</div>
+                    <div class="text-[10px] text-slate-500 mt-1">Target &lt; 45s</div>
+                </div>
+            </div>
+
+            <!-- Graphical Analytics Section -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Subtopic Accuracy Bar Chart -->
+                <div class="glass-card rounded-2xl p-5 border border-slate-800">
+                    <h3 class="text-base font-bold text-slate-200 mb-4 flex items-center gap-2">
+                        <i class="fa-solid fa-chart-bar text-emerald-400"></i> Subtopic Accuracy Breakdown
+                    </h3>
+                    <div class="relative h-64">
+                        <canvas id="topicBarChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Score Distribution Donut Chart -->
+                <div class="glass-card rounded-2xl p-5 border border-slate-800">
+                    <h3 class="text-base font-bold text-slate-200 mb-4 flex items-center gap-2">
+                        <i class="fa-solid fa-pie-chart text-cyan-400"></i> Attempted Questions Distribution
+                    </h3>
+                    <div class="relative h-64 flex items-center justify-center">
+                        <canvas id="scoreDonutChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Speed & Accuracy Highlights -->
+            <div class="glass-card rounded-2xl p-5 border border-slate-800 grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs sm:text-sm">
+                <div class="flex items-center gap-3 p-3 rounded-xl bg-slate-900/60 border border-slate-800">
+                    <div class="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-lg">
+                        ⚡
+                    </div>
+                    <div>
+                        <div class="text-slate-400 font-semibold">Fastest Correct Answer</div>
+                        <div class="text-white font-mono font-bold" id="fastestAns">Q-- (0s)</div>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-3 p-3 rounded-xl bg-slate-900/60 border border-slate-800">
+                    <div class="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center text-lg">
+                        ⏳
+                    </div>
+                    <div>
+                        <div class="text-slate-400 font-semibold">Slowest Answer</div>
+                        <div class="text-white font-mono font-bold" id="slowestAns">Q-- (0s)</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Review Grid & Filters -->
+            <div class="glass-card rounded-2xl p-6 border border-slate-800">
+                <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
+                    <h3 class="text-lg font-bold text-slate-200 flex items-center gap-2">
+                        <i class="fa-solid fa-list-check text-emerald-400"></i> Detailed Question Review
+                    </h3>
+                    <div class="flex items-center gap-2 text-xs">
+                        <button onclick="filterReviewGrid('all')" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 font-medium">All (50)</button>
+                        <button onclick="filterReviewGrid('correct')" class="px-3 py-1.5 rounded-lg bg-emerald-950/80 text-emerald-400 border border-emerald-500/40 font-medium">Correct</button>
+                        <button onclick="filterReviewGrid('incorrect')" class="px-3 py-1.5 rounded-lg bg-rose-950/80 text-rose-400 border border-rose-500/40 font-medium">Incorrect</button>
+                    </div>
+                </div>
+
+                <div id="reviewGrid" class="grid grid-cols-5 sm:grid-cols-10 md:grid-cols-12 gap-2 text-xs">
+                    <!-- Review boxes JS populated -->
+                </div>
+            </div>
+
+            <!-- Retake Button -->
+            <div class="flex justify-center pt-4">
+                <button onclick="location.reload()" class="px-8 py-3 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-bold text-sm shadow-xl hover:opacity-90 transition flex items-center gap-2">
+                    <i class="fa-solid fa-rotate-right"></i> Retake Test
+                </button>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-dark-900 border-t border-slate-800 py-4 text-center text-xs text-slate-500">
+        NEET UG Biology PYQ Mastery Series • Biological Classification • High-Yield Question Bank
+    </footer>
+
+    <!-- QUIZ ENGINE SCRIPT -->
+    <script>
+        // 50 AUTHENTIC NEET/AIPMT LEVEL QUESTIONS ON "BIOLOGICAL CLASSIFICATION"
+        const quizData = [
+            {
+                id: 1,
+                pyqTag: "NEET 2023",
+                category: "Monera",
+                question: "Which of the following statements is INCORRECT regarding Mycoplasma?",
+                options: [
+                    "They possess a rigid cell wall made of peptidoglycan.",
+                    "They are the smallest living cells known.",
+                    "They can survive without oxygen.",
+                    "They are pathogenic in animals and plants."
+                ],
+                correct: 0,
+                explanation: "<strong>Mycoplasma</strong> completely lack a cell wall. Because of this, they are pleomorphic and resistant to cell wall-targeting antibiotics like penicillin. They are the smallest known living cells and can survive anaerobically."
+            },
+            {
+                id: 2,
+                pyqTag: "NEET 2022",
+                category: "Fungi",
+                question: "Which of the following pairs of fungi belong to Deuteromycetes (Fungi Imperfecti)?",
+                options: [
+                    "Alternaria and Trichoderma",
+                    "Mucor and Rhizopus",
+                    "Agaricus and Ustilago",
+                    "Neurospora and Aspergillus"
+                ],
+                correct: 0,
+                explanation: "<strong>Alternaria, Colletotrichum, and Trichoderma</strong> belong to Deuteromycetes. They are called 'imperfect fungi' because only their asexual or vegetative phases are known."
+            },
+            {
+                id: 3,
+                pyqTag: "NEET 2021",
+                category: "Viruses & Lichens",
+                question: "Which of the following statements is TRUE about Viroids?",
+                options: [
+                    "They have free RNA without a protein coat.",
+                    "They have double-stranded DNA surrounded by protein.",
+                    "They cause mad cow disease in cattle.",
+                    "Their RNA is of high molecular weight."
+                ],
+                correct: 0,
+                explanation: "<strong>Viroids</strong> (discovered by T.O. Diener in 1971) are infectious agents smaller than viruses consisting of free low-molecular-weight single-stranded RNA lacking a capsid (protein coat). They cause Potato Spindle Tuber disease."
+            },
+            {
+                id: 4,
+                pyqTag: "NEET 2020",
+                category: "Monera",
+                question: "Organisms called Methanogens belong to which group of Monerans?",
+                options: ["Archaebacteria", "Eubacteria", "Cyanobacteria", "Mycoplasma"],
+                correct: 0,
+                explanation: "<strong>Methanogens</strong> (e.g., <i>Methanococcus</i>, <i>Methanobacterium</i>) are specialized <strong>Archaebacteria</strong> that live in marshy areas and the gut of ruminant animals (producing biogas/methane)."
+            },
+            {
+                id: 5,
+                pyqTag: "NEET 2019",
+                category: "Protista",
+                question: "Chief producers in the oceans belong to which group of Protists?",
+                options: ["Diatoms (Chrysophytes)", "Dinoflagellates", "Euglenoids", "Slime moulds"],
+                correct: 0,
+                explanation: "<strong>Diatoms</strong> are microscopic photosynthesizers that float passively in water currents (plankton) and are recognized as the <strong>chief producers in the oceans</strong>."
+            },
+            {
+                id: 6,
+                pyqTag: "NEET 2023",
+                category: "Systems of Classification",
+                question: "Five kingdom system of classification was proposed by R.H. Whittaker in which year, and what was its main basis?",
+                options: [
+                    "1969; Cell structure, thallus organization, mode of nutrition, reproduction, & phylogeny",
+                    "1975; Only cell wall composition and locomotion",
+                    "1866; Presence or absence of nucleus",
+                    "1950; Gross morphological characters only"
+                ],
+                correct: 0,
+                explanation: "R.H. Whittaker (<strong>1969</strong>) proposed the Five Kingdom System (Monera, Protista, Fungi, Plantae, Animalia). Main criteria: cell structure, body organization, nutrition, reproduction, and phylogenetic relationships."
+            },
+            {
+                id: 7,
+                pyqTag: "NEET 2021",
+                category: "Monera",
+                question: "Specialized cells in Cyanobacteria (like <i>Nostoc</i> and <i>Anabaena</i>) responsible for atmospheric nitrogen fixation are called:",
+                options: ["Heterocysts", "Akinetes", "Hormogonia", "Endospores"],
+                correct: 0,
+                explanation: "Cyanobacteria fix atmospheric nitrogen in specialized, thick-walled anaerobic cells called <strong>Heterocysts</strong>."
+            },
+            {
+                id: 8,
+                pyqTag: "NEET 2020 Phase 2",
+                category: "Fungi",
+                question: "Which class of fungi is characterized by the presence of coenocytic and aseptate mycelium?",
+                options: ["Phycomycetes", "Ascomycetes", "Basidiomycetes", "Deuteromycetes"],
+                correct: 0,
+                explanation: "Members of <strong>Phycomycetes</strong> (e.g., <i>Mucor</i>, <i>Rhizopus</i>, <i>Albugo</i>) have multinucleate, non-septate (coenocytic) mycelium. All other fungal classes have septate mycelium."
+            },
+            {
+                id: 9,
+                pyqTag: "NEET 2018",
+                category: "Viruses & Lichens",
+                question: "Prions are infectious agents that cause Bovine Spongiform Encephalopathy (BSE). They consist of:",
+                options: [
+                    "Abnormally folded proteins only",
+                    "Infectious double-stranded RNA",
+                    "Single-stranded DNA without protein",
+                    "Complex lipopolysaccharides"
+                ],
+                correct: 0,
+                explanation: "<strong>Prions</strong> are abnormally folded proteins capable of transmitting neurodegenerative diseases like BSE (Mad Cow Disease) in cattle and Cr-Jacob disease (CJD) in humans."
+            },
+            {
+                id: 10,
+                pyqTag: "NEET 2022",
+                category: "Protista",
+                question: "Red tides in Mediterranean sea are caused by rapid multiplication of which dinoflagellate?",
+                options: ["Gonyaulax", "Euglena", "Noctiluca", "Paramecium"],
+                correct: 0,
+                explanation: "Red dinoflagellates like <strong><i>Gonyaulax</i></strong> undergo rapid multiplication, turning the sea red ('red tides') and releasing toxins (saxitoxins) that kill marine animals."
+            },
+            {
+                id: 11,
+                pyqTag: "NEET 2017",
+                category: "Fungi",
+                question: "Which of the following is an edible sac-fungus considered a delicacy?",
+                options: ["Morels and Truffles (Ascomycetes)", "Ustilago and Puccinia", "Agaricus and Amanita", "Rhizopus and Mucor"],
+                correct: 0,
+                explanation: "<strong>Morels</strong> (<i>Morchella</i>) and <strong>Truffles</strong> belong to Ascomycetes ('sac-fungi') and are edible delicacies."
+            },
+            {
+                id: 12,
+                pyqTag: "NEET 2019",
+                category: "Monera",
+                question: "Cell wall of Archaebacteria differs from Eubacteria in having:",
+                options: [
+                    "Non-cellulosic polysaccharide and proteins (lack peptidoglycan)",
+                    "High concentration of chitin",
+                    "Peptidoglycan with muramic acid",
+                    "Pure cellulose and pectin"
+                ],
+                correct: 0,
+                explanation: "Archaebacteria survive extreme environments (halophiles, thermoacidophiles) because their cell wall lacks peptidoglycan and contains complex branched-chain lipids and pseudomurein."
+            },
+            {
+                id: 13,
+                pyqTag: "NEET 2020",
+                category: "Protista",
+                question: "Slime moulds under favorable conditions form an aggregation called:",
+                options: ["Plasmodium", "Pseudopodia", "Sporangium", "Fruiting body"],
+                correct: 0,
+                explanation: "Under suitable conditions, saprophytic slime moulds form an aggregate called <strong>Plasmodium</strong> which can grow and spread over several feet."
+            },
+            {
+                id: 14,
+                pyqTag: "NEET 2018",
+                category: "Fungi",
+                question: "Plasmogamy is the fusion of two nucleic states. In Ascomycetes and Basidiomycetes, it leads to a temporary phase called:",
+                options: ["Dikaryophase (n + n)", "Diplophase (2n)", "Haplophase (n)", "Polyploid phase"],
+                correct: 0,
+                explanation: "In Ascomycetes and Basidiomycetes, fusion of two haploid cells is delayed, resulting in an intervening <strong>dikaryotic phase (n + n, i.e., two nuclei per cell)</strong>."
+            },
+            {
+                id: 15,
+                pyqTag: "NEET 2016",
+                category: "Viruses & Lichens",
+                question: "Lichens are well known as very good indicators of pollution because they:",
+                options: [
+                    "Are extremely sensitive to Sulphur Dioxide (SO2)",
+                    "Grow rapidly in polluted water",
+                    "Absorb heavy metals from sewage",
+                    "Produce toxins in dirty air"
+                ],
+                correct: 0,
+                explanation: "Lichens do not grow in polluted areas because they are highly sensitive to <strong>SO2 pollution</strong>, making them excellent natural pollution bioindicators."
+            },
+            {
+                id: 16,
+                pyqTag: "NEET 2023",
+                category: "Monera",
+                question: "Which group of bacteria oxides inorganic substances like nitrates, nitrites, and ammonia to release energy for ATP production?",
+                options: ["Chemosynthetic autotrophic bacteria", "Photosynthetic autotrophic bacteria", "Heterotrophic decomposers", "Saprophytic archaebacteria"],
+                correct: 0,
+                explanation: "<strong>Chemosynthetic autotrophs</strong> (e.g., <i>Nitrifying bacteria</i> like <i>Nitrosomonas</i>, <i>Nitrobacter</i>) oxidize inorganic chemicals to generate energy for ATP synthesis and play a key role in nutrient recycling."
+            },
+            {
+                id: 17,
+                pyqTag: "NEET 2021",
+                category: "Protista",
+                question: "Which organelle or structure is used for locomotion and food capture in <i>Amoeba</i>?",
+                options: ["Pseudopodia", "Cilia", "Flagella", "Tentacles"],
+                correct: 0,
+                explanation: "Amoeboid protozoans capture prey and move using <strong>Pseudopodia</strong> (false feet), which are cytoplasmic extensions."
+            },
+            {
+                id: 18,
+                pyqTag: "NEET 2017",
+                category: "Fungi",
+                question: "The cell walls of most fungi are composed of:",
+                options: ["Chitin and glucans", "Cellulose and pectin", "Peptidoglycan and teichoic acid", "Hemicellulose and lignin"],
+                correct: 0,
+                explanation: "Fungal cell walls are composed of <strong>chitin</strong> (N-acetylglucosamine polymer) and polysaccharides."
+            },
+            {
+                id: 19,
+                pyqTag: "NEET 2019",
+                category: "Viruses & Lichens",
+                question: "Contagium vivum fluidum (infectious living fluid) concept for viruses was demonstrated by:",
+                options: ["M.W. Beijerinck", "D.J. Ivanowsky", "W.M. Stanley", "T.O. Diener"],
+                correct: 0,
+                explanation: "<strong>M.W. Beijerinck (1898)</strong> demonstrated that extract of infected tobacco plants could infect healthy plants and called the fluid <i>'Contagium vivum fluidum'</i>."
+            },
+            {
+                id: 20,
+                pyqTag: "NEET 2022",
+                category: "Systems of Classification",
+                question: "In two-kingdom system of classification proposed by Linnaeus, which of the following organisms were grouped together despite major structural differences?",
+                options: [
+                    "Bacteria, Fungi, Algae, and Plants in Kingdom Plantae",
+                    "Euglena and Amoeba in Animalia",
+                    "Paramoecium and Chlamydomonas in Protista",
+                    "Viruses and Viroids in Monera"
+                ],
+                correct: 0,
+                explanation: "Linnaeus placed Bacteria, Fungi, Algae, Bryophytes, Pteridophytes, Gymnosperms, and Angiosperms together under Kingdom Plantae solely based on the presence of a cell wall."
+            },
+            {
+                id: 21,
+                pyqTag: "NEET 2020",
+                category: "Monera",
+                question: "Bacterial reproduction under unfavorable conditions mainly takes place by:",
+                options: ["Spore formation", "Binary fission", "Conjugation", "Budding"],
+                correct: 0,
+                explanation: "Under unfavorable environmental conditions, bacteria produce resistant <strong>endospores</strong> to survive harsh temperatures and desiccation."
+            },
+            {
+                id: 22,
+                pyqTag: "NEET 2018",
+                category: "Protista",
+                question: "Euglenoids are mixotrophic organisms because they:",
+                options: [
+                    "Perform photosynthesis in light and act as heterotrophs/predators in dark",
+                    "Are obligate parasites in human blood",
+                    "Rely exclusively on dead organic decay",
+                    "Synthesize silica cell walls"
+                ],
+                correct: 0,
+                explanation: "<i>Euglena</i> behaves photosynthetically in sunlight due to chlorophyll, but when deprived of light, it predates on smaller organisms (<strong>mixotrophic nutrition</strong>)."
+            },
+            {
+                id: 23,
+                pyqTag: "NEET 2021",
+                category: "Fungi",
+                question: "Neurospora crassa is widely used as a tool in biochemical and genetic work. It belongs to:",
+                options: ["Ascomycetes", "Basidiomycetes", "Phycomycetes", "Deuteromycetes"],
+                correct: 0,
+                explanation: "<i>Neurospora</i> is an <strong>Ascomycete</strong> fungal model organism heavily used in genetics and molecular biology research."
+            },
+            {
+                id: 24,
+                pyqTag: "NEET 2016",
+                category: "Viruses & Lichens",
+                question: "Viruses are non-cellular organisms that are characterized by having an inert crystalline structure outside the living cell. Who crystallized tobacco mosaic virus (TMV) for the first time?",
+                options: ["W.M. Stanley", "D.J. Ivanowsky", "M.W. Beijerinck", "Robert Hooke"],
+                correct: 0,
+                explanation: "<strong>W.M. Stanley (1935)</strong> showed for the first time that viruses could be crystallized and that crystals consist largely of proteins."
+            },
+            {
+                id: 25,
+                pyqTag: "NEET 2023",
+                category: "Protista",
+                question: "Which protozoan is the causative organism of Sleeping Sickness in humans?",
+                options: ["Trypanosoma (Flagellated protozoan)", "Plasmodium (Sporozoan)", "Entamoeba (Amoeboid)", "Paramecium (Ciliated)"],
+                correct: 0,
+                explanation: "<strong><i>Trypanosoma gambiense</i></strong> is a flagellated protozoan parasite transmitted by the tsetse fly, causing African Sleeping Sickness."
+            },
+            {
+                id: 26,
+                pyqTag: "NEET 2019",
+                category: "Fungi",
+                question: "In Basidiomycetes, asexual spores are generally not found, but vegetative reproduction takes place by:",
+                options: ["Fragmentation", "Aplanospores", "Zoospores", "Conidia"],
+                correct: 0,
+                explanation: "Basidiomycetes (mushrooms, rusts, smuts) commonly reproduce vegetatively by <strong>fragmentation</strong>. Sex organs are absent, but plasmogamy occurs by somatic cell fusion."
+            },
+            {
+                id: 27,
+                pyqTag: "NEET 2017",
+                category: "Monera",
+                question: "Which of the following is NOT a feature of Cyanobacteria?",
+                options: [
+                    "Presence of flagella for active swimming",
+                    "Oxygenic photosynthesis with chlorophyll a",
+                    "Presence of mucilaginous sheath around colonies",
+                    "Ability to form algal blooms in polluted water bodies"
+                ],
+                correct: 0,
+                explanation: "Cyanobacteria (blue-green algae) are completely <strong>non-motile and lack flagella</strong> at all stages of their life cycle."
+            },
+            {
+                id: 28,
+                pyqTag: "NEET 2020 Phase 2",
+                category: "Protista",
+                question: "Diatomaceous earth is formed due to indestructible cell walls of diatoms containing:",
+                options: ["Silica", "Calcium carbonate", "Chitin", "Lignin"],
+                correct: 0,
+                explanation: "Diatom cell walls are embedded with <strong>silica</strong> forming two thin overlapping shells (soap-box like structure). Accumulation of wall deposits over millions of years forms Diatomaceous Earth."
+            },
+            {
+                id: 29,
+                pyqTag: "NEET 2022",
+                category: "Viruses & Lichens",
+                question: "Genetic material of Plant Viruses (like TMV) is usually:",
+                options: [
+                    "Single-stranded RNA",
+                    "Double-stranded DNA",
+                    "Single-stranded DNA",
+                    "Both DNA and RNA together"
+                ],
+                correct: 0,
+                explanation: "Generally, viruses that infect plants have <strong>single-stranded RNA (ssRNA)</strong>, whereas animal viruses have ssRNA, dsRNA, or dsDNA, and bacteriophages have dsDNA."
+            },
+            {
+                id: 30,
+                pyqTag: "NEET 2018",
+                category: "Fungi",
+                question: "Match the fungi with their common names:<br>1. <i>Ustilago</i> - Smut fungus<br>2. <i>Puccinia</i> - Rust fungus<br>3. <i>Agaricus</i> - Mushroom<br>Which of the above are correct?",
+                options: ["1, 2 and 3", "1 and 2 only", "2 and 3 only", "1 and 3 only"],
+                correct: 0,
+                explanation: "All matches are correct for Basidiomycetes: <i>Agaricus</i> (Mushroom), <i>Ustilago</i> (Smut), and <i>Puccinia</i> (Rust)."
+            },
+            {
+                id: 31,
+                pyqTag: "NEET 2021",
+                category: "Monera",
+                question: "Halophiles, Thermoacidophiles, and Methanogens are placed under:",
+                options: ["Archaebacteria", "Eubacteria", "Cyanobacteria", "Actinomycetes"],
+                correct: 0,
+                explanation: "Halophiles (extreme salty areas), Thermoacidophiles (hot sulphur springs), and Methanogens (marshy habitats) are <strong>Archaebacteria</strong>."
+            },
+            {
+                id: 32,
+                pyqTag: "NEET 2016",
+                category: "Protista",
+                question: "Ciliated protozoans like <i>Paramecium</i> differ from all other protozoans in having:",
+                options: [
+                    "Two types of nuclei (Macronucleus and Micronucleus)",
+                    "Pseudopodia for capturing prey",
+                    "Flagella for locomotion",
+                    "Contractile vacuole for respiration"
+                ],
+                correct: 0,
+                explanation: "Ciliates possess nuclear dimorphism: a vegetative <strong>Macronucleus</strong> controlling metabolic activities and a reproductive <strong>Micronucleus</strong>."
+            },
+            {
+                id: 33,
+                pyqTag: "NEET 2020",
+                category: "Fungi",
+                question: "Fungi imperfecti (Deuteromycetes) reproduce ONLY by asexual spores called:",
+                options: ["Conidia", "Ascospores", "Basidiospores", "Oospores"],
+                correct: 0,
+                explanation: "Deuteromycetes reproduce only by asexual spores known as <strong>Conidia</strong>. Once their sexual stage is discovered, they are reclassified into Ascomycetes or Basidiomycetes."
+            },
+            {
+                id: 34,
+                pyqTag: "NEET 2019",
+                category: "Viruses & Lichens",
+                question: "The algal component of a Lichen is called _____ and fungal component is called _____.",
+                options: [
+                    "Phycobiont (autotrophic); Mycobiont (heterotrophic)",
+                    "Mycobiont (autotrophic); Phycobiont (heterotrophic)",
+                    "Cyanobiont; Symbiont",
+                    "Bioalgae; Biofungus"
+                ],
+                correct: 0,
+                explanation: "In Lichens, the algal partner is <strong>Phycobiont</strong> (prepares food) and the fungal partner is <strong>Mycobiont</strong> (provides shelter, absorbs water & minerals)."
+            },
+            {
+                id: 35,
+                pyqTag: "NEET 2017",
+                category: "Systems of Classification",
+                question: "In Whittaker's Five Kingdom Classification, unicellular eukaryotic organisms are grouped under Kingdom:",
+                options: ["Protista", "Monera", "Fungi", "Plantae"],
+                correct: 0,
+                explanation: "All <strong>unicellular eukaryotic organisms</strong> (like <i>Amoeba, Paramecium, Chlamydomonas, Euglena</i>) are placed under <strong>Kingdom Protista</strong>."
+            },
+            {
+                id: 36,
+                pyqTag: "NEET 2023",
+                category: "Viruses & Lichens",
+                question: "Bacteriophages are viruses that infect bacteria. They usually possess:",
+                options: [
+                    "Double-stranded DNA",
+                    "Single-stranded RNA",
+                    "Double-stranded RNA",
+                    "Single-stranded DNA"
+                ],
+                correct: 0,
+                explanation: "Bacteriophages (bacterial viruses) typically have a protein capsid containing <strong>double-stranded DNA (dsDNA)</strong>."
+            },
+            {
+                id: 37,
+                pyqTag: "NEET 2018",
+                category: "Monera",
+                question: "Which of the following bacteria are helpful in making curd from milk and production of antibiotics?",
+                options: [
+                    "Heterotrophic bacteria (e.g., Lactobacillus)",
+                    "Archaebacteria",
+                    "Cyanobacteria",
+                    "Chemosynthetic autotrophs"
+                ],
+                correct: 0,
+                explanation: "<strong>Heterotrophic bacteria</strong> are the most abundant in nature. <i>Lactobacillus</i> converts milk to curd, and species of <i>Streptomyces</i> produce antibiotics."
+            },
+            {
+                id: 38,
+                pyqTag: "NEET 2021",
+                category: "Fungi",
+                question: "Ascospores in Ascomycetes are produced _____ in a sac-like structure called _____. ",
+                options: [
+                    "Endogenously; Ascus",
+                    "Exogenously; Basidium",
+                    "Endogenously; Basidium",
+                    "Exogenously; Ascus"
+                ],
+                correct: 0,
+                explanation: "Ascospores are formed <strong>endogenously</strong> inside sac-like <strong>Asci</strong> (singular: Ascus), whereas Basidiospores are produced exogenously on Basidia."
+            },
+            {
+                id: 39,
+                pyqTag: "NEET 2016",
+                category: "Protista",
+                question: "Which of the following statement is WRONG for Euglenoids?",
+                options: [
+                    "They have a protein-rich layer called pellicle instead of a cell wall",
+                    "They have two flagella, one short and one long",
+                    "They are photosynthetic in presence of sunlight",
+                    "They are completely non-motile organisms"
+                ],
+                correct: 3,
+                explanation: "Euglenoids are <strong>actively motile</strong> using two unequal flagella (one short and one long)."
+            },
+            {
+                id: 40,
+                pyqTag: "NEET 2022",
+                category: "Systems of Classification",
+                question: "Who classified plants into Herbs, Shrubs, and Trees based on simple morphological characters?",
+                options: ["Aristotle", "Linnaeus", "Whittaker", "Theophrastus"],
+                correct: 0,
+                explanation: "<strong>Aristotle</strong> was the earliest to attempt a more scientific basis for classification, dividing plants into trees, shrubs, and herbs."
+            },
+            {
+                id: 41,
+                pyqTag: "NEET 2019",
+                category: "Monera",
+                question: "The kingdom Monera includes organisms having which type of cellular organization?",
+                options: ["Prokaryotic cell structure", "Eukaryotic unicellular", "Eukaryotic multicellular", "Acellular"],
+                correct: 0,
+                explanation: "Kingdom Monera sole members are <strong>Prokaryotes</strong> (lacking membrane-bound nucleus and organelles)."
+            },
+            {
+                id: 42,
+                pyqTag: "NEET 2020",
+                category: "Fungi",
+                question: "Bread mould is the common name for which fungus?",
+                options: ["Rhizopus (Phycomycetes)", "Aspergillus", "Penicillium", "Puccinia"],
+                correct: 0,
+                explanation: "<i><strong>Rhizopus stolonifer</strong></i> is commonly referred to as the black bread mould."
+            },
+            {
+                id: 43,
+                pyqTag: "NEET 2017",
+                category: "Viruses & Lichens",
+                question: "Viroids differ from viruses in lacking:",
+                options: ["Protein coat (capsid)", "Genetic material", "Infectious nature", "Low molecular weight RNA"],
+                correct: 0,
+                explanation: "Viroids lack the protective <strong>protein coat (capsid)</strong> present in viruses."
+            },
+            {
+                id: 44,
+                pyqTag: "NEET 2023",
+                category: "Protista",
+                question: "The spore stage of <i>Plasmodium</i> that enters the human body through mosquito bite is:",
+                options: ["Sporozoite", "Trophozoite", "Merozoite", "Gametocyte"],
+                correct: 0,
+                explanation: "In <i>Plasmodium</i> (malarial parasite), infectious <strong>Sporozoites</strong> are injected into human blood via female <i>Anopheles</i> mosquito bite."
+            },
+            {
+                id: 45,
+                pyqTag: "NEET 2018",
+                category: "Systems of Classification",
+                question: "Three-domain system divides Kingdom Monera into two domains, leaving the remaining eukaryotic kingdoms in the third domain. It was proposed by:",
+                options: ["Carl Woese", "R.H. Whittaker", "Ernst Haeckel", "Copeland"],
+                correct: 0,
+                explanation: "<strong>Carl Woese</strong> proposed the Three-Domain System based on 16S rRNA gene sequences (Domain Archaea, Bacteria, and Eukarya)."
+            },
+            {
+                id: 46,
+                pyqTag: "NEET 2021",
+                category: "Fungi",
+                question: "Penicillium, from which penicillin antibiotic is derived, belongs to:",
+                options: ["Ascomycetes", "Phycomycetes", "Basidiomycetes", "Deuteromycetes"],
+                correct: 0,
+                explanation: "<i>Penicillium</i> produces conidia in chains and forms asci inside cleistothecia, placing it in <strong>Ascomycetes</strong>."
+            },
+            {
+                id: 47,
+                pyqTag: "NEET 2020 Phase 2",
+                category: "Monera",
+                question: "Which of the following bacteria play a crucial role in recycling nitrogen, phosphorus, iron, and sulphur?",
+                options: [
+                    "Chemosynthetic autotrophic bacteria",
+                    "Parasitic heterotrophic bacteria",
+                    "Cyanobacteria only",
+                    "Archaebacteria only"
+                ],
+                correct: 0,
+                explanation: "<strong>Chemosynthetic autotrophs</strong> recycle nutrients like N, P, Fe, and S by oxidizing inorganic compounds."
+            },
+            {
+                id: 48,
+                pyqTag: "NEET 2019",
+                category: "Viruses & Lichens",
+                question: "Which component of lichen absorbs water and mineral nutrients for its partner?",
+                options: ["Fungal component (Mycobiont)", "Algal component (Phycobiont)", "Both equally", "Bacterial component"],
+                correct: 0,
+                explanation: "The fungal partner (<strong>Mycobiont</strong>) absorbs water, minerals, and provides shelter for the photosynthetic algal partner."
+            },
+            {
+                id: 49,
+                pyqTag: "NEET 2016",
+                category: "Fungi",
+                question: "The fruiting bodies of Basidiomycetes in which basidia are arranged are called:",
+                options: ["Basidiocarps", "Ascocarps", "Cleistothecia", "Pycnidia"],
+                correct: 0,
+                explanation: "In Basidiomycetes (like mushrooms), basidia are produced on conspicuous fruiting bodies called <strong>Basidiocarps</strong>."
+            },
+            {
+                id: 50,
+                pyqTag: "NEET 2022",
+                category: "Monera",
+                question: "Cyanobacteria are also referred to as:",
+                options: ["Blue-green algae", "Golden algae", "Slime moulds", "Dinoflagellates"],
+                correct: 0,
+                explanation: "Cyanobacteria are photosynthetic prokaryotes commonly called <strong>Blue-green algae</strong> because of phycocyanin and chlorophyll a pigments."
+            }
+        ];
+
+        // PRAISE TEXTS
+        const praisePhrases = [
+            "Spot On, Future Doctor! 🩺",
+            "NCERT Masterstroke! 🌟",
+            "Monera & Fungi Mastered! 🔬",
+            "Perfect Precision! +4 Marks! 🎯",
+            "Concept Cleared! 🔥",
+            "Superb Accuracy! 🚀",
+            "Top Tier Preparation! ✨"
+        ];
+
+        // STATE MANAGERS
+        let currentIndex = 0;
+        let userAnswers = new Array(quizData.length).fill(null);
+        let bookmarked = new Array(quizData.length).fill(false);
+        let questionTimeSpent = new Array(quizData.length).fill(0);
+        let overallTimeInSeconds = 0;
+        
+        let overallTimerInterval = null;
+        let questionTimerInterval = null;
+        let isQuizSubmitted = false;
+
+        // CHART INSTANCES
+        let barChartInstance = null;
+        let donutChartInstance = null;
+
+        window.onload = function() {
+            renderQuestionPalette();
+            loadQuestion(0);
+            startOverallTimer();
+            startQuestionTimer();
+        };
+
+        // PALETTE GENERATOR
+        function renderQuestionPalette() {
+            const grid = document.getElementById('questionGrid');
+            grid.innerHTML = '';
+            
+            quizData.forEach((q, idx) => {
+                const btn = document.createElement('button');
+                btn.id = `palette-btn-${idx}`;
+                btn.onclick = () => jumpToQuestion(idx);
+                btn.className = getPaletteBtnClass(idx);
+                btn.innerText = idx + 1;
+                grid.appendChild(btn);
+            });
+
+            updateProgressStats();
+        }
+
+        function getPaletteBtnClass(idx) {
+            let base = "w-9 h-9 sm:w-10 sm:h-10 text-xs sm:text-sm font-bold rounded-xl flex items-center justify-center transition border relative ";
+            if (idx === currentIndex) {
+                return base + "bg-indigo-600 text-white border-indigo-400 ring-2 ring-indigo-400/50 scale-105";
+            }
+            if (userAnswers[idx] !== null) {
+                const isCorrect = userAnswers[idx] === quizData[idx].correct;
+                if (isCorrect) {
+                    return base + "bg-emerald-500/20 text-emerald-400 border-emerald-500/50";
+                } else {
+                    return base + "bg-rose-500/20 text-rose-400 border-rose-500/50";
+                }
+            }
+            return base + "bg-slate-800/80 text-slate-400 border-slate-700/60 hover:bg-slate-700";
+        }
+
+        function updatePaletteStyles() {
+            quizData.forEach((_, idx) => {
+                const btn = document.getElementById(`palette-btn-${idx}`);
+                if (btn) btn.className = getPaletteBtnClass(idx);
+            });
+            updateProgressStats();
+        }
+
+        function updateProgressStats() {
+            const answeredCount = userAnswers.filter(a => a !== null).length;
+            document.getElementById('paletteProgress').innerText = `${answeredCount}/50 Answered`;
+            document.getElementById('quizProgressBar').style.width = `${(answeredCount / 50) * 100}%`;
+        }
+
+        // QUESTION DISPLAY
+        function loadQuestion(index) {
+            clearInterval(questionTimerInterval);
+            
+            currentIndex = index;
+            const q = quizData[index];
+
+            document.getElementById('qIndexBadge').innerText = `Q${index + 1}`;
+            document.getElementById('currentQNum').innerText = index + 1;
+            document.getElementById('questionCategory').innerText = q.category;
+            document.getElementById('pyqTag').innerText = q.pyqTag;
+            document.getElementById('questionText').innerHTML = q.question;
+
+            // Bookmark Icon update
+            const bkIcon = document.getElementById('bookmarkIcon');
+            if (bookmarked[index]) {
+                bkIcon.className = "fa-solid fa-bookmark text-amber-400";
+            } else {
+                bkIcon.className = "fa-regular fa-bookmark text-slate-400";
+            }
+
+            // Options
+            const optionsGroup = document.getElementById('optionsGroup');
+            optionsGroup.innerHTML = '';
+
+            const isAnswered = userAnswers[index] !== null;
+            const selectedOpt = userAnswers[index];
+
+            q.options.forEach((optText, optIdx) => {
+                const optBtn = document.createElement('button');
+                optBtn.className = getOptionStyle(index, optIdx);
+                optBtn.disabled = isAnswered;
+
+                const char = String.fromCharCode(65 + optIdx);
+                
+                let iconMarkup = '';
+                if (isAnswered) {
+                    if (optIdx === q.correct) {
+                        iconMarkup = `<i class="fa-solid fa-circle-check text-emerald-400 text-lg"></i>`;
+                    } else if (optIdx === selectedOpt && selectedOpt !== q.correct) {
+                        iconMarkup = `<i class="fa-solid fa-circle-xmark text-rose-400 text-lg"></i>`;
+                    }
+                }
+
+                optBtn.innerHTML = `
+                    <div class="flex items-center gap-3 text-left w-full">
+                        <span class="w-7 h-7 rounded-lg bg-slate-800 border border-slate-700 text-slate-300 flex items-center justify-center font-bold text-xs flex-shrink-0">
+                            ${char}
+                        </span>
+                        <span class="text-sm sm:text-base text-slate-200 font-medium flex-grow">${optText}</span>
+                        ${iconMarkup}
+                    </div>
+                `;
+
+                optBtn.onclick = () => selectOption(optIdx);
+                optionsGroup.appendChild(optBtn);
+            });
+
+            // Solution panel
+            const explanationBox = document.getElementById('explanationBox');
+            const explanationText = document.getElementById('explanationText');
+
+            if (isAnswered) {
+                explanationText.innerHTML = q.explanation;
+                explanationBox.classList.remove('hidden');
+            } else {
+                explanationBox.classList.add('hidden');
+            }
+
+            document.getElementById('prevBtn').disabled = currentIndex === 0;
+            document.getElementById('nextBtn').disabled = currentIndex === quizData.length - 1;
+
+            updatePaletteStyles();
+            startQuestionTimer();
+        }
+
+        function getOptionStyle(qIdx, optIdx) {
+            const q = quizData[qIdx];
+            const answeredOpt = userAnswers[qIdx];
+
+            let base = "w-full p-4 rounded-xl border text-left transition-all duration-200 shadow-md flex items-center justify-between ";
+
+            if (answeredOpt === null) {
+                return base + "bg-slate-800/60 border-slate-700/80 hover:bg-slate-700/70 hover:border-emerald-500/50 text-slate-200 cursor-pointer";
+            }
+
+            if (optIdx === q.correct) {
+                return base + "bg-emerald-950/70 border-emerald-500 text-emerald-200 font-semibold ring-2 ring-emerald-500/30 animate-pop-in";
+            }
+            if (optIdx === answeredOpt && answeredOpt !== q.correct) {
+                return base + "bg-rose-950/70 border-rose-500 text-rose-200 ring-2 ring-rose-500/30 animate-shake";
+            }
+
+            return base + "bg-slate-900/40 border-slate-800 text-slate-500 opacity-60 cursor-not-allowed";
+        }
+
+        function selectOption(optIdx) {
+            if (userAnswers[currentIndex] !== null || isQuizSubmitted) return;
+
+            userAnswers[currentIndex] = optIdx;
+
+            const isCorrect = optIdx === quizData[currentIndex].correct;
+
+            if (isCorrect) {
+                triggerSuccessAnimation();
+            }
+
+            loadQuestion(currentIndex);
+        }
+
+        function toggleBookmark() {
+            bookmarked[currentIndex] = !bookmarked[currentIndex];
+            loadQuestion(currentIndex);
+        }
+
+        // CONFETTI & MOTIVATION POPUP
+        function triggerSuccessAnimation() {
+            confetti({
+                particleCount: 65,
+                spread: 80,
+                origin: { y: 0.65 },
+                colors: ['#10b981', '#34d399', '#3b82f6', '#f59e0b']
+            });
+
+            const toast = document.getElementById('praiseToast');
+            const praiseText = document.getElementById('praiseText');
+            praiseText.innerText = praisePhrases[Math.floor(Math.random() * praisePhrases.length)];
+            
+            toast.classList.add('active');
+            setTimeout(() => toast.classList.remove('active'), 1800);
+        }
+
+        // TIMERS
+        function startOverallTimer() {
+            overallTimerInterval = setInterval(() => {
+                overallTimeInSeconds++;
+                const hrs = Math.floor(overallTimeInSeconds / 3600).toString().padStart(2, '0');
+                const mins = Math.floor((overallTimeInSeconds % 3600) / 60).toString().padStart(2, '0');
+                const secs = (overallTimeInSeconds % 60).toString().padStart(2, '0');
+                document.getElementById('overallTimer').innerText = `${hrs}:${mins}:${secs}`;
+            }, 1000);
+        }
+
+        function startQuestionTimer() {
+            const timerEl = document.getElementById('questionTimer');
+            timerEl.innerText = `${questionTimeSpent[currentIndex]}s`;
+
+            questionTimerInterval = setInterval(() => {
+                questionTimeSpent[currentIndex]++;
+                timerEl.innerText = `${questionTimeSpent[currentIndex]}s`;
+            }, 1000);
+        }
+
+        function navigateQuestion(step) {
+            const nextIdx = currentIndex + step;
+            if (nextIdx >= 0 && nextIdx < quizData.length) {
+                loadQuestion(nextIdx);
+            }
+        }
+
+        function jumpToQuestion(idx) {
+            loadQuestion(idx);
+        }
+
+        // SUBMIT & DETAILED ANALYTICS
+        function confirmSubmitQuiz() {
+            const unanswered = userAnswers.filter(a => a === null).length;
+            let confirmMsg = "Are you sure you want to finish and submit the test?";
+            if (unanswered > 0) {
+                confirmMsg = `You have ${unanswered} unattempted question(s). Submit test anyway?`;
+            }
+
+            if (window.confirm(confirmMsg)) {
+                submitQuiz();
+            }
+        }
+
+        function submitQuiz() {
+            isQuizSubmitted = true;
+            clearInterval(overallTimerInterval);
+            clearInterval(questionTimerInterval);
+
+            document.getElementById('questionContainer').classList.add('hidden');
+            document.getElementById('sidebarPalette').classList.add('hidden');
+            document.getElementById('resultContainer').classList.remove('hidden');
+
+            let correctCount = 0;
+            let wrongCount = 0;
+            let unattemptedCount = 0;
+
+            let fastestSecs = 9999;
+            let fastestQ = -1;
+            let slowestSecs = -1;
+            let slowestQ = -1;
+
+            userAnswers.forEach((ans, idx) => {
+                const spent = questionTimeSpent[idx];
+                if (spent > 0) {
+                    if (spent < fastestSecs && ans === quizData[idx].correct) {
+                        fastestSecs = spent;
+                        fastestQ = idx + 1;
+                    }
+                    if (spent > slowestSecs) {
+                        slowestSecs = spent;
+                        slowestQ = idx + 1;
+                    }
+                }
+
+                if (ans === null) {
+                    unattemptedCount++;
+                } else if (ans === quizData[idx].correct) {
+                    correctCount++;
+                } else {
+                    wrongCount++;
+                }
+            });
+
+            const totalMarks = (correctCount * 4) - (wrongCount * 1);
+            const attemptedTotal = correctCount + wrongCount;
+            const accuracy = attemptedTotal > 0 ? Math.round((correctCount / attemptedTotal) * 100) : 0;
+
+            const hrs = Math.floor(overallTimeInSeconds / 3600).toString().padStart(2, '0');
+            const mins = Math.floor((overallTimeInSeconds % 3600) / 60).toString().padStart(2, '0');
+            const secs = (overallTimeInSeconds % 60).toString().padStart(2, '0');
+            const avgSecsPerQ = Math.round(overallTimeInSeconds / 50);
+
+            document.getElementById('resMarks').innerText = `${totalMarks} / 200`;
+            document.getElementById('resAccuracy').innerText = `${accuracy}%`;
+            document.getElementById('resCorrectRatio').innerText = `${correctCount} Correct / ${attemptedTotal} Attempted`;
+            document.getElementById('resTotalTime').innerText = `${hrs}:${mins}:${secs}`;
+            document.getElementById('resAvgTime').innerText = `${avgSecsPerQ}s`;
+
+            document.getElementById('fastestAns').innerText = fastestQ !== -1 ? `Q${fastestQ} (${fastestSecs}s)` : 'N/A';
+            document.getElementById('slowestAns').innerText = slowestQ !== -1 ? `Q${slowestQ} (${slowestSecs}s)` : 'N/A';
+
+            const verdictTitle = document.getElementById('finalVerdictTitle');
+            const verdictSub = document.getElementById('finalVerdictSub');
+
+            if (totalMarks >= 180) {
+                verdictTitle.innerText = "🏆 Incredible Mastery! Top Ranker!";
+                verdictSub.innerText = "You have exceptional accuracy in 'Biological Classification'. Ready for NEET 2025/26!";
+            } else if (totalMarks >= 145) {
+                verdictTitle.innerText = "👍 Strong Concept Hold!";
+                verdictSub.innerText = "Very good score! Focus on negative mark questions to secure full 200 marks.";
+            } else {
+                verdictTitle.innerText = "📖 NCERT Revision Needed!";
+                verdictSub.innerText = "Re-read Monera, Protista, Fungi, and Viruses from NCERT Biology Class 11.";
+            }
+
+            renderCharts(correctCount, wrongCount, unattemptedCount);
+            renderReviewGrid('all');
+
+            confetti({
+                particleCount: 120,
+                spread: 100,
+                origin: { y: 0.5 }
+            });
+        }
+
+        // CHART.JS RENDERER
+        function renderCharts(correct, wrong, unattempted) {
+            // Categories calculation
+            const categories = {};
+            quizData.forEach((q, idx) => {
+                if (!categories[q.category]) {
+                    categories[q.category] = { total: 0, correct: 0 };
+                }
+                categories[q.category].total++;
+                if (userAnswers[idx] === q.correct) {
+                    categories[q.category].correct++;
+                }
+            });
+
+            const catLabels = Object.keys(categories);
+            const catAccuracies = catLabels.map(cat => {
+                const d = categories[cat];
+                return Math.round((d.correct / d.total) * 100);
+            });
+
+            // Subtopic Bar Chart
+            const barCtx = document.getElementById('topicBarChart').getContext('2d');
+            barChartInstance = new Chart(barCtx, {
+                type: 'bar',
+                data: {
+                    labels: catLabels,
+                    datasets: [{
+                        label: 'Accuracy (%)',
+                        data: catAccuracies,
+                        backgroundColor: 'rgba(16, 185, 129, 0.6)',
+                        borderColor: '#10b981',
+                        borderWidth: 1.5,
+                        borderRadius: 8
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 100,
+                            ticks: { color: '#94a3b8' },
+                            grid: { color: 'rgba(255,255,255,0.05)' }
+                        },
+                        x: {
+                            ticks: { color: '#94a3b8', font: { size: 10 } },
+                            grid: { display: false }
+                        }
+                    },
+                    plugins: { legend: { display: false } }
+                }
+            });
+
+            // Score Donut Chart
+            const donutCtx = document.getElementById('scoreDonutChart').getContext('2d');
+            donutChartInstance = new Chart(donutCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Correct (+4)', 'Incorrect (-1)', 'Unattempted (0)'],
+                    datasets: [{
+                        data: [correct, wrong, unattempted],
+                        backgroundColor: ['#10b981', '#f43f5e', '#475569'],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: { color: '#cbd5e1', font: { size: 11 } }
+                        }
+                    }
+                }
+            });
+        }
+
+        // FILTERED REVIEW GRID
+        function filterReviewGrid(filter) {
+            const grid = document.getElementById('reviewGrid');
+            grid.innerHTML = '';
+
+            quizData.forEach((q, idx) => {
+                const ans = userAnswers[idx];
+                const isCorrect = ans === q.correct;
+                const isAttempted = ans !== null;
+
+                if (filter === 'correct' && !isCorrect) return;
+                if (filter === 'incorrect' && (isCorrect || !isAttempted)) return;
+
+                let colorClass = "bg-slate-800 text-slate-500 border-slate-700";
+                let statusIcon = "—";
+
+                if (isAttempted) {
+                    if (isCorrect) {
+                        colorClass = "bg-emerald-950/80 text-emerald-400 border-emerald-500/50";
+                        statusIcon = "✓";
+                    } else {
+                        colorClass = "bg-rose-950/80 text-rose-400 border-rose-500/50";
+                        statusIcon = "✕";
+                    }
+                }
+
+                const item = document.createElement('div');
+                item.className = `p-2 rounded-lg border text-center font-mono font-bold flex flex-col items-center justify-center cursor-pointer hover:opacity-80 transition ${colorClass}`;
+                item.innerHTML = `
+                    <span>Q${idx + 1}</span>
+                    <span class="text-xs">${statusIcon}</span>
+                `;
+                grid.appendChild(item);
+            });
+        }
+    </script>
+</body>
+</html>

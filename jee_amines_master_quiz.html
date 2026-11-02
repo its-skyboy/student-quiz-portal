@@ -1,0 +1,1770 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JEE Chemistry Master Quiz: Amines (100 Questions)</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter & Outfit -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Canvas Confetti for Celebrations -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <!-- Chart.js for analytics -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        h1, h2, h3, h4, .font-heading {
+            font-family: 'Outfit', sans-serif;
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+        @keyframes pulseGlow {
+            0%, 100% { box-shadow: 0 0 15px rgba(99, 102, 241, 0.4); }
+            50% { box-shadow: 0 0 30px rgba(99, 102, 241, 0.8); }
+        }
+        .animate-glow {
+            animation: pulseGlow 3s infinite;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 text-slate-100 min-h-full flex flex-col antialiased">
+
+    <!-- Header / Navbar -->
+    <header class="bg-slate-900/80 backdrop-blur-md border-b border-slate-800 sticky top-0 z-50 px-6 py-4 flex items-center justify-between shadow-lg">
+        <div class="flex items-center space-x-3">
+            <div class="bg-indigo-600 text-white p-2.5 rounded-xl shadow-lg shadow-indigo-500/30 flex items-center justify-center">
+                <i class="fa-solid fa-flask-vial text-xl"></i>
+            </div>
+            <div>
+                <h1 class="text-lg font-bold tracking-tight text-white flex items-center gap-2">
+                    JEE Master Series <span class="text-xs uppercase px-2 py-0.5 rounded-full bg-indigo-500/20 text-indigo-400 border border-indigo-500/30">Chapter: Amines</span>
+                </h1>
+                <p class="text-xs text-slate-400">100 JEE Main & Advanced PYQ Standard Questions</p>
+            </div>
+        </div>
+        <div id="quiz-header-stats" class="hidden items-center space-x-6 text-sm">
+            <div class="flex items-center space-x-2 bg-slate-800/80 px-3 py-1.5 rounded-lg border border-slate-700">
+                <i class="fa-solid fa-clock text-indigo-400"></i>
+                <span id="timer-display" class="font-mono font-semibold text-white">00:00</span>
+            </div>
+            <div class="flex items-center space-x-2 bg-slate-800/80 px-3 py-1.5 rounded-lg border border-slate-700">
+                <i class="fa-solid fa-bullseye text-emerald-400"></i>
+                <span id="score-display" class="font-semibold text-white">Score: 0</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="flex-1 flex flex-col items-center justify-center p-4 sm:p-6 max-w-5xl mx-auto w-full">
+
+        <!-- Welcome Screen -->
+        <div id="welcome-screen" class="w-full bg-slate-900/60 backdrop-blur-xl border border-slate-800 rounded-3xl p-8 sm:p-12 shadow-2xl text-center space-y-6 animate-glow">
+            <div class="inline-flex p-4 rounded-2xl bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 mb-2">
+                <i class="fa-solid fa-atom text-4xl"></i>
+            </div>
+            <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-white">Organic Chemistry: Amines</h2>
+            <p class="text-slate-300 max-w-2xl mx-auto text-base leading-relaxed">
+                Master aliphatic and aromatic amines, basicity trends, named reactions (Hofmann, Carbylamine, Hinsberg, Sandmeyer), coupling reactions, and diazonium salt chemistry with 100 rigorous JEE Main and Advanced level questions.
+            </p>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-2xl mx-auto py-4 text-left">
+                <div class="bg-slate-800/50 border border-slate-700/50 p-4 rounded-xl flex items-start space-x-3">
+                    <div class="text-indigo-400 text-lg mt-0.5"><i class="fa-solid fa-list-check"></i></div>
+                    <div>
+                        <div class="font-semibold text-white text-sm">100 Questions</div>
+                        <div class="text-xs text-slate-400">Comprehensive coverage</div>
+                    </div>
+                </div>
+                <div class="bg-slate-800/50 border border-slate-700/50 p-4 rounded-xl flex items-start space-x-3">
+                    <div class="text-emerald-400 text-lg mt-0.5"><i class="fa-solid fa-award"></i></div>
+                    <div>
+                        <div class="font-semibold text-white text-sm">JEE Marking</div>
+                        <div class="text-xs text-slate-400">+4 Correct, -1 Incorrect</div>
+                    </div>
+                </div>
+                <div class="bg-slate-800/50 border border-slate-700/50 p-4 rounded-xl flex items-start space-x-3">
+                    <div class="text-amber-400 text-lg mt-0.5"><i class="fa-solid fa-chart-pie"></i></div>
+                    <div>
+                        <div class="font-semibold text-white text-sm">Detailed Analytics</div>
+                        <div class="text-xs text-slate-400">Topic-wise breakdown</div>
+                    </div>
+                </div>
+            </div>
+
+            <button onclick="startQuiz()" class="inline-flex items-center justify-center space-x-3 px-8 py-4 bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-500 hover:to-violet-500 text-white font-bold rounded-2xl shadow-lg shadow-indigo-600/30 transition-all transform hover:-translate-y-0.5 active:translate-y-0 text-lg cursor-pointer">
+                <span>Start Comprehensive Test</span>
+                <i class="fa-solid fa-arrow-right"></i>
+            </button>
+        </div>
+
+        <!-- Quiz Screen -->
+        <div id="quiz-screen" class="hidden w-full space-y-6">
+            <!-- Progress & Navigation Header -->
+            <div class="bg-slate-900/60 backdrop-blur-xl border border-slate-800 rounded-2xl p-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div class="flex items-center space-x-3 w-full sm:w-auto">
+                    <span id="current-q-badge" class="px-3 py-1 rounded-xl bg-indigo-500/20 text-indigo-400 font-bold text-sm border border-indigo-500/30">Q 1/100</span>
+                    <span id="topic-badge" class="text-xs font-medium px-3 py-1 rounded-full bg-slate-800 text-slate-300 border border-slate-700">Basicity of Amines</span>
+                </div>
+                <div class="w-full sm:w-1/3 bg-slate-800 rounded-full h-2.5 overflow-hidden">
+                    <div id="progress-bar" class="bg-indigo-500 h-2.5 rounded-full transition-all duration-300" style="width: 1%"></div>
+                </div>
+                <div class="flex items-center space-x-2 text-xs text-slate-400">
+                    <i class="fa-solid fa-stopwatch text-indigo-400"></i>
+                    <span>Question Time: <strong id="question-timer" class="text-white">0s</strong></span>
+                </div>
+            </div>
+
+            <!-- Question Card -->
+            <div class="bg-slate-900/60 backdrop-blur-xl border border-slate-800 rounded-3xl p-6 sm:p-8 shadow-2xl space-y-6">
+                <div id="question-text" class="text-lg sm:text-xl font-medium text-slate-100 leading-relaxed">
+                    <!-- Dynamic Question Text -->
+                </div>
+
+                <!-- Options Grid -->
+                <div id="options-container" class="grid grid-cols-1 gap-3.5">
+                    <!-- Dynamic Options -->
+                </div>
+
+                <!-- Solution Box (Hidden initially) -->
+                <div id="solution-box" class="hidden bg-slate-800/80 border border-slate-700 rounded-2xl p-5 space-y-3 transition-all animate-fadeIn">
+                    <div class="flex items-center space-x-2 text-indigo-400 font-bold text-sm">
+                        <i class="fa-solid fa-lightbulb"></i>
+                        <span>Detailed Solution & Explanation</span>
+                    </div>
+                    <p id="solution-text" class="text-slate-300 text-sm leading-relaxed">
+                        <!-- Dynamic Solution -->
+                    </p>
+                </div>
+
+                <!-- Footer Action Buttons -->
+                <div class="flex items-center justify-between pt-4 border-t border-slate-800">
+                    <button onclick="previousQuestion()" id="prev-btn" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl font-medium text-sm transition disabled:opacity-40 disabled:cursor-not-allowed">
+                        <i class="fa-solid fa-arrow-left mr-2"></i> Previous
+                    </button>
+                    <button onclick="nextQuestion()" id="next-btn" class="px-6 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl font-semibold text-sm shadow-lg shadow-indigo-600/20 transition cursor-pointer">
+                        Next Question <i class="fa-solid fa-arrow-right ml-2"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Result Screen -->
+        <div id="result-screen" class="hidden w-full space-y-6">
+            <div class="bg-slate-900/60 backdrop-blur-xl border border-slate-800 rounded-3xl p-8 shadow-2xl text-center space-y-6">
+                <div class="inline-flex p-4 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 mb-2">
+                    <i class="fa-solid fa-trophy text-4xl"></i>
+                </div>
+                <h2 class="text-3xl font-extrabold text-white">Quiz Completed Successfully!</h2>
+                <p class="text-slate-300">Here is your comprehensive performance analysis for Chapter: Amines</p>
+
+                <!-- Top Stats Grid -->
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 py-4">
+                    <div class="bg-slate-800/60 border border-slate-700 p-4 rounded-2xl">
+                        <div class="text-xs text-slate-400 mb-1">Total Marks</div>
+                        <div id="res-marks" class="text-2xl font-bold text-indigo-400">0 / 400</div>
+                    </div>
+                    <div class="bg-slate-800/60 border border-slate-700 p-4 rounded-2xl">
+                        <div class="text-xs text-slate-400 mb-1">Accuracy</div>
+                        <div id="res-accuracy" class="text-2xl font-bold text-emerald-400">0%</div>
+                    </div>
+                    <div class="bg-slate-800/60 border border-slate-700 p-4 rounded-2xl">
+                        <div class="text-xs text-slate-400 mb-1">Correct / Incorrect</div>
+                        <div id="res-correct-count" class="text-2xl font-bold text-white">0 / 0</div>
+                    </div>
+                    <div class="bg-slate-800/60 border border-slate-700 p-4 rounded-2xl">
+                        <div class="text-xs text-slate-400 mb-1">Total Time Taken</div>
+                        <div id="res-time" class="text-2xl font-bold text-amber-400">00:00</div>
+                    </div>
+                </div>
+
+                <!-- Charts Section -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4">
+                    <div class="bg-slate-800/40 border border-slate-700/60 p-5 rounded-2xl flex flex-col items-center">
+                        <h3 class="text-sm font-semibold text-slate-200 mb-4">Topic-wise Accuracy Breakdown</h3>
+                        <div class="w-full h-64 relative flex items-center justify-center">
+                            <canvas id="topicChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="bg-slate-800/40 border border-slate-700/60 p-5 rounded-2xl flex flex-col items-center">
+                        <h3 class="text-sm font-semibold text-slate-200 mb-4">Response Distribution</h3>
+                        <div class="w-full h-64 relative flex items-center justify-center">
+                            <canvas id="scoreChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex justify-center pt-4">
+                    <button onclick="location.reload()" class="px-8 py-3 bg-indigo-600 hover:bg-indigo-500 text-white font-bold rounded-2xl shadow-lg transition cursor-pointer">
+                        <i class="fa-solid fa-rotate-right mr-2"></i> Retake Quiz
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Script containing all 100 questions and quiz logic -->
+    <script>
+        // Array of 100 questions covering Amines (JEE Main & Advanced Level)
+        const questions = [
+            {
+                id: 1,
+                topic: "Basicity of Amines",
+                question: "In aqueous phase, the correct order of basic strength of methylamines is:",
+                options: [
+                    "(A) (CH3)3N > (CH3)2NH > CH3NH2 > NH3",
+                    "(B) (CH3)2NH > CH3NH2 > (CH3)3N > NH3",
+                    "(C) (CH3)2NH > (CH3)3N > CH3NH2 > NH3",
+                    "(D) CH3NH2 > (CH3)2NH > (CH3)3N > NH3"
+                ],
+                correct: 1,
+                solution: "In aqueous medium, basicity depends upon inductive effect, solvation effect (hydrogen bonding with water), and steric hindrance. For methyl substituted amines, secondary amine (CH3)2NH has optimal solvation and +I effect, making it the strongest base. Thus, order is (CH3)2NH > CH3NH2 > (CH3)3N > NH3."
+            },
+            {
+                id: 2,
+                topic: "Basicity of Amines",
+                question: "The correct order of basic strength of ethylamines in aqueous solution is:",
+                options: [
+                    "(A) (C2H5)2NH > (C2H5)3N > C2H5NH2 > NH3",
+                    "(B) (C2H5)3N > (C2H5)2NH > C2H5NH2 > NH3",
+                    "(C) (C2H5)2NH > C2H5NH2 > (C2H5)3N > NH3",
+                    "(D) C2H5NH2 > (C2H5)2NH > (C2H5)3N > NH3"
+                ],
+                correct: 0,
+                solution: "For ethyl substituted amines in aqueous solution, tertiary amine (C2H5)3N experiences slightly more steric crowding than methyl, but due to stronger +I effect, secondary and tertiary are both very strong. The experimentally observed order in aqueous ethyl series is (C2H5)2NH > (C2H5)3N > C2H5NH2 > NH3."
+            },
+            {
+                id: 3,
+                topic: "Basicity of Amines",
+                question: "Among the following, the weakest base in aqueous medium is:",
+                options: [
+                    "(A) Aniline",
+                    "(B) N-Methylaniline",
+                    "(C) N,N-Dimethylaniline",
+                    "(D) Benzylamine"
+                ],
+                correct: 2,
+                solution: "N,N-dimethylaniline has severe steric inhibition of resonance (SIR effect) which forces the lone pair on nitrogen to remain partially delocalized into the benzene ring or sterically hinders protonation, making it exceptionally weak compared to benzylamine (where -NH2 is not directly attached to sp2 carbon of benzene ring)."
+            },
+            {
+                id: 4,
+                topic: "Basicity of Amines",
+                question: "Which of the following compounds is most basic in gas phase?",
+                options: [
+                    "(A) NH3",
+                    "(B) CH3NH2",
+                    "(C) (CH3)2NH",
+                    "(D) (CH3)3N"
+                ],
+                correct: 3,
+                solution: "In gas phase, there is no solvation effect. Basicity solely depends on the electron-releasing (+I) inductive effect of alkyl groups. Since +I effect increases with number of alkyl groups, trimethylamine is the strongest base in the gas phase: (CH3)3N > (CH3)2NH > CH3NH2 > NH3."
+            },
+            {
+                id: 5,
+                topic: "Preparation Methods",
+                question: "Reduction of alkyl cyanide (RCN) with Na/EtOH gives primary amine. This reaction is known as:",
+                options: [
+                    "(A) Mendius reduction",
+                    "(B) Stephen reduction",
+                    "(C) Rosenmund reduction",
+                    "(D) Clemmensen reduction"
+                ],
+                correct: 0,
+                solution: "Reduction of alkyl cyanides using sodium and ethanol (or catalytic hydrogenation) to yield primary amines is known as Mendius reduction."
+            },
+            {
+                id: 6,
+                topic: "Name Reactions",
+                question: "Primary amine reacts with chloroform and alcoholic KOH to form an offensive smelling substance. The functional group responsible for this smell is:",
+                options: [
+                    "(A) -NC (Isocyanide)",
+                    "(B) -CN (Cyanide)",
+                    "(C) -NCO (Isocyanate)",
+                    "(D) -SCN (Thiocyanate)"
+                ],
+                correct: 0,
+                solution: "This is Carbylamine test (Hofmann's isocyanide test). Primary aliphatic and aromatic amines react with CHCl3 and alc. KOH to form foul-smelling alkyl/aryl isocyanides (-NC)."
+            },
+            {
+                id: 7,
+                topic: "Chemical Reactions",
+                question: "Hinsberg reagent is:",
+                options: [
+                    "(A) Benzenesulphonyl chloride (C6H5SO2Cl)",
+                    "(B) p-Toluenesulphonyl chloride",
+                    "(C) Benzoyl chloride",
+                    "(D) Thionyl chloride"
+                ],
+                correct: 0,
+                solution: "Hinsberg's reagent is benzenesulphonyl chloride (C6H5SO2Cl), which is used to distinguish between primary, secondary, and tertiary amines."
+            },
+            {
+                id: 8,
+                topic: "Chemical Reactions",
+                question: "When secondary amine reacts with Hinsberg reagent, the product formed is:",
+                options: [
+                    "(A) Soluble in alkali",
+                    "(B) Insoluble in alkali",
+                    "(C) Does not react",
+                    "(D) Forms diazonium salt"
+                ],
+                correct: 1,
+                solution: "Secondary amine reacts with benzenesulphonyl chloride to form an N,N-dialkylsulphonamide which does not contain any acidic hydrogen attached to nitrogen, hence it is insoluble in alkali."
+            },
+            {
+                id: 9,
+                topic: "Name Reactions",
+                question: "Hofmann bromamide degradation reaction converts an amide into a primary amine with:",
+                options: [
+                    "(A) Same number of carbon atoms",
+                    "(B) One carbon atom less",
+                    "(C) One carbon atom more",
+                    "(D) Two carbon atoms less"
+                ],
+                correct: 1,
+                solution: "Hofmann bromamide degradation involves treatment of an amide with Br2 and NaOH/KOH, resulting in the elimination of carbonyl carbon as carbonate and yielding a primary amine with one carbon atom less than the parent amide."
+            },
+            {
+                id: 10,
+                topic: "Diazonium Salts",
+                question: "Reaction of aniline with nitrous acid (NaNO2 + HCl) at 0-5 °C produces:",
+                options: [
+                    "(A) Phenol",
+                    "(B) Chlorobenzene",
+                    "(C) Benzenediazonium chloride",
+                    "(D) Nitrobenzene"
+                ],
+                correct: 2,
+                solution: "Primary aromatic amines react with nitrous acid at 0-5 °C (273-278 K) to form stable stable benzenediazonium chloride through diazotisation."
+            },
+            {
+                id: 11,
+                topic: "Coupling Reactions",
+                question: "Benzenediazonium chloride reacts with phenol in alkaline medium to give an azo dye of which color?",
+                options: [
+                    "(A) Yellow",
+                    "(B) Orange",
+                    "(C) Red",
+                    "(D) Blue"
+                ],
+                correct: 1,
+                solution: "Diazonium salt couples with phenol in mild alkaline medium (pH 9-10) at para position to form p-hydroxyazobenzene, which is an orange colored azo dye."
+            },
+            {
+                id: 12,
+                topic: "Coupling Reactions",
+                question: "Coupling reaction of benzenediazonium chloride with aniline is carried out in:",
+                options: [
+                    "(A) Strongly acidic medium",
+                    "(B) Weakly acidic medium",
+                    "(C) Strongly alkaline medium",
+                    "(D) Neutral medium"
+                ],
+                correct: 1,
+                solution: "Coupling with aniline is carried out in weakly acidic medium (pH 4-5) so that aniline remains sufficiently reactive as an activated ring while diazonium ion remains electrophilic."
+            },
+            {
+                id: 13,
+                topic: "Electrophilic Substitution",
+                question: "Direct nitration of aniline yields a significant amount of m-nitroaniline because:",
+                options: [
+                    "(A) Nitro group is meta-directing",
+                    "(B) In acidic medium, aniline is protonated to form anilinium ion which is meta-directing",
+                    "(C) Aniline undergoes oxidation",
+                    "(D) Meta-isomer is thermodynamically more stable"
+                ],
+                correct: 1,
+                solution: "In strong acid medium used for nitration, aniline gets protonated to form anilinium ion (-NH3+), which exerts a strong -I effect and is meta-directing, yielding about 47% m-nitroaniline."
+            },
+            {
+                id: 14,
+                topic: "Electrophilic Substitution",
+                question: "To prepare pure p-nitroaniline from aniline, the first step is:",
+                options: [
+                    "(A) Direct nitration",
+                    "(B) Acetylation of aniline",
+                    "(C) Direct bromination",
+                    "(D) Alkylation"
+                ],
+                correct: 1,
+                solution: "To prevent excessive oxidation and control ortho/para substitution, aniline is first acetylated with acetic anhydride to form acetanilide. Nitration of acetanilide followed by hydrolysis yields pure p-nitroaniline."
+            },
+            {
+                id: 15,
+                topic: "Physical Properties",
+                question: "Primary and secondary amines can form intermolecular hydrogen bonds, but tertiary amines cannot because:",
+                options: [
+                    "(A) Tertiary amines have higher boiling points",
+                    "(B) Tertiary amines do not have hydrogen atom attached to nitrogen",
+                    "(C) Tertiary amines are solids",
+                    "(D) Tertiary amines are aromatic"
+                ],
+                correct: 1,
+                solution: "Tertiary amines have no hydrogen atoms bonded to nitrogen atom, hence they cannot form intermolecular hydrogen bonds with each other, resulting in lower boiling points compared to primary and secondary amines of comparable molecular mass."
+            },
+            {
+                id: 16,
+                topic: "Chemical Reactions",
+                question: "Which of the following amines gives carbylamine test?",
+                options: [
+                    "(A) Only primary amines",
+                    "(B) Only secondary amines",
+                    "(C) Only tertiary amines",
+                    "(D) Both primary and secondary amines"
+                ],
+                correct: 0,
+                solution: "Carbylamine test is specific for primary amines (both aliphatic and aromatic). Secondary and tertiary amines do not respond to this test."
+            },
+            {
+                id: 17,
+                topic: "Name Reactions",
+                question: "Gabriel phthalimide synthesis is used for the preparation of:",
+                options: [
+                    "(A) Primary aliphatic amines",
+                    "(B) Secondary aliphatic amines",
+                    "(C) Tertiary aliphatic amines",
+                    "(D) Aromatic primary amines"
+                ],
+                correct: 0,
+                solution: "Gabriel phthalimide synthesis involves alkylation of potassium phthalimide followed by alkaline hydrolysis or hydrazinolysis to yield pure primary aliphatic amines without contamination of secondary or tertiary amines."
+            },
+            {
+                id: 18,
+                topic: "Name Reactions",
+                question: "Aromatic primary amines cannot be prepared satisfactorily by Gabriel phthalimide synthesis because:",
+                options: [
+                    "(A) Aryl halides undergo nucleophilic substitution readily",
+                    "(B) Aryl halides do not undergo nucleophilic substitution with potassium phthalimide under mild conditions",
+                    "(C) Phthalimide is insoluble in water",
+                    "(D) Aryl amines are unstable"
+                ],
+                correct: 1,
+                solution: "Aryl halides (like chlorobenzene) do not undergo nucleophilic substitution with potassium phthalimide easily due to partial double bond character of C-Cl bond in aryl halides."
+            },
+            {
+                id: 19,
+                topic: "Name Reactions",
+                question: "Reduction of nitrobenzene with Sn and HCl gives:",
+                options: [
+                    "(A) Azobenzene",
+                    "(B) Hydrazobenzene",
+                    "(C) Aniline",
+                    "(D) Phenylhydroxylamine"
+                ],
+                correct: 2,
+                solution: "Reduction of nitrobenzene using tin and hydrochloric acid (or iron and HCl) is the standard industrial and laboratory method for producing aniline."
+            },
+            {
+                id: 20,
+                topic: "Chemical Reactions",
+                question: "When benzene diazonium chloride is treated with hypophosphorous acid (H3PO2) and water, it undergoes:",
+                options: [
+                    "(A) Reduction to benzene",
+                    "(B) Replacement by hydroxyl group (Phenol)",
+                    "(C) Replacement by chlorine",
+                    "(D) Fluorination"
+                ],
+                correct: 0,
+                solution: "Treatment of benzenediazonium chloride with H3PO2 (or ethanol) reduces the diazonium group and replaces it with hydrogen, yielding benzene (deamination)."
+            },
+            {
+                id: 21,
+                topic: "Diazonium Salts",
+                question: "Sandmeyer reaction involves the replacement of diazonium group using:",
+                options: [
+                    "(A) Cu2Cl2 / HCl or Cu2Br2 / HBr",
+                    "(B) Cu powder / HCl",
+                    "(C) KI",
+                    "(D) HBF4 followed by heating"
+                ],
+                correct: 0,
+                solution: "In the Sandmeyer reaction, diazonium salt is treated with cuprous chloride or cuprous bromide dissolved in corresponding halogen acid to introduce chlorine or bromine."
+            },
+            {
+                id: 22,
+                topic: "Diazonium Salts",
+                question: "Gattermann reaction is a modification of Sandmeyer reaction where the catalyst used is:",
+                options: [
+                    "(A) Cu powder in presence of halogen acid",
+                    "(B) CuCl2",
+                    "(C) Anhydrous AlCl3",
+                    "(D) Zinc dust"
+                ],
+                correct: 0,
+                solution: "Gattermann reaction uses copper powder in the presence of HX instead of cuprous halide for replacing the diazonium group with halogen."
+            },
+            {
+                id: 23,
+                topic: "Diazonium Salts",
+                question: "Schiemann reaction is specifically used for the preparation of:",
+                options: [
+                    "(A) Fluorobenzene",
+                    "(B) Iodobenzene",
+                    "(C) Chlorobenzene",
+                    "(D) Cyanobenzene"
+                ],
+                correct: 0,
+                solution: "Schiemann reaction involves treating diazonium salt with fluoroboric acid (HBF4) to precipitate diazonium fluoroborate, which upon thermal decomposition gives fluorobenzene."
+            },
+            {
+                id: 24,
+                topic: "Chemical Reactions",
+                question: "Iodobenzene is prepared from benzenediazonium chloride by treatment with:",
+                options: [
+                    "(A) KI solution",
+                    "(B) HI acid",
+                    "(C) I2 in KOH",
+                    "(D) CuI"
+                ],
+                correct: 0,
+                solution: "Iodobenzene is conveniently prepared by simply shaking benzenediazonium chloride solution with potassium iodide (KI) at room temperature."
+            },
+            {
+                id: 25,
+                topic: "Basicity of Amines",
+                question: "Which of the following has the highest pKb value (i.e. weakest base)?",
+                options: [
+                    "(A) Methylamine",
+                    "(B) Dimethylamine",
+                    "(C) Aniline",
+                    "(D) Ammonia"
+                ],
+                correct: 2,
+                solution: "Higher pKb value implies lower basic strength. Aniline has its lone pair delocalized into the benzene ring, making it a much weaker base than aliphatic amines and ammonia, hence it has the highest pKb."
+            },
+            {
+                id: 26,
+                topic: "Structure & Nomenclature",
+                question: "IUPAC name of CH3-NH-CH(CH3)2 is:",
+                options: [
+                    "(A) N-methylpropan-2-amine",
+                    "(B) 2-methylaminopropane",
+                    "(C) Isopropylmethylamine",
+                    "(D) N-isopropylmethanamine"
+                ],
+                correct: 0,
+                solution: "According to IUPAC nomenclature, the longest carbon chain is propane (3 carbons), attached to nitrogen at C-2, and an N-methyl group. Thus, N-methylpropan-2-amine."
+            },
+            {
+                id: 27,
+                topic: "Chemical Reactions",
+                question: "Reaction of primary amine with nitrous acid (HNO2) at 0-5 °C yields:",
+                options: [
+                    "(A) Diazonium salt (for aromatic) or alcohol with N2 gas (for aliphatic primary amines)",
+                    "(B) Alkyl nitrite",
+                    "(C) Secondary amine",
+                    "(D) Nitroalkane"
+                ],
+                correct: 0,
+                solution: "Aliphatic primary amines react with HNO2 to give unstable aliphatic diazonium salts which immediately decompose to evolve N2 gas and form alcohols/alkenes. Aromatic primary amines form stable diazonium salts at 0-5 °C."
+            },
+            {
+                id: 28,
+                topic: "Chemical Reactions",
+                question: "Tertiary amines react with nitrous acid to form:",
+                options: [
+                    "(A) Trialkylammonium nitrite salts",
+                    "(B) Nitrosoamines",
+                    "(C) Alcohols",
+                    "(D) Diazo compounds"
+                ],
+                correct: 0,
+                solution: "Tertiary aliphatic and aromatic amines simply dissolve in nitrous acid to form stable water-soluble trialkylammonium nitrite salts."
+            },
+            {
+                id: 29,
+                topic: "Chemical Reactions",
+                question: "Secondary amines react with nitrous acid (HNO2) to form:",
+                options: [
+                    "(A) N-Nitrosamines (yellow oily liquids)",
+                    "(B) Primary amines",
+                    "(C) Diazonium salts",
+                    "(D) Isocyanides"
+                ],
+                correct: 0,
+                solution: "Secondary aliphatic and aromatic amines react with nitrous acid to form N-nitrosamines, which separate as yellow oily layers."
+            },
+            {
+                id: 30,
+                topic: "Electrophilic Substitution",
+                question: "Bromination of aniline with bromine water at room temperature gives:",
+                options: [
+                    "(A) o-Bromoaniline",
+                    "(B) p-Bromoaniline",
+                    "(C) 2,4,6-Tribromoaniline",
+                    "(D) Mixture of o- and p-bromoaniline"
+                ],
+                correct: 2,
+                solution: "Due to the extremely strong activating effect of -NH2 group, bromination of aniline with bromine water yields a white precipitate of 2,4,6-tribromoaniline instantaneously."
+            },
+            {
+                id: 31,
+                topic: "Name Reactions",
+                question: "Schiff base is formed by the reaction of primary amine with:",
+                options: [
+                    "(A) Aldehyde or Ketone",
+                    "(B) Carboxylic acid",
+                    "(C) Acid chloride",
+                    "(D) Alcohol"
+                ],
+                correct: 0,
+                solution: "Primary amines react with aldehydes or ketones by nucleophilic addition followed by dehydration to form azomethines or Schiff bases (R-CH=N-R')."
+            },
+            {
+                id: 32,
+                topic: "Chemical Reactions",
+                question: "Acylation of primary and secondary amines with acid chlorides or anhydrides yields:",
+                options: [
+                    "(A) Amides",
+                    "(B) Imides",
+                    "(C) Nitriles",
+                    "(D) Ureas"
+                ],
+                correct: 0,
+                solution: "Reaction of primary or secondary amines with acid chlorides, anhydrides, or esters leads to nucleophilic acyl substitution, forming substituted amides."
+            },
+            {
+                id: 33,
+                topic: "Basicity of Amines",
+                question: "Which of the following groups when present on benzene ring increases the basicity of aniline?",
+                options: [
+                    "(A) -CH3 (Methyl)",
+                    "(B) -NO2",
+                    "(C) -Cl",
+                    "(D) -CN"
+                ],
+                correct: 0,
+                solution: "Electron-donating groups like -CH3 (via +I and hyperconjugation) increase electron density on nitrogen, enhancing basicity, whereas -NO2, -Cl, and -CN are electron-withdrawing and decrease basicity."
+            },
+            {
+                id: 34,
+                topic: "Basicity of Amines",
+                question: "p-Nitroaniline is a weaker base than aniline because nitro group exerts:",
+                options: [
+                    "(A) Only +M effect",
+                    "(B) -I and -M effects",
+                    "(C) Only +I effect",
+                    "(D) +I and +M effects"
+                ],
+                correct: 1,
+                solution: "The nitro group (-NO2) is strongly electron-withdrawing via both inductive (-I) and mesomeric (-M) effects, which stabilizes the unprotonated amine by dispersing electron density away from nitrogen, thus lowering basicity."
+            },
+            {
+                id: 35,
+                topic: "Preparation Methods",
+                question: "Reduction of nitroalkanes using catalytic hydrogenation (H2/Ni or Pt) yields:",
+                options: [
+                    "(A) Primary amine",
+                    "(B) Secondary amine",
+                    "(C) Nitrile",
+                    "(D) Hydroxylamine"
+                ],
+                correct: 0,
+                solution: "Reduction of nitroalkanes with H2 in presence of metal catalyst or LiAlH4 gives primary aliphatic amines."
+            },
+            {
+                id: 36,
+                topic: "Structure & Nomenclature",
+                question: "The hybridisation of nitrogen atom in primary aliphatic amines is:",
+                options: [
+                    "(A) sp",
+                    "(B) sp2",
+                    "(C) sp3",
+                    "(D) dsp2"
+                ],
+                correct: 2,
+                solution: "In primary aliphatic amines, nitrogen is bonded to three sigma bonds and one lone pair, resulting in tetrahedral geometry with sp3 hybridization (distorted pyramidal)."
+            },
+            {
+                id: 37,
+                topic: "Chemical Reactions",
+                question: "Carbylamine reaction is used as a test for:",
+                options: [
+                    "(A) Primary amines only",
+                    "(B) Secondary amines only",
+                    "(C) Tertiary amines only",
+                    "(D) Alcohols"
+                ],
+                correct: 0,
+                solution: "Carbylamine reaction is exclusively given by primary amines (aliphatic and aromatic)."
+            },
+            {
+                id: 38,
+                topic: "Name Reactions",
+                question: "Which reagent is used in Hofmann bromamide degradation reaction?",
+                options: [
+                    "(A) Br2 + NaOH",
+                    "(B) NaOCl",
+                    "(C) Br2 in CS2",
+                    "(D) N-bromosuccinimide"
+                ],
+                correct: 0,
+                solution: "Hofmann bromamide degradation uses bromine in aqueous or ethanolic solution of sodium hydroxide (Br2 + NaOH)."
+            },
+            {
+                id: 39,
+                topic: "Chemical Reactions",
+                question: "Aniline on oxidation with acidified potassium dichromate gives:",
+                options: [
+                    "(A) p-Benzoquinone",
+                    "(B) Nitrobenzene",
+                    "(C) Azobenzene",
+                    "(D) Phenol"
+                ],
+                correct: 0,
+                solution: "Oxidation of aniline with strong oxidizing agents like acidified K2Cr2O7 yields p-benzoquinone as the chief product."
+            },
+            {
+                id: 40,
+                topic: "Diazonium Salts",
+                question: "Reaction of benzene diazonium chloride with copper powder and HCl is:",
+                options: [
+                    "(A) Sandmeyer reaction",
+                    "(B) Gattermann reaction",
+                    "(C) Balz-Schiemann reaction",
+                    "(D) Swarts reaction"
+                ],
+                correct: 1,
+                solution: "Gattermann reaction uses copper powder and halogen acid (HCl/HBr) to convert diazonium salts into aryl halides."
+            },
+            {
+                id: 41,
+                topic: "Basicity of Amines",
+                question: "Which among the following is the strongest base in aqueous solution?",
+                options: [
+                    "(A) Methylamine",
+                    "(B) Dimethylamine",
+                    "(C) Trimethylamine",
+                    "(D) Ammonia"
+                ],
+                correct: 1,
+                solution: "Among methylamines in aqueous solution, dimethylamine ((CH3)2NH) is the strongest base due to the balanced interplay of +I effect and hydration energy."
+            },
+            {
+                id: 42,
+                topic: "Preparation Methods",
+                question: "Ammonolysis of alkyl halides usually yields:",
+                options: [
+                    "(A) Pure primary amine only",
+                    "(B) A mixture of primary, secondary, tertiary amines and quaternary ammonium salts",
+                    "(C) Secondary amine only",
+                    "(D) Quaternary salt only"
+                ],
+                correct: 1,
+                solution: "Ammonolysis of alkyl halides is a sequential nucleophilic substitution where primary amine formed acts as a nucleophile to yield secondary and tertiary amines along with quaternary ammonium salts."
+            },
+            {
+                id: 43,
+                topic: "Name Reactions",
+                question: "To obtain primary amine exclusively in good yield from alkyl halide, the best method is:",
+                options: [
+                    "(A) Ammonolysis",
+                    "(B) Gabriel phthalimide synthesis",
+                    "(C) Direct reduction",
+                    "(D) Wurtz reaction"
+                ],
+                correct: 1,
+                solution: "Gabriel phthalimide synthesis prevents side reactions and poly-alkylation, yielding exclusively pure primary aliphatic amines."
+            },
+            {
+                id: 44,
+                topic: "Chemical Reactions",
+                question: "Benzenesulphonyl chloride is known as:",
+                options: [
+                    "(A) Hinsberg's reagent",
+                    "(B) Lucas reagent",
+                    "(C) Tollens reagent",
+                    "(D) Baeyer's reagent"
+                ],
+                correct: 0,
+                solution: "Benzenesulphonyl chloride (C6H5SO2Cl) is Hinsberg's reagent."
+            },
+            {
+                id: 45,
+                topic: "Coupling Reactions",
+                question: "Azo dyes are characterized by the presence of which functional group linkage?",
+                options: [
+                    "(A) -N=N-",
+                    "(B) -NO2",
+                    "(C) -N-C=S",
+                    "(D) -CONH-"
+                ],
+                correct: 0,
+                solution: "Azo dyes contain the characteristic azo linkage (-N=N-) bridging two aromatic rings."
+            },
+            {
+                id: 46,
+                topic: "Electrophilic Substitution",
+                question: "Sulphonation of aniline with concentrated sulfuric acid at 453-473 K gives mainly:",
+                options: [
+                    "(A) Orthanilic acid",
+                    "(B) Sulphanilic acid (p-aminobenzenesulphonic acid) as zwitterion",
+                    "(C) Metanilic acid",
+                    "(D) Benzenesulphonamide"
+                ],
+                correct: 1,
+                solution: "Sulphonation of aniline yields sulphanilic acid which exists as a dipolar zwitterion (-NH3+ C6H4 SO3-)."
+            },
+            {
+                id: 47,
+                topic: "Physical Properties",
+                question: "Lower aliphatic amines are soluble in water due to:",
+                options: [
+                    "(A) Hydrogen bonding with water molecules",
+                    "(B) High molecular weight",
+                    "(C) Ionic nature",
+                    "(D) Formation of micelles"
+                ],
+                correct: 0,
+                solution: "Lower aliphatic amines form intermolecular hydrogen bonds with water molecules, making them readily soluble in water."
+            },
+            {
+                id: 48,
+                topic: "Chemical Reactions",
+                question: "Acetylation of aniline decreases its activating effect on benzene ring because:",
+                options: [
+                    "(A) Lone pair of nitrogen is delocalized into carbonyl group (-C=O)",
+                    "(B) Nitrogen becomes positively charged",
+                    "(C) Acetyl group is electron donating",
+                    "(D) Steric hindrance increases"
+                ],
+                correct: 0,
+                solution: "In acetanilide, the lone pair on nitrogen is pulled towards the carbonyl oxygen due to resonance, reducing electron density on the nitrogen atom and thus moderating the activating effect of the amino group."
+            },
+            {
+                id: 49,
+                topic: "Diazonium Salts",
+                question: "Which of the following diazonium salts is most stable at room temperature?",
+                options: [
+                    "(A) Methanediazonium chloride",
+                    "(B) Ethanediazonium chloride",
+                    "(C) Benzenediazonium chloride",
+                    "(D) Propanediazonium chloride"
+                ],
+                correct: 2,
+                solution: "Aromatic diazonium salts like benzenediazonium chloride are relatively stable at 0-5 °C due to resonance stabilization of the diazonium cation by the benzene ring, whereas aliphatic diazonium salts are extremely unstable."
+            },
+            {
+                id: 50,
+                topic: "Name Reactions",
+                question: "Reduction of amides with LiAlH4 yields:",
+                options: [
+                    "(A) Amines",
+                    "(B) Alcohols",
+                    "(C) Aldehydes",
+                    "(D) Nitriles"
+                ],
+                correct: 0,
+                solution: "Reduction of primary, secondary, or tertiary amides with lithium aluminium hydride (LiAlH4) yields primary, secondary, or tertiary amines respectively with the same number of carbon atoms."
+            },
+            {
+                id: 51,
+                topic: "Basicity of Amines",
+                question: "Correct order of basic strength in gas phase for methylamines is:",
+                options: [
+                    "(A) (CH3)3N > (CH3)2NH > CH3NH2 > NH3",
+                    "(B) CH3NH2 > (CH3)2NH > (CH3)3N > NH3",
+                    "(C) (CH3)2NH > (CH3)3N > CH3NH2 > NH3",
+                    "(D) NH3 > CH3NH2 > (CH3)2NH > (CH3)3N"
+                ],
+                correct: 0,
+                solution: "In gas phase, inductive (+I) effect rules completely without solvation interference. Hence, more methyl groups mean greater electron density on nitrogen: (CH3)3N > (CH3)2NH > CH3NH2 > NH3."
+            },
+            {
+                id: 52,
+                topic: "Chemical Reactions",
+                question: "Which test distinguishes between primary, secondary, and tertiary amines?",
+                options: [
+                    "(A) Hinsberg test",
+                    "(B) Tollens test",
+                    "(C) Fehling test",
+                    "(D) Iodoform test"
+                ],
+                correct: 0,
+                solution: "Hinsberg test using benzenesulphonyl chloride uniquely distinguishes primary (soluble in alkali), secondary (insoluble in alkali), and tertiary (unreactive) amines."
+            },
+            {
+                id: 53,
+                topic: "Preparation Methods",
+                question: "Reduction of oximes with Na/EtOH or LiAlH4 gives:",
+                options: [
+                    "(A) Primary amines",
+                    "(B) Secondary amines",
+                    "(C) Amides",
+                    "(D) Alcohols"
+                ],
+                correct: 0,
+                solution: "Reduction of oximes (R2C=NOH) yields primary amines."
+            },
+            {
+                id: 54,
+                topic: "Diazonium Salts",
+                question: "Replacement of diazonium group by -OH group is achieved by:",
+                options: [
+                    "(A) Warming with water / dil. H2SO4",
+                    "(B) Treatment with H3PO2",
+                    "(C) Treatment with KI",
+                    "(D) Treatment with CuCl/HCl"
+                ],
+                correct: 0,
+                solution: "Warming an aqueous solution of benzenediazonium sulfate with dilute acid hydrolyzes it to phenol."
+            },
+            {
+                id: 55,
+                topic: "Electrophilic Substitution",
+                question: "Aniline reacts with acetyl chloride to form:",
+                options: [
+                    "(A) Acetanilide",
+                    "(B) Benzamide",
+                    "(C) N-methylaniline",
+                    "(D) Schiff base"
+                ],
+                correct: 0,
+                solution: "Aniline undergoes acetylation with acetyl chloride in presence of pyridine or base to form acetanilide (N-phenylacetamide)."
+            },
+            {
+                id: 56,
+                topic: "Structure & Nomenclature",
+                question: "The IUPAC name of (CH3)2NCH2CH3 is:",
+                options: [
+                    "(A) N,N-dimethylethanamine",
+                    "(B) Ethyldimethylamine",
+                    "(C) N-ethyl-N-methylmethanamine",
+                    "(D) Dimethylethylamine"
+                ],
+                correct: 0,
+                solution: "Longest chain is ethanamine (2 carbons), with two methyl substituents on nitrogen. IUPAC name: N,N-dimethylethanamine."
+            },
+            {
+                id: 57,
+                topic: "Chemical Reactions",
+                question: "Primary amines on heating with carbon disulphide (CS2) in presence of HgCl2 give alkyl isothiocyanates. This reaction is called:",
+                options: [
+                    "(A) Hofmann's mustard oil reaction",
+                    "(B) Carbylamine reaction",
+                    "(C) Schotten-Baumann reaction",
+                    "(D) Perkin reaction"
+                ],
+                correct: 0,
+                solution: "Hofmann's mustard oil reaction is characteristic of primary amines where reaction with CS2 and HgCl2 produces alkyl isothiocyanates having a characteristic mustard oil smell."
+            },
+            {
+                id: 58,
+                topic: "Basicity of Amines",
+                question: "Which of the following compounds has the lowest pKb?",
+                options: [
+                    "(A) Aniline",
+                    "(B) Diphenylamine",
+                    "(C) Methylamine",
+                    "(D) Triethylamine"
+                ],
+                correct: 2,
+                solution: "Lowest pKb means highest basic strength. Aliphatic amines like methylamine are much stronger bases than aromatic amines, thus having lower pKb values."
+            },
+            {
+                id: 59,
+                topic: "Name Reactions",
+                question: "Schotten-Baumann reaction involves the reaction of amines with:",
+                options: [
+                    "(A) Benzoyl chloride in presence of aqueous alkali",
+                    "(B) Acetyl chloride",
+                    "(C) Benzenesulphonyl chloride",
+                    "(D) Nitrous acid"
+                ],
+                correct: 0,
+                solution: "Schotten-Baumann reaction refers to benzoylation of amines or alcohols using benzoyl chloride in the presence of dilute aqueous NaOH."
+            },
+            {
+                id: 60,
+                topic: "Coupling Reactions",
+                question: "Coupling of benzenediazonium chloride with beta-naphthol in alkaline medium gives a dye of color:",
+                options: [
+                    "(A) Red",
+                    "(B) Yellow",
+                    "(C) Green",
+                    "(D) Violet"
+                ],
+                correct: 0,
+                solution: "Benzenediazonium chloride couples with beta-naphthol in alkaline medium to yield a brilliant red azo dye."
+            },
+            {
+                id: 61,
+                topic: "Preparation Methods",
+                question: "Which reducing agent is preferred to convert nitrobenzene to aniline in laboratory?",
+                options: [
+                    "(A) Sn + HCl",
+                    "(B) LiAlH4",
+                    "(C) H2 / Pd",
+                    "(D) NaBH4"
+                ],
+                correct: 0,
+                solution: "Sn + HCl is conventionally preferred in the laboratory because SnCl2 formed can be easily managed and HCl is cheap, though Fe + HCl is used industrially as FeCl2 formed is catalytic."
+            },
+            {
+                id: 62,
+                topic: "Chemical Reactions",
+                question: "When aliphatic primary amine reacts with nitrous acid, the gas evolved is:",
+                options: [
+                    "(A) Nitrogen (N2)",
+                    "(B) Nitrous oxide (N2O)",
+                    "(C) Ammonia (NH3)",
+                    "(D) Carbon dioxide (CO2)"
+                ],
+                correct: 0,
+                solution: "Aliphatic primary amines react with HNO2 to give unstable diazonium ions which instantly decompose with vigorous evolution of nitrogen gas (N2)."
+            },
+            {
+                id: 63,
+                topic: "Basicity of Amines",
+                question: "Between p-toluidine and aniline, which is more basic and why?",
+                options: [
+                    "(A) p-Toluidine, due to +I and hyperconjugative electron-releasing effect of methyl group",
+                    "(B) Aniline, due to absence of steric hindrance",
+                    "(C) p-Toluidine, due to -I effect",
+                    "(D) Both have equal basicity"
+                ],
+                correct: 0,
+                solution: "p-Toluidine has a methyl group at para position which donates electrons via hyperconjugation and inductive effect, increasing electron density on nitrogen and making it more basic than aniline."
+            },
+            {
+                id: 64,
+                topic: "Diazonium Salts",
+                question: "What is formed when benzenediazonium chloride is treated with aqueous KI?",
+                options: [
+                    "(A) Iodobenzene",
+                    "(B) Fluorobenzene",
+                    "(C) Chlorobenzene",
+                    "(D) Phenol"
+                ],
+                correct: 0,
+                solution: "Treatment with aqueous KI converts benzenediazonium chloride directly into iodobenzene."
+            },
+            {
+                id: 65,
+                topic: "Structure & Nomenclature",
+                question: "The number of possible isomers (including stereoisomers) for formula C3H9N is:",
+                options: [
+                    "(A) 4",
+                    "(B) 3",
+                    "(C) 5",
+                    "(D) 2"
+                ],
+                correct: 0,
+                solution: "For C3H9N, primary amines are 1-propanamine and 2-propanamine (2 isomers); secondary amine is N-methylethanamine (1 isomer); tertiary amine is N,N-dimethylmethanamine (1 isomer). Total 4 isomers."
+            },
+            {
+                id: 66,
+                topic: "Chemical Reactions",
+                question: "Electrophilic substitution in aniline takes place predominantly at:",
+                options: [
+                    "(A) Ortho and para positions",
+                    "(B) Meta position only",
+                    "(C) Only ortho position",
+                    "(D) Random positions"
+                ],
+                correct: 0,
+                solution: "The amino group is strongly activating and ortho/para-directing due to its +M resonance effect."
+            },
+            {
+                id: 67,
+                topic: "Name Reactions",
+                question: "Which of the following reactions can be used to ascend the amine series (increase carbon chain)?",
+                options: [
+                    "(A) Reduction of alkyl cyanides",
+                    "(B) Hofmann bromamide degradation",
+                    "(C) Gabriel phthalimide synthesis",
+                    "(D) Hinsberg reaction"
+                ],
+                correct: 0,
+                solution: "Reduction of alkyl cyanides (RCN -> RCH2NH2) introduces an extra carbon atom into the carbon skeleton, effectively ascending the amine series."
+            },
+            {
+                id: 68,
+                topic: "Physical Properties",
+                question: "Boiling points of amines follow the order:",
+                options: [
+                    "(A) Primary > Secondary > Tertiary",
+                    "(B) Tertiary > Secondary > Primary",
+                    "(C) Primary > Tertiary > Secondary",
+                    "(D) Secondary > Primary > Tertiary"
+                ],
+                correct: 0,
+                solution: "Boiling point depends on extent of intermolecular hydrogen bonding. Primary amines have two N-H bonds (strongest H-bonding), secondary have one, and tertiary have none. Thus, 1° > 2° > 3°."
+            },
+            {
+                id: 69,
+                topic: "Chemical Reactions",
+                question: "Reaction of aniline with bromine water gives a white precipitate. The compound is:",
+                options: [
+                    "(A) 2,4,6-tribromoaniline",
+                    "(B) p-bromoaniline",
+                    "(C) o-bromoaniline",
+                    "(D) 2,4-dibromoaniline"
+                ],
+                correct: 0,
+                solution: "Rapid bromination with bromine water results in substitution at all available ortho and para positions, yielding 2,4,6-tribromoaniline."
+            },
+            {
+                id: 70,
+                topic: "Diazonium Salts",
+                question: "Which reagent converts benzene diazonium chloride to phenol?",
+                options: [
+                    "(A) Warm H2O",
+                    "(B) H3PO2",
+                    "(C) CuCl / HCl",
+                    "(D) CH3CH2OH"
+                ],
+                correct: 0,
+                solution: "Warming the diazonium salt solution with water hydrolyzes it to phenol."
+            },
+            {
+                id: 71,
+                topic: "Basicity of Amines",
+                question: "Which is the strongest base among the following aromatic amines?",
+                options: [
+                    "(A) p-Toluidine",
+                    "(B) Aniline",
+                    "(C) p-Nitroaniline",
+                    "(D) p-Chloroaniline"
+                ],
+                correct: 0,
+                solution: "p-Toluidine has an electron-donating methyl group which increases basicity, whereas nitro and chloro groups are electron-withdrawing and decrease basicity compared to aniline."
+            },
+            {
+                id: 72,
+                topic: "Preparation Methods",
+                question: "Reduction of nitrobenzene with Zn/NaOH gives:",
+                options: [
+                    "(A) Hydrazobenzene",
+                    "(B) Aniline",
+                    "(C) Azoxybenzene",
+                    "(D) Nitrosobenzene"
+                ],
+                correct: 0,
+                solution: "Reduction of nitrobenzene with zinc dust and aqueous sodium hydroxide yields hydrazobenzene (1,2-diphenylhydrazine)."
+            },
+            {
+                id: 73,
+                topic: "Name Reactions",
+                question: "Mendius reduction converts cyanides into:",
+                options: [
+                    "(A) Primary amines",
+                    "(B) Aldehydes",
+                    "(C) Amides",
+                    "(D) Alcohols"
+                ],
+                correct: 0,
+                solution: "Mendius reduction uses Na/EtOH to reduce R-CN to primary amines R-CH2NH2."
+            },
+            {
+                id: 74,
+                topic: "Chemical Reactions",
+                question: "When primary amine is treated with Grignard reagent, the gas evolved is:",
+                options: [
+                    "(A) Alkane (corresponding to alkyl group of Grignard reagent)",
+                    "(B) Hydrogen",
+                    "(C) Ammonia",
+                    "(D) Nitrogen"
+                ],
+                correct: 0,
+                solution: "Active hydrogen atoms attached to nitrogen in primary and secondary amines react with Grignard reagents (RMgX) to evolve alkane (RH)."
+            },
+            {
+                id: 75,
+                topic: "Diazonium Salts",
+                question: "What is the product when benzenediazonium chloride is treated with ethanol?",
+                options: [
+                    "(A) Benzene",
+                    "(B) Phenol",
+                    "(C) Chloro benzene",
+                    "(D) Ethoxybenzene"
+                ],
+                correct: 0,
+                solution: "Ethanol reduces benzenediazonium chloride to benzene while ethanol itself gets oxidized to acetaldehyde."
+            },
+            {
+                id: 76,
+                topic: "Structure & Nomenclature",
+                question: "The IUPAC name of C6H5NHCH3 is:",
+                options: [
+                    "(A) N-methylaniline (or N-methylbenzenamine)",
+                    "(B) Methylphenylamine",
+                    "(C) Benzyl-methyl-amine",
+                    "(D) Toluidine"
+                ],
+                correct: 0,
+                solution: "IUPAC name for N-methylated aniline is N-methylbenzenamine or N-methylaniline."
+            },
+            {
+                id: 77,
+                topic: "Chemical Reactions",
+                question: "Carbylamine test involves heating the amine with:",
+                options: [
+                    "(A) Chloroform and alcoholic KOH",
+                    "(B) Carbon tetrachloride and aqueous KOH",
+                    "(C) Iodoform and NaOH",
+                    "(D) Formaldehyde and HCl"
+                ],
+                correct: 0,
+                solution: "Carbylamine test is performed by heating primary amine with chloroform (CHCl3) and alcoholic potassium hydroxide (KOH)."
+            },
+            {
+                id: 78,
+                topic: "Basicity of Amines",
+                question: "Which of the following has the highest basic strength in aqueous solution?",
+                options: [
+                    "(A) Diethylamine",
+                    "(B) Ethylamine",
+                    "(C) Triethylamine",
+                    "(D) Ammonia"
+                ],
+                correct: 0,
+                solution: "In the ethyl series in aqueous solution, diethylamine is the strongest base due to optimal combination of inductive and solvation factors."
+            },
+            {
+                id: 79,
+                topic: "Preparation Methods",
+                question: "Gabriel phthalimide synthesis is used for preparing:",
+                options: [
+                    "(A) Primary aliphatic amines",
+                    "(B) Secondary aliphatic amines",
+                    "(C) Tertiary aliphatic amines",
+                    "(D) Aromatic amines exclusively"
+                ],
+                correct: 0,
+                solution: "Gabriel synthesis is specifically tailored for pure primary aliphatic amines."
+            },
+            {
+                id: 80,
+                topic: "Electrophilic Substitution",
+                question: "Direct nitration of aniline yields m-nitroaniline in what approximate percentage?",
+                options: [
+                    "(A) 47%",
+                    "(B) 2%",
+                    "(C) 51%",
+                    "(D) 90%"
+                ],
+                correct: 0,
+                solution: "In acidic nitration conditions, anilinium ion is formed which is meta-directing, giving about 47% m-nitroaniline, 51% p-nitroaniline, and negligible o-nitroaniline."
+            },
+            {
+                id: 81,
+                topic: "Name Reactions",
+                question: "Which reaction involves degradation of carbon chain by one carbon atom?",
+                options: [
+                    "(A) Hofmann bromamide degradation",
+                    "(B) Sandmeyer reaction",
+                    "(C) Cannizzaro reaction",
+                    "(D) Reimer-Tiemann reaction"
+                ],
+                correct: 0,
+                solution: "Hofmann bromamide degradation converts amides to primary amines with the loss of the carbonyl carbon atom."
+            },
+            {
+                id: 82,
+                topic: "Chemical Reactions",
+                question: "Which of the following reagents can distinguish between methylamine and dimethylamine?",
+                options: [
+                    "(A) Benzenesulphonyl chloride (Hinsberg reagent) or Nitrous acid",
+                    "(B) Tollen's reagent",
+                    "(C) Fehling's solution",
+                    "(D) Bromine water"
+                ],
+                correct: 0,
+                solution: "Hinsberg reagent or HNO2 distinguishes them: primary amine gives alkali-soluble sulphonamide / N2 gas with HNO2, whereas secondary amine gives alkali-insoluble sulphonamide / yellow oily nitrosamine."
+            },
+            {
+                id: 83,
+                topic: "Diazonium Salts",
+                question: "Fluorobenzene is prepared from benzenediazonium chloride using:",
+                options: [
+                    "(A) HBF4 followed by heating",
+                    "(B) HF",
+                    "(C) NaF / Cu",
+                    "(D) KI"
+                ],
+                correct: 0,
+                solution: "Balz-Schiemann reaction uses fluoroboric acid (HBF4) to precipitate diazonium fluoroborate, which upon thermal pyrolysis gives fluorobenzene."
+            },
+            {
+                id: 84,
+                topic: "Coupling Reactions",
+                question: "In azo coupling reaction, the attacking electrophile is:",
+                options: [
+                    "(A) Protonated diazonium cation (Ar-N+=N)",
+                    "(B) Nitronium ion",
+                    "(C) Carbonium ion",
+                    "(D) Acylium ion"
+                ],
+                correct: 0,
+                solution: "The electrophile in diazo coupling is the weakly electrophilic aryl diazonium cation which attacks strongly activated aromatic rings like phenols and amines."
+            },
+            {
+                id: 85,
+                topic: "Physical Properties",
+                question: "Why do tertiary amines have lower boiling points than isomeric primary amines?",
+                options: [
+                    "(A) Absence of N-H bonds prevents intermolecular hydrogen bonding",
+                    "(B) Higher molecular weight",
+                    "(C) Greater branching",
+                    "(D) Ionic bonding"
+                ],
+                correct: 0,
+                solution: "Tertiary amines lack N-H bonds and therefore cannot form intermolecular hydrogen bonds, leading to significantly lower boiling points compared to primary amines."
+            },
+            {
+                id: 86,
+                topic: "Chemical Reactions",
+                question: "Reaction of aniline with chloroform and KOH produces:",
+                options: [
+                    "(A) Phenyl isocyanide",
+                    "(B) Cyanobenzene",
+                    "(C) Benzyl cyanide",
+                    "(D) Phenyl cyanide"
+                ],
+                correct: 0,
+                solution: "Carbylamine reaction of aniline with CHCl3 and alc. KOH yields foul-smelling phenyl isocyanide (phenyl carbylamine)."
+            },
+            {
+                id: 87,
+                topic: "Basicity of Amines",
+                question: "Arrange in increasing order of basicity: Aniline, p-nitroaniline, p-toluidine.",
+                options: [
+                    "(A) p-Nitroaniline < Aniline < p-Toluidine",
+                    "(B) p-Toluidine < Aniline < p-Nitroaniline",
+                    "(C) Aniline < p-Toluidine < p-Nitroaniline",
+                    "(D) p-Nitroaniline < p-Toluidine < Aniline"
+                ],
+                correct: 0,
+                solution: "p-Nitroaniline has electron-withdrawing -NO2 group (weakest base), aniline is intermediate, and p-toluidine has electron-donating methyl group (strongest base)."
+            },
+            {
+                id: 88,
+                topic: "Preparation Methods",
+                question: "Reduction of aliphatic nitro compounds with Sn/HCl yields:",
+                options: [
+                    "(A) Primary aliphatic amines",
+                    "(B) Secondary amines",
+                    "(C) Hydroxylamines",
+                    "(D) Nitriles"
+                ],
+                correct: 0,
+                solution: "Reduction of nitroalkanes with Sn/HCl or catalytic hydrogenation gives primary aliphatic amines."
+            },
+            {
+                id: 89,
+                topic: "Name Reactions",
+                question: "Gabriel phthalimide synthesis involves potassium phthalimide reacting with:",
+                options: [
+                    "(A) Alkyl halide",
+                    "(B) Aryl halide",
+                    "(C) Acid chloride",
+                    "(D) Alcohol"
+                ],
+                correct: 0,
+                solution: "Potassium phthalimide undergoes nucleophilic substitution with primary alkyl halides to form N-alkylphthalimide."
+            },
+            {
+                id: 90,
+                topic: "Diazonium Salts",
+                question: "Which of the following compounds is formed when benzenediazonium chloride reacts with CuCl/HCl?",
+                options: [
+                    "(A) Chlorobenzene",
+                    "(B) Iodobenzene",
+                    "(C) Fluorobenzene",
+                    "(D) Bromobenzene"
+                ],
+                correct: 0,
+                solution: "Sandmeyer reaction with CuCl/HCl introduces chlorine, yielding chlorobenzene."
+            },
+            {
+                id: 91,
+                topic: "Chemical Reactions",
+                question: "What happens when primary amine is warmed with chloroform and caustic potash?",
+                options: [
+                    "(A) Foul smelling isocyanide is formed",
+                    "(B) Sweet smelling ester is formed",
+                    "(C) Alcohol is formed",
+                    "(D) Secondary amine is formed"
+                ],
+                correct: 0,
+                solution: "Carbylamine reaction generates foul-smelling isocyanides."
+            },
+            {
+                id: 92,
+                topic: "Basicity of Amines",
+                question: "The pKb of diethylamine is smaller than that of triethylamine in aqueous solution because of:",
+                options: [
+                    "(A) Steric hindrance and lesser hydration of triethylammonium cation",
+                    "(B) Higher inductive effect of triethylamine",
+                    "(C) Resonance effect",
+                    "(D) Greater volatility"
+                ],
+                correct: 0,
+                solution: "In aqueous solution, triethylamine experiences significant steric hindrance to hydration of its protonated cation compared to diethylamine, making diethylamine a slightly stronger base (lower pKb)."
+            },
+            {
+                id: 93,
+                topic: "Preparation Methods",
+                question: "Which of the following gives primary amine on reduction with LiAlH4?",
+                options: [
+                    "(A) Nitroethane, Propanenitrile, Acetamide",
+                    "(B) Acetone oxime",
+                    "(C) Methyl isocyanide",
+                    "(D) All of the above"
+                ],
+                correct: 3,
+                solution: "Nitro compounds, nitriles, amides, and oximes all yield primary amines upon reduction with lithium aluminium hydride (LiAlH4)."
+            },
+            {
+                id: 94,
+                topic: "Coupling Reactions",
+                question: "Coupling reaction is an example of:",
+                options: [
+                    "(A) Electrophilic aromatic substitution",
+                    "(B) Nucleophilic aromatic substitution",
+                    "(C) Free radical substitution",
+                    "(D) Elimination reaction"
+                ],
+                correct: 0,
+                solution: "Diazo coupling is a classic electrophilic aromatic substitution where diazonium cation acts as an electrophile attacking activated aromatic rings."
+            },
+            {
+                id: 95,
+                topic: "Chemical Reactions",
+                question: "Which amine does not react with benzenesulphonyl chloride?",
+                options: [
+                    "(A) Tertiary amine",
+                    "(B) Secondary amine",
+                    "(C) Primary amine",
+                    "(D) All amines react"
+                ],
+                correct: 0,
+                solution: "Tertiary amines have no replaceable hydrogen atom attached to nitrogen and thus do not react with benzenesulphonyl chloride."
+            },
+            {
+                id: 96,
+                topic: "Structure & Nomenclature",
+                question: "The IUPAC name of CH3CH2NHCH2CH3 is:",
+                options: [
+                    "(A) Diethylamine (or N-ethylethanamine)",
+                    "(B) Ethylethanamine",
+                    "(C) N-methylethanamine",
+                    "(D) Butylamine"
+                ],
+                correct: 0,
+                solution: "Symmetrical secondary amine with two ethyl groups attached to nitrogen is N-ethylethanamine (diethylamine)."
+            },
+            {
+                id: 97,
+                topic: "Diazonium Salts",
+                question: "Diazonium salt of aniline reacts with CuCN/KCN to give:",
+                options: [
+                    "(A) Benzonitrile (Cyanobenzene)",
+                    "(B) Benzyl cyanide",
+                    "(C) Phenyl isocyanide",
+                    "(D) Benzoic acid"
+                ],
+                correct: 0,
+                solution: "Sandmeyer reaction using cuprous cyanide (CuCN/KCN) introduces a cyano group, yielding benzonitrile."
+            },
+            {
+                id: 98,
+                topic: "Chemical Reactions",
+                question: "Acetyl derivative of aniline is:",
+                options: [
+                    "(A) Acetanilide",
+                    "(B) Benzamide",
+                    "(C) Acetamide",
+                    "(D) Formanilide"
+                ],
+                correct: 0,
+                solution: "Reaction of aniline with acetic anhydride or acetyl chloride gives acetanilide."
+            },
+            {
+                id: 99,
+                topic: "Basicity of Amines",
+                question: "Why is aniline less basic than ammonia?",
+                options: [
+                    "(A) Resonance delocalization of lone pair into the benzene ring reduces electron density on nitrogen",
+                    "(B) Inductive effect of phenyl ring",
+                    "(C) Steric hindrance",
+                    "(D) Higher molecular weight"
+                ],
+                correct: 0,
+                solution: "In aniline, the lone pair on nitrogen is delocalized into the benzene ring via resonance, making it less available for protonation compared to ammonia."
+            },
+            {
+                id: 100,
+                topic: "Comprehensive Revision",
+                question: "Which of the following methods yields a secondary amine?",
+                options: [
+                    "(A) Reduction of isocyanides",
+                    "(B) Reduction of nitriles",
+                    "(C) Hofmann bromamide degradation",
+                    "(D) Gabriel phthalimide synthesis"
+                ],
+                correct: 0,
+                solution: "Reduction of isocyanides (R-NC) using catalytic hydrogenation or LiAlH4 yields secondary amines (R-NH-CH3)."
+            }
+        ];
+
+        let currentQuestionIndex = 0;
+        let userAnswers = new Array(questions.length).fill(null);
+        let score = 0;
+        let timerInterval = null;
+        let totalSecondsElapsed = 0;
+        let questionSecondsElapsed = 0;
+        let questionTimerInterval = null;
+
+        function startQuiz() {
+            document.getElementById('welcome-screen').classList.add('hidden');
+            document.getElementById('quiz-screen').classList.remove('hidden');
+            document.getElementById('quiz-header-stats').classList.remove('hidden');
+            document.getElementById('quiz-header-stats').classList.add('flex');
+
+            startGlobalTimer();
+            loadQuestion(0);
+        }
+
+        function startGlobalTimer() {
+            timerInterval = setInterval(() => {
+                totalSecondsElapsed++;
+                let mins = Math.floor(totalSecondsElapsed / 60);
+                let secs = totalSecondsElapsed % 60;
+                document.getElementById('timer-display').innerText = 
+                    (mins < 10 ? "0" + mins : mins) + ":" + (secs < 10 ? "0" + secs : secs);
+            }, 1000);
+        }
+
+        function startQuestionTimer() {
+            questionSecondsElapsed = 0;
+            document.getElementById('question-timer').innerText = "0s";
+            clearInterval(questionTimerInterval);
+            questionTimerInterval = setInterval(() => {
+                questionSecondsElapsed++;
+                document.getElementById('question-timer').innerText = questionSecondsElapsed + "s";
+            }, 1000);
+        }
+
+        function loadQuestion(index) {
+            currentQuestionIndex = index;
+            const q = questions[index];
+
+            document.getElementById('current-q-badge').innerText = `Q ${index + 1}/100`;
+            document.getElementById('topic-badge').innerText = q.topic;
+            document.getElementById('progress-bar').style.width = `${((index + 1) / questions.length) * 100}%`;
+            document.getElementById('question-text').innerText = q.question;
+
+            const optionsContainer = document.getElementById('options-container');
+            optionsContainer.innerHTML = '';
+
+            q.options.forEach((opt, idx) => {
+                const btn = document.createElement('button');
+                btn.className = "w-full text-left p-4 rounded-2xl border transition-all flex items-center justify-between font-medium text-sm sm:text-base cursor-pointer ";
+                
+                const isAnswered = userAnswers[index] !== null;
+                const selectedOpt = userAnswers[index];
+
+                if (!isAnswered) {
+                    btn.className += "bg-slate-800/40 border-slate-700/80 hover:bg-slate-800 text-slate-200 hover:border-indigo-500/50";
+                } else {
+                    if (idx === q.correct) {
+                        btn.className += "bg-emerald-500/20 border-emerald-500 text-emerald-200 shadow-lg shadow-emerald-500/10";
+                    } else if (selectedOpt === idx && idx !== q.correct) {
+                        btn.className += "bg-rose-500/20 border-rose-500 text-rose-200 shadow-lg shadow-rose-500/10";
+                    } else {
+                        btn.className += "bg-slate-800/20 border-slate-800 text-slate-400 opacity-60";
+                    }
+                }
+
+                btn.innerHTML = `<span>${opt}</span>`;
+                if (!isAnswered) {
+                    btn.onclick = () => selectOption(idx);
+                } else {
+                    btn.disabled = true;
+                }
+                optionsContainer.appendChild(btn);
+            });
+
+            const solutionBox = document.getElementById('solution-box');
+            if (userAnswers[index] !== null) {
+                solutionBox.classList.remove('hidden');
+                document.getElementById('solution-text').innerText = q.solution;
+            } else {
+                solutionBox.classList.add('hidden');
+            }
+
+            document.getElementById('prev-btn').disabled = index === 0;
+            document.getElementById('next-btn').innerText = index === questions.length - 1 ? "Finish & View Analysis" : "Next Question";
+
+            startQuestionTimer();
+        }
+
+        function selectOption(selectedIndex) {
+            if (userAnswers[currentQuestionIndex] !== null) return;
+
+            userAnswers[currentQuestionIndex] = selectedIndex;
+            const q = questions[currentQuestionIndex];
+
+            if (selectedIndex === q.correct) {
+                score += 4;
+                triggerConfetti();
+            } else {
+                score -= 1; // Negative marking JEE standard
+            }
+
+            document.getElementById('score-display').innerText = `Score: ${score}`;
+            loadQuestion(currentQuestionIndex);
+        }
+
+        function triggerConfetti() {
+            confetti({
+                particleCount: 80,
+                spread: 70,
+                origin: { y: 0.6 }
+            });
+        }
+
+        function nextQuestion() {
+            if (currentQuestionIndex < questions.length - 1) {
+                loadQuestion(currentQuestionIndex + 1);
+            } else {
+                showResultScreen();
+            }
+        }
+
+        function previousQuestion() {
+            if (currentQuestionIndex > 0) {
+                loadQuestion(currentQuestionIndex - 1);
+            }
+        }
+
+        function showResultScreen() {
+            clearInterval(timerInterval);
+            clearInterval(questionTimerInterval);
+
+            document.getElementById('quiz-screen').classList.add('hidden');
+            document.getElementById('quiz-header-stats').classList.add('hidden');
+            document.getElementById('result-screen').classList.remove('hidden');
+
+            let correctCount = 0;
+            let incorrectCount = 0;
+            let unattemptedCount = 0;
+
+            userAnswers.forEach((ans, idx) => {
+                if (ans === null) unattemptedCount++;
+                else if (ans === questions[idx].correct) correctCount++;
+                else incorrectCount++;
+            });
+
+            let totalAttempted = correctCount + incorrectCount;
+            let accuracy = totalAttempted > 0 ? Math.round((correctCount / totalAttempted) * 100) : 0;
+
+            document.getElementById('res-marks').innerText = `${score} / 400`;
+            document.getElementById('res-accuracy').innerText = `${accuracy}%`;
+            document.getElementById('res-correct-count').innerText = `${correctCount} / ${incorrectCount}`;
+
+            let mins = Math.floor(totalSecondsElapsed / 60);
+            let secs = totalSecondsElapsed % 60;
+            document.getElementById('res-time').innerText = `${mins}m ${secs}s`;
+
+            renderCharts(correctCount, incorrectCount, unattemptedCount);
+        }
+
+        function renderCharts(correct, incorrect, unattempted) {
+            // Score distribution pie chart
+            const scoreCtx = document.getElementById('scoreChart').getContext('2d');
+            new Chart(scoreCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Correct (+4)', 'Incorrect (-1)', 'Unattempted'],
+                    datasets: [{
+                        data: [correct, incorrect, unattempted],
+                        backgroundColor: ['#10b981', '#f43f5e', '#64748b'],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: { color: '#cbd5e1', font: { family: 'Inter', size: 12 } }
+                        }
+                    }
+                }
+            });
+
+            // Topic-wise performance calculation
+            let topicStats = {};
+            questions.forEach((q, idx) => {
+                if (!topicStats[q.topic]) {
+                    topicStats[q.topic] = { total: 0, correct: 0 };
+                }
+                topicStats[q.topic].total++;
+                if (userAnswers[idx] === q.correct) {
+                    topicStats[q.topic].correct++;
+                }
+            });
+
+            let topicLabels = Object.keys(topicStats);
+            let topicAccuracies = topicLabels.map(topic => {
+                let stats = topicStats[topic];
+                return Math.round((stats.correct / stats.total) * 100);
+            });
+
+            const topicCtx = document.getElementById('topicChart').getContext('2d');
+            new Chart(topicCtx, {
+                type: 'bar',
+                data: {
+                    labels: topicLabels,
+                    datasets: [{
+                        label: 'Accuracy (%)',
+                        data: topicAccuracies,
+                        backgroundColor: '#6366f1',
+                        borderRadius: 6
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 100,
+                            ticks: { color: '#94a3b8' },
+                            grid: { color: '#334155' }
+                        },
+                        x: {
+                            ticks: { color: '#94a3b8', font: { size: 10 } },
+                            grid: { display: false }
+                        }
+                    },
+                    plugins: {
+                        legend: { display: false }
+                    }
+                }
+            });
+        }
+    </script>
+</body>
+</html>

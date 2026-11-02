@@ -1,0 +1,1392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEET UG PYQ Quiz - Animal Kingdom & Neural Control</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Canvas Confetti CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        indigoTheme: {
+                            50: '#eef2ff',
+                            400: '#818cf8',
+                            500: '#6366f1',
+                            600: '#4f46e5',
+                            700: '#4338ca',
+                            900: '#1e1b4b',
+                        },
+                        dark: {
+                            900: '#090514',
+                            800: '#120c24',
+                            700: '#1e1638',
+                            600: '#2d224e'
+                        }
+                    },
+                    animation: {
+                        'shake': 'shake 0.4s cubic-bezier(.36,.07,.19,.97) both',
+                        'pop-in': 'popIn 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards',
+                        'slide-up': 'slideUp 0.3s ease-out forwards'
+                    },
+                    keyframes: {
+                        shake: {
+                            '10%, 90%': { transform: 'translate3d(-2px, 0, 0)' },
+                            '20%, 80%': { transform: 'translate3d(4px, 0, 0)' },
+                            '30%, 50%, 70%': { transform: 'translate3d(-6px, 0, 0)' },
+                            '40%, 60%': { transform: 'translate3d(6px, 0, 0)' }
+                        },
+                        popIn: {
+                            '0%': { opacity: '0', transform: 'scale(0.85)' },
+                            '100%': { opacity: '1', transform: 'scale(1)' }
+                        },
+                        slideUp: {
+                            '0%': { opacity: '0', transform: 'translateY(16px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #090514;
+            color: #f1f5f9;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-image: 
+                radial-gradient(at 15% 15%, rgba(99, 102, 241, 0.15) 0px, transparent 45%),
+                radial-gradient(at 85% 85%, rgba(168, 85, 247, 0.12) 0px, transparent 45%);
+            background-attachment: fixed;
+        }
+
+        .glass-panel {
+            background: rgba(18, 12, 36, 0.82);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 20px 50px -15px rgba(0, 0, 0, 0.7);
+        }
+
+        .glass-card {
+            background: rgba(30, 22, 56, 0.65);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #090514; }
+        ::-webkit-scrollbar-thumb { background: #2d224e; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #4338ca; }
+
+        /* Floating Motivational Toast */
+        .toast-popup {
+            position: fixed;
+            top: 15%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.6);
+            z-index: 100;
+            pointer-events: none;
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .toast-popup.active {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between antialiased selection:bg-indigo-500 selection:text-white">
+
+    <!-- Motivational Toast popup -->
+    <div id="praiseToast" class="toast-popup">
+        <div class="px-6 py-3.5 rounded-2xl bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white font-extrabold text-lg md:text-xl shadow-2xl flex items-center gap-3 border border-indigo-300/40">
+            <span id="praiseIcon" class="text-2xl">⚡</span>
+            <span id="praiseText">Perfect NCERT Answer!</span>
+        </div>
+    </div>
+
+    <!-- HEADER / NAVIGATION BAR -->
+    <header class="sticky top-0 z-40 bg-dark-900/85 backdrop-blur-md border-b border-purple-950 px-4 lg:px-8 py-3">
+        <div class="max-w-7xl mx-auto flex items-center justify-between gap-4">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-500 to-purple-500 flex items-center justify-center text-white shadow-lg shadow-indigo-500/20 font-black text-xl">
+                    🧠
+                </div>
+                <div>
+                    <h1 class="text-base sm:text-lg font-bold bg-gradient-to-r from-white via-indigo-200 to-purple-400 bg-clip-text text-transparent">NEET UG Combined Mastery</h1>
+                    <p class="text-xs text-slate-400 flex items-center gap-1.5 font-medium">
+                        <span class="inline-block w-2 h-2 rounded-full bg-indigo-500"></span>
+                        Animal Kingdom (25 Qs) + Neural Control (25 Qs)
+                    </p>
+                </div>
+            </div>
+
+            <div class="flex items-center gap-3 sm:gap-6">
+                <!-- Stopwatch Timer -->
+                <div class="flex items-center gap-2 bg-dark-800 px-3.5 py-1.5 rounded-xl border border-indigo-900/60 text-xs sm:text-sm">
+                    <i class="fa-regular fa-clock text-indigo-400"></i>
+                    <span class="text-slate-400 hidden sm:inline">Total:</span>
+                    <span id="overallTimer" class="font-mono font-bold text-indigo-400">00:00:00</span>
+                </div>
+
+                <!-- Submit Button Header -->
+                <button onclick="confirmSubmitQuiz()" class="px-4 py-1.5 text-xs sm:text-sm font-semibold text-indigo-300 border border-indigo-500/40 hover:bg-indigo-500/10 rounded-xl transition flex items-center gap-1.5">
+                    <i class="fa-solid fa-flag-checkered"></i>
+                    <span>Submit Test</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTAINER -->
+    <main class="flex-grow max-w-7xl w-full mx-auto px-3 sm:px-6 py-4 sm:py-6 grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+        
+        <!-- LEFT SIDEBAR: Question Navigation Grid -->
+        <aside id="sidebarPalette" class="lg:col-span-4 xl:col-span-3 order-2 lg:order-1 glass-panel rounded-2xl p-4 sm:p-5">
+            <div class="flex items-center justify-between mb-4 pb-3 border-b border-indigo-950">
+                <h3 class="font-bold text-slate-200 text-sm sm:text-base flex items-center gap-2">
+                    <i class="fa-solid fa-grid-2 text-indigo-400"></i> Question Palette
+                </h3>
+                <span class="text-xs text-slate-400 font-mono" id="paletteProgress">0/50 Answered</span>
+            </div>
+
+            <!-- Palette Status Legend -->
+            <div class="grid grid-cols-2 gap-2 text-xs mb-4">
+                <div class="flex items-center gap-2 text-slate-400">
+                    <span class="w-3 h-3 rounded-full bg-emerald-500/20 border border-emerald-500"></span> Correct
+                </div>
+                <div class="flex items-center gap-2 text-slate-400">
+                    <span class="w-3 h-3 rounded-full bg-rose-500/20 border border-rose-500"></span> Incorrect
+                </div>
+                <div class="flex items-center gap-2 text-slate-400">
+                    <span class="w-3 h-3 rounded-full bg-indigo-500/30 border border-indigo-400"></span> Active
+                </div>
+                <div class="flex items-center gap-2 text-slate-400">
+                    <span class="w-3 h-3 rounded-full bg-slate-800 border border-slate-700"></span> Unattempted
+                </div>
+            </div>
+
+            <!-- Question Numbers Grid -->
+            <div id="questionGrid" class="grid grid-cols-5 sm:grid-cols-10 lg:grid-cols-5 gap-2 max-h-[320px] lg:max-h-[420px] overflow-y-auto pr-1">
+                <!-- Populated dynamically via JS -->
+            </div>
+
+            <div class="mt-5 pt-4 border-t border-indigo-950 text-center">
+                <div class="text-xs text-slate-400 mb-2">Completion Progress</div>
+                <div class="w-full bg-slate-800 rounded-full h-2 overflow-hidden">
+                    <div id="quizProgressBar" class="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 h-full w-0 transition-all duration-300"></div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- RIGHT AREA: Active Question Display -->
+        <section id="questionContainer" class="lg:col-span-8 xl:col-span-9 order-1 lg:order-2 space-y-5">
+            
+            <div class="glass-panel rounded-2xl p-5 sm:p-7 relative overflow-hidden shadow-2xl">
+                <!-- Question Header Info -->
+                <div class="flex flex-wrap items-center justify-between gap-3 pb-4 mb-5 border-b border-indigo-950 text-xs sm:text-sm">
+                    <div class="flex items-center gap-2">
+                        <span id="chapterBadge" class="px-2.5 py-1 rounded-full bg-purple-500/20 text-purple-300 border border-purple-500/30 font-bold">
+                            Animal Kingdom
+                        </span>
+                        <span id="questionCategory" class="px-3 py-1 rounded-full bg-indigo-500/10 text-indigo-300 border border-indigo-500/20 font-medium">
+                            Subtopic Loading...
+                        </span>
+                        <span id="pyqTag" class="px-2.5 py-1 rounded-full bg-amber-500/10 text-amber-300 border border-amber-500/20 font-mono">
+                            NEET PYQ
+                        </span>
+                    </div>
+
+                    <div class="flex items-center gap-3">
+                        <button id="bookmarkBtn" onclick="toggleBookmark()" class="text-slate-400 hover:text-amber-400 transition text-sm">
+                            <i class="fa-regular fa-bookmark" id="bookmarkIcon"></i>
+                        </button>
+                        <!-- Per-Question Timer -->
+                        <div class="flex items-center gap-1.5 text-slate-400 font-mono bg-slate-800/80 px-3 py-1 rounded-lg border border-slate-700">
+                            <i class="fa-solid fa-stopwatch text-amber-400"></i>
+                            <span>Time:</span>
+                            <span id="questionTimer" class="font-bold text-white">0s</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question Text -->
+                <div class="mb-6">
+                    <div class="flex items-start gap-3">
+                        <span id="qIndexBadge" class="flex-shrink-0 w-8 h-8 rounded-xl bg-slate-800 text-indigo-400 border border-slate-700 font-bold flex items-center justify-center text-sm">
+                            Q1
+                        </span>
+                        <h2 id="questionText" class="text-base sm:text-lg md:text-xl font-semibold leading-relaxed text-slate-100">
+                            Loading question content...
+                        </h2>
+                    </div>
+                </div>
+
+                <!-- 4 Options -->
+                <div id="optionsGroup" class="space-y-3.5 mb-6">
+                    <!-- Options JS injected -->
+                </div>
+
+                <!-- Solution & Explanation Panel -->
+                <div id="explanationBox" class="hidden rounded-xl bg-dark-900/90 border border-indigo-900 p-5 mt-5 animate-slide-up">
+                    <div class="flex items-center gap-2 mb-3 text-amber-400 font-bold text-sm">
+                        <i class="fa-solid fa-lightbulb"></i>
+                        <span>NCERT Explanation & Scientific Logic</span>
+                    </div>
+                    <div id="explanationText" class="text-xs sm:text-sm text-slate-300 leading-relaxed space-y-2">
+                        <!-- Solution content -->
+                    </div>
+                </div>
+
+                <!-- Question Footer Controls -->
+                <div class="flex items-center justify-between gap-4 pt-5 border-t border-indigo-950">
+                    <button id="prevBtn" onclick="navigateQuestion(-1)" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold text-xs sm:text-sm flex items-center gap-2 transition disabled:opacity-40 disabled:cursor-not-allowed">
+                        <i class="fa-solid fa-arrow-left"></i> Previous
+                    </button>
+
+                    <span class="text-xs text-slate-400 font-mono hidden sm:inline">
+                        Question <span id="currentQNum">1</span> of 50
+                    </span>
+
+                    <button id="nextBtn" onclick="navigateQuestion(1)" class="px-5 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-xs sm:text-sm flex items-center gap-2 transition shadow-lg shadow-indigo-600/20">
+                        Next <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- END-OF-QUIZ FULL PERFORMANCE ANALYTICS PANEL -->
+        <section id="resultContainer" class="hidden lg:col-span-12 glass-panel rounded-3xl p-6 sm:p-10 space-y-8 animate-pop-in">
+            <!-- Header Result Banner -->
+            <div class="text-center space-y-3 relative">
+                <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-indigo-500/10 border border-indigo-500/30 text-indigo-300 text-xs sm:text-sm font-semibold">
+                    <i class="fa-solid fa-chart-line"></i> Full Diagnostic Performance Report
+                </div>
+                <h2 id="finalVerdictTitle" class="text-2xl sm:text-4xl font-extrabold text-white">Outstanding Performance!</h2>
+                <p id="finalVerdictSub" class="text-sm sm:text-base text-slate-400 max-w-2xl mx-auto">
+                    Detailed analysis of your NEET readiness in 'Animal Kingdom' and 'Neural Control & Coordination'.
+                </p>
+            </div>
+
+            <!-- Key Metrics Summary Cards -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
+                <div class="glass-card rounded-2xl p-5 border border-indigo-500/20 text-center">
+                    <div class="text-xs font-semibold text-slate-400 mb-1">TOTAL MARKS</div>
+                    <div class="text-3xl sm:text-4xl font-black text-indigo-400 font-mono" id="resMarks">0 / 200</div>
+                    <div class="text-[10px] text-slate-500 mt-1">+4 Correct | -1 Wrong</div>
+                </div>
+
+                <div class="glass-card rounded-2xl p-5 border border-cyan-500/20 text-center">
+                    <div class="text-xs font-semibold text-slate-400 mb-1">ACCURACY</div>
+                    <div class="text-3xl sm:text-4xl font-black text-cyan-400 font-mono" id="resAccuracy">0%</div>
+                    <div class="text-[10px] text-slate-500 mt-1" id="resCorrectRatio">0 Correct / 0 Attempted</div>
+                </div>
+
+                <div class="glass-card rounded-2xl p-5 border border-amber-500/20 text-center">
+                    <div class="text-xs font-semibold text-slate-400 mb-1">TOTAL TIME</div>
+                    <div class="text-3xl sm:text-4xl font-black text-amber-400 font-mono" id="resTotalTime">00:00:00</div>
+                    <div class="text-[10px] text-slate-500 mt-1">Elapsed Duration</div>
+                </div>
+
+                <div class="glass-card rounded-2xl p-5 border border-purple-500/20 text-center">
+                    <div class="text-xs font-semibold text-slate-400 mb-1">AVG SPEED / Q</div>
+                    <div class="text-3xl sm:text-4xl font-black text-purple-400 font-mono" id="resAvgTime">0s</div>
+                    <div class="text-[10px] text-slate-500 mt-1">Target &lt; 45s</div>
+                </div>
+            </div>
+
+            <!-- Graphical Analytics Section -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Subtopic Accuracy Bar Chart -->
+                <div class="glass-card rounded-2xl p-5 border border-slate-800">
+                    <h3 class="text-base font-bold text-slate-200 mb-4 flex items-center gap-2">
+                        <i class="fa-solid fa-chart-bar text-indigo-400"></i> Subtopic Accuracy Breakdown
+                    </h3>
+                    <div class="relative h-64">
+                        <canvas id="topicBarChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Score Distribution Donut Chart -->
+                <div class="glass-card rounded-2xl p-5 border border-slate-800">
+                    <h3 class="text-base font-bold text-slate-200 mb-4 flex items-center gap-2">
+                        <i class="fa-solid fa-pie-chart text-cyan-400"></i> Attempted Questions Distribution
+                    </h3>
+                    <div class="relative h-64 flex items-center justify-center">
+                        <canvas id="scoreDonutChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Speed & Accuracy Highlights -->
+            <div class="glass-card rounded-2xl p-5 border border-slate-800 grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs sm:text-sm">
+                <div class="flex items-center gap-3 p-3 rounded-xl bg-slate-900/60 border border-slate-800">
+                    <div class="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-lg">
+                        ⚡
+                    </div>
+                    <div>
+                        <div class="text-slate-400 font-semibold">Fastest Correct Answer</div>
+                        <div class="text-white font-mono font-bold" id="fastestAns">Q-- (0s)</div>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-3 p-3 rounded-xl bg-slate-900/60 border border-slate-800">
+                    <div class="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center text-lg">
+                        ⏳
+                    </div>
+                    <div>
+                        <div class="text-slate-400 font-semibold">Slowest Answer</div>
+                        <div class="text-white font-mono font-bold" id="slowestAns">Q-- (0s)</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Review Grid & Filters -->
+            <div class="glass-card rounded-2xl p-6 border border-slate-800">
+                <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
+                    <h3 class="text-lg font-bold text-slate-200 flex items-center gap-2">
+                        <i class="fa-solid fa-list-check text-indigo-400"></i> Detailed Question Review
+                    </h3>
+                    <div class="flex items-center gap-2 text-xs">
+                        <button onclick="filterReviewGrid('all')" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 font-medium">All (50)</button>
+                        <button onclick="filterReviewGrid('correct')" class="px-3 py-1.5 rounded-lg bg-emerald-950/80 text-emerald-400 border border-emerald-500/40 font-medium">Correct</button>
+                        <button onclick="filterReviewGrid('incorrect')" class="px-3 py-1.5 rounded-lg bg-rose-950/80 text-rose-400 border border-rose-500/40 font-medium">Incorrect</button>
+                    </div>
+                </div>
+
+                <div id="reviewGrid" class="grid grid-cols-5 sm:grid-cols-10 md:grid-cols-12 gap-2 text-xs">
+                    <!-- Review boxes JS populated -->
+                </div>
+            </div>
+
+            <!-- Retake Button -->
+            <div class="flex justify-center pt-4">
+                <button onclick="location.reload()" class="px-8 py-3 rounded-xl bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white font-bold text-sm shadow-xl hover:opacity-90 transition flex items-center gap-2">
+                    <i class="fa-solid fa-rotate-right"></i> Retake Test
+                </button>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-dark-900 border-t border-purple-950 py-4 text-center text-xs text-slate-500">
+        NEET UG Biology PYQ Mastery Series • Animal Kingdom & Neural Control • High-Yield Question Bank
+    </footer>
+
+    <!-- QUIZ ENGINE SCRIPT -->
+    <script>
+        // 50 AUTHENTIC NEET/AIPMT LEVEL QUESTIONS
+        // Q1 - Q25: Animal Kingdom
+        // Q26 - Q50: Neural Control & Coordination
+        const quizData = [
+            // --- ANIMAL KINGDOM (25 Qs) ---
+            {
+                id: 1,
+                chapter: "Animal Kingdom",
+                pyqTag: "NEET 2023",
+                category: "Non-Chordates",
+                question: "Which of the following cellular feature is unique to Porifera (Sponges)?",
+                options: ["Choanocytes (Collar cells)", "Cnidocytes", "Flame cells", "Comb plates"],
+                correct: 0,
+                explanation: "<strong>Choanocytes (collar cells)</strong> line the spongocoel and canals of sponges. They create water currents and facilitate filtration feeding, which is unique to phylum Porifera."
+            },
+            {
+                id: 2,
+                pyqTag: "NEET 2022",
+                chapter: "Animal Kingdom",
+                category: "Basis of Classification",
+                question: "Identify the animal that exhibits radial symmetry in adult stage but bilateral symmetry in larval stage:",
+                options: ["Echinoderms (e.g., Asterias)", "Arthropods (e.g., Locusta)", "Molluscs (e.g., Pila)", "Annelids (e.g., Nereis)"],
+                correct: 0,
+                explanation: "Adult <strong>Echinoderms</strong> show pentamerous radial symmetry, whereas their free-swimming larvae exhibit bilateral symmetry."
+            },
+            {
+                id: 3,
+                pyqTag: "NEET 2021",
+                chapter: "Animal Kingdom",
+                category: "Non-Chordates",
+                question: "Match the following excretory structures with their respective animal phylum:<br>1. Flame cells - Platyhelminthes<br>2. Nephridia - Annelida<br>3. Malpighian tubules - Arthropoda<br>4. Proboscis gland - Hemichordata",
+                options: ["1, 2, 3 and 4 are correct", "1 and 2 only", "3 and 4 only", "1, 2 and 4 only"],
+                correct: 0,
+                explanation: "All matches are accurate according to NCERT: Flame cells (Flatworms), Nephridia (Annelids), Malpighian tubules (Insects/Arthropods), and Proboscis gland (Hemichordates like <i>Balanoglossus</i>)."
+            },
+            {
+                id: 4,
+                pyqTag: "NEET 2020",
+                chapter: "Animal Kingdom",
+                category: "Non-Chordates",
+                question: "Bioluminescence (the property of a living organism to emit light) is well-marked in members of which phylum?",
+                options: ["Ctenophora", "Coelenterata", "Platyhelminthes", "Aschelminthes"],
+                correct: 0,
+                explanation: "Bioluminescence is a striking characteristic feature of <strong>Ctenophores</strong> (comb jellies like <i>Pleurobrachia</i> and <i>Ctenoplana</i>)."
+            },
+            {
+                id: 5,
+                pyqTag: "NEET 2019",
+                chapter: "Animal Kingdom",
+                category: "Non-Chordates",
+                question: "Which of the following is a pseudocoelomate animal phylum?",
+                options: ["Aschelminthes (Roundworms)", "Annelida", "Platyhelminthes", "Mollusca"],
+                correct: 0,
+                explanation: "In <strong>Aschelminthes</strong> (e.g., <i>Ascaris</i>), the body cavity is not lined by mesoderm; instead, mesoderm is present as scattered pouches between ectoderm and endoderm, creating a pseudocoelom."
+            },
+            {
+                id: 6,
+                pyqTag: "NEET 2023",
+                chapter: "Animal Kingdom",
+                category: "Chordates & Fishes",
+                question: "Which of the following cartilaginous fishes possesses an electric organ?",
+                options: ["Torpedo", "Trygon", "Scoliodon", "Pristis"],
+                correct: 0,
+                explanation: "<strong><i>Torpedo</i></strong> is a chondrichthyes (cartilaginous fish) equipped with electric organs modified from muscle tissue. <i>Trygon</i> possesses a poison sting."
+            },
+            {
+                id: 7,
+                pyqTag: "NEET 2020 Phase 2",
+                chapter: "Animal Kingdom",
+                category: "Non-Chordates",
+                question: "Metagenesis (alternation of generation between polyp and medusa) is shown by which coelenterate?",
+                options: ["Obelia", "Aurelia", "Hydra", "Adamsia"],
+                correct: 0,
+                explanation: "<strong><i>Obelia</i></strong> exhibits metagenesis where polyps produce medusae asexually, and medusae produce polyps sexually."
+            },
+            {
+                id: 8,
+                pyqTag: "NEET 2018",
+                chapter: "Animal Kingdom",
+                category: "Non-Chordates",
+                question: "File-like rasping organ for feeding called 'radula' is found in:",
+                options: ["Mollusca", "Echinodermata", "Arthropoda", "Hemichordata"],
+                correct: 0,
+                explanation: "The mouth of molluscs contains a rasping organ called a <strong>radula</strong> used for feeding (except bivalves)."
+            },
+            {
+                id: 9,
+                pyqTag: "NEET 2022",
+                chapter: "Animal Kingdom",
+                category: "Chordates & Fishes",
+                question: "Operculum (gill cover) and air bladder regulating buoyancy are present in:",
+                options: ["Osteichthyes (Bony fishes)", "Chondrichthyes (Cartilaginous fishes)", "Cyclostomes", "Amphibians"],
+                correct: 0,
+                explanation: "Bony fishes (<strong>Osteichthyes</strong>) have 4 pairs of gills covered by an operculum on each side and possess an air bladder for buoyancy."
+            },
+            {
+                id: 10,
+                pyqTag: "NEET 2017",
+                chapter: "Animal Kingdom",
+                category: "Non-Chordates",
+                question: "Chitinous exoskeleton and jointed appendages are hallmark features of phylum:",
+                options: ["Arthropoda", "Annelida", "Mollusca", "Echinodermata"],
+                correct: 0,
+                explanation: "<strong>Arthropoda</strong> is the largest phylum of Animalia, characterized by chitinous exoskeleton and jointed appendages."
+            },
+            {
+                id: 11,
+                pyqTag: "NEET 2021",
+                chapter: "Animal Kingdom",
+                category: "Chordates & Fishes",
+                question: "Which class of vertebrates is characterized by jawless suctorial circular mouth and 6-15 pairs of gill slits?",
+                options: ["Cyclostomata", "Chondrichthyes", "Osteichthyes", "Amphibia"],
+                correct: 0,
+                explanation: "All living members of class <strong>Cyclostomata</strong> (e.g., <i>Petromyzon</i>, <i>Myxine</i>) are jawless ectoparasites with 6–15 pairs of gill slits."
+            },
+            {
+                id: 12,
+                pyqTag: "NEET 2019",
+                chapter: "Animal Kingdom",
+                category: "Birds & Mammals",
+                question: "Pneumatic (hollow) bones with air cavities to reduce body weight for flight are found in:",
+                options: ["Aves (Birds)", "Reptiles", "Mammals", "Amphibians"],
+                correct: 0,
+                explanation: "Birds (<strong>Aves</strong>) have long pneumatic bones containing air cavities to lighten the skeleton for efficient flight."
+            },
+            {
+                id: 13,
+                pyqTag: "NEET 2020",
+                chapter: "Animal Kingdom",
+                category: "Chordates & Fishes",
+                question: "Pygostyle, furcula (wishbone), and warm-blooded (homeothermy) nature are features of:",
+                options: ["Birds", "Lizards", "Frogs", "Cartilaginous fishes"],
+                correct: 0,
+                explanation: "<strong>Birds (Aves)</strong> are homeothermic (warm-blooded) vertebrates with unique skeletal modifications such as furcula and pygostyle."
+            },
+            {
+                id: 14,
+                pyqTag: "NEET 2016",
+                chapter: "Animal Kingdom",
+                category: "Non-Chordates",
+                question: "Water vascular system (ambulacral system) which helps in locomotion, capture, and transport of food is found in:",
+                options: ["Echinodermata", "Porifera", "Coelenterata", "Hemichordata"],
+                correct: 0,
+                explanation: "The <strong>Water Vascular System</strong> is a distinctive feature of Echinoderms (starfish, sea urchins). (Do not confuse with Water Canal System of Porifera)."
+            },
+            {
+                id: 15,
+                pyqTag: "NEET 2023",
+                chapter: "Animal Kingdom",
+                category: "Birds & Mammals",
+                question: "Which of the following is an egg-laying (oviparous) mammal?",
+                options: ["Ornithorhynchus (Platypus)", "Macropus (Kangaroo)", "Pteropus (Flying fox)", "Balaenoptera (Blue whale)"],
+                correct: 0,
+                explanation: "<strong><i>Ornithorhynchus</i> (Duck-billed Platypus)</strong> is a monotreme, an egg-laying mammal."
+            },
+            {
+                id: 16,
+                pyqTag: "NEET 2018",
+                chapter: "Animal Kingdom",
+                category: "Non-Chordates",
+                question: "Which of the following parasitic flatworms absorbs nutrients directly through its body surface from the host?",
+                options: ["Taenia (Tapeworm)", "Fasciola (Liver fluke)", "Ascaris", "Planaria"],
+                correct: 0,
+                explanation: "<strong><i>Taenia</i> (Tapeworm)</strong> lacks an alimentary canal and absorbs nutrients directly through its tegument/body surface from host intestine."
+            },
+            {
+                id: 17,
+                pyqTag: "NEET 2021",
+                chapter: "Animal Kingdom",
+                category: "Basis of Classification",
+                question: "Animals having true coelom (eucoelomates) are characterized by a body cavity lined by:",
+                options: ["Mesoderm on both sides", "Ectoderm only", "Endoderm only", "Chitinous membrane"],
+                correct: 0,
+                explanation: "A true coelom is a fluid-filled cavity completely lined by <strong>mesoderm</strong> (parietal and visceral layers)."
+            },
+            {
+                id: 18,
+                pyqTag: "NEET 2017",
+                chapter: "Animal Kingdom",
+                category: "Non-Chordates",
+                question: "Body of Hemichordates is divided into:",
+                options: ["Proboscis, Collar and Trunk", "Head, Thorax and Abdomen", "Cephalothorax and Abdomen", "Head, Visceral hump and Foot"],
+                correct: 0,
+                explanation: "Hemichordates have a cylindrical body composed of an anterior <strong>Proboscis</strong>, a middle <strong>Collar</strong>, and a long <strong>Trunk</strong>."
+            },
+            {
+                id: 19,
+                pyqTag: "NEET 2022",
+                chapter: "Animal Kingdom",
+                category: "Reptiles & Amphibians",
+                question: "Which reptile has a 4-chambered heart unlike all other 3-chambered reptiles?",
+                options: ["Crocodilus (Crocodile)", "Chelone (Turtle)", "Calotes (Garden lizard)", "Vipera (Viper)"],
+                correct: 0,
+                explanation: "Reptiles generally have a 3-chambered heart, but <strong>Crocodiles, Alligators, and Gharials</strong> possess a complete 4-chambered heart."
+            },
+            {
+                id: 20,
+                pyqTag: "NEET 2019",
+                chapter: "Animal Kingdom",
+                category: "Chordates & Fishes",
+                question: "Notochord persists throughout life in which chordate subphylum?",
+                options: ["Cephalochordata (e.g., Branchiostoma)", "Urochordata (e.g., Ascidia)", "Vertebrata", "Cyclostomata"],
+                correct: 0,
+                explanation: "In <strong>Cephalochordata</strong>, notochord extends from head to tail region and persists throughout life."
+            },
+            {
+                id: 21,
+                pyqTag: "NEET 2020 Phase 2",
+                chapter: "Animal Kingdom",
+                category: "Non-Chordates",
+                question: "Comb plates containing 8 rows of ciliated structures in Ctenophores function in:",
+                options: ["Locomotion", "Digestion", "Excretion", "Reproduction"],
+                correct: 0,
+                explanation: "The body of ctenophores bears eight external rows of ciliated comb plates, which help in <strong>locomotion</strong>."
+            },
+            {
+                id: 22,
+                pyqTag: "NEET 2016",
+                chapter: "Animal Kingdom",
+                category: "Non-Chordates",
+                question: "Closed circulatory system and metameric segmentation are simultaneously present in:",
+                options: ["Annelida (e.g., Earthworm, Nereis)", "Arthropoda", "Mollusca", "Aschelminthes"],
+                correct: 0,
+                explanation: "<strong>Annelida</strong> is characterized by metameric segmentation and a closed circulatory system."
+            },
+            {
+                id: 23,
+                pyqTag: "NEET 2023",
+                chapter: "Animal Kingdom",
+                category: "Chordates & Fishes",
+                question: "In Urochordata (Tunicata), notochord is present:",
+                options: ["Only in larval tail", "From head to tail throughout life", "Only in adult body", "Absent in all stages"],
+                correct: 0,
+                explanation: "In <strong>Urochordata</strong> (e.g., <i>Ascidia, Salpa, Doliolum</i>), notochord is present only in the tail of retrogressively metamorphosing larva."
+            },
+            {
+                id: 24,
+                pyqTag: "NEET 2018",
+                chapter: "Animal Kingdom",
+                category: "Non-Chordates",
+                question: "Venomous sea anemone (<i>Adamsia</i>) living on shell of hermit crab shows:",
+                options: ["Commensalism / Mutualism", "Parasitism", "Amensalism", "Predation"],
+                correct: 0,
+                explanation: "<i>Adamsia</i> and hermit crab exhibit a symbiotic relationship where the crab gets protection via stinging tentacles and the anemone gets food scraps."
+            },
+            {
+                id: 25,
+                pyqTag: "NEET 2021",
+                chapter: "Animal Kingdom",
+                category: "Reptiles & Amphibians",
+                question: "Amphibians are characterized by:",
+                options: [
+                    "Moist skin without scales, tympanum representing ear, and 3-chambered heart",
+                    "Dry cornified skin with scales and 4-chambered heart",
+                    "Gills throughout adult life",
+                    "Exclusively viviparous reproduction"
+                ],
+                correct: 0,
+                explanation: "Amphibians have smooth moist skin without scales, a 3-chambered heart (2 auricles, 1 ventricle), and a tympanum representing the ear."
+            },
+
+            // --- NEURAL CONTROL & COORDINATION (25 Qs) ---
+            {
+                id: 26,
+                chapter: "Neural Control & Coordination",
+                pyqTag: "NEET 2023",
+                category: "Neuron & Impulse Transmission",
+                question: "During resting membrane potential of a neuron, which of the following conditions exists across the axolemma?",
+                options: [
+                    "Outer surface is positively charged and inner surface is negatively charged",
+                    "Outer surface is negatively charged and inner surface is positively charged",
+                    "Both surfaces are positively charged",
+                    "Both surfaces are neutral"
+                ],
+                correct: 0,
+                explanation: "At resting state, axolemma is more permeable to K+ and nearly impermeable to Na+. Na+/K+ pump pumps 3 Na+ out for 2 K+ in, making the <strong>outer surface positive and inner surface negative (-70 mV)</strong>."
+            },
+            {
+                id: 27,
+                pyqTag: "NEET 2022",
+                chapter: "Neural Control & Coordination",
+                category: "Neuron & Impulse Transmission",
+                question: "Action potential (depolarization) during nerve impulse conduction is primarily due to rapid influx of:",
+                options: ["Na+ ions", "K+ ions", "Ca2+ ions", "Cl- ions"],
+                correct: 0,
+                explanation: "When a stimulus is applied, voltage-gated Na+ channels open, leading to rapid <strong>influx of Na+ ions</strong>, causing depolarization (polarity reversal from -70 mV to +30 mV)."
+            },
+            {
+                id: 28,
+                pyqTag: "NEET 2021",
+                chapter: "Neural Control & Coordination",
+                category: "Brain & CNS",
+                question: "Which part of the human brain controls urge for eating, drinking (thirst), and body temperature regulation?",
+                options: ["Hypothalamus", "Cerebellum", "Thalamus", "Medulla oblongata"],
+                correct: 0,
+                explanation: "The <strong>Hypothalamus</strong> contains centers for controlling body temperature, urge for eating (hunger), and drinking (thirst), and secretes hypothalamic hormones."
+            },
+            {
+                id: 29,
+                pyqTag: "NEET 2020",
+                chapter: "Neural Control & Coordination",
+                category: "Brain & CNS",
+                question: "Corpus callosum is a tract of nerve fibers connecting:",
+                options: ["Left and right cerebral hemispheres", "Cerebrum and Cerebellum", "Pons and Medulla", "Two optic lobes"],
+                correct: 0,
+                explanation: "The <strong>Corpus Callosum</strong> is a prominent band of myelinated nerve fibers connecting the left and right cerebral hemispheres in mammals."
+            },
+            {
+                id: 30,
+                pyqTag: "NEET 2019",
+                chapter: "Neural Control & Coordination",
+                category: "Sense Organs (Eye)",
+                question: "Fovea centralis in human eye is the place of highest visual acuity because it contains:",
+                options: ["Only densely packed cones", "Only rods", "Equal rods and cones", "Optic nerve exits here"],
+                correct: 0,
+                explanation: "The <strong>Fovea</strong> is a thinned-out portion of the retina where <strong>only cones are densely packed</strong>, providing maximum visual resolution."
+            },
+            {
+                id: 31,
+                pyqTag: "NEET 2020 Phase 2",
+                chapter: "Neural Control & Coordination",
+                category: "Sense Organs (Ear)",
+                question: "Organ of Corti, the true organ of hearing in human ear, rests upon which membrane?",
+                options: ["Basilar membrane", "Reissner's membrane", "Tectorial membrane", "Tympanic membrane"],
+                correct: 0,
+                explanation: "The <strong>Organ of Corti</strong> is located on the <strong>Basilar membrane</strong> inside the cochlear duct and contains hair cells acting as auditory receptors."
+            },
+            {
+                id: 32,
+                pyqTag: "NEET 2018",
+                chapter: "Neural Control & Coordination",
+                category: "Brain & CNS",
+                question: "The center for regulation of cardiovascular reflexes and respiration is located in:",
+                options: ["Medulla oblongata", "Cerebellum", "Hypothalamus", "Midbrain"],
+                correct: 0,
+                explanation: "The <strong>Medulla oblongata</strong> contains vital centers for respiratory rhythm, cardiovascular reflexes, and gastric secretions."
+            },
+            {
+                id: 33,
+                pyqTag: "NEET 2017",
+                chapter: "Neural Control & Coordination",
+                category: "Synapses & Reflex Arc",
+                question: "Chemical transmission of nerve impulse across a synaptic cleft involves release of neurotransmitter triggered by entry of:",
+                options: ["Ca2+ ions into presynaptic terminal", "Na+ ions into postsynaptic cell", "K+ ions out of presynaptic cell", "Mg2+ ions"],
+                correct: 0,
+                explanation: "Action potential reaching presynaptic terminal opens voltage-gated Ca2+ channels. Influx of <strong>Ca2+ ions</strong> causes synaptic vesicles to fuse with membrane and release neurotransmitters (e.g., Acetylcholine)."
+            },
+            {
+                id: 34,
+                pyqTag: "NEET 2023",
+                chapter: "Neural Control & Coordination",
+                category: "Neuron & Impulse Transmission",
+                question: "Nissl's granules found in cyton and dendrites of neurons are composed of:",
+                options: ["Rough Endoplasmic Reticulum and Ribosomes", "Golgi apparatus and Lysosomes", "Microtubules", "DNA and Histones"],
+                correct: 0,
+                explanation: "<strong>Nissl's granules</strong> are dense granular structures of <strong>Rough Endoplasmic Reticulum (RER) and free ribosomes</strong> involved in protein synthesis in neurons."
+            },
+            {
+                id: 35,
+                pyqTag: "NEET 2021",
+                chapter: "Neural Control & Coordination",
+                category: "Sense Organs (Ear)",
+                question: "Which part of human internal ear is responsible for maintaining dynamic balance and posture of the body?",
+                options: ["Semicircular canals (Crista ampullaris)", "Cochlea", "Organ of Corti", "Eustachian tube"],
+                correct: 0,
+                explanation: "The <strong>Crista ampullaris</strong> located in the ampulla of <strong>semicircular canals</strong> is responsible for dynamic equilibrium and posture during head rotation."
+            },
+            {
+                id: 36,
+                pyqTag: "NEET 2022",
+                chapter: "Neural Control & Coordination",
+                category: "Brain & CNS",
+                question: "Cerebellum is primarily associated with:",
+                options: [
+                    "Coordinating voluntary muscular movements and body equilibrium",
+                    "Control of hunger and thirst",
+                    "Memory and intelligence",
+                    "Visual processing"
+                ],
+                correct: 0,
+                explanation: "The <strong>Cerebellum</strong> has a convoluted surface providing extra space for neurons to coordinate voluntary muscular activities and posture."
+            },
+            {
+                id: 37,
+                pyqTag: "NEET 2016",
+                chapter: "Neural Control & Coordination",
+                category: "Sense Organs (Eye)",
+                question: "Photosensitive pigment Rhodopsin in human eye is composed of:",
+                options: ["Retinal (aldehyde of Vitamin A) and Opsins (protein)", "Retinol and Opsins", "Riboflavin and Protein", "Carotene and Globulin"],
+                correct: 0,
+                explanation: "Rhodopsin (visual purple) consists of <strong>Retinal</strong> (an aldehyde of Vitamin A) bound to the protein <strong>Opsin</strong>."
+            },
+            {
+                id: 38,
+                pyqTag: "NEET 2020",
+                chapter: "Neural Control & Coordination",
+                category: "Neuron & Impulse Transmission",
+                question: "Myelin sheath around axons in Central Nervous System (CNS) is formed by:",
+                options: ["Oligodendrocytes", "Schwann cells", "Astrocytes", "Microglia"],
+                correct: 0,
+                explanation: "In CNS, myelin sheath is formed by <strong>Oligodendrocytes</strong>, whereas in Peripheral Nervous System (PNS), myelin sheath is formed by <strong>Schwann cells</strong>."
+            },
+            {
+                id: 39,
+                pyqTag: "NEET 2019",
+                chapter: "Neural Control & Coordination",
+                category: "Brain & CNS",
+                question: "Limbic system along with Hypothalamus is involved in regulation of:",
+                options: [
+                    "Sexual behavior, emotional reactions (fear, excitement), and motivation",
+                    "Body balance",
+                    "Reflex action of knee jerk",
+                    "Hearing pitch"
+                ],
+                correct: 0,
+                explanation: "The inner parts of cerebral hemispheres and associated deep structures (amygdala, hippocampus) form the <strong>Limbic System</strong>, regulating emotions, motivation, and sexual behavior."
+            },
+            {
+                id: 40,
+                pyqTag: "NEET 2018",
+                chapter: "Neural Control & Coordination",
+                category: "Sense Organs (Ear)",
+                question: "Eustachian tube connects:",
+                options: ["Middle ear cavity with Pharynx", "External ear with Tympanic membrane", "Cochlea with Vestibule", "Internal ear with Cranial cavity"],
+                correct: 0,
+                explanation: "The <strong>Eustachian tube</strong> connects the middle ear cavity with the pharynx to equalize air pressure on both sides of the eardrum."
+            },
+            {
+                id: 41,
+                pyqTag: "NEET 2017",
+                chapter: "Neural Control & Coordination",
+                category: "Synapses & Reflex Arc",
+                question: "Which of the following is an inhibitory neurotransmitter?",
+                options: ["GABA (Gamma-Aminobutyric Acid)", "Acetylcholine", "Norepinephrine", "Glutamate"],
+                correct: 0,
+                explanation: "<strong>GABA</strong> opens Cl- channels causing hyperpolarization (-90 mV) of postsynaptic membrane, acting as a major inhibitory neurotransmitter."
+            },
+            {
+                id: 42,
+                pyqTag: "NEET 2021",
+                chapter: "Neural Control & Coordination",
+                category: "Sense Organs (Eye)",
+                question: "A transparent crystalline lens in the human eye is held in place by:",
+                options: ["Ligaments attached to Ciliary Body", "Cornea", "Iris muscles", "Optic nerve"],
+                correct: 0,
+                explanation: "The eye lens is held in position behind the iris by suspensory <strong>ligaments attached to the ciliary body</strong>."
+            },
+            {
+                id: 43,
+                pyqTag: "NEET 2016",
+                chapter: "Neural Control & Coordination",
+                category: "Brain & CNS",
+                question: "Corpora quadrigemina are present in which part of the human brain?",
+                options: ["Dorsal portion of Midbrain", "Forebrain", "Hindbrain", "Pons varolii"],
+                correct: 0,
+                explanation: "The dorsal portion of the <strong>Midbrain</strong> consists of four round swellings (lobes) called <strong>Corpora Quadrigemina</strong> (superior & inferior colliculi)."
+            },
+            {
+                id: 44,
+                pyqTag: "NEET 2023",
+                chapter: "Neural Control & Coordination",
+                category: "Neuron & Impulse Transmission",
+                question: "Gaps between two adjacent myelin sheaths on an axon are called:",
+                options: ["Nodes of Ranvier", "Synaptic cleft", "Axon hillock", "Nissl granules"],
+                correct: 0,
+                explanation: "Gaps between adjacent myelin sheaths where axolemma is exposed are called <strong>Nodes of Ranvier</strong>, enabling saltatory conduction."
+            },
+            {
+                id: 45,
+                pyqTag: "NEET 2020 Phase 2",
+                chapter: "Neural Control & Coordination",
+                category: "Sense Organs (Ear)",
+                question: "Correct sequence of ear ossicles from tympanum to oval window is:",
+                options: ["Malleus -> Incus -> Stapes", "Stapes -> Incus -> Malleus", "Incus -> Malleus -> Stapes", "Malleus -> Stapes -> Incus"],
+                correct: 0,
+                explanation: "Ear ossicles in order from outer to inner ear: <strong>Malleus (hammer) &rarr; Incus (anvil) &rarr; Stapes (stirrup)</strong>. Memory tip: MIS."
+            },
+            {
+                id: 46,
+                pyqTag: "NEET 2019",
+                chapter: "Neural Control & Coordination",
+                category: "Sense Organs (Eye)",
+                question: "Point where optic nerve leaves the eyeball and retinal blood vessels enter without any photoreceptor cells is:",
+                options: ["Blind spot", "Fovea centralis", "Macula lutea", "Cornea"],
+                correct: 0,
+                explanation: "The <strong>Blind Spot</strong> is medial to and slightly above the posterior pole of eyeball where photoreceptor cells (rods and cones) are completely absent."
+            },
+            {
+                id: 47,
+                pyqTag: "NEET 2022",
+                chapter: "Neural Control & Coordination",
+                category: "Brain & CNS",
+                question: "Meninges layer present in direct contact with brain tissue is:",
+                options: ["Pia mater", "Arachnoid", "Dura mater", "Cornea"],
+                correct: 0,
+                explanation: "Cranial meninges from outside to inside: Dura mater (outermost) &rarr; Arachnoid (middle) &rarr; <strong>Pia mater (innermost in contact with brain)</strong>."
+            },
+            {
+                id: 48,
+                pyqTag: "NEET 2018",
+                chapter: "Neural Control & Coordination",
+                category: "Synapses & Reflex Arc",
+                question: "In Knee-jerk reflex, pathway of nerve impulse involves:",
+                options: [
+                    "Afferent neuron (sensory) -> Spinal cord -> Efferent neuron (motor) -> Muscle",
+                    "Brain -> Motor neuron -> Afferent neuron",
+                    "Autonomic ganglion only",
+                    "Effector -> Sensor -> Brain"
+                ],
+                correct: 0,
+                explanation: "Knee-jerk reflex is a monosynaptic reflex arc: Receptor &rarr; <strong>Afferent (sensory) neuron &rarr; Spinal Cord &rarr; Efferent (motor) neuron</strong> &rarr; Effector muscle."
+            },
+            {
+                id: 49,
+                pyqTag: "NEET 2021",
+                chapter: "Neural Control & Coordination",
+                category: "Neuron & Impulse Transmission",
+                question: "Sodium-Potassium pump operates by actively transporting:",
+                options: [
+                    "3 Na+ outwards for 2 K+ into the cell",
+                    "2 Na+ outwards for 3 K+ into the cell",
+                    "3 Na+ inwards for 2 K+ out of the cell",
+                    "1 Na+ outwards for 1 K+ inwards"
+                ],
+                correct: 0,
+                explanation: "The Na+/K+ ATPase pump uses 1 ATP to transport <strong>3 Na+ out of the neuron and 2 K+ into the neuron</strong> against concentration gradient."
+            },
+            {
+                id: 50,
+                pyqTag: "NEET 2020",
+                chapter: "Neural Control & Coordination",
+                category: "Sense Organs (Ear)",
+                question: "Macula of saccule and utricle contains otoliths (calcium carbonate crystals) responsible for sensing:",
+                options: ["Static balance and linear acceleration", "High frequency sound waves", "Head rotation", "Light intensity"],
+                correct: 0,
+                explanation: "The macula in the <strong>utricle and saccule</strong> contains otoliths and is the sensory organ for <strong>static equilibrium and linear acceleration</strong>."
+            }
+        ];
+
+        // PRAISE TEXTS
+        const praisePhrases = [
+            "Spot On, Future Ranker! 🩺",
+            "NCERT Masterstroke! 🌟",
+            "Neural Concept Cleared! 🧠",
+            "Perfect Animal Kingdom Logic! 🦁",
+            "Top Tier Accuracy! +4 Marks! 🎯",
+            "Superb Speed! 🚀",
+            "Future AIIMS Doctor Mindset! ✨"
+        ];
+
+        // STATE MANAGERS
+        let currentIndex = 0;
+        let userAnswers = new Array(quizData.length).fill(null);
+        let bookmarked = new Array(quizData.length).fill(false);
+        let questionTimeSpent = new Array(quizData.length).fill(0);
+        let overallTimeInSeconds = 0;
+        
+        let overallTimerInterval = null;
+        let questionTimerInterval = null;
+        let isQuizSubmitted = false;
+
+        // CHART INSTANCES
+        let barChartInstance = null;
+        let donutChartInstance = null;
+
+        window.onload = function() {
+            renderQuestionPalette();
+            loadQuestion(0);
+            startOverallTimer();
+            startQuestionTimer();
+        };
+
+        // PALETTE GENERATOR
+        function renderQuestionPalette() {
+            const grid = document.getElementById('questionGrid');
+            grid.innerHTML = '';
+            
+            quizData.forEach((q, idx) => {
+                const btn = document.createElement('button');
+                btn.id = `palette-btn-${idx}`;
+                btn.onclick = () => jumpToQuestion(idx);
+                btn.className = getPaletteBtnClass(idx);
+                btn.innerText = idx + 1;
+                grid.appendChild(btn);
+            });
+
+            updateProgressStats();
+        }
+
+        function getPaletteBtnClass(idx) {
+            let base = "w-9 h-9 sm:w-10 sm:h-10 text-xs sm:text-sm font-bold rounded-xl flex items-center justify-center transition border relative ";
+            if (idx === currentIndex) {
+                return base + "bg-indigo-600 text-white border-indigo-400 ring-2 ring-indigo-400/50 scale-105";
+            }
+            if (userAnswers[idx] !== null) {
+                const isCorrect = userAnswers[idx] === quizData[idx].correct;
+                if (isCorrect) {
+                    return base + "bg-emerald-500/20 text-emerald-400 border-emerald-500/50";
+                } else {
+                    return base + "bg-rose-500/20 text-rose-400 border-rose-500/50";
+                }
+            }
+            return base + "bg-slate-800/80 text-slate-400 border-slate-700/60 hover:bg-slate-700";
+        }
+
+        function updatePaletteStyles() {
+            quizData.forEach((_, idx) => {
+                const btn = document.getElementById(`palette-btn-${idx}`);
+                if (btn) btn.className = getPaletteBtnClass(idx);
+            });
+            updateProgressStats();
+        }
+
+        function updateProgressStats() {
+            const answeredCount = userAnswers.filter(a => a !== null).length;
+            document.getElementById('paletteProgress').innerText = `${answeredCount}/50 Answered`;
+            document.getElementById('quizProgressBar').style.width = `${(answeredCount / 50) * 100}%`;
+        }
+
+        // QUESTION DISPLAY
+        function loadQuestion(index) {
+            clearInterval(questionTimerInterval);
+            
+            currentIndex = index;
+            const q = quizData[index];
+
+            document.getElementById('qIndexBadge').innerText = `Q${index + 1}`;
+            document.getElementById('currentQNum').innerText = index + 1;
+            document.getElementById('chapterBadge').innerText = q.chapter;
+            document.getElementById('questionCategory').innerText = q.category;
+            document.getElementById('pyqTag').innerText = q.pyqTag;
+            document.getElementById('questionText').innerHTML = q.question;
+
+            // Bookmark Icon update
+            const bkIcon = document.getElementById('bookmarkIcon');
+            if (bookmarked[index]) {
+                bkIcon.className = "fa-solid fa-bookmark text-amber-400";
+            } else {
+                bkIcon.className = "fa-regular fa-bookmark text-slate-400";
+            }
+
+            // Options
+            const optionsGroup = document.getElementById('optionsGroup');
+            optionsGroup.innerHTML = '';
+
+            const isAnswered = userAnswers[index] !== null;
+            const selectedOpt = userAnswers[index];
+
+            q.options.forEach((optText, optIdx) => {
+                const optBtn = document.createElement('button');
+                optBtn.className = getOptionStyle(index, optIdx);
+                optBtn.disabled = isAnswered;
+
+                const char = String.fromCharCode(65 + optIdx);
+                
+                let iconMarkup = '';
+                if (isAnswered) {
+                    if (optIdx === q.correct) {
+                        iconMarkup = `<i class="fa-solid fa-circle-check text-emerald-400 text-lg"></i>`;
+                    } else if (optIdx === selectedOpt && selectedOpt !== q.correct) {
+                        iconMarkup = `<i class="fa-solid fa-circle-xmark text-rose-400 text-lg"></i>`;
+                    }
+                }
+
+                optBtn.innerHTML = `
+                    <div class="flex items-center gap-3 text-left w-full">
+                        <span class="w-7 h-7 rounded-lg bg-slate-800 border border-slate-700 text-slate-300 flex items-center justify-center font-bold text-xs flex-shrink-0">
+                            ${char}
+                        </span>
+                        <span class="text-sm sm:text-base text-slate-200 font-medium flex-grow">${optText}</span>
+                        ${iconMarkup}
+                    </div>
+                `;
+
+                optBtn.onclick = () => selectOption(optIdx);
+                optionsGroup.appendChild(optBtn);
+            });
+
+            // Solution panel
+            const explanationBox = document.getElementById('explanationBox');
+            const explanationText = document.getElementById('explanationText');
+
+            if (isAnswered) {
+                explanationText.innerHTML = q.explanation;
+                explanationBox.classList.remove('hidden');
+            } else {
+                explanationBox.classList.add('hidden');
+            }
+
+            document.getElementById('prevBtn').disabled = currentIndex === 0;
+            document.getElementById('nextBtn').disabled = currentIndex === quizData.length - 1;
+
+            updatePaletteStyles();
+            startQuestionTimer();
+        }
+
+        function getOptionStyle(qIdx, optIdx) {
+            const q = quizData[qIdx];
+            const answeredOpt = userAnswers[qIdx];
+
+            let base = "w-full p-4 rounded-xl border text-left transition-all duration-200 shadow-md flex items-center justify-between ";
+
+            if (answeredOpt === null) {
+                return base + "bg-slate-800/60 border-slate-700/80 hover:bg-slate-700/70 hover:border-indigo-500/50 text-slate-200 cursor-pointer";
+            }
+
+            if (optIdx === q.correct) {
+                return base + "bg-emerald-950/70 border-emerald-500 text-emerald-200 font-semibold ring-2 ring-emerald-500/30 animate-pop-in";
+            }
+            if (optIdx === answeredOpt && answeredOpt !== q.correct) {
+                return base + "bg-rose-950/70 border-rose-500 text-rose-200 ring-2 ring-rose-500/30 animate-shake";
+            }
+
+            return base + "bg-slate-900/40 border-slate-800 text-slate-500 opacity-60 cursor-not-allowed";
+        }
+
+        function selectOption(optIdx) {
+            if (userAnswers[currentIndex] !== null || isQuizSubmitted) return;
+
+            userAnswers[currentIndex] = optIdx;
+
+            const isCorrect = optIdx === quizData[currentIndex].correct;
+
+            if (isCorrect) {
+                triggerSuccessAnimation();
+            }
+
+            loadQuestion(currentIndex);
+        }
+
+        function toggleBookmark() {
+            bookmarked[currentIndex] = !bookmarked[currentIndex];
+            loadQuestion(currentIndex);
+        }
+
+        // CONFETTI & MOTIVATION POPUP
+        function triggerSuccessAnimation() {
+            confetti({
+                particleCount: 65,
+                spread: 80,
+                origin: { y: 0.65 },
+                colors: ['#6366f1', '#a855f7', '#ec4899', '#10b981']
+            });
+
+            const toast = document.getElementById('praiseToast');
+            const praiseText = document.getElementById('praiseText');
+            praiseText.innerText = praisePhrases[Math.floor(Math.random() * praisePhrases.length)];
+            
+            toast.classList.add('active');
+            setTimeout(() => toast.classList.remove('active'), 1800);
+        }
+
+        // TIMERS
+        function startOverallTimer() {
+            overallTimerInterval = setInterval(() => {
+                overallTimeInSeconds++;
+                const hrs = Math.floor(overallTimeInSeconds / 3600).toString().padStart(2, '0');
+                const mins = Math.floor((overallTimeInSeconds % 3600) / 60).toString().padStart(2, '0');
+                const secs = (overallTimeInSeconds % 60).toString().padStart(2, '0');
+                document.getElementById('overallTimer').innerText = `${hrs}:${mins}:${secs}`;
+            }, 1000);
+        }
+
+        function startQuestionTimer() {
+            const timerEl = document.getElementById('questionTimer');
+            timerEl.innerText = `${questionTimeSpent[currentIndex]}s`;
+
+            questionTimerInterval = setInterval(() => {
+                questionTimeSpent[currentIndex]++;
+                timerEl.innerText = `${questionTimeSpent[currentIndex]}s`;
+            }, 1000);
+        }
+
+        function navigateQuestion(step) {
+            const nextIdx = currentIndex + step;
+            if (nextIdx >= 0 && nextIdx < quizData.length) {
+                loadQuestion(nextIdx);
+            }
+        }
+
+        function jumpToQuestion(idx) {
+            loadQuestion(idx);
+        }
+
+        // SUBMIT & DETAILED ANALYTICS
+        function confirmSubmitQuiz() {
+            const unanswered = userAnswers.filter(a => a === null).length;
+            let confirmMsg = "Are you sure you want to finish and submit the test?";
+            if (unanswered > 0) {
+                confirmMsg = `You have ${unanswered} unattempted question(s). Submit test anyway?`;
+            }
+
+            if (window.confirm(confirmMsg)) {
+                submitQuiz();
+            }
+        }
+
+        function submitQuiz() {
+            isQuizSubmitted = true;
+            clearInterval(overallTimerInterval);
+            clearInterval(questionTimerInterval);
+
+            document.getElementById('questionContainer').classList.add('hidden');
+            document.getElementById('sidebarPalette').classList.add('hidden');
+            document.getElementById('resultContainer').classList.remove('hidden');
+
+            let correctCount = 0;
+            let wrongCount = 0;
+            let unattemptedCount = 0;
+
+            let fastestSecs = 9999;
+            let fastestQ = -1;
+            let slowestSecs = -1;
+            let slowestQ = -1;
+
+            userAnswers.forEach((ans, idx) => {
+                const spent = questionTimeSpent[idx];
+                if (spent > 0) {
+                    if (spent < fastestSecs && ans === quizData[idx].correct) {
+                        fastestSecs = spent;
+                        fastestQ = idx + 1;
+                    }
+                    if (spent > slowestSecs) {
+                        slowestSecs = spent;
+                        slowestQ = idx + 1;
+                    }
+                }
+
+                if (ans === null) {
+                    unattemptedCount++;
+                } else if (ans === quizData[idx].correct) {
+                    correctCount++;
+                } else {
+                    wrongCount++;
+                }
+            });
+
+            const totalMarks = (correctCount * 4) - (wrongCount * 1);
+            const attemptedTotal = correctCount + wrongCount;
+            const accuracy = attemptedTotal > 0 ? Math.round((correctCount / attemptedTotal) * 100) : 0;
+
+            const hrs = Math.floor(overallTimeInSeconds / 3600).toString().padStart(2, '0');
+            const mins = Math.floor((overallTimeInSeconds % 3600) / 60).toString().padStart(2, '0');
+            const secs = (overallTimeInSeconds % 60).toString().padStart(2, '0');
+            const avgSecsPerQ = Math.round(overallTimeInSeconds / 50);
+
+            document.getElementById('resMarks').innerText = `${totalMarks} / 200`;
+            document.getElementById('resAccuracy').innerText = `${accuracy}%`;
+            document.getElementById('resCorrectRatio').innerText = `${correctCount} Correct / ${attemptedTotal} Attempted`;
+            document.getElementById('resTotalTime').innerText = `${hrs}:${mins}:${secs}`;
+            document.getElementById('resAvgTime').innerText = `${avgSecsPerQ}s`;
+
+            document.getElementById('fastestAns').innerText = fastestQ !== -1 ? `Q${fastestQ} (${fastestSecs}s)` : 'N/A';
+            document.getElementById('slowestAns').innerText = slowestQ !== -1 ? `Q${slowestQ} (${slowestSecs}s)` : 'N/A';
+
+            const verdictTitle = document.getElementById('finalVerdictTitle');
+            const verdictSub = document.getElementById('finalVerdictSub');
+
+            if (totalMarks >= 180) {
+                verdictTitle.innerText = "🏆 Outstanding Mastery! Top Ranker!";
+                verdictSub.innerText = "Exceptional performance in Animal Kingdom & Neural Control! Ready for NEET 2025/26!";
+            } else if (totalMarks >= 145) {
+                verdictTitle.innerText = "👍 Strong Concept Hold!";
+                verdictSub.innerText = "Solid score! Eliminate negative marking errors to hit full 200 marks.";
+            } else {
+                verdictTitle.innerText = "📖 NCERT Revision Needed!";
+                verdictSub.innerText = "Re-read Animal Kingdom phyla characteristics and Neural impulse transmission mechanisms.";
+            }
+
+            renderCharts(correctCount, wrongCount, unattemptedCount);
+            renderReviewGrid('all');
+
+            confetti({
+                particleCount: 120,
+                spread: 100,
+                origin: { y: 0.5 }
+            });
+        }
+
+        // CHART.JS RENDERER
+        function renderCharts(correct, wrong, unattempted) {
+            // Categories calculation
+            const categories = {};
+            quizData.forEach((q, idx) => {
+                if (!categories[q.category]) {
+                    categories[q.category] = { total: 0, correct: 0 };
+                }
+                categories[q.category].total++;
+                if (userAnswers[idx] === q.correct) {
+                    categories[q.category].correct++;
+                }
+            });
+
+            const catLabels = Object.keys(categories);
+            const catAccuracies = catLabels.map(cat => {
+                const d = categories[cat];
+                return Math.round((d.correct / d.total) * 100);
+            });
+
+            // Subtopic Bar Chart
+            const barCtx = document.getElementById('topicBarChart').getContext('2d');
+            barChartInstance = new Chart(barCtx, {
+                type: 'bar',
+                data: {
+                    labels: catLabels,
+                    datasets: [{
+                        label: 'Accuracy (%)',
+                        data: catAccuracies,
+                        backgroundColor: 'rgba(99, 102, 241, 0.65)',
+                        borderColor: '#6366f1',
+                        borderWidth: 1.5,
+                        borderRadius: 8
+                    }]
+                },
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: {
+                            beginAtZero: true,
+                            max: 100,
+                            ticks: { color: '#94a3b8' },
+                            grid: { color: 'rgba(255,255,255,0.05)' }
+                        },
+                        y: {
+                            ticks: { color: '#94a3b8', font: { size: 10 } },
+                            grid: { display: false }
+                        }
+                    },
+                    plugins: { legend: { display: false } }
+                }
+            });
+
+            // Score Donut Chart
+            const donutCtx = document.getElementById('scoreDonutChart').getContext('2d');
+            donutChartInstance = new Chart(donutCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Correct (+4)', 'Incorrect (-1)', 'Unattempted (0)'],
+                    datasets: [{
+                        data: [correct, wrong, unattempted],
+                        backgroundColor: ['#10b981', '#f43f5e', '#475569'],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: { color: '#cbd5e1', font: { size: 11 } }
+                        }
+                    }
+                }
+            });
+        }
+
+        // FILTERED REVIEW GRID
+        function filterReviewGrid(filter) {
+            const grid = document.getElementById('reviewGrid');
+            grid.innerHTML = '';
+
+            quizData.forEach((q, idx) => {
+                const ans = userAnswers[idx];
+                const isCorrect = ans === q.correct;
+                const isAttempted = ans !== null;
+
+                if (filter === 'correct' && !isCorrect) return;
+                if (filter === 'incorrect' && (isCorrect || !isAttempted)) return;
+
+                let colorClass = "bg-slate-800 text-slate-500 border-slate-700";
+                let statusIcon = "—";
+
+                if (isAttempted) {
+                    if (isCorrect) {
+                        colorClass = "bg-emerald-950/80 text-emerald-400 border-emerald-500/50";
+                        statusIcon = "✓";
+                    } else {
+                        colorClass = "bg-rose-950/80 text-rose-400 border-rose-500/50";
+                        statusIcon = "✕";
+                    }
+                }
+
+                const item = document.createElement('div');
+                item.className = `p-2 rounded-lg border text-center font-mono font-bold flex flex-col items-center justify-center cursor-pointer hover:opacity-80 transition ${colorClass}`;
+                item.innerHTML = `
+                    <span>Q${idx + 1}</span>
+                    <span class="text-xs">${statusIcon}</span>
+                `;
+                grid.appendChild(item);
+            });
+        }
+    </script>
+</body>
+</html>

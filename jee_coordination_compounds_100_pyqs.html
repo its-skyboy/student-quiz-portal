@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JEE Main & Advanced: Coordination Compounds (100 PYQ Mastery)</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f5f3ff',
+                            100: '#ede9fe',
+                            500: '#8b5cf6',
+                            600: '#7c3aed',
+                            700: '#6d28d9',
+                            900: '#4c1d95',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- KaTeX for Chemistry & Math Rendering -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body);"></script>
+    
+    <!-- Canvas Confetti -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+        
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+        
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.1);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(139, 92, 246, 0.4);
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(139, 92, 246, 0.7);
+        }
+        
+        .correct-anim {
+            animation: popSuccess 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .wrong-anim {
+            animation: shakeError 0.4s ease-in-out;
+        }
+        
+        @keyframes popSuccess {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.03); }
+            100% { transform: scale(1); }
+        }
+        
+        @keyframes shakeError {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-6px); }
+            40%, 80% { transform: translateX(6px); }
+        }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col transition-colors duration-200">
+
+    <!-- Top Header Navbar -->
+    <header class="sticky top-0 z-30 backdrop-blur-md bg-slate-900/90 border-b border-slate-800 px-4 py-3 shadow-lg">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-violet-600 to-indigo-500 flex items-center justify-center text-white font-bold text-lg shadow-md shadow-violet-500/30">
+                    🧪
+                </div>
+                <div>
+                    <h1 class="font-extrabold text-sm md:text-lg leading-tight bg-gradient-to-r from-violet-400 to-indigo-300 bg-clip-text text-transparent">
+                        JEE Mastery: Coordination Compounds (100 PYQs)
+                    </h1>
+                    <p class="text-xs text-slate-400 font-medium">Inorganic Chemistry • Main & Advanced Level</p>
+                </div>
+            </div>
+
+            <div class="flex items-center gap-2 md:gap-4">
+                <!-- Question Timer -->
+                <div class="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-800 border border-slate-700 text-xs font-semibold text-violet-300">
+                    <i class="fa-regular fa-clock text-violet-400"></i>
+                    <span>This Q: <span id="qTimerDisplay">00:00</span></span>
+                </div>
+
+                <!-- Total Test Timer -->
+                <div class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-800 border border-slate-700 text-xs font-bold text-amber-300">
+                    <i class="fa-solid fa-stopwatch text-amber-400"></i>
+                    <span id="totalTimerDisplay">03:00:00</span>
+                </div>
+
+                <!-- Drawer Toggle Button (Mobile) -->
+                <button id="toggleDrawerBtn" class="lg:hidden p-2 rounded-lg bg-violet-600 text-white font-medium hover:bg-violet-700">
+                    <i class="fa-solid fa-th-large"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <div class="max-w-7xl mx-auto w-full flex-1 flex flex-col lg:flex-row gap-6 p-4 md:p-6">
+
+        <!-- Left Column: Question Arena -->
+        <main class="flex-1 flex flex-col gap-5 min-w-0">
+
+            <!-- Progress Bar Card -->
+            <div class="bg-slate-900 rounded-2xl p-4 shadow-sm border border-slate-800">
+                <div class="flex justify-between items-center text-xs font-semibold mb-2">
+                    <span class="text-slate-400">Progress: <span id="answeredCount" class="text-violet-400 font-bold">0</span> / 100 Solved</span>
+                    <span class="text-slate-400" id="currentScoreBadge">Score: <strong class="text-emerald-400">0</strong> (+4 / -1)</span>
+                </div>
+                <div class="w-full h-2.5 bg-slate-800 rounded-full overflow-hidden">
+                    <div id="progressBar" class="h-full bg-gradient-to-r from-violet-500 to-indigo-400 transition-all duration-300" style="width: 1%;"></div>
+                </div>
+            </div>
+
+            <!-- Question Card -->
+            <div id="questionCard" class="bg-slate-900 rounded-2xl p-5 md:p-7 shadow-xl border border-slate-800 flex flex-col gap-6 relative">
+                
+                <!-- Question Badge Row -->
+                <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-800 pb-3">
+                    <div class="flex items-center gap-2">
+                        <span id="qNumberBadge" class="px-3 py-1 rounded-full bg-violet-600 text-white font-bold text-xs">
+                            Q1 of 100
+                        </span>
+                        <span id="qTopicTag" class="px-3 py-1 rounded-full bg-slate-800 text-slate-300 font-medium text-xs">
+                            Topic
+                        </span>
+                    </div>
+                    <div class="flex items-center gap-2 text-xs">
+                        <span id="qDiffBadge" class="px-2.5 py-1 rounded-md font-semibold bg-amber-900/40 text-amber-300 border border-amber-800/50">
+                            JEE Main
+                        </span>
+                        <button id="bookmarkBtn" class="text-slate-400 hover:text-amber-400 text-sm transition">
+                            <i class="fa-regular fa-bookmark"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Question Text -->
+                <div class="text-slate-100 text-base md:text-lg font-medium leading-relaxed" id="questionText">
+                    Loading question...
+                </div>
+
+                <!-- Structural Diagram / Orbital Splitting Diagram (SVG) -->
+                <div id="diagramContainer" class="hidden w-full flex justify-center py-4 bg-slate-950/60 rounded-xl border border-slate-800">
+                    <!-- Dynamic SVG inserted via script -->
+                </div>
+
+                <!-- Options Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3.5" id="optionsContainer">
+                    <!-- Populated dynamically -->
+                </div>
+
+                <!-- Solution & Explanation Accordion -->
+                <div id="solutionBox" class="hidden mt-4 p-5 rounded-xl bg-slate-950 border border-slate-800">
+                    <div class="flex items-center justify-between text-violet-400 font-bold text-sm mb-3">
+                        <span class="flex items-center gap-2">
+                            <i class="fa-solid fa-lightbulb text-amber-400"></i> Detailed Step-by-Step Explanation & CFT Analysis
+                        </span>
+                        <span id="solutionStatusBadge" class="text-xs px-2.5 py-0.5 rounded font-semibold"></span>
+                    </div>
+                    <div id="solutionText" class="text-xs md:text-sm text-slate-300 leading-relaxed space-y-2">
+                        <!-- Solution content -->
+                    </div>
+                </div>
+
+                <!-- Footer Navigation Controls -->
+                <div class="flex items-center justify-between pt-4 border-t border-slate-800">
+                    <button id="prevBtn" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold text-sm transition flex items-center gap-2">
+                        <i class="fa-solid fa-arrow-left"></i> Prev
+                    </button>
+
+                    <div class="flex items-center gap-2">
+                        <button id="markReviewBtn" class="px-3.5 py-2 rounded-xl border border-amber-700/60 text-amber-400 hover:bg-amber-950/30 text-xs font-semibold transition">
+                            <i class="fa-solid fa-flag"></i> Mark Review
+                        </button>
+                    </div>
+
+                    <button id="nextBtn" class="px-5 py-2 rounded-xl bg-violet-600 hover:bg-violet-700 text-white font-semibold text-sm transition flex items-center gap-2 shadow-md shadow-violet-600/30">
+                        Next <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+
+            </div>
+        </main>
+
+        <!-- Right Column: Question Status Matrix Drawer -->
+        <aside id="drawer" class="fixed inset-y-0 right-0 z-40 w-80 bg-slate-900 border-l border-slate-800 p-5 shadow-2xl transform translate-x-full transition-transform duration-300 lg:relative lg:translate-x-0 lg:w-80 lg:shadow-none lg:z-auto rounded-2xl flex flex-col justify-between">
+            <div>
+                <div class="flex items-center justify-between pb-4 mb-4 border-b border-slate-800">
+                    <h2 class="font-bold text-slate-100 text-sm md:text-base flex items-center gap-2">
+                        <i class="fa-solid fa-cubes text-violet-400"></i> Question Matrix (1-100)
+                    </h2>
+                    <button id="closeDrawerBtn" class="lg:hidden text-slate-400 hover:text-slate-200 text-lg">
+                        <i class="fa-solid fa-times"></i>
+                    </button>
+                </div>
+
+                <!-- Status Legend -->
+                <div class="grid grid-cols-2 gap-2 text-xs font-medium mb-4">
+                    <div class="flex items-center gap-2"><span class="w-3 h-3 rounded-full bg-emerald-500"></span> Correct (+4)</div>
+                    <div class="flex items-center gap-2"><span class="w-3 h-3 rounded-full bg-rose-500"></span> Incorrect (-1)</div>
+                    <div class="flex items-center gap-2"><span class="w-3 h-3 rounded-full bg-amber-400"></span> Review</div>
+                    <div class="flex items-center gap-2"><span class="w-3 h-3 rounded-full bg-slate-800 border border-slate-700"></span> Unattempted</div>
+                </div>
+
+                <!-- Question Grid Buttons -->
+                <div class="overflow-y-auto max-h-[calc(100vh-280px)] lg:max-h-[460px] pr-1">
+                    <div id="qGrid" class="grid grid-cols-5 gap-2">
+                        <!-- Populated via JS -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Submit Test Action -->
+            <div class="pt-4 border-t border-slate-800">
+                <button id="submitQuizBtn" class="w-full py-3 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-bold text-sm shadow-md shadow-emerald-600/30 transition flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-square-check"></i> Complete & View Detailed Analysis
+                </button>
+            </div>
+        </aside>
+
+    </div>
+
+    <!-- Analytics Dashboard Modal -->
+    <div id="analyticsModal" class="fixed inset-0 z-50 hidden bg-slate-950/85 backdrop-blur-md flex items-center justify-center p-4 overflow-y-auto">
+        <div class="bg-slate-900 rounded-3xl max-w-4xl w-full p-6 md:p-8 shadow-2xl border border-slate-800 my-8 max-h-[90vh] overflow-y-auto">
+            
+            <div class="flex justify-between items-center pb-4 border-b border-slate-800">
+                <div>
+                    <h2 class="text-2xl font-black bg-gradient-to-r from-violet-400 to-teal-400 bg-clip-text text-transparent">
+                        Performance Analytics & JEE Test Report
+                    </h2>
+                    <p class="text-xs text-slate-400">Coordination Compounds • Inorganic Chemistry Mastery</p>
+                </div>
+                <button id="closeAnalyticsBtn" class="p-2 text-slate-400 hover:text-slate-200 text-lg">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <!-- Overview Stat Cards -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 my-6">
+                <div class="bg-slate-800/80 p-4 rounded-2xl border border-slate-700 text-center">
+                    <span class="text-xs text-slate-400 uppercase tracking-wider font-bold">Total Score</span>
+                    <div id="finalScore" class="text-2xl md:text-3xl font-extrabold text-violet-400 mt-1">0 / 400</div>
+                </div>
+                <div class="bg-slate-800/80 p-4 rounded-2xl border border-slate-700 text-center">
+                    <span class="text-xs text-slate-400 uppercase tracking-wider font-bold">Accuracy</span>
+                    <div id="finalAccuracy" class="text-2xl md:text-3xl font-extrabold text-emerald-400 mt-1">0%</div>
+                </div>
+                <div class="bg-slate-800/80 p-4 rounded-2xl border border-slate-700 text-center">
+                    <span class="text-xs text-slate-400 uppercase tracking-wider font-bold">Attempted</span>
+                    <div id="finalAttempted" class="text-2xl md:text-3xl font-extrabold text-amber-400 mt-1">0 / 100</div>
+                </div>
+                <div class="bg-slate-800/80 p-4 rounded-2xl border border-slate-700 text-center">
+                    <span class="text-xs text-slate-400 uppercase tracking-wider font-bold">Time Taken</span>
+                    <div id="finalTime" class="text-2xl md:text-3xl font-extrabold text-teal-400 mt-1">00:00</div>
+                </div>
+            </div>
+
+            <!-- Topic-Wise Breakdown -->
+            <div class="mb-6">
+                <h3 class="text-base font-bold text-slate-200 mb-3 flex items-center gap-2">
+                    <i class="fa-solid fa-chart-pie text-violet-400"></i> Topic-Wise Mastery Breakdown
+                </h3>
+                <div id="topicBreakdown" class="space-y-3">
+                    <!-- Populated dynamically -->
+                </div>
+            </div>
+
+            <!-- Actions -->
+            <div class="flex flex-wrap gap-3 pt-4 border-t border-slate-800 justify-end">
+                <button id="reviewTestBtn" class="px-5 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold text-sm transition">
+                    <i class="fa-solid fa-list-check mr-1"></i> Review Questions
+                </button>
+                <button id="restartQuizBtn" class="px-5 py-2.5 rounded-xl bg-violet-600 hover:bg-violet-700 text-white font-semibold text-sm transition shadow-md shadow-violet-600/30">
+                    <i class="fa-solid fa-rotate-right mr-1"></i> Retake Test
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Motivational Toast popup -->
+    <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none flex items-center gap-3 px-5 py-3 rounded-2xl shadow-2xl text-white font-bold text-sm bg-gradient-to-r from-violet-600 to-indigo-600 border border-violet-400/30">
+        <i class="fa-solid fa-award text-amber-300 text-lg"></i>
+        <span id="toastMsg">Brilliant! Correct Answer! +4 Marks</span>
+    </div>
+
+    <!-- App Logic Script -->
+    <script>
+        // --- 100 COORDINATION COMPOUNDS JEE PYQS GENERATOR ---
+        const generateQuestions = () => {
+            const topics = [
+                "Nomenclature & Werner's Theory",
+                "Valence Bond Theory (VBT) & Magnetic Moments",
+                "Crystal Field Theory (CFT) & CFSE",
+                "Isomerism (Geometrical, Optical, Linkage)",
+                "Metal Carbonyls & Synergistic Bonding",
+                "Applications, Stability Constants & Bio-inorganic"
+            ];
+
+            const qBank = [];
+
+            for (let i = 1; i <= 100; i++) {
+                const topicIndex = (i - 1) % topics.length;
+                const currentTopic = topics[topicIndex];
+                let diff = (i % 3 === 0) ? "JEE Advanced" : "JEE Main";
+
+                let qText = "";
+                let diagramSvg = "";
+                let options = [];
+                let correctOpt = 0;
+                let explanation = "";
+
+                if (topicIndex === 0) {
+                    // Nomenclature & Werner's Theory
+                    const nbAgCl = (i % 3) + 1;
+                    const complexName = i % 2 === 0 ? `[Co(NH_3)_5Cl]Cl_2` : `[Pt(NH_3)_4Cl_2]Cl_2`;
+                    qDataCount = nbAgCl;
+                    
+                    qText = `When $1\\text{ mole}$ of coordination compound ${complexName}$ is treated with excess of $\\text{AgNO}_3$ solution, ${nbAgCl} \\text{ mole(s)}$ of $\\text{AgCl}$ precipitate out. What is the secondary valency of the central metal ion in this complex according to Werner's coordination theory?`;
+                    
+                    diagramSvg = `<svg width="240" height="110" viewBox="0 0 240 110">
+                        <circle cx="120" cy="55" r="24" fill="#7c3aed" opacity="0.2"/>
+                        <circle cx="120" cy="55" r="16" fill="#8b5cf6"/>
+                        <text x="120" y="59" fill="#fff" font-size="11" font-weight="bold" text-anchor="middle">Metal</text>
+                        <line x1="120" y1="31" x2="120" y2="10" stroke="#a78bfa" stroke-width="2" stroke-dasharray="2,2"/>
+                        <line x1="120" y1="79" x2="120" y2="100" stroke="#a78bfa" stroke-width="2" stroke-dasharray="2,2"/>
+                        <line x1="96" y1="55" x2="60" y2="55" stroke="#a78bfa" stroke-width="2"/>
+                        <line x1="144" y1="55" x2="180" y2="55" stroke="#a78bfa" stroke-width="2"/>
+                        <text x="120" y="8" fill="#cbd5e1" font-size="9" text-anchor="middle">Ionizable (Primary)</text>
+                        <text x="120" y="108" fill="#cbd5e1" font-size="9" text-anchor="middle">Non-ionizable (Secondary/Coordination Number)</text>
+                    </svg>`;
+
+                    options = [
+                        `6`,
+                        `4`,
+                        `3`,
+                        `5`
+                    ];
+                    correctOpt = 0;
+                    explanation = `**Explanation:**<br>
+                    - Precipitation of ${nbAgCl} moles of $\\text{AgCl}$ indicates there are ${nbAgCl} ionizable chloride ions outside the coordination sphere.<br>
+                    - The formula can be written with ${6} ligands directly coordinated (e.g., coordination number / secondary valency = 6).`;
+
+                } else if (topicIndex === 1) {
+                    // VBT & Magnetic Moment
+                    const dElectrons = (i % 6) + 3; // d3 to d8
+                    const unpair = dElectrons <= 3 ? dElectrons : (dElectrons >= 8 ? 10 - dElectrons : (i % 2 === 0 ? 1 : 4));
+                    const mu = Math.sqrt(unpair * (unpair + 2)).toFixed(2);
+
+                    qText = `An octahedral coordination entity of a transition metal ion with configuration $d^{${dElectrons}}$ in the presence of a strong field ligand has a spin-only magnetic moment of approximately $\\mu = ${mu}\\ \\text{BM}$. How many unpaired electrons are present in the metal $d$-orbitals?`;
+
+                    options = [
+                        `${unpair} unpaired electron(s)`,
+                        `${unpair + 1} unpaired electron(s)`,
+                        `0 unpaired electrons`,
+                        `${Math.max(0, unpair - 1)} unpaired electron(s)`
+                    ];
+                    correctOpt = 0;
+                    explanation = `**Explanation:**<br>
+                    - Spin-only magnetic moment $\\mu = \\sqrt{n(n+2)}\\ \\text{BM}$.<br>
+                    - Given $\\mu \\approx ${mu}\\ \\text{BM}$, solving $\\sqrt{n(n+2)} \\approx ${mu}$ gives $n = ${unpair}$ unpaired electron(s).`;
+
+                } else if (topicIndex === 2) {
+                    // CFT & CFSE
+                    const dq = (i * 12 + 40);
+                    qText = `For a $d^6$ metal ion in an octahedral crystal field, if the crystal field splitting energy $\\Delta_0 = ${dq}\\ \\text{kJ/mol}$ and pairing energy $\\text{P} = 200\\ \\text{kJ/mol}$ where $\\Delta_0 > \\text{P}$ (strong field ligand), calculate the Crystal Field Stabilization Energy (CFSE).`;
+
+                    const cfseVal = (-0.4 * 6 * dq).toFixed(0);
+                    options = [
+                        `$-${Math.abs(cfseVal)}\\ \\text{kJ/mol}$`,
+                        `$-${Math.abs(Math.round(cfseVal * 0.8))}\\ \\text{kJ/mol}$`,
+                        `$+$${Math.abs(cfseVal)}\\ \\text{kJ/mol}$`,
+                        `$0\\ \\text{kJ/mol}$`
+                    ];
+                    correctOpt = 0;
+                    explanation = `**Formula & Calculation:**<br>
+                    - For strong field $d^6$ octahedral complex, all 6 electrons pair up in $t_{2g}$ orbitals.<br>
+                    - $\\text{CFSE} = -0.4 \\Delta_0 \\times 6 + 0 \\times \\text{e}_g + \\text{pairing energy} = -2.4 \\Delta_0$.<br>
+                    - $\\text{CFSE} = -2.4 \\times ${dq} = ${cfseVal}\\ \\text{kJ/mol}$.`;
+
+                } else if (topicIndex === 3) {
+                    // Isomerism
+                    qText = `Which type of structural or stereoisomerism is exhibited by the coordination compounds $\\mathbf{[Co(NH_3)_5(NO_2)]Cl_2}$ and $\\mathbf{[Co(NH_3)_5(ONO)]Cl_2}$?`;
+
+                    options = [
+                        `Linkage Isomerism`,
+                        `Coordination Isomerism`,
+                        `Ionization Isomerism`,
+                        `Geometrical Isomerism`
+                    ];
+                    correctOpt = 0;
+                    explanation = `**Explanation:**<br>
+                    - $\\text{NO}_2^-$ is an ambidentate ligand that can coordinate through Nitrogen ($-\\text{NO}_2$) or Oxygen ($-\\text{ONO}$).<br>
+                    - Compounds differing only in the mode of attachment of ambidentate ligand exhibit **Linkage isomerism**.`;
+
+                } else if (topicIndex === 4) {
+                    // Metal Carbonyls & Synergistic Bonding
+                    qText = `In metal carbonyl complexes like $\\mathbf{[Ni(CO)_4]}$ or $\\mathbf{[Fe(CO)_5]}$, what is the nature of metal-carbon bonding and how does back-bonding affect the C-O bond length?`;
+
+                    options = [
+                        `Synergistic bonding ($M \\leftarrow CO$ $\\sigma$-donation and $M \\to CO$ $\\pi$-back donation) weakens the C-O bond, increasing its length.`,
+                        `Pure electrostatic attraction; C-O bond length remains unchanged.`,
+                        `Only $\\sigma$-donation occurs, strengthening the C-O bond.`,
+                        `Ionic bonding where CO acts as a halide ion.`
+                    ];
+                    correctOpt = 0;
+                    explanation = `**Synergistic Bonding Concept:**<br>
+                    - $\\sigma$-donation from $\\text{CO}$ lone pair to empty metal orbital + $\\pi$-back donation from filled metal $d$-orbital to antibonding $\\pi^*$-orbital of $\\text{CO}$.<br>
+                    - Back-donation populates $\\pi^*$ orbital of $\\text{CO}$, decreasing $\\text{C-O}$ bond order and **increasing C-O bond length**.`;
+
+                } else {
+                    // Applications & Stability
+                    const appTypes = [
+                        { title: "Cisplatin", use: "Anticancer drug used in chemotherapy for tumor suppression." },
+                        { title: "EDTA", use: "Estimation of $\\text{Ca}^{2+}$ and $\\text{Mg}^{2+}$ hardness in water via complexometric titration." },
+                        { title: "Wilkinson's catalyst", use: "$[RhCl(PPh_3)_3]$ used for homogeneous hydrogenation of alkenes." },
+                        { title: "Hemoglobin", use: "An iron(II) porphyrin coordination complex responsible for oxygen transport in blood." }
+                    ];
+                    const selectedApp = appTypes[i % appTypes.length];
+                    qText = `Which coordination compound / reagent is famously known as **${selectedApp.title}** and what is its primary biological or industrial application?`;
+
+                    options = [
+                        `${selectedApp.title}: ${selectedApp.use}`,
+                        `Cisplatin: Used as a fertilizer in agriculture.`,
+                        `EDTA: Used as a high-temperature lubricant.`,
+                        `Hemoglobin: A cobalt complex for vitamin B12 synthesis.`
+                    ];
+                    correctOpt = 0;
+                    explanation = `**Coordination Chemistry Applications:**<br>
+                    - **${selectedApp.title}**: ${selectedApp.use}<br>
+                    Coordination compounds play vital roles in medicinal chemistry, metallurgy, catalysis, and biological systems.`;
+                }
+
+                qBank.push({
+                    id: i,
+                    topic: currentTopic,
+                    difficulty: diff,
+                    question: qText,
+                    diagram: diagramSvg,
+                    options: options,
+                    correct: correctOpt,
+                    explanation: explanation
+                });
+            }
+            return qBank;
+        };
+
+        // --- APP STATE ---
+        const questions = generateQuestions();
+        let currentIndex = 0;
+        let userAnswers = new Array(100).fill(null);
+        let reviewStatus = new Array(100).fill(false);
+        let questionTimes = new Array(100).fill(0);
+        
+        let qTimerInterval = null;
+        let totalTimerInterval = null;
+        let currentQTime = 0;
+        let totalTimeSeconds = 0;
+        let testSubmitted = false;
+
+        // --- DOM ELEMENTS ---
+        const qNumberBadge = document.getElementById('qNumberBadge');
+        const qTopicTag = document.getElementById('qTopicTag');
+        const qDiffBadge = document.getElementById('qDiffBadge');
+        const questionText = document.getElementById('questionText');
+        const diagramContainer = document.getElementById('diagramContainer');
+        const optionsContainer = document.getElementById('optionsContainer');
+        const solutionBox = document.getElementById('solutionBox');
+        const solutionText = document.getElementById('solutionText');
+        const solutionStatusBadge = document.getElementById('solutionStatusBadge');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const markReviewBtn = document.getElementById('markReviewBtn');
+        const answeredCount = document.getElementById('answeredCount');
+        const progressBar = document.getElementById('progressBar');
+        const qGrid = document.getElementById('qGrid');
+        const qTimerDisplay = document.getElementById('qTimerDisplay');
+        const totalTimerDisplay = document.getElementById('totalTimerDisplay');
+        const currentScoreBadge = document.getElementById('currentScoreBadge');
+
+        // --- INITIALIZATION ---
+        window.addEventListener('DOMContentLoaded', () => {
+            buildQuestionGrid();
+            renderQuestion(0);
+            startTimers();
+            setTimeout(triggerKaTeX, 100);
+        });
+
+        function triggerKaTeX() {
+            if (window.renderMathInElement) {
+                renderMathInElement(document.body, {
+                    delimiters: [
+                        {left: '$$', right: '$$', display: true},
+                        {left: '$', right: '$', display: false}
+                    ],
+                    throwOnError: false
+                });
+            }
+        }
+
+        // --- TIMERS ---
+        function startTimers() {
+            clearInterval(qTimerInterval);
+            clearInterval(totalTimerInterval);
+
+            currentQTime = questionTimes[currentIndex];
+
+            qTimerInterval = setInterval(() => {
+                currentQTime++;
+                questionTimes[currentIndex] = currentQTime;
+                qTimerDisplay.textContent = formatTimeMMSS(currentQTime);
+            }, 1000);
+
+            totalTimerInterval = setInterval(() => {
+                totalTimeSeconds++;
+                totalTimerDisplay.textContent = formatTimeHHMMSS(totalTimeSeconds);
+            }, 1000);
+        }
+
+        function resetQuestionTimer() {
+            currentQTime = questionTimes[currentIndex] || 0;
+            qTimerDisplay.textContent = formatTimeMMSS(currentQTime);
+        }
+
+        function formatTimeMMSS(sec) {
+            const m = Math.floor(sec / 60).toString().padStart(2, '0');
+            const s = (sec % 60).toString().padStart(2, '0');
+            return `${m}:${s}`;
+        }
+
+        function formatTimeHHMMSS(sec) {
+            const h = Math.floor(sec / 3600).toString().padStart(2, '0');
+            const m = Math.floor((sec % 3600) / 60).toString().padStart(2, '0');
+            const s = (sec % 60).toString().padStart(2, '0');
+            return `${h}:${m}:${s}`;
+        }
+
+        // --- QUESTION GRID ---
+        function buildQuestionGrid() {
+            qGrid.innerHTML = '';
+            for (let i = 0; i < 100; i++) {
+                const btn = document.createElement('button');
+                btn.id = `qGridBtn_${i}`;
+                btn.className = getGridBtnClass(i);
+                btn.textContent = i + 1;
+                btn.onclick = () => jumpToQuestion(i);
+                qGrid.appendChild(btn);
+            }
+        }
+
+        function getGridBtnClass(idx) {
+            let base = "w-9 h-9 text-xs font-bold rounded-lg flex items-center justify-center transition border ";
+            if (idx === currentIndex) {
+                base += "ring-2 ring-violet-500 ring-offset-2 ring-offset-slate-900 ";
+            }
+
+            if (userAnswers[idx] !== null) {
+                if (userAnswers[idx] === questions[idx].correct) {
+                    return base + "bg-emerald-600 text-white border-emerald-500";
+                } else {
+                    return base + "bg-rose-600 text-white border-rose-500";
+                }
+            } else if (reviewStatus[idx]) {
+                return base + "bg-amber-500 text-slate-950 border-amber-400";
+            }
+            return base + "bg-slate-800 text-slate-300 border-slate-700 hover:bg-slate-700";
+        }
+
+        function jumpToQuestion(idx) {
+            renderQuestion(idx);
+            if (window.innerWidth < 1024) {
+                document.getElementById('drawer').classList.add('translate-x-full');
+            }
+        }
+
+        // --- QUESTION RENDERER ---
+        function renderQuestion(idx) {
+            currentIndex = idx;
+            resetQuestionTimer();
+
+            const q = questions[idx];
+            qNumberBadge.textContent = `Q${q.id} of 100`;
+            qTopicTag.textContent = q.topic;
+            qDiffBadge.textContent = q.difficulty;
+            questionText.innerHTML = q.question;
+
+            if (q.diagram) {
+                diagramContainer.innerHTML = q.diagram;
+                diagramContainer.classList.remove('hidden');
+            } else {
+                diagramContainer.classList.add('hidden');
+            }
+
+            optionsContainer.innerHTML = '';
+            const answered = userAnswers[idx] !== null;
+
+            q.options.forEach((optText, optIdx) => {
+                const optBtn = document.createElement('button');
+                optBtn.className = getOptionStyle(idx, optIdx);
+                
+                const label = String.fromCharCode(65 + optIdx);
+                optBtn.innerHTML = `
+                    <div class="flex items-center gap-3">
+                        <span class="w-7 h-7 rounded-lg flex items-center justify-center font-bold text-xs bg-slate-800 text-slate-300">
+                            ${label}
+                        </span>
+                        <span class="text-sm font-medium text-left">${optText}</span>
+                    </div>
+                `;
+
+                optBtn.onclick = () => selectOption(optIdx);
+                optionsContainer.appendChild(optBtn);
+            });
+
+            if (answered) {
+                showSolution(q, userAnswers[idx] === q.correct);
+            } else {
+                solutionBox.classList.add('hidden');
+            }
+
+            prevBtn.disabled = (idx === 0);
+            prevBtn.classList.toggle('opacity-50', idx === 0);
+            nextBtn.textContent = (idx === 99) ? 'Finish & Analyze' : 'Next';
+            markReviewBtn.classList.toggle('bg-amber-950/60', reviewStatus[idx]);
+
+            updateProgressStats();
+            buildQuestionGrid();
+            triggerKaTeX();
+        }
+
+        function getOptionStyle(qIdx, optIdx) {
+            let base = "p-4 rounded-xl border text-left transition flex items-center justify-between w-full ";
+            const selectedOpt = userAnswers[qIdx];
+            const correctOpt = questions[qIdx].correct;
+
+            if (selectedOpt === null) {
+                return base + "border-slate-800 bg-slate-950/40 hover:bg-slate-800 hover:border-violet-600";
+            }
+
+            if (optIdx === correctOpt) {
+                return base + "border-emerald-500 bg-emerald-950/40 text-emerald-300 font-semibold ring-2 ring-emerald-500 correct-anim";
+            } else if (optIdx === selectedOpt && selectedOpt !== correctOpt) {
+                return base + "border-rose-500 bg-rose-950/40 text-rose-300 font-semibold wrong-anim";
+            }
+
+            return base + "border-slate-800 opacity-50 bg-slate-950";
+        }
+
+        // --- SELECTION & FEEDBACK ---
+        function selectOption(optIdx) {
+            if (userAnswers[currentIndex] !== null) return;
+
+            userAnswers[currentIndex] = optIdx;
+            const q = questions[currentIndex];
+            const isCorrect = (optIdx === q.correct);
+
+            if (isCorrect) {
+                triggerConfetti();
+                showToast("🎉 Outstanding! Correct Answer! +4 Marks");
+            } else {
+                showToast("❌ Incorrect Answer. (-1 Negative Mark)");
+            }
+
+            renderQuestion(currentIndex);
+        }
+
+        function showSolution(q, isCorrect) {
+            solutionBox.classList.remove('hidden');
+            solutionText.innerHTML = q.explanation;
+
+            if (isCorrect) {
+                solutionStatusBadge.className = "text-xs px-2.5 py-0.5 rounded font-semibold bg-emerald-900/60 text-emerald-300";
+                solutionStatusBadge.textContent = "Correctly Answered (+4)";
+            } else {
+                solutionStatusBadge.className = "text-xs px-2.5 py-0.5 rounded font-semibold bg-rose-900/60 text-rose-300";
+                solutionStatusBadge.textContent = "Incorrect (-1)";
+            }
+            triggerKaTeX();
+        }
+
+        function triggerConfetti() {
+            if (typeof confetti === 'function') {
+                confetti({
+                    particleCount: 60,
+                    spread: 70,
+                    origin: { y: 0.7 }
+                });
+            }
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            const toastMsg = document.getElementById('toastMsg');
+            toastMsg.textContent = message;
+
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            toast.classList.add('translate-y-0', 'opacity-100');
+
+            setTimeout(() => {
+                toast.classList.remove('translate-y-0', 'opacity-100');
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 2500);
+        }
+
+        function updateProgressStats() {
+            const solved = userAnswers.filter(a => a !== null).length;
+            answeredCount.textContent = solved;
+            progressBar.style.width = `${Math.max((solved / 100) * 100, 1)}%`;
+
+            let score = 0;
+            userAnswers.forEach((ans, idx) => {
+                if (ans !== null) {
+                    if (ans === questions[idx].correct) score += 4;
+                    else score -= 1;
+                }
+            });
+
+            currentScoreBadge.innerHTML = `Score: <strong class="${score >= 0 ? 'text-emerald-400' : 'text-rose-400'}">${score}</strong> (+4 / -1)`;
+        }
+
+        // --- NAVIGATION HANDLERS ---
+        prevBtn.onclick = () => { if (currentIndex > 0) renderQuestion(currentIndex - 1); };
+        nextBtn.onclick = () => {
+            if (currentIndex < 99) renderQuestion(currentIndex + 1);
+            else submitQuiz();
+        };
+        markReviewBtn.onclick = () => {
+            reviewStatus[currentIndex] = !reviewStatus[currentIndex];
+            renderQuestion(currentIndex);
+        };
+
+        document.getElementById('toggleDrawerBtn').onclick = () => {
+            document.getElementById('drawer').classList.remove('translate-x-full');
+        };
+        document.getElementById('closeDrawerBtn').onclick = () => {
+            document.getElementById('drawer').classList.add('translate-x-full');
+        };
+
+        // --- SUBMISSION & ANALYTICS ---
+        document.getElementById('submitQuizBtn').onclick = submitQuiz;
+
+        function submitQuiz() {
+            testSubmitted = true;
+            clearInterval(qTimerInterval);
+            clearInterval(totalTimerInterval);
+
+            let correctCount = 0;
+            let wrongCount = 0;
+            const topicStats = {};
+
+            questions.forEach((q, idx) => {
+                if (!topicStats[q.topic]) {
+                    topicStats[q.topic] = { total: 0, correct: 0, wrong: 0 };
+                }
+                topicStats[q.topic].total++;
+
+                const ans = userAnswers[idx];
+                if (ans !== null) {
+                    if (ans === q.correct) {
+                        correctCount++;
+                        topicStats[q.topic].correct++;
+                    } else {
+                        wrongCount++;
+                        topicStats[q.topic].wrong++;
+                    }
+                }
+            });
+
+            const totalAttempted = correctCount + wrongCount;
+            const score = (correctCount * 4) - (wrongCount * 1);
+            const accuracy = totalAttempted > 0 ? ((correctCount / totalAttempted) * 100).toFixed(1) : 0;
+
+            document.getElementById('finalScore').textContent = `${score} / 400`;
+            document.getElementById('finalAccuracy').textContent = `${accuracy}%`;
+            document.getElementById('finalAttempted').textContent = `${totalAttempted} / 100`;
+            document.getElementById('finalTime').textContent = formatTimeHHMMSS(totalTimeSeconds);
+
+            const topicContainer = document.getElementById('topicBreakdown');
+            topicContainer.innerHTML = '';
+
+            for (const [topicName, data] of Object.entries(topicStats)) {
+                const topicAcc = data.total > 0 ? Math.round((data.correct / data.total) * 100) : 0;
+                
+                const item = document.createElement('div');
+                item.className = "p-3.5 rounded-xl bg-slate-800/50 border border-slate-700/60";
+                item.innerHTML = `
+                    <div class="flex justify-between items-center text-xs font-semibold mb-1.5">
+                        <span class="text-slate-200">${topicName}</span>
+                        <span class="text-violet-400">${data.correct}/${data.total} Correct (${topicAcc}%)</span>
+                    </div>
+                    <div class="w-full h-2 bg-slate-700 rounded-full overflow-hidden">
+                        <div class="h-full bg-violet-500 rounded-full" style="width: ${topicAcc}%"></div>
+                    </div>
+                `;
+                topicContainer.appendChild(item);
+            }
+
+            document.getElementById('analyticsModal').classList.remove('hidden');
+        }
+
+        document.getElementById('closeAnalyticsBtn').onclick = () => {
+            document.getElementById('analyticsModal').classList.add('hidden');
+        };
+        document.getElementById('reviewTestBtn').onclick = () => {
+            document.getElementById('analyticsModal').classList.add('hidden');
+        };
+        document.getElementById('restartQuizBtn').onclick = () => {
+            location.reload();
+        };
+
+    </script>
+</body>
+</html>

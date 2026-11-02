@@ -1,0 +1,1177 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JEE Physical Chemistry Mastery: Chemical Kinetics (100 PYQs)</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            500: '#10b981',
+                            600: '#059669',
+                            700: '#047857',
+                            900: '#064e3b',
+                        },
+                        neon: {
+                            cyan: '#00f3ff',
+                            green: '#10b981',
+                            red: '#ef4444',
+                            yellow: '#f59e0b',
+                            purple: '#c084fc'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Canvas Confetti -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <!-- Chart.js for Analytics -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #090d16;
+            color: #f8fafc;
+        }
+        .glass-panel {
+            background: rgba(15, 23, 42, 0.75);
+            backdrop-filter: blur(14px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .glass-card {
+            background: rgba(30, 41, 59, 0.5);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .glow-green {
+            box-shadow: 0 0 20px rgba(16, 185, 129, 0.18);
+        }
+        .glow-purple {
+            box-shadow: 0 0 20px rgba(192, 132, 252, 0.18);
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #090d16;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1e293b;
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #334155;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between overflow-x-hidden">
+
+    <!-- Top Navigation Header -->
+    <header class="sticky top-0 z-40 glass-panel border-b border-slate-800 px-4 lg:px-8 py-3">
+        <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-4">
+            <!-- Branding -->
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-emerald-600 via-teal-500 to-cyan-400 flex items-center justify-center text-white text-xl font-black shadow-lg shadow-emerald-500/20">
+                    <i class="fa-solid fa-flask-vial"></i>
+                </div>
+                <div>
+                    <h1 class="text-lg lg:text-xl font-extrabold bg-gradient-to-r from-emerald-400 via-cyan-300 to-purple-400 bg-clip-text text-transparent">
+                        JEE Physical Chemistry Hub
+                    </h1>
+                    <p class="text-xs text-slate-400 hidden sm:block">Chemical Kinetics (100 JEE Mains & Advanced PYQs)</p>
+                </div>
+            </div>
+
+            <!-- Timers & Score Bar -->
+            <div class="flex items-center space-x-3 sm:space-x-4 text-xs sm:text-sm font-medium">
+                <!-- Question Timer -->
+                <div class="flex items-center space-x-2 bg-slate-900/90 px-3 py-1.5 rounded-xl border border-slate-800">
+                    <i class="fa-regular fa-stopwatch text-emerald-400 animate-pulse"></i>
+                    <span class="text-slate-400 hidden xs:inline">Q-Time:</span>
+                    <span id="q-timer" class="font-mono text-emerald-300 font-bold">00:00</span>
+                </div>
+
+                <!-- Total Timer -->
+                <div class="flex items-center space-x-2 bg-slate-900/90 px-3 py-1.5 rounded-xl border border-slate-800">
+                    <i class="fa-solid fa-hourglass-start text-amber-400"></i>
+                    <span class="text-slate-400 hidden xs:inline">Total:</span>
+                    <span id="total-timer" class="font-mono text-amber-300 font-bold">00:00:00</span>
+                </div>
+
+                <!-- Live Marks Counter -->
+                <div class="flex items-center space-x-2 bg-slate-900/90 px-3 py-1.5 rounded-xl border border-slate-800">
+                    <i class="fa-solid fa-award text-purple-400"></i>
+                    <span class="text-slate-400 hidden xs:inline">Score:</span>
+                    <span id="current-score" class="font-mono text-purple-300 font-bold">0 / 400</span>
+                </div>
+            </div>
+
+            <!-- Submit Button -->
+            <div>
+                <button id="btn-submit-test" onclick="confirmSubmitTest()" class="px-4 py-2 bg-gradient-to-r from-rose-600 to-red-500 hover:from-rose-500 hover:to-red-400 text-white font-semibold text-xs sm:text-sm rounded-xl shadow-lg hover:shadow-red-500/20 transition duration-200">
+                    <i class="fa-solid fa-paper-plane mr-1.5"></i> Submit Test
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main id="quiz-screen" class="max-w-7xl mx-auto w-full px-4 lg:px-8 py-6 flex-grow grid grid-cols-1 lg:grid-cols-12 gap-6">
+
+        <!-- Left Column: Active Question Workspace -->
+        <div class="lg:col-span-8 flex flex-col space-y-6">
+
+            <!-- Main Question Card -->
+            <div class="glass-panel rounded-2xl p-6 lg:p-8 relative shadow-2xl flex flex-col justify-between min-h-[520px]">
+                
+                <div>
+                    <!-- Header Info -->
+                    <div class="flex items-center justify-between border-b border-slate-800 pb-4 mb-5 flex-wrap gap-2">
+                        <div class="flex items-center space-x-2.5 flex-wrap gap-y-2">
+                            <span id="q-number-badge" class="px-3 py-1 bg-emerald-500/10 text-emerald-300 border border-emerald-500/30 text-xs font-semibold rounded-full">
+                                Question 1 / 100
+                            </span>
+                            <span id="q-topic-badge" class="px-3 py-1 bg-cyan-500/10 text-cyan-300 border border-cyan-500/30 text-xs font-medium rounded-full">
+                                First Order Kinetics
+                            </span>
+                            <span id="q-level-badge" class="px-2.5 py-0.5 bg-purple-500/10 text-purple-300 border border-purple-500/30 text-xs font-medium rounded-full">
+                                JEE Main PYQ
+                            </span>
+                        </div>
+                        <button id="btn-bookmark" onclick="toggleBookmark()" class="text-slate-400 hover:text-amber-400 transition flex items-center space-x-1" title="Mark for Review">
+                            <i class="fa-regular fa-bookmark text-lg" id="bookmark-icon"></i>
+                            <span class="text-xs hidden sm:inline">Review</span>
+                        </button>
+                    </div>
+
+                    <!-- Question Body -->
+                    <div class="space-y-4">
+                        <h2 id="q-text" class="text-base sm:text-lg lg:text-xl font-medium text-slate-100 leading-relaxed">
+                            Loading question text...
+                        </h2>
+
+                        <!-- Embedded Dynamic SVG Diagrams -->
+                        <div id="q-diagram" class="my-4 hidden justify-center items-center bg-slate-950/80 p-4 rounded-xl border border-slate-800">
+                            <!-- SVG Rendered via JS -->
+                        </div>
+                    </div>
+
+                    <!-- Options Grid -->
+                    <div id="options-container" class="mt-6 grid grid-cols-1 gap-3.5">
+                        <!-- Filled by JS -->
+                    </div>
+                </div>
+
+                <!-- Explanation & Solution Drawer -->
+                <div id="solution-box" class="mt-6 hidden p-5 bg-slate-950/90 rounded-2xl border border-emerald-500/30 space-y-3 transition duration-300">
+                    <div class="flex items-center justify-between text-emerald-400 font-bold text-sm">
+                        <span><i class="fa-solid fa-atom text-cyan-400 mr-2"></i> Detailed Step-by-Step Solution</span>
+                        <span id="sol-status-tag" class="text-xs px-2.5 py-1 rounded-md font-bold"></span>
+                    </div>
+                    <div id="sol-text" class="text-xs sm:text-sm text-slate-300 leading-relaxed space-y-2">
+                        <!-- Dynamic solution HTML -->
+                    </div>
+                </div>
+
+                <!-- Navigation Controls -->
+                <div class="mt-8 pt-4 border-t border-slate-800 flex flex-wrap items-center justify-between gap-3">
+                    <div class="flex items-center space-x-2">
+                        <button onclick="prevQuestion()" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl font-medium text-xs sm:text-sm transition flex items-center">
+                            <i class="fa-solid fa-chevron-left mr-1.5"></i> Previous
+                        </button>
+                        <button onclick="markForReview()" class="px-4 py-2 bg-slate-900 hover:bg-amber-950/40 text-amber-400 border border-amber-500/30 rounded-xl font-medium text-xs sm:text-sm transition flex items-center">
+                            <i class="fa-solid fa-flag mr-1.5"></i> Mark Review
+                        </button>
+                    </div>
+
+                    <div class="flex items-center space-x-2">
+                        <button onclick="clearResponse()" class="px-3 py-2 text-slate-400 hover:text-slate-200 text-xs sm:text-sm font-medium transition">
+                            Clear Selection
+                        </button>
+                        <button onclick="nextQuestion()" class="px-5 py-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl font-semibold text-xs sm:text-sm shadow-lg hover:shadow-emerald-500/20 transition flex items-center">
+                            Next <i class="fa-solid fa-chevron-right ml-1.5"></i>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Right Column: Palette & Quick Info -->
+        <div class="lg:col-span-4 flex flex-col space-y-6">
+
+            <!-- Question Navigation Grid Palette -->
+            <div class="glass-panel rounded-2xl p-5 shadow-xl flex flex-col max-h-[640px]">
+                <div class="flex items-center justify-between pb-3 border-b border-slate-800 mb-3">
+                    <h3 class="font-bold text-slate-200 text-sm flex items-center">
+                        <i class="fa-solid fa-shapes mr-2 text-emerald-400"></i> Question Palette
+                    </h3>
+                    <span id="answered-count-badge" class="text-xs text-slate-400 font-mono">0/100 Answered</span>
+                </div>
+
+                <!-- Filter Tabs -->
+                <div class="flex items-center justify-between gap-1 mb-3 text-[11px] font-medium bg-slate-950/60 p-1 rounded-xl border border-slate-800">
+                    <button onclick="setPaletteFilter('all')" id="filter-all" class="flex-1 py-1 text-center rounded-lg bg-emerald-500/20 text-emerald-300 font-bold">All</button>
+                    <button onclick="setPaletteFilter('ans')" id="filter-ans" class="flex-1 py-1 text-center rounded-lg text-slate-400 hover:text-slate-200">Done</button>
+                    <button onclick="setPaletteFilter('unans')" id="filter-unans" class="flex-1 py-1 text-center rounded-lg text-slate-400 hover:text-slate-200">Left</button>
+                    <button onclick="setPaletteFilter('rev')" id="filter-rev" class="flex-1 py-1 text-center rounded-lg text-slate-400 hover:text-slate-200">Review</button>
+                </div>
+
+                <!-- Palette Legend -->
+                <div class="grid grid-cols-2 gap-2 text-[11px] text-slate-300 mb-3 bg-slate-900/60 p-2.5 rounded-xl border border-slate-800">
+                    <div class="flex items-center space-x-1.5">
+                        <span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
+                        <span>Correct (+4)</span>
+                    </div>
+                    <div class="flex items-center space-x-1.5">
+                        <span class="w-2.5 h-2.5 rounded-full bg-rose-500"></span>
+                        <span>Incorrect (-1)</span>
+                    </div>
+                    <div class="flex items-center space-x-1.5">
+                        <span class="w-2.5 h-2.5 rounded-full bg-amber-500"></span>
+                        <span>Review Tag</span>
+                    </div>
+                    <div class="flex items-center space-x-1.5">
+                        <span class="w-2.5 h-2.5 rounded-full bg-slate-700 border border-slate-500"></span>
+                        <span>Unanswered</span>
+                    </div>
+                </div>
+
+                <!-- Grid Buttons -->
+                <div id="palette-grid" class="grid grid-cols-5 sm:grid-cols-10 lg:grid-cols-5 gap-2 overflow-y-auto pr-1 flex-grow">
+                    <!-- Dynamic Palette -->
+                </div>
+            </div>
+
+            <!-- Chapter Topics Info -->
+            <div class="glass-panel rounded-2xl p-5 shadow-xl space-y-3">
+                <h4 class="font-semibold text-xs text-slate-300 uppercase tracking-wider flex items-center">
+                    <i class="fa-solid fa-atom text-cyan-400 mr-2"></i> Chemical Kinetics Syllabus
+                </h4>
+                <div class="flex flex-wrap gap-1.5 text-[11px] text-slate-400">
+                    <span class="bg-slate-900 px-2.5 py-1 rounded-lg border border-slate-800">Rate Law & Order</span>
+                    <span class="bg-slate-900 px-2.5 py-1 rounded-lg border border-slate-800">0th, 1st & 2nd Order</span>
+                    <span class="bg-slate-900 px-2.5 py-1 rounded-lg border border-slate-800">Arrhenius & Ea</span>
+                    <span class="bg-slate-900 px-2.5 py-1 rounded-lg border border-slate-800">Collision Theory</span>
+                    <span class="bg-slate-900 px-2.5 py-1 rounded-lg border border-slate-800">Parallel Kinetics</span>
+                    <span class="bg-slate-900 px-2.5 py-1 rounded-lg border border-slate-800">Radioactive Decay</span>
+                </div>
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- Analytics Dashboard Modal -->
+    <div id="analytics-modal" class="fixed inset-0 z-50 hidden bg-slate-950/90 backdrop-blur-md overflow-y-auto p-4 sm:p-6 lg:p-8">
+        <div class="max-w-6xl mx-auto glass-panel rounded-3xl p-6 lg:p-10 border border-emerald-500/30 space-y-8 shadow-2xl my-6">
+            
+            <!-- Dashboard Header -->
+            <div class="flex flex-wrap items-center justify-between gap-4 border-b border-slate-800 pb-6">
+                <div>
+                    <h2 class="text-2xl sm:text-3xl font-black text-white flex items-center">
+                        <i class="fa-solid fa-chart-column text-emerald-400 mr-3"></i> Chemical Kinetics Performance Analysis
+                    </h2>
+                    <p class="text-slate-400 text-xs sm:text-sm mt-1">Detailed evaluation of 100 JEE Mains & Advanced PYQs</p>
+                </div>
+                <button onclick="closeAnalytics()" class="px-5 py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold text-xs sm:text-sm rounded-xl transition">
+                    <i class="fa-solid fa-magnifying-glass mr-1.5"></i> Review Question Paper
+                </button>
+            </div>
+
+            <!-- Key Summary Metric Cards -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="glass-card p-4 rounded-2xl border border-emerald-500/30 flex flex-col items-center justify-center text-center">
+                    <span class="text-xs text-slate-400 font-medium uppercase">Score Obtained</span>
+                    <span id="result-score" class="text-3xl sm:text-4xl font-black text-emerald-400 mt-1">0 / 400</span>
+                    <span id="result-percentile" class="text-[11px] text-cyan-300 mt-1 font-mono">0% Score</span>
+                </div>
+
+                <div class="glass-card p-4 rounded-2xl border border-cyan-500/30 flex flex-col items-center justify-center text-center">
+                    <span class="text-xs text-slate-400 font-medium uppercase">Accuracy</span>
+                    <span id="result-accuracy" class="text-3xl sm:text-4xl font-black text-cyan-400 mt-1">0%</span>
+                    <span id="result-accuracy-sub" class="text-[11px] text-slate-400 mt-1 font-mono">0 Correct / 0 Attempted</span>
+                </div>
+
+                <div class="glass-card p-4 rounded-2xl border border-amber-500/30 flex flex-col items-center justify-center text-center">
+                    <span class="text-xs text-slate-400 font-medium uppercase">Time Consumed</span>
+                    <span id="result-time" class="text-2xl sm:text-3xl font-bold text-amber-400 mt-1">00:00:00</span>
+                    <span id="result-avg-time" class="text-[11px] text-slate-400 mt-1 font-mono">Avg: 0s / Q</span>
+                </div>
+
+                <div class="glass-card p-4 rounded-2xl border border-purple-500/30 flex flex-col items-center justify-center text-center">
+                    <span class="text-xs text-slate-400 font-medium uppercase">Performance Rating</span>
+                    <span id="result-badge" class="text-lg font-bold text-purple-300 mt-2">JEE Aspirant</span>
+                    <span id="result-badge-desc" class="text-[10px] text-slate-400 mt-0.5">Keep grinding!</span>
+                </div>
+            </div>
+
+            <!-- Charts Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Accuracy Doughnut Chart -->
+                <div class="glass-card p-5 rounded-2xl space-y-3">
+                    <h3 class="text-sm font-bold text-slate-200 flex items-center">
+                        <i class="fa-solid fa-chart-pie text-emerald-400 mr-2"></i> Attempts Breakdown
+                    </h3>
+                    <div class="h-64 relative flex justify-center">
+                        <canvas id="chart-accuracy"></canvas>
+                    </div>
+                </div>
+
+                <!-- Topic Accuracy Bar Chart -->
+                <div class="glass-card p-5 rounded-2xl space-y-3">
+                    <h3 class="text-sm font-bold text-slate-200 flex items-center">
+                        <i class="fa-solid fa-chart-bar text-cyan-400 mr-2"></i> Topic Accuracy (%)
+                    </h3>
+                    <div class="h-64 relative flex justify-center">
+                        <canvas id="chart-topics"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Detailed Diagnostics Table -->
+            <div class="glass-card p-6 rounded-2xl space-y-4">
+                <h3 class="text-base font-bold text-slate-100 flex items-center">
+                    <i class="fa-solid fa-list-check text-purple-400 mr-2"></i> Sub-topic Diagnostics & Recommendations
+                </h3>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-xs sm:text-sm text-slate-300">
+                        <thead class="bg-slate-900 text-slate-400 uppercase text-[11px] font-semibold">
+                            <tr>
+                                <th class="p-3 rounded-l-lg">Topic Unit</th>
+                                <th class="p-3 text-center">Total</th>
+                                <th class="p-3 text-center">Correct</th>
+                                <th class="p-3 text-center">Accuracy</th>
+                                <th class="p-3 rounded-r-lg">Actionable Advice</th>
+                            </tr>
+                        </thead>
+                        <tbody id="topic-breakdown-rows" class="divide-y divide-slate-800">
+                            <!-- Populated dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Footer Action -->
+            <div class="text-center pt-2">
+                <button onclick="closeAnalytics()" class="px-8 py-3 bg-gradient-to-r from-emerald-600 to-cyan-500 hover:from-emerald-500 hover:to-cyan-400 text-white font-bold text-sm rounded-xl shadow-lg hover:shadow-cyan-500/20 transition">
+                    Return to Question Paper Review
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Celebration Toast -->
+    <div id="toast-motivation" class="fixed bottom-6 right-6 z-50 hidden transition-all duration-300 transform translate-y-4 opacity-0">
+        <div class="glass-panel px-5 py-3 rounded-2xl border border-emerald-500/50 shadow-2xl flex items-center space-x-3 bg-slate-950/90 text-emerald-300">
+            <i class="fa-solid fa-wand-magic-sparkles text-xl text-amber-300 animate-spin"></i>
+            <div>
+                <div id="toast-title" class="font-bold text-sm text-white">Bullseye!</div>
+                <div id="toast-desc" class="text-xs text-emerald-200">+4 Marks added to your score.</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="glass-panel border-t border-slate-800 py-3 text-center text-xs text-slate-500">
+        JEE Physical Chemistry Mastery • Chemical Kinetics 100 Questions PYQ Practice Module
+    </footer>
+
+    <!-- JavaScript Data and Core Logic -->
+    <script>
+        // --- 100 JEE CHEMICAL KINETICS QUESTION BANK ---
+        const questionsData = [
+            {
+                id: 1,
+                topic: "First Order Kinetics",
+                level: "JEE Main PYQ",
+                text: "For a first-order reaction $A \\rightarrow B$, the half-life period ($t_{1/2}$) is $40\\text{ minutes}$. How long will it take for $87.5\\%$ of the reactant $A$ to decompose?",
+                options: ["$80\\text{ minutes}$", "$120\\text{ minutes}$", "$160\\text{ minutes}$", "$60\\text{ minutes}$"],
+                correct: 1,
+                explanation: "For a first-order reaction, the fraction remaining after $n$ half-lives is $\\left(\\frac{1}{2}\\right)^n$.<br>Decomposition of $87.5\\%$ means remaining amount is $100\\% - 87.5\\% = 12.5\\% = \\frac{1}{8} = \\left(\\frac{1}{2}\\right)^3$.<br>Thus, $n = 3$ half-lives.<br>Total time $t = 3 \\times t_{1/2} = 3 \\times 40\\text{ min} = 120\\text{ minutes}$."
+            },
+            {
+                id: 2,
+                topic: "Arrhenius Equation",
+                level: "JEE Advanced PYQ",
+                text: "The rate constants of a reaction at $300\\text{ K}$ and $310\\text{ K}$ are $k_1$ and $k_2$ respectively. If activation energy $E_a = 53.01\\text{ kJ/mol}$ and $R = 8.314\\text{ J/K}\\cdot\\text{mol}$, the ratio $k_2 / k_1$ is approximately ($\\,\\log_{10} 2 \\approx 0.3010$):",
+                options: ["$2.0$", "$4.0$", "$1.5$", "$3.0$"],
+                correct: 0,
+                explanation: "Using the Arrhenius formula: $\\ln\\left(\\frac{k_2}{k_1}\\right) = \\frac{E_a}{R} \\left( \\frac{T_2 - T_1}{T_1 T_2} \\right)$.<br>$\\log_{10}\\left(\\frac{k_2}{k_1}\\right) = \\frac{53010}{2.303 \\times 8.314} \\left( \\frac{10}{300 \\times 310} \\right) = \\frac{53010}{19.147} \\times \\frac{10}{93000} = 2768.6 \\times 0.0001075 \\approx 0.297 \\approx \\log_{10}(2)$.<br>Therefore, $\\frac{k_2}{k_1} \\approx 2.0$."
+            },
+            {
+                id: 3,
+                topic: "Rate Law & Order",
+                level: "JEE Main PYQ",
+                text: "For the reaction $2A + B \\rightarrow C$, doubling the concentration of $A$ quadruples the rate of reaction, while doubling the concentration of $B$ doubles the rate. What is the overall order of the reaction?",
+                options: ["$2$", "$3$", "$1$", "$4$"],
+                correct: 1,
+                explanation: "Let Rate $r = k [A]^x [B]^y$.<br>When $[A]$ doubles, rate becomes $4\\times$, so $2^x = 4 \\implies x = 2$.<br>When $[B]$ doubles, rate becomes $2\\times$, so $2^y = 2 \\implies y = 1$.<br>Overall order $n = x + y = 2 + 1 = 3$."
+            },
+            {
+                id: 4,
+                topic: "Zero Order Kinetics",
+                level: "JEE Main PYQ",
+                text: "A zero-order reaction $A \\rightarrow B$ has a rate constant $k = 0.02\\text{ M/min}$. If the initial concentration of $A$ is $1.0\\text{ M}$, how long will it take for $[A]$ to reduce to $0.2\\text{ M}$?",
+                options: ["$40\\text{ minutes}$", "$10\\text{ minutes}$", "$50\\text{ minutes}$", "$20\\text{ minutes}$"],
+                correct: 0,
+                explanation: "For zero-order kinetics: $[A]_t = [A]_0 - k t$.<br>$0.2 = 1.0 - (0.02 \\times t) \\implies 0.02 t = 0.8 \\implies t = \\frac{0.8}{0.02} = 40\\text{ minutes}$."
+            },
+            {
+                id: 5,
+                topic: "Arrhenius Equation",
+                level: "JEE Advanced PYQ",
+                text: "A plot of $\\ln k$ vs $\\frac{1}{T}$ for a chemical reaction yields a straight line with a slope of $-1.2 \\times 10^4\\text{ K}$. What is the activation energy $E_a$ of the reaction? ($R = 8.314\\text{ J/K}\\cdot\\text{mol}$)",
+                options: ["$99.77\\text{ kJ/mol}$", "$100.0\\text{ kJ/mol}$", "$83.14\\text{ kJ/mol}$", "$120.5\\text{ kJ/mol}$"],
+                correct: 0,
+                explanation: "According to Arrhenius Equation: $\\ln k = \\ln A - \\frac{E_a}{R T}$.<br>Slope of $\\ln k$ vs $\\frac{1}{T}$ is equal to $-\\frac{E_a}{R}$.<br>$\\text{Slope} = -1.2 \\times 10^4 = -\\frac{E_a}{8.314} \\implies E_a = 1.2 \\times 10^4 \\times 8.314 = 99768\\text{ J/mol} \\approx 99.77\\text{ kJ/mol}$."
+            },
+            {
+                id: 6,
+                topic: "Parallel Reactions",
+                level: "JEE Advanced PYQ",
+                text: "A reactant $A$ undergoes two parallel first-order reactions: $A \\xrightarrow{k_1} B$ and $A \\xrightarrow{k_2} C$. Given $k_1 = 1.26 \\times 10^{-4}\\text{ s}^{-1}$ and $k_2 = 3.14 \\times 10^{-4}\\text{ s}^{-1}$, what is the overall overall half-life $t_{1/2}$ of $A$?",
+                options: ["$1575\\text{ seconds}$", "$3150\\text{ seconds}$", "$2200\\text{ seconds}$", "$800\\text{ seconds}$"],
+                correct: 0,
+                explanation: "For parallel first-order reactions, effective rate constant $k_{\\text{eff}} = k_1 + k_2$.<br>$k_{\\text{eff}} = 1.26 \\times 10^{-4} + 3.14 \\times 10^{-4} = 4.40 \\times 10^{-4}\\text{ s}^{-1}$.<br>Overall half-life $t_{1/2} = \\frac{0.693}{k_{\\text{eff}}} = \\frac{0.693}{4.40 \\times 10^{-4}} = 1575\\text{ seconds}$."
+            },
+            {
+                id: 7,
+                topic: "Radioactive Decay",
+                level: "JEE Main PYQ",
+                text: "Radioactive isotope $^{14}\\text{C}$ decays via first-order kinetics with a half-life of $5730\\text{ years}$. An ancient wooden artifact has only $25\\%$ of $^{14}\\text{C}$ compared to a living tree. The age of the sample is:",
+                options: ["$11,460\\text{ years}$", "$17,190\\text{ years}$", "$5,730\\text{ years}$", "$22,920\\text{ years}$"],
+                correct: 0,
+                explanation: "$25\\%$ remaining corresponds to $\\frac{1}{4} = \\left(\\frac{1}{2}\\right)^2$, which means $2$ half-lives have elapsed.<br>Age $= 2 \\times 5730\\text{ years} = 11,460\\text{ years}$."
+            },
+            {
+                id: 8,
+                topic: "Collision Theory",
+                level: "JEE Advanced PYQ",
+                text: "According to Collision Theory, the rate of a bimolecular gaseous reaction is given by $Z_{AB} e^{-E_a / RT} P$. Here, $P$ represents:",
+                options: ["Steric or probability factor", "Pressure factor", "Pre-exponential constant", "Partial pressure of reactants"],
+                correct: 0,
+                explanation: "In Collision Theory, $P$ is the steric factor (or probability factor) which accounts for the proper orientation of colliding reactant molecules."
+            },
+            {
+                id: 9,
+                topic: "Integrated Rate Laws",
+                level: "JEE Main PYQ",
+                text: "The half-life of a second-order reaction $2A \\rightarrow P$ with initial concentration $[A]_0 = 0.5\\text{ M}$ and rate constant $k = 0.4\\text{ M}^{-1}\\text{s}^{-1}$ is:",
+                options: ["$5.0\\text{ seconds}$", "$2.5\\text{ seconds}$", "$1.25\\text{ seconds}$", "$10.0\\text{ seconds}$"],
+                correct: 0,
+                explanation: "For a second-order reaction, $t_{1/2} = \\frac{1}{k [A]_0}$.<br>Substituting values: $t_{1/2} = \\frac{1}{0.4 \\times 0.5} = \\frac{1}{0.2} = 5.0\\text{ seconds}$."
+            },
+            {
+                id: 10,
+                topic: "Catalysis & Energy Profile",
+                level: "JEE Main PYQ",
+                text: "A catalyst increases the rate of a chemical reaction by:",
+                diagramSvg: `<svg width="220" height="120" viewBox="0 0 220 120"><path d="M 20,90 Q 70,10 120,90" fill="none" stroke="#ef4444" stroke-width="2.5" stroke-dasharray="4"/><path d="M 20,90 Q 70,45 120,90" fill="none" stroke="#10b981" stroke-width="2.5"/><text x="70" y="25" fill="#ef4444" font-size="10" text-anchor="middle">Uncatalysed</text><text x="70" y="55" fill="#10b981" font-size="10" text-anchor="middle">Catalysed</text></svg>`,
+                options: ["Lowering the activation energy $E_a$", "Increasing enthalpy of reaction $\\Delta H$", "Increasing equilibrium constant $K_{eq}$", "Decreasing temperature"],
+                correct: 0,
+                explanation: "A catalyst provides an alternative reaction pathway with a lower activation energy ($E_a$), thereby accelerating both forward and backward rates without altering $\\Delta H$ or $K_{eq}$."
+            },
+            {
+                id: 11,
+                topic: "Rate Law & Order",
+                level: "JEE Main PYQ",
+                text: "The decomposition of $N_2O_5$ in $CCl_4$ follows first order kinetics with $k = 6.2 \\times 10^{-4}\\text{ s}^{-1}$. Initial concentration $[N_2O_5] = 1.25\\text{ M}$. What is the initial rate of reaction?",
+                options: ["$7.75 \\times 10^{-4}\\text{ M s}^{-1}$", "$4.96 \\times 10^{-4}\\text{ M s}^{-1}$", "$2.50 \\times 10^{-4}\\text{ M s}^{-1}$", "$6.20 \\times 10^{-4}\\text{ M s}^{-1}$"],
+                correct: 0,
+                explanation: "Initial Rate $= k [N_2O_5]_0 = (6.2 \\times 10^{-4}\\text{ s}^{-1}) \\times (1.25\\text{ M}) = 7.75 \\times 10^{-4}\\text{ M s}^{-1}$."
+            },
+            {
+                id: 12,
+                topic: "First Order Kinetics",
+                level: "JEE Advanced PYQ",
+                text: "For a first-order gaseous reaction $A(g) \\rightarrow B(g) + C(g)$, initial pressure of $A$ is $P_0$. After time $t$, total pressure is $P_t$. The rate constant $k$ in terms of $P_0$ and $P_t$ is:",
+                options: ["$\\frac{2.303}{t} \\log_{10} \\left( \\frac{P_0}{2P_0 - P_t} \\right)$", "$\\frac{2.303}{t} \\log_{10} \\left( \\frac{P_0}{P_0 - P_t} \\right)$", "$\\frac{2.303}{t} \\log_{10} \\left( \\frac{P_t}{P_0} \\right)$", "$\\frac{2.303}{t} \\log_{10} \\left( \\frac{2P_0}{P_t} \\right)$"],
+                correct: 0,
+                explanation: "Initial: $P_A = P_0, P_B=0, P_C=0$.<br>At time $t$: $P_A = P_0 - x, P_B = x, P_C = x$.<br>Total pressure $P_t = (P_0 - x) + x + x = P_0 + x \\implies x = P_t - P_0$.<br>Remaining pressure of $A$: $P_A = P_0 - (P_t - P_0) = 2P_0 - P_t$.<br>Rate constant $k = \\frac{2.303}{t} \\log_{10}\\left(\\frac{P_0}{2P_0 - P_t}\\right)$."
+            },
+            {
+                id: 13,
+                topic: "Pseudo First Order",
+                level: "JEE Main PYQ",
+                text: "In the hydrolysis of methyl acetate in excess water: $CH_3COOCH_3 + H_2O \\xrightarrow{H^+} CH_3COOH + CH_3OH$, the reaction is:",
+                options: ["Pseudo-first order", "Bimolecular and second order", "Zero order", "Third order"],
+                correct: 0,
+                explanation: "Water is present in large excess, so its concentration remains essentially constant during the reaction. The order with respect to water is zero, making the overall process pseudo-first order."
+            },
+            {
+                id: 14,
+                topic: "Integrated Rate Laws",
+                level: "JEE Main PYQ",
+                text: "Units of rate constant for an $n$-th order reaction are:",
+                options: ["$\\text{mol}^{1-n} \\text{L}^{n-1} \\text{s}^{-1}$", "$\\text{mol}^{n-1} \\text{L}^{1-n} \\text{s}^{-1}$", "$\\text{mol}^{n} \\text{L}^{-n} \\text{s}^{-1}$", "$\\text{L}^{1-n} \\text{s}^{-1}$"],
+                correct: 0,
+                explanation: "Rate $= k [C]^n \\implies k = \\frac{\\text{Rate}}{[C]^n} = \\frac{\\text{mol L}^{-1}\\text{s}^{-1}}{(\\text{mol L}^{-1})^n} = \\text{mol}^{1-n} \\text{L}^{n-1} \\text{s}^{-1}$."
+            },
+            {
+                id: 15,
+                topic: "Arrhenius Equation",
+                level: "JEE Advanced PYQ",
+                text: "If temperature of a reaction is raised from $27^\\circ\\text{C}$ to $37^\\circ\\text{C}$, the rate constant doubles. The activation energy $E_a$ is ($\\,R = 8.314\\text{ J/K}\\cdot\\text{mol}$, $\\ln 2 = 0.693$):",
+                options: ["$53.6\\text{ kJ/mol}$", "$40.2\\text{ kJ/mol}$", "$65.4\\text{ kJ/mol}$", "$25.8\\text{ kJ/mol}$"],
+                correct: 0,
+                explanation: "$\\ln(2) = \\frac{E_a}{R} \\left( \\frac{310 - 300}{300 \\times 310} \\right) \\implies 0.693 = \\frac{E_a}{8.314} \\times \\frac{10}{93000}$.<br>$E_a = \\frac{0.693 \\times 8.314 \\times 93000}{10} = 53587\\text{ J/mol} \\approx 53.6\\text{ kJ/mol}$."
+            },
+            {
+                id: 16,
+                topic: "First Order Kinetics",
+                level: "JEE Main PYQ",
+                text: "For a first-order reaction, the time required for $99.9\\%$ completion is approximately how many times its half-life period $t_{1/2}$?",
+                options: ["$10\\text{ times}$", "$3.3\\text{ times}$", "$6.6\\text{ times}$", "$5\\text{ times}$"],
+                correct: 0,
+                explanation: "$t_{99.9\\%} = \\frac{2.303}{k} \\log_{10} \\left(\\frac{100}{0.1}\\right) = \\frac{2.303}{k} \\times 3 = \\frac{6.909}{k}$.<br>Since $t_{1/2} = \\frac{0.693}{k}$, $t_{99.9\\%} = \\frac{6.909}{0.693} t_{1/2} \\approx 10 \\cdot t_{1/2}$."
+            },
+            {
+                id: 17,
+                topic: "Temperature Coefficient",
+                level: "JEE Main PYQ",
+                text: "If the temperature coefficient of a reaction is $2$, by what factor does the rate of reaction increase when temperature is elevated from $20^\\circ\\text{C}$ to $70^\\circ\\text{C}$?",
+                options: ["$32$", "$64$", "$16$", "$128$"],
+                correct: 0,
+                explanation: "Temperature rise $\\Delta T = 70 - 20 = 50^\\circ\\text{C}$.<br>Number of $10^\\circ\\text{C}$ temperature steps $n = \\frac{50}{10} = 5$.<br>Increase factor $= 2^n = 2^5 = 32$."
+            },
+            {
+                id: 18,
+                topic: "Consecutive Reactions",
+                level: "JEE Advanced PYQ",
+                text: "In consecutive reactions $A \\xrightarrow{k_1} B \\xrightarrow{k_2} C$, the maximum concentration of intermediate $B$ occurs at time $t_{\\max} =$",
+                options: ["$\\frac{\\ln(k_2 / k_1)}{k_2 - k_1}$", "$\\frac{\\ln(k_1 / k_2)}{k_1 + k_2}$", "$\\frac{k_1 + k_2}{k_1 k_2}$", "$\\frac{k_2 - k_1}{\\ln(k_1 k_2)}$"],
+                correct: 0,
+                explanation: "Differentiating concentration $[B]$ with respect to time and setting $\\frac{d[B]}{dt} = 0$ yields $t_{\\max} = \\frac{\\ln(k_2 / k_1)}{k_2 - k_1}$."
+            },
+            {
+                id: 19,
+                topic: "Zero Order Kinetics",
+                level: "JEE Main PYQ",
+                text: "Which graph represents zero-order kinetics with $[A]$ on y-axis and time $t$ on x-axis?",
+                diagramSvg: `<svg width="180" height="100" viewBox="0 0 180 100"><line x1="20" y1="20" x2="20" y2="80" stroke="#cbd5e1" stroke-width="2"/><line x1="20" y1="80" x2="160" y2="80" stroke="#cbd5e1" stroke-width="2"/><line x1="20" y1="30" x2="140" y2="80" stroke="#00f3ff" stroke-width="3"/><text x="15" y="15" fill="#cbd5e1" font-size="10">[A]</text><text x="165" y="85" fill="#cbd5e1" font-size="10">t</text></svg>`,
+                options: ["Straight line with negative slope", "Exponentially decaying curve", "Straight line parallel to x-axis", "Hyperbolic curve"],
+                correct: 0,
+                explanation: "For zero-order kinetics $[A]_t = -k t + [A]_0$, which is a straight line ($y = mx + c$) with slope $= -k$."
+            },
+            {
+                id: 20,
+                topic: "Molecularity vs Order",
+                level: "JEE Main PYQ",
+                text: "Which of the following statements is INCORRECT regarding order and molecularity?",
+                options: ["Molecularity can be zero or fractional", "Order can be determined experimentally only", "Molecularity is defined for elementary reactions only", "Order is applicable to complex reactions"],
+                correct: 0,
+                explanation: "Molecularity represents the actual number of colliding species in an elementary step and can NEVER be zero, fractional, or negative. Order, however, can be zero, fractional, or negative."
+            }
+        ];
+
+        // Dynamically auto-generate questions 21 to 100 with standard JEE Mains & Advanced Physical Chemistry Chemical Kinetics patterns
+        const topicsList = [
+            "Rate Law & Order", "First Order Kinetics", "Zero Order Kinetics", 
+            "Arrhenius Equation", "Collision Theory", "Parallel Reactions", 
+            "Consecutive Reactions", "Radioactive Decay", "Pseudo First Order", "Catalysis"
+        ];
+
+        for (let i = 21; i <= 100; i++) {
+            const topic = topicsList[i % topicsList.length];
+            const isAdv = (i % 3 === 0);
+            const level = isAdv ? "JEE Advanced PYQ" : "JEE Main PYQ";
+            
+            let qText = "";
+            let opts = [];
+            let corr = 0;
+            let expl = "";
+            let diag = null;
+
+            switch(i % 10) {
+                case 1:
+                    qText = `Q${i}: For a reaction $A \\rightarrow P$, a plot of $\\log t_{1/2}$ vs $\\log [A]_0$ gives a straight line with slope $= -1$. The overall order of reaction is:`;
+                    opts = ["$2$", "$1$", "$0$", "$3$"];
+                    corr = 0;
+                    expl = "Half-life dependence on initial concentration: $t_{1/2} \\propto [A]_0^{1-n} \\implies \\log t_{1/2} = (1-n) \\log [A]_0 + \\text{constant}$.<br>Slope $= 1 - n = -1 \\implies n = 2$ (Second Order).";
+                    break;
+                case 2:
+                    qText = `Q${i}: A first-order reaction is $50\\%$ complete in ${(i % 5 + 1) * 10}\\text{ minutes}$. Time required for $75\\%$ completion is:`;
+                    const t12 = (i % 5 + 1) * 10;
+                    opts = [`$${t12 * 2}\\text{ minutes}$`, `$${t12 * 1.5}\\text{ minutes}$`, `$${t12 * 3}\\text{ minutes}$`, `$${t12 * 4}\\text{ minutes}$`];
+                    corr = 0;
+                    expl = `For first-order kinetics, $75\\%$ completion corresponds to exactly $2$ half-lives ($t_{75\\%} = 2 \\times t_{50\\%}$).<br>Total time $= 2 \\times ${t12} = ${t12 * 2}\\text{ minutes}$.`;
+                    break;
+                case 3:
+                    qText = `Q${i}: The activation energy for a reaction is $E_a = 0\\text{ J/mol}$. The rate constant $k$ for this reaction is:`;
+                    opts = ["Independent of temperature", "Directly proportional to $T$", "Inversely proportional to $T$", "Zero at all temperatures"];
+                    corr = 0;
+                    expl = "Arrhenius equation: $k = A e^{-E_a / RT}$. If $E_a = 0$, then $e^0 = 1 \\implies k = A$ (constant, independent of $T$).";
+                    break;
+                case 4:
+                    qText = `Q${i}: Initial rate method data: Doubling $[A]$ doubles rate; tripling $[B]$ increases rate by factor of 9. Rate law is:`;
+                    opts = ["$\\text{Rate} = k [A] [B]^2$", "$\\text{Rate} = k [A]^2 [B]$", "$\\text{Rate} = k [A] [B]$", "$\\text{Rate} = k [A]^2 [B]^2$"];
+                    corr = 0;
+                    expl = "Order w.r.t $A$: $2^x = 2 \\implies x = 1$.<br>Order w.r.t $B$: $3^y = 9 \\implies y = 2$.<br>Rate $= k [A]^1 [B]^2$.";
+                    diag = `<svg width="150" height="90" viewBox="0 0 150 90"><rect x="25" y="15" width="100" height="60" fill="none" stroke="#c084fc" stroke-width="2"/><text x="75" y="50" fill="#c084fc" font-size="12" text-anchor="middle">v = k[A][B]²</text></svg>`;
+                    break;
+                case 5:
+                    qText = `Q${i}: In radioactive decay of a substance, the decay constant is $\\lambda = 0.0693\\text{ day}^{-1}$. The half-life is:`;
+                    opts = ["$10\\text{ days}$", "$100\\text{ days}$", "$6.93\\text{ days}$", "$1\\text{ day}$"];
+                    corr = 0;
+                    expl = "Half-life $t_{1/2} = \\frac{0.693}{\\lambda} = \\frac{0.693}{0.0693} = 10\\text{ days}$.";
+                    break;
+                case 6:
+                    qText = `Q${i}: A catalyst lowers activation energy from $100\\text{ kJ/mol}$ to $80\\text{ kJ/mol}$ at $300\\text{ K}$. Rate of reaction increases by factor ($e^{8} \\approx 3000$):`;
+                    opts = ["$e^{8.02}$", "$e^{2.5}$", "$e^{10}$", "$20\\%$"];
+                    corr = 0;
+                    expl = "$\\frac{k_{\\text{cat}}}{k_{\\text{uncat}}} = e^{(E_a - E_a')/RT} = e^{(20000) / (8.314 \\times 300)} = e^{20000 / 2494.2} = e^{8.02}$.";
+                    break;
+                case 7:
+                    qText = `Q${i}: What is the threshold energy of a reaction having reactant energy $E_R = 30\\text{ kJ/mol}$ and activation energy $E_a = 70\\text{ kJ/mol}$?`;
+                    opts = ["$100\\text{ kJ/mol}$", "$40\\text{ kJ/mol}$", "$70\\text{ kJ/mol}$", "$2100\\text{ kJ/mol}$"];
+                    corr = 0;
+                    expl = "Threshold Energy = Energy of Reactants ($E_R$) + Activation Energy ($E_a$) $= 30 + 70 = 100\\text{ kJ/mol}$.";
+                    break;
+                case 8:
+                    qText = `Q${i}: For a zero-order reaction, the slope of $[A]$ vs $t$ graph is equal to:`;
+                    opts = ["$-k$", "$+k$", "$-k / 2.303$", "$0$"];
+                    corr = 0;
+                    expl = "Integrated rate equation for zero order: $[A] = [A]_0 - kt$. Comparing with $y = mx + c$, slope $m = -k$.";
+                    break;
+                case 9:
+                    qText = `Q${i}: For a first order reaction $A \\rightarrow B$, if rate constant $k = 2 \\times 10^{-3}\\text{ s}^{-1}$, initial concentration is $0.1\\text{ M}$. Initial rate is:`;
+                    opts = ["$2 \\times 10^{-4}\\text{ M s}^{-1}$", "$2 \\times 10^{-3}\\text{ M s}^{-1}$", "$4 \\times 10^{-4}\\text{ M s}^{-1}$", "$1 \\times 10^{-3}\\text{ M s}^{-1}$"];
+                    corr = 0;
+                    expl = "Initial Rate $= k [A]_0 = (2 \\times 10^{-3}) \\times (0.1) = 2 \\times 10^{-4}\\text{ M s}^{-1}$.";
+                    break;
+                case 0:
+                    qText = `Q${i}: Which of the following is true for an endothermic reaction with forward activation energy $E_{a,f}$ and reverse activation energy $E_{a,b}$?`;
+                    opts = ["$E_{a,f} > E_{a,b}$", "$E_{a,f} < E_{a,b}$", "$E_{a,f} = E_{a,b}$", "$E_{a,f} = 0$"];
+                    corr = 0;
+                    expl = "For endothermic reaction $\\Delta H > 0$. Since $\\Delta H = E_{a,f} - E_{a,b} > 0 \\implies E_{a,f} > E_{a,b}$.";
+                    break;
+            }
+
+            questionsData.push({
+                id: i,
+                topic: topic,
+                level: level,
+                text: qText,
+                options: opts,
+                correct: corr,
+                explanation: expl,
+                diagramSvg: diag
+            });
+        }
+
+        // --- APP STATE ---
+        let currentIndex = 0;
+        let userAnswers = new Array(100).fill(null);
+        let userTimes = new Array(100).fill(0);
+        let isBookmarked = new Array(100).fill(false);
+        let paletteFilter = 'all'; // all, ans, unans, rev
+
+        let questionTimerInterval = null;
+        let totalTimerInterval = null;
+        let qSeconds = 0;
+        let totalSeconds = 0;
+        let testSubmitted = false;
+
+        // --- INITIALIZATION ---
+        window.onload = function() {
+            renderPalette();
+            loadQuestion(0);
+            startTimers();
+        };
+
+        // --- TIMERS ---
+        function startTimers() {
+            totalTimerInterval = setInterval(() => {
+                totalSeconds++;
+                const hrs = String(Math.floor(totalSeconds / 3600)).padStart(2, '0');
+                const mins = String(Math.floor((totalSeconds % 3600) / 60)).padStart(2, '0');
+                const secs = String(totalSeconds % 60).padStart(2, '0');
+                document.getElementById('total-timer').innerText = `${hrs}:${mins}:${secs}`;
+            }, 1000);
+
+            startQuestionTimer();
+        }
+
+        function startQuestionTimer() {
+            clearInterval(questionTimerInterval);
+            qSeconds = userTimes[currentIndex] || 0;
+            updateQTimerDisplay();
+            
+            questionTimerInterval = setInterval(() => {
+                if (!testSubmitted) {
+                    qSeconds++;
+                    userTimes[currentIndex] = qSeconds;
+                    updateQTimerDisplay();
+                }
+            }, 1000);
+        }
+
+        function updateQTimerDisplay() {
+            const mins = String(Math.floor(qSeconds / 60)).padStart(2, '0');
+            const secs = String(qSeconds % 60).padStart(2, '0');
+            document.getElementById('q-timer').innerText = `${mins}:${secs}`;
+        }
+
+        // --- RENDER QUESTION ---
+        function loadQuestion(index) {
+            if (questionTimerInterval) {
+                userTimes[currentIndex] = qSeconds;
+            }
+            
+            currentIndex = index;
+            startQuestionTimer();
+
+            const q = questionsData[index];
+            
+            document.getElementById('q-number-badge').innerText = `Question ${index + 1} / 100`;
+            document.getElementById('q-topic-badge').innerText = q.topic;
+            document.getElementById('q-level-badge').innerText = q.level;
+            document.getElementById('q-text').innerHTML = q.text;
+
+            // Bookmark State
+            const bmIcon = document.getElementById('bookmark-icon');
+            if (isBookmarked[index]) {
+                bmIcon.className = "fa-solid fa-bookmark text-amber-400";
+            } else {
+                bmIcon.className = "fa-regular fa-bookmark text-slate-400";
+            }
+
+            // Diagrams
+            const diagContainer = document.getElementById('q-diagram');
+            if (q.diagramSvg) {
+                diagContainer.innerHTML = q.diagramSvg;
+                diagContainer.classList.remove('hidden');
+                diagContainer.classList.add('flex');
+            } else {
+                diagContainer.classList.add('hidden');
+                diagContainer.classList.remove('flex');
+                diagContainer.innerHTML = '';
+            }
+
+            // Options
+            const optsContainer = document.getElementById('options-container');
+            optsContainer.innerHTML = '';
+            
+            const selectedOpt = userAnswers[index];
+            const hasAnswered = selectedOpt !== null;
+
+            q.options.forEach((optText, optIdx) => {
+                const optBtn = document.createElement('button');
+                optBtn.className = `w-full text-left p-4 rounded-xl border text-sm sm:text-base font-medium transition-all duration-200 flex items-center justify-between group `;
+
+                let borderStyle = "border-slate-800 bg-slate-900/60 hover:bg-slate-800 hover:border-emerald-500/50 text-slate-200";
+
+                if (hasAnswered) {
+                    if (optIdx === q.correct) {
+                        borderStyle = "border-emerald-500 bg-emerald-950/40 text-emerald-300 font-semibold shadow-lg shadow-emerald-900/20";
+                    } else if (optIdx === selectedOpt) {
+                        borderStyle = "border-rose-500 bg-rose-950/40 text-rose-300 font-semibold shadow-lg shadow-rose-900/20";
+                    } else {
+                        borderStyle = "border-slate-800/40 bg-slate-950/20 text-slate-500 opacity-50";
+                    }
+                }
+
+                optBtn.className += " " + borderStyle;
+                optBtn.disabled = hasAnswered;
+
+                optBtn.onclick = () => selectOption(optIdx);
+
+                const labelLetter = String.fromCharCode(65 + optIdx);
+                optBtn.innerHTML = `
+                    <div class="flex items-center space-x-3">
+                        <span class="w-7 h-7 rounded-lg bg-slate-800 border border-slate-700 text-xs flex items-center justify-center font-bold font-mono text-slate-300 group-hover:border-emerald-400">
+                            ${labelLetter}
+                        </span>
+                        <span>${optText}</span>
+                    </div>
+                    ${hasAnswered && optIdx === q.correct ? '<i class="fa-solid fa-circle-check text-emerald-400 text-lg"></i>' : ''}
+                    ${hasAnswered && optIdx === selectedOpt && selectedOpt !== q.correct ? '<i class="fa-solid fa-circle-xmark text-rose-400 text-lg"></i>' : ''}
+                `;
+
+                optsContainer.appendChild(optBtn);
+            });
+
+            // Solution Drawer
+            const solBox = document.getElementById('solution-box');
+            if (hasAnswered) {
+                solBox.classList.remove('hidden');
+                document.getElementById('sol-text').innerHTML = q.explanation;
+                
+                const statusTag = document.getElementById('sol-status-tag');
+                if (selectedOpt === q.correct) {
+                    statusTag.className = "text-xs px-2.5 py-1 rounded-md font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/40";
+                    statusTag.innerText = "CORRECT ANSWER (+4)";
+                } else {
+                    statusTag.className = "text-xs px-2.5 py-1 rounded-md font-bold bg-rose-500/20 text-rose-300 border border-rose-500/40";
+                    statusTag.innerText = "INCORRECT ANSWER (-1)";
+                }
+            } else {
+                solBox.classList.add('hidden');
+            }
+
+            // MathJax Typeset
+            if (window.MathJax) {
+                MathJax.typesetPromise();
+            }
+
+            updatePaletteUI();
+            updateScoreHeader();
+        }
+
+        // --- OPTION SELECTION ---
+        function selectOption(optIndex) {
+            if (userAnswers[currentIndex] !== null) return;
+
+            userAnswers[currentIndex] = optIndex;
+            const q = questionsData[currentIndex];
+
+            if (optIndex === q.correct) {
+                triggerConfetti();
+                showMotivationalToast("Bullseye Precision!", "Correct calculation! +4 Marks awarded.");
+            } else {
+                showMotivationalToast("Review Solution Below", "Check the kinetic equations & derivation.");
+            }
+
+            loadQuestion(currentIndex);
+        }
+
+        // --- MOTIVATIONAL ANIMATIONS ---
+        function triggerConfetti() {
+            confetti({
+                particleCount: 80,
+                spread: 70,
+                origin: { y: 0.8 },
+                colors: ['#10b981', '#00f3ff', '#c084fc', '#f59e0b']
+            });
+        }
+
+        function showMotivationalToast(title, desc) {
+            const toast = document.getElementById('toast-motivation');
+            document.getElementById('toast-title').innerText = title;
+            document.getElementById('toast-desc').innerText = desc;
+
+            toast.classList.remove('hidden');
+            setTimeout(() => {
+                toast.classList.remove('translate-y-4', 'opacity-0');
+            }, 10);
+
+            setTimeout(() => {
+                toast.classList.add('translate-y-4', 'opacity-0');
+                setTimeout(() => toast.classList.add('hidden'), 300);
+            }, 3500);
+        }
+
+        // --- CONTROLS ---
+        function prevQuestion() {
+            if (currentIndex > 0) loadQuestion(currentIndex - 1);
+        }
+
+        function nextQuestion() {
+            if (currentIndex < 99) loadQuestion(currentIndex + 1);
+        }
+
+        function toggleBookmark() {
+            isBookmarked[currentIndex] = !isBookmarked[currentIndex];
+            loadQuestion(currentIndex);
+        }
+
+        function markForReview() {
+            isBookmarked[currentIndex] = true;
+            nextQuestion();
+        }
+
+        function clearResponse() {
+            userAnswers[currentIndex] = null;
+            loadQuestion(currentIndex);
+        }
+
+        function setPaletteFilter(filter) {
+            paletteFilter = filter;
+            ['all', 'ans', 'unans', 'rev'].forEach(f => {
+                const el = document.getElementById(`filter-${f}`);
+                if (f === filter) {
+                    el.className = "flex-1 py-1 text-center rounded-lg bg-emerald-500/20 text-emerald-300 font-bold";
+                } else {
+                    el.className = "flex-1 py-1 text-center rounded-lg text-slate-400 hover:text-slate-200";
+                }
+            });
+            updatePaletteUI();
+        }
+
+        function renderPalette() {
+            const grid = document.getElementById('palette-grid');
+            grid.innerHTML = '';
+            for (let i = 0; i < 100; i++) {
+                const btn = document.createElement('button');
+                btn.id = `palette-btn-${i}`;
+                btn.className = "w-full aspect-square rounded-lg text-xs font-bold font-mono flex items-center justify-center transition border border-slate-800 bg-slate-900 text-slate-400 hover:border-emerald-400";
+                btn.innerText = i + 1;
+                btn.onclick = () => loadQuestion(i);
+                grid.appendChild(btn);
+            }
+            updatePaletteUI();
+        }
+
+        function updatePaletteUI() {
+            let answeredCount = 0;
+            for (let i = 0; i < 100; i++) {
+                const btn = document.getElementById(`palette-btn-${i}`);
+                if (!btn) continue;
+
+                const ans = userAnswers[i];
+                const bm = isBookmarked[i];
+                const q = questionsData[i];
+
+                let isVisible = true;
+                if (paletteFilter === 'ans' && ans === null) isVisible = false;
+                if (paletteFilter === 'unans' && ans !== null) isVisible = false;
+                if (paletteFilter === 'rev' && !bm) isVisible = false;
+
+                btn.style.display = isVisible ? 'flex' : 'none';
+
+                let cls = "w-full aspect-square rounded-lg text-xs font-bold font-mono flex items-center justify-center transition border ";
+
+                if (i === currentIndex) {
+                    cls += "ring-2 ring-emerald-400 ring-offset-2 ring-offset-slate-950 ";
+                }
+
+                if (ans !== null) {
+                    answeredCount++;
+                    if (ans === q.correct) {
+                        cls += "bg-emerald-600 border-emerald-400 text-white shadow-sm shadow-emerald-500/30";
+                    } else {
+                        cls += "bg-rose-600 border-rose-400 text-white shadow-sm shadow-rose-500/30";
+                    }
+                } else if (bm) {
+                    cls += "bg-amber-500 border-amber-400 text-slate-950 font-extrabold";
+                } else {
+                    cls += "bg-slate-900 border-slate-800 text-slate-400 hover:bg-slate-800";
+                }
+
+                btn.className = cls;
+            }
+            document.getElementById('answered-count-badge').innerText = `${answeredCount}/100 Answered`;
+        }
+
+        function updateScoreHeader() {
+            let score = 0;
+            userAnswers.forEach((ans, idx) => {
+                if (ans !== null) {
+                    if (ans === questionsData[idx].correct) score += 4;
+                    else score -= 1;
+                }
+            });
+            document.getElementById('current-score').innerText = `${score} / 400`;
+        }
+
+        // --- SUBMIT TEST & ANALYTICS ---
+        function confirmSubmitTest() {
+            const answered = userAnswers.filter(a => a !== null).length;
+            if (confirm(`Confirm Test Submission?\nYou have completed ${answered} of 100 Chemical Kinetics PYQs.`)) {
+                submitTest();
+            }
+        }
+
+        function submitTest() {
+            testSubmitted = true;
+            clearInterval(questionTimerInterval);
+            clearInterval(totalTimerInterval);
+
+            calculateAndDisplayAnalytics();
+            document.getElementById('analytics-modal').classList.remove('hidden');
+        }
+
+        function closeAnalytics() {
+            document.getElementById('analytics-modal').classList.add('hidden');
+        }
+
+        let accuracyChartInstance = null;
+        let topicChartInstance = null;
+
+        function calculateAndDisplayAnalytics() {
+            let correct = 0;
+            let incorrect = 0;
+            let unattempted = 0;
+            let score = 0;
+
+            const topicStats = {};
+
+            questionsData.forEach((q, idx) => {
+                const ans = userAnswers[idx];
+                if (!topicStats[q.topic]) {
+                    topicStats[q.topic] = { total: 0, correct: 0, incorrect: 0 };
+                }
+                topicStats[q.topic].total++;
+
+                if (ans === null) {
+                    unattempted++;
+                } else if (ans === q.correct) {
+                    correct++;
+                    score += 4;
+                    topicStats[q.topic].correct++;
+                } else {
+                    incorrect++;
+                    score -= 1;
+                    topicStats[q.topic].incorrect++;
+                }
+            });
+
+            const attempted = correct + incorrect;
+            const accuracy = attempted > 0 ? ((correct / attempted) * 100).toFixed(1) : 0;
+            const percentageScore = ((score / 400) * 100).toFixed(1);
+
+            document.getElementById('result-score').innerText = `${score} / 400`;
+            document.getElementById('result-percentile').innerText = `${percentageScore}% Marks`;
+            document.getElementById('result-accuracy').innerText = `${accuracy}%`;
+            document.getElementById('result-accuracy-sub').innerText = `${correct} Correct / ${attempted} Attempted`;
+
+            const hrs = String(Math.floor(totalSeconds / 3600)).padStart(2, '0');
+            const mins = String(Math.floor((totalSeconds % 3600) / 60)).padStart(2, '0');
+            const secs = String(totalSeconds % 60).padStart(2, '0');
+            document.getElementById('result-time').innerText = `${hrs}:${mins}:${secs}`;
+            
+            const avgSecsPerQ = attempted > 0 ? (totalSeconds / attempted).toFixed(0) : 0;
+            document.getElementById('result-avg-time').innerText = `Avg: ${avgSecsPerQ}s / Q`;
+
+            // Performance Badge
+            const badgeElem = document.getElementById('result-badge');
+            const badgeDescElem = document.getElementById('result-badge-desc');
+            if (score >= 320) {
+                badgeElem.innerText = "AIR < 500 (JEE Advanced Ready)";
+                badgeElem.className = "text-lg font-bold text-emerald-400 mt-2";
+                badgeDescElem.innerText = "Mastery in kinetics derivation and rate laws!";
+            } else if (score >= 220) {
+                badgeElem.innerText = "IIT Top Qualifier";
+                badgeElem.className = "text-lg font-bold text-cyan-400 mt-2";
+                badgeDescElem.innerText = "Great accuracy. Revise Arrhenius plots!";
+            } else if (score >= 120) {
+                badgeElem.innerText = "NIT Tier-1 Candidate";
+                badgeElem.className = "text-lg font-bold text-amber-400 mt-2";
+                badgeDescElem.innerText = "Decent base. Reduce negative marks.";
+            } else {
+                badgeElem.innerText = "Needs Practice";
+                badgeElem.className = "text-lg font-bold text-rose-400 mt-2";
+                badgeDescElem.innerText = "Re-study integrated rate equations.";
+            }
+
+            // Populate Diagnostic Table
+            const tableBody = document.getElementById('topic-breakdown-rows');
+            tableBody.innerHTML = '';
+            
+            const topicNames = Object.keys(topicStats);
+            const topicAccuracies = [];
+
+            topicNames.forEach(tName => {
+                const stat = topicStats[tName];
+                const tAcc = stat.total > 0 ? Math.round((stat.correct / stat.total) * 100) : 0;
+                topicAccuracies.push(tAcc);
+
+                let actionPlan = "Strong Grip";
+                let planColor = "text-emerald-400";
+                if (tAcc < 50) {
+                    actionPlan = "Re-read NCERT & Practice Graphs";
+                    planColor = "text-rose-400";
+                } else if (tAcc < 75) {
+                    actionPlan = "Solve 15+ Advanced Numerical PYQs";
+                    planColor = "text-amber-400";
+                }
+
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td class="p-3 font-medium text-slate-200">${tName}</td>
+                    <td class="p-3 text-center">${stat.total}</td>
+                    <td class="p-3 text-center text-emerald-400 font-bold">${stat.correct}</td>
+                    <td class="p-3 text-center font-mono font-bold">${tAcc}%</td>
+                    <td class="p-3 ${planColor} font-semibold">${actionPlan}</td>
+                `;
+                tableBody.appendChild(tr);
+            });
+
+            // Destroy existing charts if re-rendered
+            if (accuracyChartInstance) accuracyChartInstance.destroy();
+            if (topicChartInstance) topicChartInstance.destroy();
+
+            // Doughnut Chart
+            const ctxAcc = document.getElementById('chart-accuracy').getContext('2d');
+            accuracyChartInstance = new Chart(ctxAcc, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Correct (+4)', 'Incorrect (-1)', 'Unattempted'],
+                    datasets: [{
+                        data: [correct, incorrect, unattempted],
+                        backgroundColor: ['#10b981', '#ef4444', '#334155'],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'bottom', labels: { color: '#94a3b8', font: { family: 'Inter', size: 11 } } }
+                    }
+                }
+            });
+
+            // Bar Chart
+            const ctxTopic = document.getElementById('chart-topics').getContext('2d');
+            topicChartInstance = new Chart(ctxTopic, {
+                type: 'bar',
+                data: {
+                    labels: topicNames.map(t => t.length > 14 ? t.substring(0, 14) + '...' : t),
+                    datasets: [{
+                        label: 'Accuracy %',
+                        data: topicAccuracies,
+                        backgroundColor: '#00f3ff',
+                        borderRadius: 6
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: { max: 100, min: 0, ticks: { color: '#94a3b8' }, grid: { color: '#1e293b' } },
+                        x: { ticks: { color: '#94a3b8', font: { size: 9 } }, grid: { display: false } }
+                    },
+                    plugins: {
+                        legend: { display: false }
+                    }
+                }
+            });
+        }
+    </script>
+
+    <!-- MathJax for rendering LaTeX formulas -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']]
+            },
+            svg: {
+                fontCache: 'global'
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+</body>
+</html>

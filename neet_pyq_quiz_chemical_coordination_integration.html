@@ -1,0 +1,1378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEET UG PYQ Quiz - Chemical Coordination & Integration</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Canvas Confetti CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        amberTheme: {
+                            50: '#fffbeb',
+                            400: '#fbbf24',
+                            500: '#f59e0b',
+                            600: '#d97706',
+                            700: '#b45309',
+                            900: '#78350f',
+                        },
+                        dark: {
+                            900: '#0c0712',
+                            800: '#170e24',
+                            700: '#25173b',
+                            600: '#382357'
+                        }
+                    },
+                    animation: {
+                        'shake': 'shake 0.4s cubic-bezier(.36,.07,.19,.97) both',
+                        'pop-in': 'popIn 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards',
+                        'slide-up': 'slideUp 0.3s ease-out forwards'
+                    },
+                    keyframes: {
+                        shake: {
+                            '10%, 90%': { transform: 'translate3d(-2px, 0, 0)' },
+                            '20%, 80%': { transform: 'translate3d(4px, 0, 0)' },
+                            '30%, 50%, 70%': { transform: 'translate3d(-6px, 0, 0)' },
+                            '40%, 60%': { transform: 'translate3d(6px, 0, 0)' }
+                        },
+                        popIn: {
+                            '0%': { opacity: '0', transform: 'scale(0.85)' },
+                            '100%': { opacity: '1', transform: 'scale(1)' }
+                        },
+                        slideUp: {
+                            '0%': { opacity: '0', transform: 'translateY(16px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #0c0712;
+            color: #f1f5f9;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-image: 
+                radial-gradient(at 15% 15%, rgba(245, 158, 11, 0.12) 0px, transparent 45%),
+                radial-gradient(at 85% 85%, rgba(236, 72, 153, 0.1) 0px, transparent 45%);
+            background-attachment: fixed;
+        }
+
+        .glass-panel {
+            background: rgba(23, 14, 36, 0.82);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 20px 50px -15px rgba(0, 0, 0, 0.7);
+        }
+
+        .glass-card {
+            background: rgba(37, 23, 59, 0.65);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #0c0712; }
+        ::-webkit-scrollbar-thumb { background: #382357; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #d97706; }
+
+        /* Floating Motivational Toast */
+        .toast-popup {
+            position: fixed;
+            top: 15%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.6);
+            z-index: 100;
+            pointer-events: none;
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .toast-popup.active {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between antialiased selection:bg-amber-500 selection:text-white">
+
+    <!-- Motivational Toast popup -->
+    <div id="praiseToast" class="toast-popup">
+        <div class="px-6 py-3.5 rounded-2xl bg-gradient-to-r from-amber-500 via-rose-500 to-purple-500 text-white font-extrabold text-lg md:text-xl shadow-2xl flex items-center gap-3 border border-amber-300/40">
+            <span id="praiseIcon" class="text-2xl">🧪</span>
+            <span id="praiseText">Perfect NCERT Answer!</span>
+        </div>
+    </div>
+
+    <!-- HEADER / NAVIGATION BAR -->
+    <header class="sticky top-0 z-40 bg-dark-900/85 backdrop-blur-md border-b border-amber-950 px-4 lg:px-8 py-3">
+        <div class="max-w-7xl mx-auto flex items-center justify-between gap-4">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-amber-500 to-rose-500 flex items-center justify-center text-white shadow-lg shadow-amber-500/20 font-black text-xl">
+                    💉
+                </div>
+                <div>
+                    <h1 class="text-base sm:text-lg font-bold bg-gradient-to-r from-white via-amber-200 to-rose-400 bg-clip-text text-transparent">NEET UG Target 2025/26</h1>
+                    <p class="text-xs text-slate-400 flex items-center gap-1.5 font-medium">
+                        <span class="inline-block w-2 h-2 rounded-full bg-amber-500"></span>
+                        Biology: Chemical Coordination & Integration (50 PYQs)
+                    </p>
+                </div>
+            </div>
+
+            <div class="flex items-center gap-3 sm:gap-6">
+                <!-- Stopwatch Timer -->
+                <div class="flex items-center gap-2 bg-dark-800 px-3.5 py-1.5 rounded-xl border border-amber-900/60 text-xs sm:text-sm">
+                    <i class="fa-regular fa-clock text-amber-400"></i>
+                    <span class="text-slate-400 hidden sm:inline">Total:</span>
+                    <span id="overallTimer" class="font-mono font-bold text-amber-400">00:00:00</span>
+                </div>
+
+                <!-- Submit Button Header -->
+                <button onclick="confirmSubmitQuiz()" class="px-4 py-1.5 text-xs sm:text-sm font-semibold text-amber-300 border border-amber-500/40 hover:bg-amber-500/10 rounded-xl transition flex items-center gap-1.5">
+                    <i class="fa-solid fa-flag-checkered"></i>
+                    <span>Submit Test</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTAINER -->
+    <main class="flex-grow max-w-7xl w-full mx-auto px-3 sm:px-6 py-4 sm:py-6 grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+        
+        <!-- LEFT SIDEBAR: Question Navigation Grid -->
+        <aside id="sidebarPalette" class="lg:col-span-4 xl:col-span-3 order-2 lg:order-1 glass-panel rounded-2xl p-4 sm:p-5">
+            <div class="flex items-center justify-between mb-4 pb-3 border-b border-amber-950">
+                <h3 class="font-bold text-slate-200 text-sm sm:text-base flex items-center gap-2">
+                    <i class="fa-solid fa-grid-2 text-amber-400"></i> Question Palette
+                </h3>
+                <span class="text-xs text-slate-400 font-mono" id="paletteProgress">0/50 Answered</span>
+            </div>
+
+            <!-- Palette Status Legend -->
+            <div class="grid grid-cols-2 gap-2 text-xs mb-4">
+                <div class="flex items-center gap-2 text-slate-400">
+                    <span class="w-3 h-3 rounded-full bg-emerald-500/20 border border-emerald-500"></span> Correct
+                </div>
+                <div class="flex items-center gap-2 text-slate-400">
+                    <span class="w-3 h-3 rounded-full bg-rose-500/20 border border-rose-500"></span> Incorrect
+                </div>
+                <div class="flex items-center gap-2 text-slate-400">
+                    <span class="w-3 h-3 rounded-full bg-amber-500/30 border border-amber-400"></span> Active
+                </div>
+                <div class="flex items-center gap-2 text-slate-400">
+                    <span class="w-3 h-3 rounded-full bg-slate-800 border border-slate-700"></span> Unattempted
+                </div>
+            </div>
+
+            <!-- Question Numbers Grid -->
+            <div id="questionGrid" class="grid grid-cols-5 sm:grid-cols-10 lg:grid-cols-5 gap-2 max-h-[320px] lg:max-h-[420px] overflow-y-auto pr-1">
+                <!-- Populated dynamically via JS -->
+            </div>
+
+            <div class="mt-5 pt-4 border-t border-amber-950 text-center">
+                <div class="text-xs text-slate-400 mb-2">Completion Progress</div>
+                <div class="w-full bg-slate-800 rounded-full h-2 overflow-hidden">
+                    <div id="quizProgressBar" class="bg-gradient-to-r from-amber-500 via-rose-500 to-purple-500 h-full w-0 transition-all duration-300"></div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- RIGHT AREA: Active Question Display -->
+        <section id="questionContainer" class="lg:col-span-8 xl:col-span-9 order-1 lg:order-2 space-y-5">
+            
+            <div class="glass-panel rounded-2xl p-5 sm:p-7 relative overflow-hidden shadow-2xl">
+                <!-- Question Header Info -->
+                <div class="flex flex-wrap items-center justify-between gap-3 pb-4 mb-5 border-b border-amber-950 text-xs sm:text-sm">
+                    <div class="flex items-center gap-2">
+                        <span id="questionCategory" class="px-3 py-1 rounded-full bg-amber-500/10 text-amber-300 border border-amber-500/20 font-medium">
+                            Subtopic Loading...
+                        </span>
+                        <span id="pyqTag" class="px-2.5 py-1 rounded-full bg-purple-500/10 text-purple-300 border border-purple-500/20 font-mono">
+                            NEET PYQ
+                        </span>
+                    </div>
+
+                    <div class="flex items-center gap-3">
+                        <button id="bookmarkBtn" onclick="toggleBookmark()" class="text-slate-400 hover:text-amber-400 transition text-sm">
+                            <i class="fa-regular fa-bookmark" id="bookmarkIcon"></i>
+                        </button>
+                        <!-- Per-Question Timer -->
+                        <div class="flex items-center gap-1.5 text-slate-400 font-mono bg-slate-800/80 px-3 py-1 rounded-lg border border-slate-700">
+                            <i class="fa-solid fa-stopwatch text-amber-400"></i>
+                            <span>Time:</span>
+                            <span id="questionTimer" class="font-bold text-white">0s</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question Text -->
+                <div class="mb-6">
+                    <div class="flex items-start gap-3">
+                        <span id="qIndexBadge" class="flex-shrink-0 w-8 h-8 rounded-xl bg-slate-800 text-amber-400 border border-slate-700 font-bold flex items-center justify-center text-sm">
+                            Q1
+                        </span>
+                        <h2 id="questionText" class="text-base sm:text-lg md:text-xl font-semibold leading-relaxed text-slate-100">
+                            Loading question content...
+                        </h2>
+                    </div>
+                </div>
+
+                <!-- 4 Options -->
+                <div id="optionsGroup" class="space-y-3.5 mb-6">
+                    <!-- Options JS injected -->
+                </div>
+
+                <!-- Solution & Explanation Panel -->
+                <div id="explanationBox" class="hidden rounded-xl bg-dark-900/90 border border-amber-900 p-5 mt-5 animate-slide-up">
+                    <div class="flex items-center gap-2 mb-3 text-amber-400 font-bold text-sm">
+                        <i class="fa-solid fa-lightbulb"></i>
+                        <span>NCERT Explanation & Scientific Logic</span>
+                    </div>
+                    <div id="explanationText" class="text-xs sm:text-sm text-slate-300 leading-relaxed space-y-2">
+                        <!-- Solution content -->
+                    </div>
+                </div>
+
+                <!-- Question Footer Controls -->
+                <div class="flex items-center justify-between gap-4 pt-5 border-t border-amber-950">
+                    <button id="prevBtn" onclick="navigateQuestion(-1)" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold text-xs sm:text-sm flex items-center gap-2 transition disabled:opacity-40 disabled:cursor-not-allowed">
+                        <i class="fa-solid fa-arrow-left"></i> Previous
+                    </button>
+
+                    <span class="text-xs text-slate-400 font-mono hidden sm:inline">
+                        Question <span id="currentQNum">1</span> of 50
+                    </span>
+
+                    <button id="nextBtn" onclick="navigateQuestion(1)" class="px-5 py-2 rounded-xl bg-amber-600 hover:bg-amber-500 text-white font-semibold text-xs sm:text-sm flex items-center gap-2 transition shadow-lg shadow-amber-600/20">
+                        Next <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- END-OF-QUIZ FULL PERFORMANCE ANALYTICS PANEL -->
+        <section id="resultContainer" class="hidden lg:col-span-12 glass-panel rounded-3xl p-6 sm:p-10 space-y-8 animate-pop-in">
+            <!-- Header Result Banner -->
+            <div class="text-center space-y-3 relative">
+                <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-300 text-xs sm:text-sm font-semibold">
+                    <i class="fa-solid fa-chart-line"></i> Full Diagnostic Performance Report
+                </div>
+                <h2 id="finalVerdictTitle" class="text-2xl sm:text-4xl font-extrabold text-white">Outstanding Performance!</h2>
+                <p id="finalVerdictSub" class="text-sm sm:text-base text-slate-400 max-w-2xl mx-auto">
+                    Detailed analysis of your NEET readiness in 'Chemical Coordination and Integration' (Class 11 Biology).
+                </p>
+            </div>
+
+            <!-- Key Metrics Summary Cards -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
+                <div class="glass-card rounded-2xl p-5 border border-amber-500/20 text-center">
+                    <div class="text-xs font-semibold text-slate-400 mb-1">TOTAL MARKS</div>
+                    <div class="text-3xl sm:text-4xl font-black text-amber-400 font-mono" id="resMarks">0 / 200</div>
+                    <div class="text-[10px] text-slate-500 mt-1">+4 Correct | -1 Wrong</div>
+                </div>
+
+                <div class="glass-card rounded-2xl p-5 border border-cyan-500/20 text-center">
+                    <div class="text-xs font-semibold text-slate-400 mb-1">ACCURACY</div>
+                    <div class="text-3xl sm:text-4xl font-black text-cyan-400 font-mono" id="resAccuracy">0%</div>
+                    <div class="text-[10px] text-slate-500 mt-1" id="resCorrectRatio">0 Correct / 0 Attempted</div>
+                </div>
+
+                <div class="glass-card rounded-2xl p-5 border border-rose-500/20 text-center">
+                    <div class="text-xs font-semibold text-slate-400 mb-1">TOTAL TIME</div>
+                    <div class="text-3xl sm:text-4xl font-black text-rose-400 font-mono" id="resTotalTime">00:00:00</div>
+                    <div class="text-[10px] text-slate-500 mt-1">Elapsed Duration</div>
+                </div>
+
+                <div class="glass-card rounded-2xl p-5 border border-purple-500/20 text-center">
+                    <div class="text-xs font-semibold text-slate-400 mb-1">AVG SPEED / Q</div>
+                    <div class="text-3xl sm:text-4xl font-black text-purple-400 font-mono" id="resAvgTime">0s</div>
+                    <div class="text-[10px] text-slate-500 mt-1">Target &lt; 45s</div>
+                </div>
+            </div>
+
+            <!-- Graphical Analytics Section -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Subtopic Accuracy Bar Chart -->
+                <div class="glass-card rounded-2xl p-5 border border-slate-800">
+                    <h3 class="text-base font-bold text-slate-200 mb-4 flex items-center gap-2">
+                        <i class="fa-solid fa-chart-bar text-amber-400"></i> Subtopic Accuracy Breakdown
+                    </h3>
+                    <div class="relative h-64">
+                        <canvas id="topicBarChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Score Distribution Donut Chart -->
+                <div class="glass-card rounded-2xl p-5 border border-slate-800">
+                    <h3 class="text-base font-bold text-slate-200 mb-4 flex items-center gap-2">
+                        <i class="fa-solid fa-pie-chart text-cyan-400"></i> Attempted Questions Distribution
+                    </h3>
+                    <div class="relative h-64 flex items-center justify-center">
+                        <canvas id="scoreDonutChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Speed & Accuracy Highlights -->
+            <div class="glass-card rounded-2xl p-5 border border-slate-800 grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs sm:text-sm">
+                <div class="flex items-center gap-3 p-3 rounded-xl bg-slate-900/60 border border-slate-800">
+                    <div class="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-lg">
+                        ⚡
+                    </div>
+                    <div>
+                        <div class="text-slate-400 font-semibold">Fastest Correct Answer</div>
+                        <div class="text-white font-mono font-bold" id="fastestAns">Q-- (0s)</div>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-3 p-3 rounded-xl bg-slate-900/60 border border-slate-800">
+                    <div class="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center text-lg">
+                        ⏳
+                    </div>
+                    <div>
+                        <div class="text-slate-400 font-semibold">Slowest Answer</div>
+                        <div class="text-white font-mono font-bold" id="slowestAns">Q-- (0s)</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Review Grid & Filters -->
+            <div class="glass-card rounded-2xl p-6 border border-slate-800">
+                <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
+                    <h3 class="text-lg font-bold text-slate-200 flex items-center gap-2">
+                        <i class="fa-solid fa-list-check text-amber-400"></i> Detailed Question Review
+                    </h3>
+                    <div class="flex items-center gap-2 text-xs">
+                        <button onclick="filterReviewGrid('all')" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 font-medium">All (50)</button>
+                        <button onclick="filterReviewGrid('correct')" class="px-3 py-1.5 rounded-lg bg-emerald-950/80 text-emerald-400 border border-emerald-500/40 font-medium">Correct</button>
+                        <button onclick="filterReviewGrid('incorrect')" class="px-3 py-1.5 rounded-lg bg-rose-950/80 text-rose-400 border border-rose-500/40 font-medium">Incorrect</button>
+                    </div>
+                </div>
+
+                <div id="reviewGrid" class="grid grid-cols-5 sm:grid-cols-10 md:grid-cols-12 gap-2 text-xs">
+                    <!-- Review boxes JS populated -->
+                </div>
+            </div>
+
+            <!-- Retake Button -->
+            <div class="flex justify-center pt-4">
+                <button onclick="location.reload()" class="px-8 py-3 rounded-xl bg-gradient-to-r from-amber-500 via-rose-500 to-purple-500 text-white font-bold text-sm shadow-xl hover:opacity-90 transition flex items-center gap-2">
+                    <i class="fa-solid fa-rotate-right"></i> Retake Test
+                </button>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-dark-900 border-t border-amber-950 py-4 text-center text-xs text-slate-500">
+        NEET UG Biology PYQ Mastery Series • Chemical Coordination & Integration • High-Yield Question Bank
+    </footer>
+
+    <!-- QUIZ ENGINE SCRIPT -->
+    <script>
+        // 50 AUTHENTIC NEET/AIPMT LEVEL QUESTIONS ON "CHEMICAL COORDINATION AND INTEGRATION"
+        const quizData = [
+            {
+                id: 1,
+                pyqTag: "NEET 2023",
+                category: "Hypothalamus & Pituitary",
+                question: "Which hormone is synthesized by the hypothalamus but stored and released by the neurohypophysis (posterior pituitary)?",
+                options: ["Oxytocin and Vasopressin (ADH)", "ACTH and TSH", "Prolactin and LH", "Growth Hormone and MSH"],
+                correct: 0,
+                explanation: "<strong>Oxytocin and Vasopressin (Anti-diuretic hormone / ADH)</strong> are synthesized by supraoptic and paraventricular nuclei of the <i>hypothalamus</i> and transported axonally to the <i>posterior pituitary</i> (neurohypophysis) for storage and release."
+            },
+            {
+                id: 2,
+                pyqTag: "NEET 2022",
+                category: "Mechanism of Action",
+                question: "Which of the following hormones acts by binding to intracellular nuclear receptors rather than membrane-bound receptors?",
+                options: ["Thyroxine (T4)", "Insulin", "Epinephrine", "Follicle Stimulating Hormone (FSH)"],
+                correct: 0,
+                explanation: "Steroid hormones (e.g., Estrogen, Progesterone, Cortisol) and <strong>Thyroid hormones (T3 & T4)</strong> are lipid-soluble and pass through cell membranes to bind to <i>intracellular nuclear receptors</i> to regulate gene expression."
+            },
+            {
+                id: 3,
+                pyqTag: "NEET 2021",
+                category: "Thyroid & Parathyroid",
+                question: "Grave's disease (exophthalmic goitre) is caused due to:",
+                options: [
+                    "Hypersecretion of thyroid hormone due to autoimmune antibody stimulation",
+                    "Hyposecretion of thyroid hormone in infants",
+                    "Hyposecretion of parathyroid hormone",
+                    "Hypersecretion of adrenal cortex hormones"
+                ],
+                correct: 0,
+                explanation: "<strong>Grave's disease</strong> is an <i>autoimmune hyperthyroidism</i> where auto-antibodies mimic TSH, binding to TSH receptors and causing enlargement of the thyroid gland, protrusion of eyeballs (exophthalmos), increased BMR, and weight loss."
+            },
+            {
+                id: 4,
+                pyqTag: "NEET 2020",
+                category: "Adrenal & Pancreas",
+                question: "Match the following hormones with their corresponding endocrine glands:<br>1. Insulin - (i) Adrenal cortex<br>2. Glucagon - (ii) Beta cells of Islets of Langerhans<br>3. Cortisol - (iii) Alpha cells of Islets of Langerhans<br>4. Epinephrine - (iv) Adrenal medulla",
+                options: [
+                    "1-(ii), 2-(iii), 3-(i), 4-(iv)",
+                    "1-(iii), 2-(ii), 3-(iv), 4-(i)",
+                    "1-(i), 2-(iv), 3-(ii), 4-(iii)",
+                    "1-(ii), 2-(i), 3-(iii), 4-(iv)"
+                ],
+                correct: 0,
+                explanation: "Insulin is secreted by <strong>Beta cells</strong>, Glucagon by <strong>Alpha cells</strong> of Islets of Langerhans in the pancreas. Cortisol is a glucocorticoid from the <strong>Adrenal cortex</strong>, and Epinephrine (adrenaline) is from the <strong>Adrenal medulla</strong>."
+            },
+            {
+                id: 5,
+                pyqTag: "NEET 2019",
+                category: "Endocrine Disorders",
+                question: "Acromegaly in adults is caused by excessive secretion of:",
+                options: ["Growth Hormone (GH)", "Thyroxine", "Prolactin", "Adrenocorticotropic Hormone (ACTH)"],
+                correct: 0,
+                explanation: "Hypersecretion of <strong>Growth Hormone (GH)</strong> in adults (after epiphyseal plate closure) causes <i>Acromegaly</i>, leading to severe disfigurement (especially of facial bones and hands). Gigantism occurs if hypersecretion is prior to adulthood."
+            },
+            {
+                id: 6,
+                pyqTag: "NEET 2023",
+                category: "Mechanism of Action",
+                question: "Which of the following secondary messengers is generated inside the target cell upon peptide hormone binding to membrane receptors?",
+                options: ["Cyclic AMP (cAMP) and IP3 / Ca2+", "Thyroxine", "Glucocorticoid", "Cholesterol"],
+                correct: 0,
+                explanation: "Peptide and protein hormones (like FSH, LH, Epinephrine) cannot cross lipid membranes. They bind membrane receptors to generate <strong>second messengers like cyclic AMP (cAMP), IP3, and Ca2+</strong> to mediate metabolic response."
+            },
+            {
+                id: 7,
+                pyqTag: "NEET 2022",
+                category: "Hypothalamus & Pituitary",
+                question: "Which hormone stimulates gluconeogenesis, lipolysis, proteolysis, and inhibits cellular uptake and utilization of amino acids?",
+                options: ["Cortisol", "Insulin", "Aldosterone", "Thyrocalcitonin"],
+                correct: 0,
+                explanation: "<strong>Cortisol</strong> (a main glucocorticoid from adrenal cortex) stimulates gluconeogenesis, lipolysis, and proteolysis, and inhibits cellular amino acid uptake. It is also anti-inflammatory and immunosuppressive."
+            },
+            {
+                id: 8,
+                pyqTag: "NEET 2021",
+                category: "Non-endocrine & Other",
+                question: "Atrial Natriuretic Factor (ANF) is secreted by which organ to decrease blood pressure?",
+                options: ["Atrial wall of Heart", "Juxtaglomerular cells of Kidney", "Gastric mucosa", "Pineal gland"],
+                correct: 0,
+                explanation: "When blood pressure increases, the <strong>atrial wall of the heart</strong> secretes <i>Atrial Natriuretic Factor (ANF)</i>, which causes vasodilation and excretion of Na+, thereby lowering blood pressure (antagonist to RAAS)."
+            },
+            {
+                id: 9,
+                pyqTag: "NEET 2020 Phase 2",
+                category: "Thyroid & Parathyroid",
+                question: "Parathyroid hormone (PTH) increases blood calcium levels by acting on:",
+                options: [
+                    "Bones (resorption), renal tubules (reabsorption), and intestine (Ca2+ absorption)",
+                    "Osteoblasts to deposit calcium into bone matrix",
+                    "Liver to convert glycogen into glucose",
+                    "Pancreas to release calcitonin"
+                ],
+                correct: 0,
+                explanation: "<strong>Parathyroid hormone (PTH)</strong> is a hypercalcemic hormone. It raises blood Ca2+ by stimulating bone resorption (osteoclasts), increasing renal Ca2+ reabsorption, and enhancing Ca2+ absorption from digested food."
+            },
+            {
+                id: 10,
+                pyqTag: "NEET 2018",
+                category: "Adrenal & Pancreas",
+                question: "Which endocrine gland collapses or degenerates gradually with advancing age leading to weakened immune responses in elderly people?",
+                options: ["Thymus gland", "Thyroid gland", "Pineal gland", "Adrenal gland"],
+                correct: 0,
+                explanation: "The <strong>Thymus gland</strong> secretes thymosins which play a major role in the differentiation of T-lymphocytes (cell-mediated immunity). It degenerates in old individuals, resulting in a weakened immune system."
+            },
+            {
+                id: 11,
+                pyqTag: "NEET 2017",
+                category: "Hypothalamus & Pituitary",
+                question: "Hypersecretion of hormone from Pars intermedia of pituitary in lower vertebrates causes dispersion of pigment in skin cells. This hormone is:",
+                options: ["Melanocyte Stimulating Hormone (MSH)", "Melatonin", "Prolactin", "Luteinizing Hormone"],
+                correct: 0,
+                explanation: "<strong>Melanocyte Stimulating Hormone (MSH)</strong> is secreted by <i>Pars intermedia</i> of pituitary. It acts on melanocytes to regulate skin pigmentation."
+            },
+            {
+                id: 12,
+                pyqTag: "NEET 2019",
+                category: "Non-endocrine & Other",
+                question: "Erythropoietin (EPO), a peptide hormone that stimulates erythropoiesis (RBC formation), is produced by:",
+                options: ["Juxtaglomerular (JG) cells of Kidney", "Alpha cells of Pancreas", "Thyroid gland", "Adrenal medulla"],
+                correct: 0,
+                explanation: "The <strong>Juxtaglomerular (JG) cells of the kidney</strong> produce the peptide hormone <i>Erythropoietin (EPO)</i> in response to hypoxia to stimulate bone marrow RBC production."
+            },
+            {
+                id: 13,
+                pyqTag: "NEET 2020",
+                category: "Endocrine Disorders",
+                question: "Diabetes Insipidus is caused by hyposecretion of:",
+                options: ["Vasopressin (Anti-diuretic hormone / ADH)", "Insulin", "Aldosterone", "Glucagon"],
+                correct: 0,
+                explanation: "Deficiency or hyposecretion of <strong>Vasopressin (ADH)</strong> diminishes the kidney's ability to reabsorb water, causing excessive excretion of dilute urine (diuresis) and intense thirst, known as <i>Diabetes Insipidus</i>."
+            },
+            {
+                id: 14,
+                pyqTag: "NEET 2016",
+                category: "Thyroid & Parathyroid",
+                question: "Thyrocalcitonin (TCT) secreted by parafollicular C-cells of thyroid gland functions to:",
+                options: [
+                    "Lower blood calcium levels (hypocalcemic hormone)",
+                    "Increase blood calcium levels",
+                    "Regulate 24-hour diurnal rhythm",
+                    "Stimulate basal metabolic rate"
+                ],
+                correct: 0,
+                explanation: "<strong>Thyrocalcitonin (TCT)</strong> is a peptide hormone secreted by thyroid gland parafollicular C-cells. It is a <i>hypocalcemic hormone</i> that lowers blood Ca2+ levels, counteracting Parathyroid hormone (PTH)."
+            },
+            {
+                id: 15,
+                pyqTag: "NEET 2023",
+                category: "Non-endocrine & Other",
+                question: "Melatonin hormone is secreted by which gland, and what is its primary biological function?",
+                options: [
+                    "Pineal gland; Regulates 24-hour diurnal rhythm (sleep-wake cycle)",
+                    "Thymus gland; Regulates blood pressure",
+                    "Pituitary gland; Controls lactation",
+                    "Thyroid gland; Controls iodine metabolism"
+                ],
+                correct: 0,
+                explanation: "<strong>Melatonin</strong> is secreted by the <i>Pineal gland</i> (located on dorsal side of forebrain). It maintains 24-hour diurnal (circadian) rhythms such as sleep-wake cycle, body temperature, pigmentation, and menstrual cycles."
+            },
+            {
+                id: 16,
+                pyqTag: "NEET 2018",
+                category: "Hypothalamus & Pituitary",
+                question: "GnRH (Gonadotropin Releasing Hormone) synthesized by hypothalamus reaches anterior pituitary gland through:",
+                options: ["Hypophyseal portal circulatory system", "Axons of neurosecretory cells", "Lymphatic vessels", "Direct diffusion"],
+                correct: 0,
+                explanation: "Hypothalamic hormones targeting the anterior pituitary (adenohypophysis) travel through the <strong>Hypophyseal Portal System</strong>. Posterior pituitary is under direct neural control."
+            },
+            {
+                id: 17,
+                pyqTag: "NEET 2021",
+                category: "Adrenal & Pancreas",
+                question: "Aldosterone acts mainly at the renal tubules to stimulate:",
+                options: [
+                    "Reabsorption of Na+ and water, and excretion of K+ and phosphate ions",
+                    "Excretion of Na+ and retention of K+",
+                    "Reabsorption of glucose only",
+                    "Secretion of renin"
+                ],
+                correct: 0,
+                explanation: "<strong>Aldosterone</strong> (the principal mineralocorticoid from zona glomerulosa of adrenal cortex) acts on distal convoluted tubules to promote active reabsorption of Na+ & water and renal excretion of K+ & phosphate."
+            },
+            {
+                id: 18,
+                pyqTag: "NEET 2017",
+                category: "Endocrine Disorders",
+                question: "Addison's disease results from hyposecretion of corticoid hormones from adrenal cortex. Common symptoms include:",
+                options: [
+                    "Altered carbohydrate metabolism, acute weakness, fatigue, and bronze skin pigmentation",
+                    "Exophthalmos and raised BMR",
+                    "Tetany and muscle spasms",
+                    "High blood sugar and glycosuria"
+                ],
+                correct: 0,
+                explanation: "Underproduction of mineralocorticoids and glucocorticoids by adrenal cortex leads to <strong>Addison's disease</strong>, characterized by severe hypoglycemia, hyponatremia, fatigue, low blood pressure, and hyperpigmentation (bronzing)."
+            },
+            {
+                id: 19,
+                pyqTag: "NEET 2022",
+                category: "Mechanism of Action",
+                question: "Which of the following is a steroid hormone derived from cholesterol?",
+                options: ["Progesterone and Estrogen", "Insulin and Glucagon", "Thyroxine and Triiodothyronine", "Adrenaline and Noradrenaline"],
+                correct: 0,
+                explanation: "Steroid hormones include <strong>Sex hormones (Estrogen, Progesterone, Testosterone) and Corticoids (Cortisol, Aldosterone)</strong>, all synthesized from cholesterol lipid precursor."
+            },
+            {
+                id: 20,
+                pyqTag: "NEET 2019",
+                category: "Non-endocrine & Other",
+                question: "Gastrointestinal peptide hormones CCK (Cholecystokinin) and Secretin act respectively on:",
+                options: [
+                    "Pancreas & Gall bladder (CCK); Exocrine Pancreas (Secretin)",
+                    "Stomach only for both",
+                    "Liver (CCK); Small intestine (Secretin)",
+                    "Salivary glands for both"
+                ],
+                correct: 0,
+                explanation: "<strong>Cholecystokinin (CCK)</strong> acts on both pancreas (to release pancreatic enzymes) and gall bladder (to contract and release bile). <strong>Secretin</strong> acts on exocrine pancreas to stimulate secretion of water and bicarbonate ions."
+            },
+            {
+                id: 21,
+                pyqTag: "NEET 2020 Phase 2",
+                category: "Hypothalamus & Pituitary",
+                question: "Luteinizing Hormone (LH) in human males stimulates:",
+                options: [
+                    "Leydig cells (interstitial cells) to synthesize and secrete Androgens (Testosterone)",
+                    "Sertoli cells for spermiogenesis",
+                    "Follicular growth in testes",
+                    "Adrenal cortex to release cortisol"
+                ],
+                correct: 0,
+                explanation: "In males, <strong>LH (Luteinizing Hormone)</strong> is also called ICSH (Interstitial Cell Stimulating Hormone). It acts on <i>Leydig cells</i> of testes to secrete testosterone. FSH acts on Sertoli cells."
+            },
+            {
+                id: 22,
+                pyqTag: "NEET 2016",
+                category: "Thyroid & Parathyroid",
+                question: "Cretinism in infants is caused due to:",
+                options: [
+                    "Severe hypothyroidism during pregnancy",
+                    "Hypersecretion of growth hormone",
+                    "Hyperparathyroidism",
+                    "Insulin resistance"
+                ],
+                correct: 0,
+                explanation: "Congenital <strong>hypothyroidism</strong> during pregnancy or early infancy causes <i>Cretinism</i>, resulting in stunted physical growth, mental retardation, low IQ, deaf-mutism, and abnormal skin."
+            },
+            {
+                id: 23,
+                pyqTag: "NEET 2023",
+                category: "Adrenal & Pancreas",
+                question: "Adrenaline and Noradrenaline are together called Emergency Hormones or Catecholamines because they:",
+                options: [
+                    "Increase alertness, pupillary dilation, piloerection, sweating, heart rate, and glycogenolysis during stress",
+                    "Induce deep sleep and lower heart rate",
+                    "Decrease breathing rate and cause hypoglycemia",
+                    "Stimulate protein synthesis in skeletal muscles"
+                ],
+                correct: 0,
+                explanation: "<strong>Catecholamines (Adrenaline/Epinephrine & Noradrenaline/Norepinephrine)</strong> from adrenal medulla are secreted in response to stress/emergency ('fight or flight'). They increase heart rate, breathing, alertness, pupil dilation, and breakdown of glycogen into glucose."
+            },
+            {
+                id: 24,
+                pyqTag: "NEET 2018",
+                category: "Endocrine Disorders",
+                question: "Diabetes Mellitus is characterized by hyperglycemia and glycosuria. It is caused by deficiency or resistance to:",
+                options: ["Insulin", "Glucagon", "Thyroxine", "Vasopressin"],
+                correct: 0,
+                explanation: "<strong>Diabetes Mellitus</strong> is caused by deficiency of <i>Insulin</i> (Type 1) or tissue resistance to insulin (Type 2). It leads to chronic high blood glucose (hyperglycemia), glucose excretion in urine (glycosuria), and ketone body formation."
+            },
+            {
+                id: 25,
+                pyqTag: "NEET 2021",
+                category: "Hypothalamus & Pituitary",
+                question: "Spermiogenesis in male seminiferous tubules is stimulated by which pituitary hormone acting on Sertoli cells?",
+                options: ["Follicle Stimulating Hormone (FSH)", "Luteinizing Hormone (LH)", "Prolactin", "Oxytocin"],
+                correct: 0,
+                explanation: "<strong>FSH</strong> acts on Sertoli cells in male testes to stimulate secretion of factors essential for <i>spermiogenesis</i> (transformation of spermatids to spermatozoa)."
+            },
+            {
+                id: 26,
+                pyqTag: "NEET 2020",
+                category: "Mechanism of Action",
+                question: "Which of the following amino acid derivative hormone is synthesized by adrenal medulla?",
+                options: ["Epinephrine (Adrenaline)", "Thyroxine", "Progesterone", "Insulin"],
+                correct: 0,
+                explanation: "<strong>Epinephrine and Norepinephrine</strong> are amino acid derivative hormones derived from the amino acid <i>Tyrosine</i> in the adrenal medulla. Thyroxine is also a tyrosine derivative."
+            },
+            {
+                id: 27,
+                pyqTag: "NEET 2017",
+                category: "Thyroid & Parathyroid",
+                question: "Simple Goitre is an enlargement of thyroid gland caused by deficiency of which dietary element?",
+                options: ["Iodine", "Calcium", "Iron", "Sodium"],
+                correct: 0,
+                explanation: "Iodine is essential for the synthesis of thyroid hormones (T3 and T4). <strong>Iodine deficiency</strong> in diet causes hypothyroidism and compensatory enlargement of the thyroid gland called <i>Simple Goitre</i>."
+            },
+            {
+                id: 28,
+                pyqTag: "NEET 2022",
+                category: "Non-endocrine & Other",
+                question: "Gastrin hormone secreted by G-cells of stomach mucosa stimulates:",
+                options: ["Secretion of HCl and Pepsinogen", "Inhibition of gastric motility", "Release of bile from gallbladder", "Pancreatic bicarbonate release"],
+                correct: 0,
+                explanation: "<strong>Gastrin</strong> acts on gastric glands and stimulates the secretion of <i>Hydrochloric acid (HCl) and Pepsinogen</i> to aid digestion in the stomach."
+            },
+            {
+                id: 29,
+                pyqTag: "NEET 2019",
+                category: "Adrenal & Pancreas",
+                question: "Alpha cells of Islets of Langerhans secrete Glucagon, which acts primarily on liver cells (hepatocytes) to:",
+                options: [
+                    "Promote glycogenolysis and gluconeogenesis (hyperglycemic effect)",
+                    "Increase cellular glucose uptake",
+                    "Promote glycogenesis",
+                    "Inhibit lipolysis"
+                ],
+                correct: 0,
+                explanation: "<strong>Glucagon</strong> is a <i>hyperglycemic hormone</i>. It acts on liver hepatocytes to stimulate glycogen breakdown (glycogenolysis) and gluconeogenesis, elevating blood glucose level."
+            },
+            {
+                id: 30,
+                pyqTag: "NEET 2016",
+                category: "Hypothalamus & Pituitary",
+                question: "Oxytocin causes contraction of smooth muscles of uterus during childbirth and ejection of milk from mammary glands. It is released from:",
+                options: ["Neurohypophysis (Posterior Pituitary)", "Adenohypophysis (Anterior Pituitary)", "Adrenal Cortex", "Placenta only"],
+                correct: 0,
+                explanation: "<strong>Oxytocin</strong> is synthesized in hypothalamus and released by the <i>neurohypophysis</i> (posterior pituitary). It triggers vigorous uterine contractions during parturition and milk ejection ('let-down reflex') during suckling."
+            },
+            {
+                id: 31,
+                pyqTag: "NEET 2023",
+                category: "Thyroid & Parathyroid",
+                question: "Which gland regulates basal metabolic rate (BMR), red blood cell formation, and maintenance of water-electrolyte balance?",
+                options: ["Thyroid Gland", "Pancreas", "Pineal Gland", "Parathyroid Gland"],
+                correct: 0,
+                explanation: "<strong>Thyroid hormones (T3 & T4)</strong> play a major role in regulating <i>Basal Metabolic Rate (BMR)</i>, supporting erythropoiesis (RBC synthesis), and maintaining water and electrolyte balance."
+            },
+            {
+                id: 32,
+                pyqTag: "NEET 2021",
+                category: "Endocrine Disorders",
+                question: "Tetany (painful muscle spasms) is caused by hyposecretion of which hormone leading to low calcium in blood?",
+                options: ["Parathyroid Hormone (PTH)", "Thyrocalcitonin", "Aldosterone", "Insulin"],
+                correct: 0,
+                explanation: "Hyposecretion of <strong>PTH (Parathormone)</strong> lowers blood Ca2+ concentration (hypocalcemia), increasing neuromuscular excitability and causing wild muscle spasms known as <i>Tetany</i>."
+            },
+            {
+                id: 33,
+                pyqTag: "NEET 2020",
+                category: "Hypothalamus & Pituitary",
+                question: "In females, LH surge during middle of menstrual cycle induces:",
+                options: ["Ovulation (rupture of Graafian follicle)", "Growth of endometrium", "Inhibition of progesterone", "Degeneration of corpus luteum"],
+                correct: 0,
+                explanation: "Rapid surge of <strong>LH (Luteinizing Hormone)</strong> around day 14 of menstrual cycle triggers the rupture of mature Graafian follicle and release of ovum (<i>Ovulation</i>) and subsequent formation of Corpus Luteum."
+            },
+            {
+                id: 34,
+                pyqTag: "NEET 2018",
+                category: "Adrenal & Pancreas",
+                question: "Zona fasciculata is the middle layer of adrenal cortex which secretes predominantly:",
+                options: ["Glucocorticoids (e.g., Cortisol)", "Mineralocorticoids (e.g., Aldosterone)", "Sex corticoids (Androgens)", "Catecholamines"],
+                correct: 0,
+                explanation: "Adrenal cortex has 3 layers from outer to inner: Zona glomerulosa (mineralocorticoids), <strong>Zona fasciculata (glucocorticoids)</strong>, and Zona reticularis (sex corticoids)."
+            },
+            {
+                id: 35,
+                pyqTag: "NEET 2017",
+                category: "Mechanism of Action",
+                question: "How do protein/peptide hormones trigger physiological responses in target cells without entering cytoplasm?",
+                options: [
+                    "By forming hormone-receptor complex on cell membrane to activate second messengers like cAMP/IP3",
+                    "By diffusing across lipid bilayer directly to nucleolus",
+                    "By breaking down cell membrane lipids",
+                    "By converting into steroid precursor"
+                ],
+                correct: 0,
+                explanation: "Peptide/water-soluble hormones bind to <strong>extracellular membrane-bound receptors</strong>, activating membrane G-proteins and enzymes (like Adenylate cyclase) to generate second messengers (cAMP, IP3, Ca2+)."
+            },
+            {
+                id: 36,
+                pyqTag: "NEET 2022",
+                category: "Hypothalamus & Pituitary",
+                question: "Prolactin (PRL) hormone secreted by anterior pituitary regulates:",
+                options: ["Growth of mammary glands and formation of milk", "Ejection of milk during suckling", "Ovulation in females", "Water reabsorption in nephrons"],
+                correct: 0,
+                explanation: "<strong>Prolactin (PRL)</strong> stimulates mammary gland development and milk <i>synthesis/formation</i>. (Milk <i>ejection</i> is caused by Oxytocin)."
+            },
+            {
+                id: 37,
+                pyqTag: "NEET 2019",
+                category: "Non-endocrine & Other",
+                question: "GIP (Gastric Inhibitory Peptide) hormone functions to:",
+                options: ["Inhibit gastric secretion and motility", "Stimulate pancreatic juice release", "Contract gall bladder", "Increase stomach acid"],
+                correct: 0,
+                explanation: "<strong>Gastric Inhibitory Peptide (GIP)</strong> secreted by duodenal mucosa inhibits gastric acid secretion and slows down gastric motility."
+            },
+            {
+                id: 38,
+                pyqTag: "NEET 2020 Phase 2",
+                category: "Endocrine Disorders",
+                question: "Myxedema (Gull's disease) in adults is characterized by puffy appearance, low BMR, and lethargy due to:",
+                options: ["Hypothyroidism in adults", "Hyperthyroidism", "Hyperaldosteronism", "Hypoparathyroidism"],
+                correct: 0,
+                explanation: "Severe <strong>hypothyroidism in adults</strong> causes <i>Myxedema</i>, leading to edema (puffiness due to accumulation of mucus/fluid under skin), low metabolic rate, gain in weight, and mental sluggishness."
+            },
+            {
+                id: 39,
+                pyqTag: "NEET 2016",
+                category: "Adrenal & Pancreas",
+                question: "Insulin hormone promotes glycogenesis by facilitating glucose entry into cells of:",
+                options: ["Hepatocytes and Adipocytes", "Neurons only", "Renal tubule cells", "Intestinal epithelial cells"],
+                correct: 0,
+                explanation: "<strong>Insulin</strong> acts on target cells like <i>hepatocytes (liver) and adipocytes (fat tissue)</i> to increase cellular glucose uptake via GLUT-4 transporters and promotes conversion of glucose to glycogen (glycogenesis)."
+            },
+            {
+                id: 40,
+                pyqTag: "NEET 2023",
+                category: "Hypothalamus & Pituitary",
+                question: "Somatostatin released from hypothalamus acts as an:",
+                options: ["Inhibitory hormone that suppresses Growth Hormone (GH) release", "Stimulatory hormone for TSH", "Inhibitory hormone for Oxytocin", "Enzyme for lipid digestion"],
+                correct: 0,
+                explanation: "<strong>Somatostatin</strong> from the hypothalamus inhibits the release of Growth Hormone (GH) from the anterior pituitary. (GHRH stimulates GH release)."
+            },
+            {
+                id: 41,
+                pyqTag: "NEET 2021",
+                category: "Thyroid & Parathyroid",
+                question: "Isthmus is a thin flap of connective tissue that connects:",
+                options: ["Two lobes of thyroid gland", "Thyroid and parathyroid glands", "Adrenal cortex and medulla", "Two halves of pituitary gland"],
+                correct: 0,
+                explanation: "The human thyroid gland consists of two lateral lobes situated on either side of the trachea, interconnected by a thin median non-glandular connective tissue band called the <strong>Isthmus</strong>."
+            },
+            {
+                id: 42,
+                pyqTag: "NEET 2018",
+                category: "Mechanism of Action",
+                question: "Progesterone hormone plays a vital role in pregnancy by:",
+                options: [
+                    "Supporting and maintaining the endometrium for implantation",
+                    "Rupturing Graafian follicle for ovulation",
+                    "Decreasing blood pressure",
+                    "Stimulating growth hormone release"
+                ],
+                correct: 0,
+                explanation: "<strong>Progesterone</strong> (secreted by Corpus Luteum and later Placenta) maintains the vascularized <i>endometrium of uterus</i> essential for implantation of fertilized ovum and pregnancy maintenance."
+            },
+            {
+                id: 43,
+                pyqTag: "NEET 2020",
+                category: "Non-endocrine & Other",
+                question: "Relaxin hormone is secreted during late phase of pregnancy by:",
+                options: ["Corpus luteum and Placenta", "Thyroid gland", "Adrenal medulla", "Pituitary gland"],
+                correct: 0,
+                explanation: "<strong>Relaxin</strong> is secreted by the <i>Corpus Luteum</i> and later the <i>Placenta</i> towards the end of pregnancy to relax pelvic ligaments and pubic symphysis for smooth delivery."
+            },
+            {
+                id: 44,
+                pyqTag: "NEET 2017",
+                category: "Adrenal & Pancreas",
+                question: "Androgenic steroids secreted by zona reticularis of adrenal cortex play a role in:",
+                options: [
+                    "Growth of axial hair, pubic hair, and facial hair during puberty",
+                    "Regulation of blood calcium levels",
+                    "Synthesis of hemoglobin",
+                    "Excretion of uric acid"
+                ],
+                correct: 0,
+                explanation: "Small amounts of <strong>androgenic steroids</strong> (sex corticoids) secreted by zona reticularis of adrenal cortex stimulate development of axial, pubic, and facial hair during puberty in both males and females."
+            },
+            {
+                id: 45,
+                pyqTag: "NEET 2022",
+                category: "Hypothalamus & Pituitary",
+                question: "Hypopituitarism leading to deficiency of STH (Growth Hormone) in childhood results in:",
+                options: ["Pituitary Dwarfism", "Gigantism", "Acromegaly", "Cretinism"],
+                correct: 0,
+                explanation: "Deficiency or hyposecretion of Growth Hormone (STH) during growth years / childhood leads to <strong>Pituitary Dwarfism</strong> (stunted growth with proportionate body proportions and normal intelligence)."
+            },
+            {
+                id: 46,
+                pyqTag: "NEET 2019",
+                category: "Thyroid & Parathyroid",
+                question: "Four small parathyroid glands are located on the:",
+                options: ["Posterior surface of the two lobes of thyroid gland", "Dorsal surface of midbrain", "Superior pole of kidneys", "Ventral wall of trachea"],
+                correct: 0,
+                explanation: "In humans, <strong>four parathyroid glands</strong> are present on the <i>posterior (back) side of the thyroid gland</i>, two on each lateral lobe."
+            },
+            {
+                id: 47,
+                pyqTag: "NEET 2021",
+                category: "Mechanism of Action",
+                question: "Which lipid soluble hormone enters target cell nucleus and directly interacts with genome to form hormone-receptor complex?",
+                options: ["Estrogen", "Adrenaline", "Insulin", "FSH"],
+                correct: 0,
+                explanation: "Steroid hormones like <strong>Estrogen</strong> diffuse directly across target cell membrane, bind nuclear receptors, and regulate gene expression by interacting with chromatin."
+            },
+            {
+                id: 48,
+                pyqTag: "NEET 2016",
+                category: "Endocrine Disorders",
+                question: "Cushing's syndrome is caused due to hypersecretion of:",
+                options: ["Cortisol (Glucocorticoids)", "Thyroxine", "Insulin", "Vasopressin"],
+                correct: 0,
+                explanation: "Hypersecretion of cortisol by adrenal cortex causes <strong>Cushing's syndrome</strong>, characterized by high blood glucose, breakdown of tissue proteins, muscle wasting, 'moon face', and 'buffalo hump'."
+            },
+            {
+                id: 49,
+                pyqTag: "NEET 2023",
+                category: "Adrenal & Pancreas",
+                question: "Delta cells (or D-cells) of Islets of Langerhans in pancreas secrete:",
+                options: ["Somatostatin", "Insulin", "Glucagon", "Pancreatic Polypeptide"],
+                correct: 0,
+                explanation: "In the endocrine pancreas: Alpha cells secrete Glucagon, Beta cells secrete Insulin, and <strong>Delta cells secrete Somatostatin</strong> (which regulates local secretion of insulin and glucagon)."
+            },
+            {
+                id: 50,
+                pyqTag: "NEET 2022",
+                category: "Hypothalamus & Pituitary",
+                question: "Which pituitary hormone is responsible for maintaining corpus luteum and stimulating it to produce progesterone after ovulation?",
+                options: ["Luteinizing Hormone (LH)", "Follicle Stimulating Hormone (FSH)", "Prolactin", "ACTH"],
+                correct: 0,
+                explanation: "Following ovulation, <strong>Luteinizing Hormone (LH)</strong> transforms the ruptured Graafian follicle into the <i>Corpus Luteum</i> and maintains it to secrete Progesterone."
+            }
+        ];
+
+        // PRAISE TEXTS
+        const praisePhrases = [
+            "Spot On, Future Doctor! 🩺",
+            "NCERT Masterstroke! 🌟",
+            "Endocrine Concept Cleared! 🧪",
+            "Hormonal Harmony! 💉",
+            "Top Tier Accuracy! +4 Marks! 🎯",
+            "Superb Speed! 🚀",
+            "Future AIIMS Ranker Mindset! ✨"
+        ];
+
+        // STATE MANAGERS
+        let currentIndex = 0;
+        let userAnswers = new Array(quizData.length).fill(null);
+        let bookmarked = new Array(quizData.length).fill(false);
+        let questionTimeSpent = new Array(quizData.length).fill(0);
+        let overallTimeInSeconds = 0;
+        
+        let overallTimerInterval = null;
+        let questionTimerInterval = null;
+        let isQuizSubmitted = false;
+
+        // CHART INSTANCES
+        let barChartInstance = null;
+        let donutChartInstance = null;
+
+        window.onload = function() {
+            renderQuestionPalette();
+            loadQuestion(0);
+            startOverallTimer();
+            startQuestionTimer();
+        };
+
+        // PALETTE GENERATOR
+        function renderQuestionPalette() {
+            const grid = document.getElementById('questionGrid');
+            grid.innerHTML = '';
+            
+            quizData.forEach((q, idx) => {
+                const btn = document.createElement('button');
+                btn.id = `palette-btn-${idx}`;
+                btn.onclick = () => jumpToQuestion(idx);
+                btn.className = getPaletteBtnClass(idx);
+                btn.innerText = idx + 1;
+                grid.appendChild(btn);
+            });
+
+            updateProgressStats();
+        }
+
+        function getPaletteBtnClass(idx) {
+            let base = "w-9 h-9 sm:w-10 sm:h-10 text-xs sm:text-sm font-bold rounded-xl flex items-center justify-center transition border relative ";
+            if (idx === currentIndex) {
+                return base + "bg-amber-600 text-white border-amber-400 ring-2 ring-amber-400/50 scale-105";
+            }
+            if (userAnswers[idx] !== null) {
+                const isCorrect = userAnswers[idx] === quizData[idx].correct;
+                if (isCorrect) {
+                    return base + "bg-emerald-500/20 text-emerald-400 border-emerald-500/50";
+                } else {
+                    return base + "bg-rose-500/20 text-rose-400 border-rose-500/50";
+                }
+            }
+            return base + "bg-slate-800/80 text-slate-400 border-slate-700/60 hover:bg-slate-700";
+        }
+
+        function updatePaletteStyles() {
+            quizData.forEach((_, idx) => {
+                const btn = document.getElementById(`palette-btn-${idx}`);
+                if (btn) btn.className = getPaletteBtnClass(idx);
+            });
+            updateProgressStats();
+        }
+
+        function updateProgressStats() {
+            const answeredCount = userAnswers.filter(a => a !== null).length;
+            document.getElementById('paletteProgress').innerText = `${answeredCount}/50 Answered`;
+            document.getElementById('quizProgressBar').style.width = `${(answeredCount / 50) * 100}%`;
+        }
+
+        // QUESTION DISPLAY
+        function loadQuestion(index) {
+            clearInterval(questionTimerInterval);
+            
+            currentIndex = index;
+            const q = quizData[index];
+
+            document.getElementById('qIndexBadge').innerText = `Q${index + 1}`;
+            document.getElementById('currentQNum').innerText = index + 1;
+            document.getElementById('questionCategory').innerText = q.category;
+            document.getElementById('pyqTag').innerText = q.pyqTag;
+            document.getElementById('questionText').innerHTML = q.question;
+
+            // Bookmark Icon update
+            const bkIcon = document.getElementById('bookmarkIcon');
+            if (bookmarked[index]) {
+                bkIcon.className = "fa-solid fa-bookmark text-amber-400";
+            } else {
+                bkIcon.className = "fa-regular fa-bookmark text-slate-400";
+            }
+
+            // Options
+            const optionsGroup = document.getElementById('optionsGroup');
+            optionsGroup.innerHTML = '';
+
+            const isAnswered = userAnswers[index] !== null;
+            const selectedOpt = userAnswers[index];
+
+            q.options.forEach((optText, optIdx) => {
+                const optBtn = document.createElement('button');
+                optBtn.className = getOptionStyle(index, optIdx);
+                optBtn.disabled = isAnswered;
+
+                const char = String.fromCharCode(65 + optIdx);
+                
+                let iconMarkup = '';
+                if (isAnswered) {
+                    if (optIdx === q.correct) {
+                        iconMarkup = `<i class="fa-solid fa-circle-check text-emerald-400 text-lg"></i>`;
+                    } else if (optIdx === selectedOpt && selectedOpt !== q.correct) {
+                        iconMarkup = `<i class="fa-solid fa-circle-xmark text-rose-400 text-lg"></i>`;
+                    }
+                }
+
+                optBtn.innerHTML = `
+                    <div class="flex items-center gap-3 text-left w-full">
+                        <span class="w-7 h-7 rounded-lg bg-slate-800 border border-slate-700 text-slate-300 flex items-center justify-center font-bold text-xs flex-shrink-0">
+                            ${char}
+                        </span>
+                        <span class="text-sm sm:text-base text-slate-200 font-medium flex-grow">${optText}</span>
+                        ${iconMarkup}
+                    </div>
+                `;
+
+                optBtn.onclick = () => selectOption(optIdx);
+                optionsGroup.appendChild(optBtn);
+            });
+
+            // Solution panel
+            const explanationBox = document.getElementById('explanationBox');
+            const explanationText = document.getElementById('explanationText');
+
+            if (isAnswered) {
+                explanationText.innerHTML = q.explanation;
+                explanationBox.classList.remove('hidden');
+            } else {
+                explanationBox.classList.add('hidden');
+            }
+
+            document.getElementById('prevBtn').disabled = currentIndex === 0;
+            document.getElementById('nextBtn').disabled = currentIndex === quizData.length - 1;
+
+            updatePaletteStyles();
+            startQuestionTimer();
+        }
+
+        function getOptionStyle(qIdx, optIdx) {
+            const q = quizData[qIdx];
+            const answeredOpt = userAnswers[qIdx];
+
+            let base = "w-full p-4 rounded-xl border text-left transition-all duration-200 shadow-md flex items-center justify-between ";
+
+            if (answeredOpt === null) {
+                return base + "bg-slate-800/60 border-slate-700/80 hover:bg-slate-700/70 hover:border-amber-500/50 text-slate-200 cursor-pointer";
+            }
+
+            if (optIdx === q.correct) {
+                return base + "bg-emerald-950/70 border-emerald-500 text-emerald-200 font-semibold ring-2 ring-emerald-500/30 animate-pop-in";
+            }
+            if (optIdx === answeredOpt && answeredOpt !== q.correct) {
+                return base + "bg-rose-950/70 border-rose-500 text-rose-200 ring-2 ring-rose-500/30 animate-shake";
+            }
+
+            return base + "bg-slate-900/40 border-slate-800 text-slate-500 opacity-60 cursor-not-allowed";
+        }
+
+        function selectOption(optIdx) {
+            if (userAnswers[currentIndex] !== null || isQuizSubmitted) return;
+
+            userAnswers[currentIndex] = optIdx;
+
+            const isCorrect = optIdx === quizData[currentIndex].correct;
+
+            if (isCorrect) {
+                triggerSuccessAnimation();
+            }
+
+            loadQuestion(currentIndex);
+        }
+
+        function toggleBookmark() {
+            bookmarked[currentIndex] = !bookmarked[currentIndex];
+            loadQuestion(currentIndex);
+        }
+
+        // CONFETTI & MOTIVATION POPUP
+        function triggerSuccessAnimation() {
+            confetti({
+                particleCount: 65,
+                spread: 80,
+                origin: { y: 0.65 },
+                colors: ['#f59e0b', '#ec4899', '#8b5cf6', '#10b981']
+            });
+
+            const toast = document.getElementById('praiseToast');
+            const praiseText = document.getElementById('praiseText');
+            praiseText.innerText = praisePhrases[Math.floor(Math.random() * praisePhrases.length)];
+            
+            toast.classList.add('active');
+            setTimeout(() => toast.classList.remove('active'), 1800);
+        }
+
+        // TIMERS
+        function startOverallTimer() {
+            overallTimerInterval = setInterval(() => {
+                overallTimeInSeconds++;
+                const hrs = Math.floor(overallTimeInSeconds / 3600).toString().padStart(2, '0');
+                const mins = Math.floor((overallTimeInSeconds % 3600) / 60).toString().padStart(2, '0');
+                const secs = (overallTimeInSeconds % 60).toString().padStart(2, '0');
+                document.getElementById('overallTimer').innerText = `${hrs}:${mins}:${secs}`;
+            }, 1000);
+        }
+
+        function startQuestionTimer() {
+            const timerEl = document.getElementById('questionTimer');
+            timerEl.innerText = `${questionTimeSpent[currentIndex]}s`;
+
+            questionTimerInterval = setInterval(() => {
+                questionTimeSpent[currentIndex]++;
+                timerEl.innerText = `${questionTimeSpent[currentIndex]}s`;
+            }, 1000);
+        }
+
+        function navigateQuestion(step) {
+            const nextIdx = currentIndex + step;
+            if (nextIdx >= 0 && nextIdx < quizData.length) {
+                loadQuestion(nextIdx);
+            }
+        }
+
+        function jumpToQuestion(idx) {
+            loadQuestion(idx);
+        }
+
+        // SUBMIT & DETAILED ANALYTICS
+        function confirmSubmitQuiz() {
+            const unanswered = userAnswers.filter(a => a === null).length;
+            let confirmMsg = "Are you sure you want to finish and submit the test?";
+            if (unanswered > 0) {
+                confirmMsg = `You have ${unanswered} unattempted question(s). Submit test anyway?`;
+            }
+
+            if (window.confirm(confirmMsg)) {
+                submitQuiz();
+            }
+        }
+
+        function submitQuiz() {
+            isQuizSubmitted = true;
+            clearInterval(overallTimerInterval);
+            clearInterval(questionTimerInterval);
+
+            document.getElementById('questionContainer').classList.add('hidden');
+            document.getElementById('sidebarPalette').classList.add('hidden');
+            document.getElementById('resultContainer').classList.remove('hidden');
+
+            let correctCount = 0;
+            let wrongCount = 0;
+            let unattemptedCount = 0;
+
+            let fastestSecs = 9999;
+            let fastestQ = -1;
+            let slowestSecs = -1;
+            let slowestQ = -1;
+
+            userAnswers.forEach((ans, idx) => {
+                const spent = questionTimeSpent[idx];
+                if (spent > 0) {
+                    if (spent < fastestSecs && ans === quizData[idx].correct) {
+                        fastestSecs = spent;
+                        fastestQ = idx + 1;
+                    }
+                    if (spent > slowestSecs) {
+                        slowestSecs = spent;
+                        slowestQ = idx + 1;
+                    }
+                }
+
+                if (ans === null) {
+                    unattemptedCount++;
+                } else if (ans === quizData[idx].correct) {
+                    correctCount++;
+                } else {
+                    wrongCount++;
+                }
+            });
+
+            const totalMarks = (correctCount * 4) - (wrongCount * 1);
+            const attemptedTotal = correctCount + wrongCount;
+            const accuracy = attemptedTotal > 0 ? Math.round((correctCount / attemptedTotal) * 100) : 0;
+
+            const hrs = Math.floor(overallTimeInSeconds / 3600).toString().padStart(2, '0');
+            const mins = Math.floor((overallTimeInSeconds % 3600) / 60).toString().padStart(2, '0');
+            const secs = (overallTimeInSeconds % 60).toString().padStart(2, '0');
+            const avgSecsPerQ = Math.round(overallTimeInSeconds / 50);
+
+            document.getElementById('resMarks').innerText = `${totalMarks} / 200`;
+            document.getElementById('resAccuracy').innerText = `${accuracy}%`;
+            document.getElementById('resCorrectRatio').innerText = `${correctCount} Correct / ${attemptedTotal} Attempted`;
+            document.getElementById('resTotalTime').innerText = `${hrs}:${mins}:${secs}`;
+            document.getElementById('resAvgTime').innerText = `${avgSecsPerQ}s`;
+
+            document.getElementById('fastestAns').innerText = fastestQ !== -1 ? `Q${fastestQ} (${fastestSecs}s)` : 'N/A';
+            document.getElementById('slowestAns').innerText = slowestQ !== -1 ? `Q${slowestQ} (${slowestSecs}s)` : 'N/A';
+
+            const verdictTitle = document.getElementById('finalVerdictTitle');
+            const verdictSub = document.getElementById('finalVerdictSub');
+
+            if (totalMarks >= 180) {
+                verdictTitle.innerText = "🏆 Outstanding Mastery! Top Ranker!";
+                verdictSub.innerText = "Exceptional accuracy in Chemical Coordination & Integration! Ready for NEET 2025/26!";
+            } else if (totalMarks >= 145) {
+                verdictTitle.innerText = "👍 Strong Concept Hold!";
+                verdictSub.innerText = "Solid score! Revise incorrect questions to reach a perfect 200/200.";
+            } else {
+                verdictTitle.innerText = "📖 NCERT Revision Needed!";
+                verdictSub.innerText = "Re-read Endocrine Glands, Hormone Actions, and Disorders from NCERT Biology Class 11.";
+            }
+
+            renderCharts(correctCount, wrongCount, unattemptedCount);
+            renderReviewGrid('all');
+
+            confetti({
+                particleCount: 120,
+                spread: 100,
+                origin: { y: 0.5 }
+            });
+        }
+
+        // CHART.JS RENDERER
+        function renderCharts(correct, wrong, unattempted) {
+            // Categories calculation
+            const categories = {};
+            quizData.forEach((q, idx) => {
+                if (!categories[q.category]) {
+                    categories[q.category] = { total: 0, correct: 0 };
+                }
+                categories[q.category].total++;
+                if (userAnswers[idx] === q.correct) {
+                    categories[q.category].correct++;
+                }
+            });
+
+            const catLabels = Object.keys(categories);
+            const catAccuracies = catLabels.map(cat => {
+                const d = categories[cat];
+                return Math.round((d.correct / d.total) * 100);
+            });
+
+            // Subtopic Bar Chart
+            const barCtx = document.getElementById('topicBarChart').getContext('2d');
+            barChartInstance = new Chart(barCtx, {
+                type: 'bar',
+                data: {
+                    labels: catLabels,
+                    datasets: [{
+                        label: 'Accuracy (%)',
+                        data: catAccuracies,
+                        backgroundColor: 'rgba(245, 158, 11, 0.65)',
+                        borderColor: '#f59e0b',
+                        borderWidth: 1.5,
+                        borderRadius: 8
+                    }]
+                },
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: {
+                            beginAtZero: true,
+                            max: 100,
+                            ticks: { color: '#94a3b8' },
+                            grid: { color: 'rgba(255,255,255,0.05)' }
+                        },
+                        y: {
+                            ticks: { color: '#94a3b8', font: { size: 10 } },
+                            grid: { display: false }
+                        }
+                    },
+                    plugins: { legend: { display: false } }
+                }
+            });
+
+            // Score Donut Chart
+            const donutCtx = document.getElementById('scoreDonutChart').getContext('2d');
+            donutChartInstance = new Chart(donutCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Correct (+4)', 'Incorrect (-1)', 'Unattempted (0)'],
+                    datasets: [{
+                        data: [correct, wrong, unattempted],
+                        backgroundColor: ['#10b981', '#f43f5e', '#475569'],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: { color: '#cbd5e1', font: { size: 11 } }
+                        }
+                    }
+                }
+            });
+        }
+
+        // FILTERED REVIEW GRID
+        function filterReviewGrid(filter) {
+            const grid = document.getElementById('reviewGrid');
+            grid.innerHTML = '';
+
+            quizData.forEach((q, idx) => {
+                const ans = userAnswers[idx];
+                const isCorrect = ans === q.correct;
+                const isAttempted = ans !== null;
+
+                if (filter === 'correct' && !isCorrect) return;
+                if (filter === 'incorrect' && (isCorrect || !isAttempted)) return;
+
+                let colorClass = "bg-slate-800 text-slate-500 border-slate-700";
+                let statusIcon = "—";
+
+                if (isAttempted) {
+                    if (isCorrect) {
+                        colorClass = "bg-emerald-950/80 text-emerald-400 border-emerald-500/50";
+                        statusIcon = "✓";
+                    } else {
+                        colorClass = "bg-rose-950/80 text-rose-400 border-rose-500/50";
+                        statusIcon = "✕";
+                    }
+                }
+
+                const item = document.createElement('div');
+                item.className = `p-2 rounded-lg border text-center font-mono font-bold flex flex-col items-center justify-center cursor-pointer hover:opacity-80 transition ${colorClass}`;
+                item.innerHTML = `
+                    <span>Q${idx + 1}</span>
+                    <span class="text-xs">${statusIcon}</span>
+                `;
+                grid.appendChild(item);
+            });
+        }
+    </script>
+</body>
+</html>

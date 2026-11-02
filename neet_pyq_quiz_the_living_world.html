@@ -1,0 +1,1383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEET UG PYQ Quiz - The Living World</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Canvas Confetti CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <!-- Chart.js CDN for detailed visual analytics -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#ecfdf5',
+                            100: '#d1fae5',
+                            400: '#34d399',
+                            500: '#10b981',
+                            600: '#059669',
+                            700: '#047857',
+                            900: '#064e3b',
+                        },
+                        dark: {
+                            900: '#080d1a',
+                            800: '#0f172a',
+                            700: '#1e293b',
+                            600: '#334155'
+                        }
+                    },
+                    animation: {
+                        'shake': 'shake 0.4s cubic-bezier(.36,.07,.19,.97) both',
+                        'pop-in': 'popIn 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards',
+                        'slide-up': 'slideUp 0.3s ease-out forwards'
+                    },
+                    keyframes: {
+                        shake: {
+                            '10%, 90%': { transform: 'translate3d(-2px, 0, 0)' },
+                            '20%, 80%': { transform: 'translate3d(4px, 0, 0)' },
+                            '30%, 50%, 70%': { transform: 'translate3d(-6px, 0, 0)' },
+                            '40%, 60%': { transform: 'translate3d(6px, 0, 0)' }
+                        },
+                        popIn: {
+                            '0%': { opacity: '0', transform: 'scale(0.85)' },
+                            '100%': { opacity: '1', transform: 'scale(1)' }
+                        },
+                        slideUp: {
+                            '0%': { opacity: '0', transform: 'translateY(16px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #060913;
+            color: #f1f5f9;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-image: 
+                radial-gradient(at 15% 15%, rgba(16, 185, 129, 0.1) 0px, transparent 45%),
+                radial-gradient(at 85% 85%, rgba(59, 130, 246, 0.08) 0px, transparent 45%);
+            background-attachment: fixed;
+        }
+
+        .glass-panel {
+            background: rgba(15, 23, 42, 0.78);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 20px 50px -15px rgba(0, 0, 0, 0.6);
+        }
+
+        .glass-card {
+            background: rgba(30, 41, 59, 0.65);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #060913; }
+        ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #334155; }
+
+        /* Floating Motivational Toast */
+        .toast-popup {
+            position: fixed;
+            top: 15%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.6);
+            z-index: 100;
+            pointer-events: none;
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .toast-popup.active {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between antialiased selection:bg-emerald-500 selection:text-white">
+
+    <!-- Motivational Toast popup -->
+    <div id="praiseToast" class="toast-popup">
+        <div class="px-6 py-3.5 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-extrabold text-lg md:text-xl shadow-2xl flex items-center gap-3 border border-emerald-300/40">
+            <span id="praiseIcon" class="text-2xl">🌱</span>
+            <span id="praiseText">Perfect NCERT Answer!</span>
+        </div>
+    </div>
+
+    <!-- HEADER / NAVIGATION BAR -->
+    <header class="sticky top-0 z-40 bg-dark-900/85 backdrop-blur-md border-b border-slate-800 px-4 lg:px-8 py-3">
+        <div class="max-w-7xl mx-auto flex items-center justify-between gap-4">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-emerald-500 to-cyan-500 flex items-center justify-center text-white shadow-lg shadow-emerald-500/20 font-black text-xl">
+                    🧬
+                </div>
+                <div>
+                    <h1 class="text-base sm:text-lg font-bold bg-gradient-to-r from-white via-slate-200 to-emerald-400 bg-clip-text text-transparent">NEET UG Target 2025/26</h1>
+                    <p class="text-xs text-slate-400 flex items-center gap-1.5 font-medium">
+                        <span class="inline-block w-2 h-2 rounded-full bg-emerald-500"></span>
+                        Biology: The Living World (50 PYQs)
+                    </p>
+                </div>
+            </div>
+
+            <div class="flex items-center gap-3 sm:gap-6">
+                <!-- Stopwatch Timer -->
+                <div class="flex items-center gap-2 bg-dark-800 px-3.5 py-1.5 rounded-xl border border-slate-700/60 text-xs sm:text-sm">
+                    <i class="fa-regular fa-clock text-emerald-400"></i>
+                    <span class="text-slate-400 hidden sm:inline">Total:</span>
+                    <span id="overallTimer" class="font-mono font-bold text-emerald-400">00:00:00</span>
+                </div>
+
+                <!-- Submit Button Header -->
+                <button onclick="confirmSubmitQuiz()" class="px-4 py-1.5 text-xs sm:text-sm font-semibold text-emerald-400 border border-emerald-500/40 hover:bg-emerald-500/10 rounded-xl transition flex items-center gap-1.5">
+                    <i class="fa-solid fa-flag-checkered"></i>
+                    <span>Submit Test</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTAINER -->
+    <main class="flex-grow max-w-7xl w-full mx-auto px-3 sm:px-6 py-4 sm:py-6 grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+        
+        <!-- LEFT SIDEBAR: Question Navigation Grid -->
+        <aside id="sidebarPalette" class="lg:col-span-4 xl:col-span-3 order-2 lg:order-1 glass-panel rounded-2xl p-4 sm:p-5">
+            <div class="flex items-center justify-between mb-4 pb-3 border-b border-slate-800">
+                <h3 class="font-bold text-slate-200 text-sm sm:text-base flex items-center gap-2">
+                    <i class="fa-solid fa-grid-2 text-emerald-400"></i> Question Palette
+                </h3>
+                <span class="text-xs text-slate-400 font-mono" id="paletteProgress">0/50 Answered</span>
+            </div>
+
+            <!-- Palette Status Legend -->
+            <div class="grid grid-cols-2 gap-2 text-xs mb-4">
+                <div class="flex items-center gap-2 text-slate-400">
+                    <span class="w-3 h-3 rounded-full bg-emerald-500/20 border border-emerald-500"></span> Correct
+                </div>
+                <div class="flex items-center gap-2 text-slate-400">
+                    <span class="w-3 h-3 rounded-full bg-rose-500/20 border border-rose-500"></span> Incorrect
+                </div>
+                <div class="flex items-center gap-2 text-slate-400">
+                    <span class="w-3 h-3 rounded-full bg-indigo-500/30 border border-indigo-400"></span> Active
+                </div>
+                <div class="flex items-center gap-2 text-slate-400">
+                    <span class="w-3 h-3 rounded-full bg-slate-800 border border-slate-700"></span> Unattempted
+                </div>
+            </div>
+
+            <!-- Question Numbers Grid -->
+            <div id="questionGrid" class="grid grid-cols-5 sm:grid-cols-10 lg:grid-cols-5 gap-2 max-h-[320px] lg:max-h-[420px] overflow-y-auto pr-1">
+                <!-- Populated dynamically via JS -->
+            </div>
+
+            <div class="mt-5 pt-4 border-t border-slate-800 text-center">
+                <div class="text-xs text-slate-400 mb-2">Completion Progress</div>
+                <div class="w-full bg-slate-800 rounded-full h-2 overflow-hidden">
+                    <div id="quizProgressBar" class="bg-gradient-to-r from-emerald-500 to-teal-400 h-full w-0 transition-all duration-300"></div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- RIGHT AREA: Active Question Display -->
+        <section id="questionContainer" class="lg:col-span-8 xl:col-span-9 order-1 lg:order-2 space-y-5">
+            
+            <div class="glass-panel rounded-2xl p-5 sm:p-7 relative overflow-hidden shadow-2xl">
+                <!-- Question Header Info -->
+                <div class="flex flex-wrap items-center justify-between gap-3 pb-4 mb-5 border-b border-slate-800 text-xs sm:text-sm">
+                    <div class="flex items-center gap-2">
+                        <span id="questionCategory" class="px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-medium">
+                            Taxonomic Categories
+                        </span>
+                        <span id="pyqTag" class="px-2.5 py-1 rounded-full bg-indigo-500/10 text-indigo-300 border border-indigo-500/20 font-mono">
+                            NEET 2022
+                        </span>
+                    </div>
+
+                    <div class="flex items-center gap-3">
+                        <button id="bookmarkBtn" onclick="toggleBookmark()" class="text-slate-400 hover:text-amber-400 transition text-sm">
+                            <i class="fa-regular fa-bookmark" id="bookmarkIcon"></i>
+                        </button>
+                        <!-- Per-Question Timer -->
+                        <div class="flex items-center gap-1.5 text-slate-400 font-mono bg-slate-800/80 px-3 py-1 rounded-lg border border-slate-700">
+                            <i class="fa-solid fa-stopwatch text-amber-400"></i>
+                            <span>Time:</span>
+                            <span id="questionTimer" class="font-bold text-white">0s</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question Text -->
+                <div class="mb-6">
+                    <div class="flex items-start gap-3">
+                        <span id="qIndexBadge" class="flex-shrink-0 w-8 h-8 rounded-xl bg-slate-800 text-emerald-400 border border-slate-700 font-bold flex items-center justify-center text-sm">
+                            Q1
+                        </span>
+                        <h2 id="questionText" class="text-base sm:text-lg md:text-xl font-semibold leading-relaxed text-slate-100">
+                            Loading question content...
+                        </h2>
+                    </div>
+                </div>
+
+                <!-- 4 Options -->
+                <div id="optionsGroup" class="space-y-3.5 mb-6">
+                    <!-- Options JS injected -->
+                </div>
+
+                <!-- Solution & Explanation Panel -->
+                <div id="explanationBox" class="hidden rounded-xl bg-dark-900/90 border border-slate-700 p-5 mt-5 animate-slide-up">
+                    <div class="flex items-center gap-2 mb-3 text-amber-400 font-bold text-sm">
+                        <i class="fa-solid fa-lightbulb"></i>
+                        <span>NCERT Explanation & Scientific Logic</span>
+                    </div>
+                    <div id="explanationText" class="text-xs sm:text-sm text-slate-300 leading-relaxed space-y-2">
+                        <!-- Solution content -->
+                    </div>
+                </div>
+
+                <!-- Question Footer Controls -->
+                <div class="flex items-center justify-between gap-4 pt-5 border-t border-slate-800">
+                    <button id="prevBtn" onclick="navigateQuestion(-1)" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold text-xs sm:text-sm flex items-center gap-2 transition disabled:opacity-40 disabled:cursor-not-allowed">
+                        <i class="fa-solid fa-arrow-left"></i> Previous
+                    </button>
+
+                    <span class="text-xs text-slate-400 font-mono hidden sm:inline">
+                        Question <span id="currentQNum">1</span> of 50
+                    </span>
+
+                    <button id="nextBtn" onclick="navigateQuestion(1)" class="px-5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs sm:text-sm flex items-center gap-2 transition shadow-lg shadow-emerald-600/20">
+                        Next <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- END-OF-QUIZ FULL PERFORMANCE ANALYTICS PANEL -->
+        <section id="resultContainer" class="hidden lg:col-span-12 glass-panel rounded-3xl p-6 sm:p-10 space-y-8 animate-pop-in">
+            <!-- Header Result Banner -->
+            <div class="text-center space-y-3 relative">
+                <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs sm:text-sm font-semibold">
+                    <i class="fa-solid fa-chart-line"></i> Full Diagnostic Performance Report
+                </div>
+                <h2 id="finalVerdictTitle" class="text-2xl sm:text-4xl font-extrabold text-white">Outstanding Performance!</h2>
+                <p id="finalVerdictSub" class="text-sm sm:text-base text-slate-400 max-w-2xl mx-auto">
+                    Detailed analysis of your NEET readiness in 'The Living World' (Class 11 Biology).
+                </p>
+            </div>
+
+            <!-- Key Metrics Summary Cards -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
+                <div class="glass-card rounded-2xl p-5 border border-emerald-500/20 text-center">
+                    <div class="text-xs font-semibold text-slate-400 mb-1">TOTAL MARKS</div>
+                    <div class="text-3xl sm:text-4xl font-black text-emerald-400 font-mono" id="resMarks">0 / 200</div>
+                    <div class="text-[10px] text-slate-500 mt-1">+4 Correct | -1 Wrong</div>
+                </div>
+
+                <div class="glass-card rounded-2xl p-5 border border-cyan-500/20 text-center">
+                    <div class="text-xs font-semibold text-slate-400 mb-1">ACCURACY</div>
+                    <div class="text-3xl sm:text-4xl font-black text-cyan-400 font-mono" id="resAccuracy">0%</div>
+                    <div class="text-[10px] text-slate-500 mt-1" id="resCorrectRatio">0 Correct / 0 Attempted</div>
+                </div>
+
+                <div class="glass-card rounded-2xl p-5 border border-amber-500/20 text-center">
+                    <div class="text-xs font-semibold text-slate-400 mb-1">TOTAL TIME</div>
+                    <div class="text-3xl sm:text-4xl font-black text-amber-400 font-mono" id="resTotalTime">00:00:00</div>
+                    <div class="text-[10px] text-slate-500 mt-1">Elapsed Duration</div>
+                </div>
+
+                <div class="glass-card rounded-2xl p-5 border border-purple-500/20 text-center">
+                    <div class="text-xs font-semibold text-slate-400 mb-1">AVG SPEED / Q</div>
+                    <div class="text-3xl sm:text-4xl font-black text-purple-400 font-mono" id="resAvgTime">0s</div>
+                    <div class="text-[10px] text-slate-500 mt-1">Target &lt; 45s</div>
+                </div>
+            </div>
+
+            <!-- Graphical Analytics Section -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Subtopic Accuracy Bar Chart -->
+                <div class="glass-card rounded-2xl p-5 border border-slate-800">
+                    <h3 class="text-base font-bold text-slate-200 mb-4 flex items-center gap-2">
+                        <i class="fa-solid fa-chart-bar text-emerald-400"></i> Subtopic Accuracy Breakdown
+                    </h3>
+                    <div class="relative h-64">
+                        <canvas id="topicBarChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Score Distribution Donut Chart -->
+                <div class="glass-card rounded-2xl p-5 border border-slate-800">
+                    <h3 class="text-base font-bold text-slate-200 mb-4 flex items-center gap-2">
+                        <i class="fa-solid fa-pie-chart text-cyan-400"></i> Attempted Questions Distribution
+                    </h3>
+                    <div class="relative h-64 flex items-center justify-center">
+                        <canvas id="scoreDonutChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Speed & Accuracy Highlights -->
+            <div class="glass-card rounded-2xl p-5 border border-slate-800 grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs sm:text-sm">
+                <div class="flex items-center gap-3 p-3 rounded-xl bg-slate-900/60 border border-slate-800">
+                    <div class="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-lg">
+                        ⚡
+                    </div>
+                    <div>
+                        <div class="text-slate-400 font-semibold">Fastest Correct Answer</div>
+                        <div class="text-white font-mono font-bold" id="fastestAns">Q-- (0s)</div>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-3 p-3 rounded-xl bg-slate-900/60 border border-slate-800">
+                    <div class="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center text-lg">
+                        ⏳
+                    </div>
+                    <div>
+                        <div class="text-slate-400 font-semibold">Slowest Answer</div>
+                        <div class="text-white font-mono font-bold" id="slowestAns">Q-- (0s)</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Review Grid & Filters -->
+            <div class="glass-card rounded-2xl p-6 border border-slate-800">
+                <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
+                    <h3 class="text-lg font-bold text-slate-200 flex items-center gap-2">
+                        <i class="fa-solid fa-list-check text-emerald-400"></i> Detailed Question Review
+                    </h3>
+                    <div class="flex items-center gap-2 text-xs">
+                        <button onclick="filterReviewGrid('all')" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 font-medium">All (50)</button>
+                        <button onclick="filterReviewGrid('correct')" class="px-3 py-1.5 rounded-lg bg-emerald-950/80 text-emerald-400 border border-emerald-500/40 font-medium">Correct</button>
+                        <button onclick="filterReviewGrid('incorrect')" class="px-3 py-1.5 rounded-lg bg-rose-950/80 text-rose-400 border border-rose-500/40 font-medium">Incorrect</button>
+                    </div>
+                </div>
+
+                <div id="reviewGrid" class="grid grid-cols-5 sm:grid-cols-10 md:grid-cols-12 gap-2 text-xs">
+                    <!-- Review boxes JS populated -->
+                </div>
+            </div>
+
+            <!-- Retake Button -->
+            <div class="flex justify-center pt-4">
+                <button onclick="location.reload()" class="px-8 py-3 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-bold text-sm shadow-xl hover:opacity-90 transition flex items-center gap-2">
+                    <i class="fa-solid fa-rotate-right"></i> Retake Test
+                </button>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-dark-900 border-t border-slate-800 py-4 text-center text-xs text-slate-500">
+        NEET UG Biology PYQ Mastery Series • The Living World • High-Yield Question Bank
+    </footer>
+
+    <!-- QUIZ ENGINE SCRIPT -->
+    <script>
+        // 50 AUTHENTIC NEET/AIPMT LEVEL QUESTIONS ON "THE LIVING WORLD"
+        const quizData = [
+            {
+                id: 1,
+                pyqTag: "NEET 2023",
+                category: "What is Living?",
+                question: "Which one of the following is considered a defining property of living organisms without any exception?",
+                options: ["Growth", "Reproduction", "Metabolism", "Self-replication"],
+                correct: 2,
+                explanation: "<strong>Metabolism</strong> is a defining property of all living organisms without exception. Non-living objects do not show metabolism. Growth and reproduction are non-defining as non-living things (like sand dunes) grow by accumulation, and organisms like sterile worker bees or mules do not reproduce."
+            },
+            {
+                id: 2,
+                pyqTag: "NEET 2022",
+                category: "Diversity in Living World",
+                question: "According to binomial nomenclature, scientific names are derived from which language and written in which script?",
+                options: ["Latinized and written in Italics", "Greek and written in Roman", "English and written in Italics", "Latinized and written in Bold"],
+                correct: 0,
+                explanation: "Biological names are generally in <strong>Latin</strong> (or Latinized regardless of their origin) and written in <i>Italics</i> when printed."
+            },
+            {
+                id: 3,
+                pyqTag: "NEET 2021",
+                category: "Taxonomical Aids",
+                question: "The store house of collected plant specimens that are dried, pressed, and preserved on sheets is called:",
+                options: ["Herbarium", "Botanical Garden", "Museum", "Monograph"],
+                correct: 0,
+                explanation: "A <strong>Herbarium</strong> is a repository of dried, pressed, and preserved plant specimens mounted on herbarium sheets along with detailed label information."
+            },
+            {
+                id: 4,
+                pyqTag: "NEET 2020",
+                category: "Taxonomic Categories",
+                question: "Match the following taxonomical categories for Mango (<i>Mangifera indica</i>):<br>1. Family - Anacardiaceae<br>2. Order - Sapindales<br>3. Class - Dicotyledonae<br>Which of the above matches are correct?",
+                options: ["1 and 2 only", "2 and 3 only", "1 and 3 only", "1, 2, and 3"],
+                correct: 3,
+                explanation: "All matches are correct according to NCERT Table 1.1: Mango belongs to Genus <i>Mangifera</i>, Family <strong>Anacardiaceae</strong>, Order <strong>Sapindales</strong>, and Class <strong>Dicotyledonae</strong>."
+            },
+            {
+                id: 5,
+                pyqTag: "NEET 2019",
+                category: "Diversity in Living World",
+                question: "ICBN stands for:",
+                options: [
+                    "International Code of Botanical Nomenclature",
+                    "International Congress of Biological Names",
+                    "Indian Code of Botanical Nomenclature",
+                    "International Code of Binomial Nomenclature"
+                ],
+                correct: 0,
+                explanation: "<strong>ICBN</strong> stands for <i>International Code of Botanical Nomenclature</i> (now updated to International Code of Nomenclature for algae, fungi, and plants)."
+            },
+            {
+                id: 6,
+                pyqTag: "NEET 2020 Phase 2",
+                category: "Taxonomical Aids",
+                question: "Which taxonomic aid contains actual account of habitat and distribution of plants of a given area?",
+                options: ["Flora", "Manual", "Monograph", "Catalogue"],
+                correct: 0,
+                explanation: "<strong>Flora</strong> provides the actual account of habitat and distribution of plants of a particular area, acting as an index to the plant species found in that region."
+            },
+            {
+                id: 7,
+                pyqTag: "NEET 2018",
+                category: "Taxonomic Categories",
+                question: "Select the correctly written scientific name of Mango which was first described by Carolus Linnaeus:",
+                options: ["Mangifera Indica", "Mangifera indica Car. Linn.", "Mangifera indica Linn.", "Mangifera indica"],
+                correct: 2,
+                explanation: "According to ICBN rules, the author's name appears after the specific epithet in an abbreviated form without italics, i.e., <strong><i>Mangifera indica</i> Linn.</strong>"
+            },
+            {
+                id: 8,
+                pyqTag: "NEET 2017",
+                category: "What is Living?",
+                question: "Consciousness is a defining property of living organisms because:",
+                options: [
+                    "All organisms from prokaryotes to complex eukaryotes respond to environmental stimuli",
+                    "Only human beings possess consciousness",
+                    "Non-living objects respond to internal stimuli",
+                    "It is shown by isolated in vitro cell-free systems"
+                ],
+                correct: 0,
+                explanation: "<strong>Consciousness</strong> (ability to sense external environment and respond to stimuli) is a defining property because all living organisms, from simple prokaryotes to complex eukaryotes, sense and respond to environmental factors."
+            },
+            {
+                id: 9,
+                pyqTag: "NEET 2016",
+                category: "Taxonomic Categories",
+                question: "As we go from species to kingdom in a taxonomic hierarchy, the number of common characteristics:",
+                options: ["Decreases", "Increases", "Remains constant", "First increases then decreases"],
+                correct: 0,
+                explanation: "As we move higher up from species to kingdom, the number of common characteristics <strong>decreases</strong> while general/broad similarities increase."
+            },
+            {
+                id: 10,
+                pyqTag: "NEET 2023",
+                category: "Taxonomical Aids",
+                question: "A taxonomic key used for identification of plants and animals is based on contrasting characters generally in a pair called:",
+                options: ["Couplet", "Lead", "Monograph", "Catalogue"],
+                correct: 0,
+                explanation: "Keys are based on contrasting characters generally in a pair called a <strong>Couplet</strong>. Each statement in the key is called a <i>Lead</i>."
+            },
+            {
+                id: 11,
+                pyqTag: "NEET 2018",
+                category: "Taxonomic Categories",
+                question: "Which of the following taxonomic categories includes all the others listed?",
+                options: ["Family", "Order", "Class", "Genus"],
+                correct: 2,
+                explanation: "The hierarchy is Genus &rarr; Family &rarr; Order &rarr; <strong>Class</strong>. Thus Class is higher and includes Order, Family, and Genus."
+            },
+            {
+                id: 12,
+                pyqTag: "NEET 2019",
+                category: "Taxonomical Aids",
+                question: "In botanical gardens, plant specimens are grown for identification purposes and each plant is labeled showing its:",
+                options: [
+                    "Botanical/scientific name and its Family",
+                    "English name and name of collector",
+                    "Local name and economic uses",
+                    "Phylum and Kingdom"
+                ],
+                correct: 0,
+                explanation: "Plants in botanical gardens are labeled indicating their <strong>Botanical/scientific name and their respective Family</strong>."
+            },
+            {
+                id: 13,
+                pyqTag: "NEET 2021",
+                category: "Taxonomic Categories",
+                question: "Find the odd one out with respect to taxonomic hierarchy of Housefly (<i>Musca domestica</i>):",
+                options: ["Family - Muscidae", "Order - Diptera", "Class - Insecta", "Phylum - Chordata"],
+                correct: 3,
+                explanation: "Housefly belongs to Phylum <strong>Arthropoda</strong>, NOT Chordata."
+            },
+            {
+                id: 14,
+                pyqTag: "NEET 2022",
+                category: "What is Living?",
+                question: "In unicellular organisms like <i>Amoeba</i> and <i>Bacteria</i>, growth is synonymous with:",
+                options: ["Reproduction", "Metabolism", "Consciousness", "Development"],
+                correct: 0,
+                explanation: "In single-celled organisms, cell division leads to an increase in number of cells, making <strong>growth and reproduction synonymous</strong> (mutually inclusive)."
+            },
+            {
+                id: 15,
+                pyqTag: "NEET 2017",
+                category: "Diversity in Living World",
+                question: "The estimated number of species described and known on Earth (biodiversity) is approximately:",
+                options: ["1.7 - 1.8 million", "7.1 - 8.1 million", "0.5 - 1.0 million", "10 - 12 million"],
+                correct: 0,
+                explanation: "According to NCERT, the number of species known and described ranges between <strong>1.7 to 1.8 million</strong>."
+            },
+            {
+                id: 16,
+                pyqTag: "NEET 2020",
+                category: "Taxonomical Aids",
+                question: "Which taxonomical aid provides information for identification of names of species found in an area?",
+                options: ["Manuals", "Monographs", "Flora", "Catalogues"],
+                correct: 0,
+                explanation: "<strong>Manuals</strong> are useful in providing information for identification of names of species found in a particular area."
+            },
+            {
+                id: 17,
+                pyqTag: "NEET 2015",
+                category: "Taxonomic Categories",
+                question: "The basic unit of biological classification is:",
+                options: ["Species", "Genus", "Family", "Order"],
+                correct: 0,
+                explanation: "<strong>Species</strong> is the basic/lowest fundamental unit of biological classification."
+            },
+            {
+                id: 18,
+                pyqTag: "NEET 2023",
+                category: "Taxonomical Aids",
+                question: "Monographs contain information on:",
+                options: [
+                    "Any one taxon",
+                    "All plant species of an area",
+                    "Preserved animal specimens",
+                    "Alphabetical list of species"
+                ],
+                correct: 0,
+                explanation: "A <strong>Monograph</strong> contains complete detailed information on any single taxon."
+            },
+            {
+                id: 19,
+                pyqTag: "NEET 2016",
+                category: "Diversity in Living World",
+                question: "Nomenclature is governed by certain universal rules. Which one of the following is CONTRARY to the rules of nomenclature?",
+                options: [
+                    "The first word in a biological name represents the genus while the second is a specific epithet",
+                    "The names are written in Latin and italicised",
+                    "When written by hand, the names are to be underlined separately",
+                    "Biological names can be written in any language of choice"
+                ],
+                correct: 3,
+                explanation: "Biological names <strong>must be derived from Latin</strong> or Latinized regardless of their origin. They cannot be written in any random language."
+            },
+            {
+                id: 20,
+                pyqTag: "NEET 2021",
+                category: "What is Living?",
+                question: "Isolated metabolic reactions in vitro are:",
+                options: [
+                    "Not living things, but surely living reactions",
+                    "Living organisms",
+                    "Non-living reactions",
+                    "Non-functional chemical events"
+                ],
+                correct: 0,
+                explanation: "Isolated metabolic reactions in a test tube (in vitro) are <strong>not living things, but are definitely living reactions</strong> because metabolic processes occur."
+            },
+            {
+                id: 21,
+                pyqTag: "NEET 2019",
+                category: "Taxonomic Categories",
+                question: "Which of the following taxonomic category ranks comes immediately above 'Family' in animal classification?",
+                options: ["Order", "Class", "Genus", "Phylum"],
+                correct: 0,
+                explanation: "In taxonomic hierarchy: Genus &rarr; Family &rarr; <strong>Order</strong> &rarr; Class. The rank immediately above Family is Order."
+            },
+            {
+                id: 22,
+                pyqTag: "NEET 2018",
+                category: "Taxonomical Aids",
+                question: "National Botanical Research Institute (NBRI) is located at:",
+                options: ["Lucknow", "Howrah", "Kew", "Dehradun"],
+                correct: 0,
+                explanation: "<strong>NBRI</strong> (National Botanical Research Institute) is situated in <strong>Lucknow, India</strong>."
+            },
+            {
+                id: 23,
+                pyqTag: "NEET 2022",
+                category: "Taxonomic Categories",
+                question: "Solanaceae and Convolvulaceae families are included in the Order Polynomials mainly based on:",
+                options: ["Floral characters", "Vegetative characters", "Anatomical characters", "Root structure"],
+                correct: 0,
+                explanation: "Plant families like Solanaceae and Convolvulaceae are grouped under the order Polymoniales based mainly on <strong>floral characters</strong>."
+            },
+            {
+                id: 24,
+                pyqTag: "NEET 2020",
+                category: "Diversity in Living World",
+                question: "The process by which anything is grouped into convenient categories based on easily observable characters is called:",
+                options: ["Classification", "Identification", "Nomenclature", "Taxonomy"],
+                correct: 0,
+                explanation: "<strong>Classification</strong> is the process by which anything is grouped into convenient categories based on some easily observable characteristics."
+            },
+            {
+                id: 25,
+                pyqTag: "NEET 2017",
+                category: "Taxonomic Categories",
+                question: "Homo sapiens belongs to which order?",
+                options: ["Primata", "Mammalia", "Hominidae", "Chordata"],
+                correct: 0,
+                explanation: "For humans: Genus = <i>Homo</i>, Family = Hominidae, Order = <strong>Primata</strong>, Class = Mammalia, Phylum = Chordata."
+            },
+            {
+                id: 26,
+                pyqTag: "NEET 2015",
+                category: "Taxonomical Aids",
+                question: "Which of the following taxonomical aids is analytical in nature?",
+                options: ["Key", "Museum", "Herbarium", "Botanical Garden"],
+                correct: 0,
+                explanation: "Taxonomic <strong>Keys</strong> are analytical in nature as they require logical step-by-step choices between contrasting statements."
+            },
+            {
+                id: 27,
+                pyqTag: "NEET 2023",
+                category: "What is Living?",
+                question: "Which organism reproduces by fragmentation?",
+                options: ["Filamentous algae, Fungi, and protonema of mosses", "Amoeba", "Hydra", "Mule"],
+                correct: 0,
+                explanation: "<strong>Fungi, filamentous algae, and the protonema of mosses</strong> easily multiply by fragmentation."
+            },
+            {
+                id: 28,
+                pyqTag: "NEET 2016",
+                category: "Taxonomic Categories",
+                question: "The term 'Taxon' refers to:",
+                options: [
+                    "A taxonomic group of any rank",
+                    "A group of related families",
+                    "A group of related species",
+                    "Type of living organism"
+                ],
+                correct: 0,
+                explanation: "A <strong>Taxon</strong> represents a concrete biological category or rank at any level of classification (e.g., Species, Genus, Order, Class)."
+            },
+            {
+                id: 29,
+                pyqTag: "NEET 2021",
+                category: "Diversity in Living World",
+                question: "Systematics refers to the study of:",
+                options: [
+                    "Diversity of organisms and their evolutionary relationships",
+                    "Identification and preservation of plants",
+                    "Internal structure of organisms",
+                    "Nomenclature rules only"
+                ],
+                correct: 0,
+                explanation: "Systematics (derived from Latin 'systema') includes the systematic arrangement of organisms considering their <strong>diversity and evolutionary (phylogenetic) relationships</strong>."
+            },
+            {
+                id: 30,
+                pyqTag: "NEET 2019",
+                category: "Taxonomical Aids",
+                question: "Largest Herbarium in the world is located at:",
+                options: ["Royal Botanical Garden, Kew (England)", "Indian Botanical Garden, Howrah", "NBRI, Lucknow", "Paris Museum"],
+                correct: 0,
+                explanation: "The world's largest herbarium is at the <strong>Royal Botanical Garden, Kew (England)</strong> with over 7 million specimens."
+            },
+            {
+                id: 31,
+                pyqTag: "NEET 2020",
+                category: "Taxonomic Categories",
+                question: "Wheat belongs to the Family:",
+                options: ["Poaceae", "Anacardiaceae", "Solanaceae", "Fabaceae"],
+                correct: 0,
+                explanation: "Wheat (<i>Triticum aestivum</i>) belongs to Family <strong>Poaceae</strong> (Gramineae), Order Poales, Class Monocotyledonae."
+            },
+            {
+                id: 32,
+                pyqTag: "NEET 2018",
+                category: "What is Living?",
+                question: "Self-consciousness (awareness of oneself) is a unique characteristic of:",
+                options: ["Human beings only", "All primates", "All mammals", "All living organisms"],
+                correct: 0,
+                explanation: "<strong>Human beings</strong> are the only living organisms who possess self-consciousness (awareness of oneself)."
+            },
+            {
+                id: 33,
+                pyqTag: "NEET 2017",
+                category: "Diversity in Living World",
+                question: "In binomial nomenclature, the binomial name consists of:",
+                options: [
+                    "Generic name and Specific epithet",
+                    "Family name and Genus",
+                    "Order name and Species",
+                    "Author name and Species"
+                ],
+                correct: 0,
+                explanation: "Binomial nomenclature given by Linnaeus states that each scientific name has two components: <strong>Generic name</strong> and <strong>Specific epithet</strong>."
+            },
+            {
+                id: 34,
+                pyqTag: "NEET 2022",
+                category: "Taxonomical Aids",
+                question: "Museums have collections of preserved plant and animal specimens for study and reference. Specimens are preserved in containers using solutions of:",
+                options: ["Formalin / Preservative solution", "Alcohol only", "Distilled water", "Saline water"],
+                correct: 0,
+                explanation: "Preserved specimens in museums are kept in jars or containers in <strong>preservative solutions</strong> (typically formalin/formaldehyde solution)."
+            },
+            {
+                id: 35,
+                pyqTag: "NEET 2016",
+                category: "Taxonomic Categories",
+                question: "Which of the following suffix is used for units of classification in plants to indicate 'Family'?",
+                options: ["-aceae", "-ales", "-phyta", "-opsida"],
+                correct: 0,
+                explanation: "In plant taxonomy, the suffix <strong>-aceae</strong> indicates Family (e.g., Solanaceae, Poaceae, Fabaceae). <i>-ales</i> indicates Order."
+            },
+            {
+                id: 36,
+                pyqTag: "NEET 2023",
+                category: "Taxonomical Aids",
+                question: "In a museum, insects are preserved after:",
+                options: [
+                    "Collecting, killing, and pinning",
+                    "Drying and stuffing",
+                    "Stuffing and mounting",
+                    "Freezing in liquid nitrogen"
+                ],
+                correct: 0,
+                explanation: "Insects are preserved in insect boxes after <strong>collecting, killing, and pinning</strong>."
+            },
+            {
+                id: 37,
+                pyqTag: "NEET 2021",
+                category: "What is Living?",
+                question: "Non-living objects also show growth if we take increase in body mass as a criterion. However, growth in non-living objects is by:",
+                options: [
+                    "Accumulation of material on the outer surface",
+                    "Cell division from inside",
+                    "Synthesis of proteins",
+                    "Absorption of water"
+                ],
+                correct: 0,
+                explanation: "Growth in non-living things (like mountains or boulders) occurs by <strong>accumulation of material on the surface (extrinsic growth)</strong>, whereas living growth is intrinsic."
+            },
+            {
+                id: 38,
+                pyqTag: "NEET 2019",
+                category: "Diversity in Living World",
+                question: "ICZN stands for:",
+                options: [
+                    "International Code of Zoological Nomenclature",
+                    "Indian Code of Zoological Names",
+                    "International Center for Zoological Nomenclature",
+                    "International Classification of Zoological Names"
+                ],
+                correct: 0,
+                explanation: "<strong>ICZN</strong> stands for <i>International Code of Zoological Nomenclature</i>."
+            },
+            {
+                id: 39,
+                pyqTag: "NEET 2020",
+                category: "Taxonomic Categories",
+                question: "Order of Leopard (<i>Panthera pardus</i>) is:",
+                options: ["Carnivora", "Felidae", "Mammalia", "Panthera"],
+                correct: 0,
+                explanation: "Leopard belongs to Genus <i>Panthera</i>, Family Felidae, and Order <strong>Carnivora</strong>."
+            },
+            {
+                id: 40,
+                pyqTag: "NEET 2017",
+                category: "Taxonomical Aids",
+                question: "Botanical garden having largest collection of living plants in India is:",
+                options: [
+                    "Acharya Jagadish Chandra Bose Indian Botanic Garden, Howrah",
+                    "National Botanical Research Institute, Lucknow",
+                    "Lloyd Botanical Garden, Darjeeling",
+                    "Lalbagh Botanical Garden, Bengaluru"
+                ],
+                correct: 0,
+                explanation: "The famous <strong>Indian Botanical Garden</strong> located in <strong>Howrah (Kolkata)</strong> is the largest botanical garden in India."
+            },
+            {
+                id: 41,
+                pyqTag: "NEET 2015",
+                category: "Taxonomic Categories",
+                question: "Two organisms belonging to the same Order must also belong to the same:",
+                options: ["Class and Phylum", "Family and Genus", "Species and Genus", "Family and Species"],
+                correct: 0,
+                explanation: "Since hierarchy goes Species &rarr; Genus &rarr; Family &rarr; Order &rarr; Class &rarr; Phylum, two organisms in the same Order will automatically share the higher ranks: <strong>Class and Phylum</strong>."
+            },
+            {
+                id: 42,
+                pyqTag: "NEET 2022",
+                category: "What is Living?",
+                question: "Which of the following organisms do NOT reproduce?",
+                options: [
+                    "Mules, sterile worker bees, infertile human couples",
+                    "Amoeba and Paramecium",
+                    "Fungi and Filamentous algae",
+                    "Planaria and Hydra"
+                ],
+                correct: 0,
+                explanation: "<strong>Mules, sterile worker bees, and infertile human couples</strong> do not reproduce, proving reproduction is not an all-inclusive defining property of life."
+            },
+            {
+                id: 43,
+                pyqTag: "NEET 2018",
+                category: "Taxonomic Categories",
+                question: "Suffix '-ales' is used for indicating which taxonomic category in plants?",
+                options: ["Order", "Family", "Class", "Division"],
+                correct: 0,
+                explanation: "In plant taxonomy, the suffix <strong>-ales</strong> is used for <strong>Order</strong> (e.g., Sapindales, Polymoniales, Poales)."
+            },
+            {
+                id: 44,
+                pyqTag: "NEET 2021",
+                category: "Taxonomical Aids",
+                question: "Herbarium sheet label does NOT carry information on:",
+                options: [
+                    "Height of the plant",
+                    "Date and place of collection",
+                    "English name, local name, and botanical name",
+                    "Collector's name and Family"
+                ],
+                correct: 0,
+                explanation: "NCERT explicitly mentions Herbarium labels provide date, place of collection, local/English/botanical names, family, collector's name, but <strong>NOT height of the plant</strong>."
+            },
+            {
+                id: 45,
+                pyqTag: "NEET 2023",
+                category: "Taxonomic Categories",
+                question: "Organisms of which taxonomic rank share the maximum number of common structural characters?",
+                options: ["Species", "Genus", "Family", "Kingdom"],
+                correct: 0,
+                explanation: "<strong>Species</strong> is the lowest rank and its members share the maximum number of common fundamental characters."
+            },
+            {
+                id: 46,
+                pyqTag: "NEET 2020 Phase 2",
+                category: "Diversity in Living World",
+                question: "Who is known as 'The Darwin of the 20th Century'?",
+                options: ["Ernst Mayr", "Carolus Linnaeus", "Whittaker", "Bentham & Hooker"],
+                correct: 0,
+                explanation: "<strong>Ernst Mayr</strong> (1904–2004) was awarded the title 'The Darwin of the 20th century'."
+            },
+            {
+                id: 47,
+                pyqTag: "NEET 2019",
+                category: "What is Living?",
+                question: "Regeneration in <i>Planaria</i> (flatworms) is an example of:",
+                options: ["True regeneration", "Fragmentation only", "Budding", "Sexual reproduction"],
+                correct: 0,
+                explanation: "<i>Planaria</i> exhibits <strong>True regeneration</strong>, where a fragmented body part regenerates the lost body parts and becomes a complete organism."
+            },
+            {
+                id: 48,
+                pyqTag: "NEET 2017",
+                category: "Taxonomic Categories",
+                question: "Cat (<i>Felis catus</i>) and Dog (<i>Canis lupus</i>) belong to the same Order Carnivora, but belong to different families which are:",
+                options: [
+                    "Felidae (Cat) and Canidae (Dog)",
+                    "Canidae (Cat) and Felidae (Dog)",
+                    "Muscidae and Hominidae",
+                    "Poaceae and Anacardiaceae"
+                ],
+                correct: 0,
+                explanation: "Cats belong to family <strong>Felidae</strong> and dogs belong to family <strong>Canidae</strong> under Order Carnivora."
+            },
+            {
+                id: 49,
+                pyqTag: "NEET 2016",
+                category: "Taxonomical Aids",
+                question: "Large wild animals are kept in protected environments under human care in:",
+                options: ["Zoological Parks", "Museums", "Botanical Gardens", "Herbarium"],
+                correct: 0,
+                explanation: "<strong>Zoological Parks (Zoos)</strong> are places where wild animals are kept in protected environments under human care to study their food habits and behavior."
+            },
+            {
+                id: 50,
+                pyqTag: "NEET 2022",
+                category: "Diversity in Living World",
+                question: "The term 'Systema Naturae' was the title of the book published by:",
+                options: ["Carolus Linnaeus", "Ernst Mayr", "Aristotle", "John Ray"],
+                correct: 0,
+                explanation: "<strong>Carolus Linnaeus</strong> used '<i>Systema Naturae</i>' as the title of his famous publication on animal and plant classification."
+            }
+        ];
+
+        // PRAISE TEXTS
+        const praisePhrases = [
+            "Spot On, Future Doctor! 🩺",
+            "NCERT Masterstroke! 🌟",
+            "Biology Wizardry! 🧬",
+            "Perfect Precision! +4 Marks! 🎯",
+            "Concept Cleared! 🔥",
+            "Superb Accuracy! 🚀",
+            "Top Tier Preparation! ✨"
+        ];
+
+        // STATE MANAGERS
+        let currentIndex = 0;
+        let userAnswers = new Array(quizData.length).fill(null);
+        let bookmarked = new Array(quizData.length).fill(false);
+        let questionTimeSpent = new Array(quizData.length).fill(0);
+        let overallTimeInSeconds = 0;
+        
+        let overallTimerInterval = null;
+        let questionTimerInterval = null;
+        let isQuizSubmitted = false;
+
+        // CHART INSTANCES
+        let barChartInstance = null;
+        let donutChartInstance = null;
+
+        window.onload = function() {
+            renderQuestionPalette();
+            loadQuestion(0);
+            startOverallTimer();
+            startQuestionTimer();
+        };
+
+        // PALETTE GENERATOR
+        function renderQuestionPalette() {
+            const grid = document.getElementById('questionGrid');
+            grid.innerHTML = '';
+            
+            quizData.forEach((q, idx) => {
+                const btn = document.createElement('button');
+                btn.id = `palette-btn-${idx}`;
+                btn.onclick = () => jumpToQuestion(idx);
+                btn.className = getPaletteBtnClass(idx);
+                btn.innerText = idx + 1;
+                grid.appendChild(btn);
+            });
+
+            updateProgressStats();
+        }
+
+        function getPaletteBtnClass(idx) {
+            let base = "w-9 h-9 sm:w-10 sm:h-10 text-xs sm:text-sm font-bold rounded-xl flex items-center justify-center transition border relative ";
+            if (idx === currentIndex) {
+                return base + "bg-indigo-600 text-white border-indigo-400 ring-2 ring-indigo-400/50 scale-105";
+            }
+            if (userAnswers[idx] !== null) {
+                const isCorrect = userAnswers[idx] === quizData[idx].correct;
+                if (isCorrect) {
+                    return base + "bg-emerald-500/20 text-emerald-400 border-emerald-500/50";
+                } else {
+                    return base + "bg-rose-500/20 text-rose-400 border-rose-500/50";
+                }
+            }
+            return base + "bg-slate-800/80 text-slate-400 border-slate-700/60 hover:bg-slate-700";
+        }
+
+        function updatePaletteStyles() {
+            quizData.forEach((_, idx) => {
+                const btn = document.getElementById(`palette-btn-${idx}`);
+                if (btn) btn.className = getPaletteBtnClass(idx);
+            });
+            updateProgressStats();
+        }
+
+        function updateProgressStats() {
+            const answeredCount = userAnswers.filter(a => a !== null).length;
+            document.getElementById('paletteProgress').innerText = `${answeredCount}/50 Answered`;
+            document.getElementById('quizProgressBar').style.width = `${(answeredCount / 50) * 100}%`;
+        }
+
+        // QUESTION DISPLAY
+        function loadQuestion(index) {
+            clearInterval(questionTimerInterval);
+            
+            currentIndex = index;
+            const q = quizData[index];
+
+            document.getElementById('qIndexBadge').innerText = `Q${index + 1}`;
+            document.getElementById('currentQNum').innerText = index + 1;
+            document.getElementById('questionCategory').innerText = q.category;
+            document.getElementById('pyqTag').innerText = q.pyqTag;
+            document.getElementById('questionText').innerHTML = q.question;
+
+            // Bookmark Icon update
+            const bkIcon = document.getElementById('bookmarkIcon');
+            if (bookmarked[index]) {
+                bkIcon.className = "fa-solid fa-bookmark text-amber-400";
+            } else {
+                bkIcon.className = "fa-regular fa-bookmark text-slate-400";
+            }
+
+            // Options
+            const optionsGroup = document.getElementById('optionsGroup');
+            optionsGroup.innerHTML = '';
+
+            const isAnswered = userAnswers[index] !== null;
+            const selectedOpt = userAnswers[index];
+
+            q.options.forEach((optText, optIdx) => {
+                const optBtn = document.createElement('button');
+                optBtn.className = getOptionStyle(index, optIdx);
+                optBtn.disabled = isAnswered;
+
+                const char = String.fromCharCode(65 + optIdx);
+                
+                let iconMarkup = '';
+                if (isAnswered) {
+                    if (optIdx === q.correct) {
+                        iconMarkup = `<i class="fa-solid fa-circle-check text-emerald-400 text-lg"></i>`;
+                    } else if (optIdx === selectedOpt && selectedOpt !== q.correct) {
+                        iconMarkup = `<i class="fa-solid fa-circle-xmark text-rose-400 text-lg"></i>`;
+                    }
+                }
+
+                optBtn.innerHTML = `
+                    <div class="flex items-center gap-3 text-left w-full">
+                        <span class="w-7 h-7 rounded-lg bg-slate-800 border border-slate-700 text-slate-300 flex items-center justify-center font-bold text-xs flex-shrink-0">
+                            ${char}
+                        </span>
+                        <span class="text-sm sm:text-base text-slate-200 font-medium flex-grow">${optText}</span>
+                        ${iconMarkup}
+                    </div>
+                `;
+
+                optBtn.onclick = () => selectOption(optIdx);
+                optionsGroup.appendChild(optBtn);
+            });
+
+            // Solution panel
+            const explanationBox = document.getElementById('explanationBox');
+            const explanationText = document.getElementById('explanationText');
+
+            if (isAnswered) {
+                explanationText.innerHTML = q.explanation;
+                explanationBox.classList.remove('hidden');
+            } else {
+                explanationBox.classList.add('hidden');
+            }
+
+            document.getElementById('prevBtn').disabled = currentIndex === 0;
+            document.getElementById('nextBtn').disabled = currentIndex === quizData.length - 1;
+
+            updatePaletteStyles();
+            startQuestionTimer();
+        }
+
+        function getOptionStyle(qIdx, optIdx) {
+            const q = quizData[qIdx];
+            const answeredOpt = userAnswers[qIdx];
+
+            let base = "w-full p-4 rounded-xl border text-left transition-all duration-200 shadow-md flex items-center justify-between ";
+
+            if (answeredOpt === null) {
+                return base + "bg-slate-800/60 border-slate-700/80 hover:bg-slate-700/70 hover:border-emerald-500/50 text-slate-200 cursor-pointer";
+            }
+
+            if (optIdx === q.correct) {
+                return base + "bg-emerald-950/70 border-emerald-500 text-emerald-200 font-semibold ring-2 ring-emerald-500/30 animate-pop-in";
+            }
+            if (optIdx === answeredOpt && answeredOpt !== q.correct) {
+                return base + "bg-rose-950/70 border-rose-500 text-rose-200 ring-2 ring-rose-500/30 animate-shake";
+            }
+
+            return base + "bg-slate-900/40 border-slate-800 text-slate-500 opacity-60 cursor-not-allowed";
+        }
+
+        function selectOption(optIdx) {
+            if (userAnswers[currentIndex] !== null || isQuizSubmitted) return;
+
+            userAnswers[currentIndex] = optIdx;
+
+            const isCorrect = optIdx === quizData[currentIndex].correct;
+
+            if (isCorrect) {
+                triggerSuccessAnimation();
+            }
+
+            loadQuestion(currentIndex);
+        }
+
+        function toggleBookmark() {
+            bookmarked[currentIndex] = !bookmarked[currentIndex];
+            loadQuestion(currentIndex);
+        }
+
+        // CONFETTI & MOTIVATION POPUP
+        function triggerSuccessAnimation() {
+            confetti({
+                particleCount: 65,
+                spread: 80,
+                origin: { y: 0.65 },
+                colors: ['#10b981', '#34d399', '#3b82f6', '#f59e0b']
+            });
+
+            const toast = document.getElementById('praiseToast');
+            const praiseText = document.getElementById('praiseText');
+            praiseText.innerText = praisePhrases[Math.floor(Math.random() * praisePhrases.length)];
+            
+            toast.classList.add('active');
+            setTimeout(() => toast.classList.remove('active'), 1800);
+        }
+
+        // TIMERS
+        function startOverallTimer() {
+            overallTimerInterval = setInterval(() => {
+                overallTimeInSeconds++;
+                const hrs = Math.floor(overallTimeInSeconds / 3600).toString().padStart(2, '0');
+                const mins = Math.floor((overallTimeInSeconds % 3600) / 60).toString().padStart(2, '0');
+                const secs = (overallTimeInSeconds % 60).toString().padStart(2, '0');
+                document.getElementById('overallTimer').innerText = `${hrs}:${mins}:${secs}`;
+            }, 1000);
+        }
+
+        function startQuestionTimer() {
+            const timerEl = document.getElementById('questionTimer');
+            timerEl.innerText = `${questionTimeSpent[currentIndex]}s`;
+
+            questionTimerInterval = setInterval(() => {
+                questionTimeSpent[currentIndex]++;
+                timerEl.innerText = `${questionTimeSpent[currentIndex]}s`;
+            }, 1000);
+        }
+
+        function navigateQuestion(step) {
+            const nextIdx = currentIndex + step;
+            if (nextIdx >= 0 && nextIdx < quizData.length) {
+                loadQuestion(nextIdx);
+            }
+        }
+
+        function jumpToQuestion(idx) {
+            loadQuestion(idx);
+        }
+
+        // SUBMIT & DETAILED ANALYTICS
+        function confirmSubmitQuiz() {
+            const unanswered = userAnswers.filter(a => a === null).length;
+            let confirmMsg = "Are you sure you want to finish and submit the test?";
+            if (unanswered > 0) {
+                confirmMsg = `You have ${unanswered} unattempted question(s). Submit test anyway?`;
+            }
+
+            if (window.confirm(confirmMsg)) {
+                submitQuiz();
+            }
+        }
+
+        function submitQuiz() {
+            isQuizSubmitted = true;
+            clearInterval(overallTimerInterval);
+            clearInterval(questionTimerInterval);
+
+            document.getElementById('questionContainer').classList.add('hidden');
+            document.getElementById('sidebarPalette').classList.add('hidden');
+            document.getElementById('resultContainer').classList.remove('hidden');
+
+            let correctCount = 0;
+            let wrongCount = 0;
+            let unattemptedCount = 0;
+
+            let fastestSecs = 9999;
+            let fastestQ = -1;
+            let slowestSecs = -1;
+            let slowestQ = -1;
+
+            userAnswers.forEach((ans, idx) => {
+                const spent = questionTimeSpent[idx];
+                if (spent > 0) {
+                    if (spent < fastestSecs && ans === quizData[idx].correct) {
+                        fastestSecs = spent;
+                        fastestQ = idx + 1;
+                    }
+                    if (spent > slowestSecs) {
+                        slowestSecs = spent;
+                        slowestQ = idx + 1;
+                    }
+                }
+
+                if (ans === null) {
+                    unattemptedCount++;
+                } else if (ans === quizData[idx].correct) {
+                    correctCount++;
+                } else {
+                    wrongCount++;
+                }
+            });
+
+            const totalMarks = (correctCount * 4) - (wrongCount * 1);
+            const attemptedTotal = correctCount + wrongCount;
+            const accuracy = attemptedTotal > 0 ? Math.round((correctCount / attemptedTotal) * 100) : 0;
+
+            const hrs = Math.floor(overallTimeInSeconds / 3600).toString().padStart(2, '0');
+            const mins = Math.floor((overallTimeInSeconds % 3600) / 60).toString().padStart(2, '0');
+            const secs = (overallTimeInSeconds % 60).toString().padStart(2, '0');
+            const avgSecsPerQ = Math.round(overallTimeInSeconds / 50);
+
+            document.getElementById('resMarks').innerText = `${totalMarks} / 200`;
+            document.getElementById('resAccuracy').innerText = `${accuracy}%`;
+            document.getElementById('resCorrectRatio').innerText = `${correctCount} Correct / ${attemptedTotal} Attempted`;
+            document.getElementById('resTotalTime').innerText = `${hrs}:${mins}:${secs}`;
+            document.getElementById('resAvgTime').innerText = `${avgSecsPerQ}s`;
+
+            document.getElementById('fastestAns').innerText = fastestQ !== -1 ? `Q${fastestQ} (${fastestSecs}s)` : 'N/A';
+            document.getElementById('slowestAns').innerText = slowestQ !== -1 ? `Q${slowestQ} (${slowestSecs}s)` : 'N/A';
+
+            const verdictTitle = document.getElementById('finalVerdictTitle');
+            const verdictSub = document.getElementById('finalVerdictSub');
+
+            if (totalMarks >= 180) {
+                verdictTitle.innerText = "🏆 Incredible Mastery! Top Ranker!";
+                verdictSub.innerText = "You have exceptional accuracy in 'The Living World'. Ready for NEET 2025/26!";
+            } else if (totalMarks >= 145) {
+                verdictTitle.innerText = "👍 Strong Concept Hold!";
+                verdictSub.innerText = "Very good score! Focus on negative mark questions to secure full 200 marks.";
+            } else {
+                verdictTitle.innerText = "📖 NCERT Revision Needed!";
+                verdictSub.innerText = "Re-read Taxonomic Categories and Taxonomical Aids from NCERT Biology Class 11.";
+            }
+
+            renderCharts(correctCount, wrongCount, unattemptedCount);
+            renderReviewGrid('all');
+
+            confetti({
+                particleCount: 120,
+                spread: 100,
+                origin: { y: 0.5 }
+            });
+        }
+
+        // CHART.JS RENDERER
+        function renderCharts(correct, wrong, unattempted) {
+            // Categories calculation
+            const categories = {};
+            quizData.forEach((q, idx) => {
+                if (!categories[q.category]) {
+                    categories[q.category] = { total: 0, correct: 0 };
+                }
+                categories[q.category].total++;
+                if (userAnswers[idx] === q.correct) {
+                    categories[q.category].correct++;
+                }
+            });
+
+            const catLabels = Object.keys(categories);
+            const catAccuracies = catLabels.map(cat => {
+                const d = categories[cat];
+                return Math.round((d.correct / d.total) * 100);
+            });
+
+            // Subtopic Bar Chart
+            const barCtx = document.getElementById('topicBarChart').getContext('2d');
+            barChartInstance = new Chart(barCtx, {
+                type: 'bar',
+                data: {
+                    labels: catLabels,
+                    datasets: [{
+                        label: 'Accuracy (%)',
+                        data: catAccuracies,
+                        backgroundColor: 'rgba(16, 185, 129, 0.6)',
+                        borderColor: '#10b981',
+                        borderWidth: 1.5,
+                        borderRadius: 8
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 100,
+                            ticks: { color: '#94a3b8' },
+                            grid: { color: 'rgba(255,255,255,0.05)' }
+                        },
+                        x: {
+                            ticks: { color: '#94a3b8', font: { size: 10 } },
+                            grid: { display: false }
+                        }
+                    },
+                    plugins: { legend: { display: false } }
+                }
+            });
+
+            // Score Donut Chart
+            const donutCtx = document.getElementById('scoreDonutChart').getContext('2d');
+            donutChartInstance = new Chart(donutCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Correct (+4)', 'Incorrect (-1)', 'Unattempted (0)'],
+                    datasets: [{
+                        data: [correct, wrong, unattempted],
+                        backgroundColor: ['#10b981', '#f43f5e', '#475569'],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: { color: '#cbd5e1', font: { size: 11 } }
+                        }
+                    }
+                }
+            });
+        }
+
+        // FILTERED REVIEW GRID
+        function filterReviewGrid(filter) {
+            const grid = document.getElementById('reviewGrid');
+            grid.innerHTML = '';
+
+            quizData.forEach((q, idx) => {
+                const ans = userAnswers[idx];
+                const isCorrect = ans === q.correct;
+                const isAttempted = ans !== null;
+
+                if (filter === 'correct' && !isCorrect) return;
+                if (filter === 'incorrect' && (isCorrect || !isAttempted)) return;
+
+                let colorClass = "bg-slate-800 text-slate-500 border-slate-700";
+                let statusIcon = "—";
+
+                if (isAttempted) {
+                    if (isCorrect) {
+                        colorClass = "bg-emerald-950/80 text-emerald-400 border-emerald-500/50";
+                        statusIcon = "✓";
+                    } else {
+                        colorClass = "bg-rose-950/80 text-rose-400 border-rose-500/50";
+                        statusIcon = "✕";
+                    }
+                }
+
+                const item = document.createElement('div');
+                item.className = `p-2 rounded-lg border text-center font-mono font-bold flex flex-col items-center justify-center cursor-pointer hover:opacity-80 transition ${colorClass}`;
+                item.innerHTML = `
+                    <span>Q${idx + 1}</span>
+                    <span class="text-xs">${statusIcon}</span>
+                `;
+                grid.appendChild(item);
+            });
+        }
+    </script>
+</body>
+</html>
